@@ -1,0 +1,92 @@
+[
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-REST",
+    "to_place_id": "MOCK-A03",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-A03",
+    "to_place_id": "MOCK-A04",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-A04",
+    "to_place_id": "MOCK-END",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-REST",
+    "to_place_id": "MOCK-A04",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-A03",
+    "to_place_id": "MOCK-END",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-REST",
+    "to_place_id": "MOCK-END",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-REST",
+    "to_place_id": "MOCK-INDOOR",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-INDOOR",
+    "to_place_id": "MOCK-A04",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-REST",
+    "to_place_id": "MOCK-CLOSED",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-CLOSED",
+    "to_place_id": "MOCK-A04",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  }
+]

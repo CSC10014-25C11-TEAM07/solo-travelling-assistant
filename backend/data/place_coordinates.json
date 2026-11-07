@@ -1,0 +1,46 @@
+[
+  {
+    "place_id": "P005",
+    "latitude": 11.9405756,
+    "longitude": 108.4599038,
+    "source_url": "https://www.openstreetmap.org/node/1152350875",
+    "source_name": "Bảo Tàng Lâm Đồng",
+    "reported_opening_hours": "Mo-Su 07:15-11:30, 13:30-17:00",
+    "checked_at": "2026-11-07T11:09:37.849269+00:00",
+    "data_timestamp": "2026-11-07T11:01:08Z",
+    "license": "ODbL-1.0"
+  },
+  {
+    "place_id": "P008",
+    "latitude": 11.9300468,
+    "longitude": 108.4296735,
+    "source_url": "https://www.openstreetmap.org/node/5274759821",
+    "source_name": "Dinh III Bảo Đại",
+    "reported_opening_hours": "Mo-Su 07:00-11:00, 13:00-17:00",
+    "checked_at": "2026-11-07T11:09:37.849269+00:00",
+    "data_timestamp": "2026-11-07T11:01:08Z",
+    "license": "ODbL-1.0"
+  },
+  {
+    "place_id": "P001",
+    "latitude": 11.9415603,
+    "longitude": 108.4542354,
+    "source_url": "https://www.openstreetmap.org/node/5661470624",
+    "source_name": "Ga Đà Lạt",
+    "reported_opening_hours": null,
+    "checked_at": "2026-11-07T11:09:37.849269+00:00",
+    "data_timestamp": "2026-11-07T11:01:08Z",
+    "license": "ODbL-1.0"
+  },
+  {
+    "place_id": "P009",
+    "latitude": 11.9345615,
+    "longitude": 108.4306807,
+    "source_url": "https://www.openstreetmap.org/relation/20657435",
+    "source_name": "Crazy House",
+    "reported_opening_hours": "Mo-Su 08:30-19:00",
+    "checked_at": "2026-11-07T11:09:37.849269+00:00",
+    "data_timestamp": "2026-11-07T11:01:08Z",
+    "license": "ODbL-1.0"
+  }
+]

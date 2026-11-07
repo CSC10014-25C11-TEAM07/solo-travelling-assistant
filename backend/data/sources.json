@@ -1,0 +1,44 @@
+{
+  "checked_at": "2026-11-07T11:09:37.849269+00:00",
+  "primary_sources": [
+    "https://baotanglamdong.com.vn/contact",
+    "https://laviet.coffee/tu-chung-toi/",
+    "https://tamchau.com/gioi-thieu/",
+    "https://tamchau.com/showroom/",
+    "https://visitlamdong.vn/vi/bietthuhangnga",
+    "https://visitlamdong.vn/vi/comnieuhuongviet",
+    "https://visitlamdong.vn/vi/dinhiii",
+    "https://visitlamdong.vn/vi/hoxuanhuong",
+    "https://visitlamdong.vn/vi/nhagadalat",
+    "https://visitlamdong.vn/vi/thienvientruclam",
+    "https://visitlamdong.vn/vi/vuonhoathanhpho"
+  ],
+  "additional_sources": [
+    {
+      "url": "https://tmso.baotanglamdong.com.vn/trang-chu/",
+      "use": "Giờ bảo tàng mâu thuẫn với trang liên hệ; trang có cả địa chỉ Hà Nội trong nội dung, không dùng để tự chốt lịch."
+    },
+    {
+      "url": "https://visitlamdong.vn/vi/lavietcoffeedl",
+      "use": "Mô tả khu ngồi có trần của Là Việt Nguyễn Công Trứ."
+    },
+    {
+      "url": "https://www.openstreetmap.org/copyright",
+      "use": "Nguồn tọa độ, tag và dữ liệu đường; ODbL."
+    },
+    {
+      "url": "https://valhalla.github.io/valhalla/start/introduction/",
+      "use": "Máy chủ demo công khai; chỉ lấy một số chặng, không gọi từ app người dùng."
+    }
+  ],
+  "field_provenance": {
+    "names": "Nguồn chính của từng địa điểm.",
+    "interests": "Phân loại đề xuất của nhóm dựa trên loại hình/mô tả.",
+    "area": "Bộ mã đề xuất, không phải tên đơn vị hành chính chính thức.",
+    "environment": "Phân loại từ mô tả nguồn; UNKNOWN khi thiếu; cần rà soát phần thực sự có mái.",
+    "visit_duration_minutes": "Giá trị từ cổng du lịch khi có; null khi chưa có nguồn/chưa chốt.",
+    "opening_hours": "Null theo từng ngày khi nguồn chưa có lịch tuần hoặc có xung đột. Giữ giờ nguồn báo ở data_review.json.",
+    "image_url": "Null; frontend dùng ảnh mặc định, chưa sao chép ảnh bên thứ ba.",
+    "travel_times": "Nguồn truy vấn đầy đủ từng chặng; kết quả ước tính Valhalla motorcycle, giữ số liệu thô ở travel_time_evidence.json."
+  }
+}

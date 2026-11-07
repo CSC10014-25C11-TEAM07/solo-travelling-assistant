@@ -155,6 +155,12 @@ Mở Expo Go để quét mã QR. Với iPhone, dùng Camera quét mã,
 Giữ backend chạy và bấm **Kiểm tra backend** trên app.
 Kết quả mong đợi là **Kết nối backend thành công! Status: ok**.
 
+## Dữ liệu địa điểm và API gợi ý F01
+
+- [Hướng dẫn phần việc Bảo 04, chạy thử trên Mac và các bước bàn giao](docs/F01-HUONG-DAN-BAO04.md).
+- [Hợp đồng F01 và các chi tiết dữ liệu còn là đề xuất](docs/api/f01.md).
+- [Nguồn, trạng thái dữ liệu và bộ kiểm thử MOCK](backend/data/README.md).
+
 ## Quy tắc làm việc
 
 Mỗi việc có nhánh riêng và mở Pull Request vào main.

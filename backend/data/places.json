@@ -1,0 +1,309 @@
+[
+  {
+    "place_id": "P001",
+    "name": "Ga Đà Lạt",
+    "area": "DALAT_CENTER",
+    "interests": [
+      "culture"
+    ],
+    "environment": "MIXED",
+    "visit_duration_minutes": 90,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": null,
+        "tue": null,
+        "wed": null,
+        "thu": null,
+        "fri": null,
+        "sat": null,
+        "sun": null
+      }
+    },
+    "image_url": null,
+    "source_url": "https://visitlamdong.vn/vi/nhagadalat",
+    "checked_at": "2026-11-07T11:09:37.849269+00:00",
+    "data_status": "UNVERIFIED"
+  },
+  {
+    "place_id": "P002",
+    "name": "Thiền viện Trúc Lâm",
+    "area": "TUYEN_LAM",
+    "interests": [
+      "nature",
+      "culture"
+    ],
+    "environment": "MIXED",
+    "visit_duration_minutes": 90,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": null,
+        "tue": null,
+        "wed": null,
+        "thu": null,
+        "fri": null,
+        "sat": null,
+        "sun": null
+      }
+    },
+    "image_url": null,
+    "source_url": "https://visitlamdong.vn/vi/thienvientruclam",
+    "checked_at": "2026-11-07T11:09:37.849269+00:00",
+    "data_status": "UNVERIFIED"
+  },
+  {
+    "place_id": "P003",
+    "name": "Hồ Xuân Hương",
+    "area": "DALAT_CENTER",
+    "interests": [
+      "nature"
+    ],
+    "environment": "OUTDOOR",
+    "visit_duration_minutes": 60,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": null,
+        "tue": null,
+        "wed": null,
+        "thu": null,
+        "fri": null,
+        "sat": null,
+        "sun": null
+      }
+    },
+    "image_url": null,
+    "source_url": "https://visitlamdong.vn/vi/hoxuanhuong",
+    "checked_at": "2026-11-07T11:09:37.849269+00:00",
+    "data_status": "UNVERIFIED"
+  },
+  {
+    "place_id": "P004",
+    "name": "Vườn hoa thành phố Đà Lạt",
+    "area": "DALAT_CENTER",
+    "interests": [
+      "nature"
+    ],
+    "environment": "OUTDOOR",
+    "visit_duration_minutes": 90,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": null,
+        "tue": null,
+        "wed": null,
+        "thu": null,
+        "fri": null,
+        "sat": null,
+        "sun": null
+      }
+    },
+    "image_url": null,
+    "source_url": "https://visitlamdong.vn/vi/vuonhoathanhpho",
+    "checked_at": "2026-11-07T11:09:37.849269+00:00",
+    "data_status": "UNVERIFIED"
+  },
+  {
+    "place_id": "P005",
+    "name": "Bảo tàng Lâm Đồng",
+    "area": "DALAT_CENTER",
+    "interests": [
+      "culture"
+    ],
+    "environment": "INDOOR",
+    "visit_duration_minutes": null,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": null,
+        "tue": null,
+        "wed": null,
+        "thu": null,
+        "fri": null,
+        "sat": null,
+        "sun": null
+      }
+    },
+    "image_url": null,
+    "source_url": "https://baotanglamdong.com.vn/contact",
+    "checked_at": "2026-11-07T11:09:37.849269+00:00",
+    "data_status": "UNVERIFIED"
+  },
+  {
+    "place_id": "P006",
+    "name": "Là Việt Coffee — Nguyễn Công Trứ",
+    "area": "DALAT_CENTER",
+    "interests": [
+      "coffee"
+    ],
+    "environment": "INDOOR",
+    "visit_duration_minutes": null,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": null,
+        "tue": null,
+        "wed": null,
+        "thu": null,
+        "fri": null,
+        "sat": null,
+        "sun": null
+      }
+    },
+    "image_url": null,
+    "source_url": "https://laviet.coffee/tu-chung-toi/",
+    "checked_at": "2026-11-07T11:09:37.849269+00:00",
+    "data_status": "UNVERIFIED"
+  },
+  {
+    "place_id": "P007",
+    "name": "Cơm Niêu Hương Việt",
+    "area": "DALAT_CENTER",
+    "interests": [
+      "food"
+    ],
+    "environment": "UNKNOWN",
+    "visit_duration_minutes": null,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": null,
+        "tue": null,
+        "wed": null,
+        "thu": null,
+        "fri": null,
+        "sat": null,
+        "sun": null
+      }
+    },
+    "image_url": null,
+    "source_url": "https://visitlamdong.vn/vi/comnieuhuongviet",
+    "checked_at": "2026-11-07T11:09:37.849269+00:00",
+    "data_status": "UNVERIFIED"
+  },
+  {
+    "place_id": "P008",
+    "name": "Dinh III Bảo Đại",
+    "area": "DALAT_CENTER",
+    "interests": [
+      "culture"
+    ],
+    "environment": "MIXED",
+    "visit_duration_minutes": 60,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": null,
+        "tue": null,
+        "wed": null,
+        "thu": null,
+        "fri": null,
+        "sat": null,
+        "sun": null
+      }
+    },
+    "image_url": null,
+    "source_url": "https://visitlamdong.vn/vi/dinhiii",
+    "checked_at": "2026-11-07T11:09:37.849269+00:00",
+    "data_status": "UNVERIFIED"
+  },
+  {
+    "place_id": "P009",
+    "name": "Biệt thự Hằng Nga — Crazy House",
+    "area": "DALAT_CENTER",
+    "interests": [
+      "culture"
+    ],
+    "environment": "MIXED",
+    "visit_duration_minutes": 60,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": null,
+        "tue": null,
+        "wed": null,
+        "thu": null,
+        "fri": null,
+        "sat": null,
+        "sun": null
+      }
+    },
+    "image_url": null,
+    "source_url": "https://visitlamdong.vn/vi/bietthuhangnga",
+    "checked_at": "2026-11-07T11:09:37.849269+00:00",
+    "data_status": "UNVERIFIED"
+  },
+  {
+    "place_id": "R001",
+    "name": "Tâm Châu Lộc An",
+    "area": "LOC_AN",
+    "interests": [],
+    "environment": "UNKNOWN",
+    "visit_duration_minutes": null,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": null,
+        "tue": null,
+        "wed": null,
+        "thu": null,
+        "fri": null,
+        "sat": null,
+        "sun": null
+      }
+    },
+    "image_url": null,
+    "source_url": "https://tamchau.com/gioi-thieu/",
+    "checked_at": "2026-11-07T11:09:37.849269+00:00",
+    "data_status": "UNVERIFIED"
+  },
+  {
+    "place_id": "R002",
+    "name": "Tâm Châu Di Linh",
+    "area": "DI_LINH",
+    "interests": [],
+    "environment": "UNKNOWN",
+    "visit_duration_minutes": null,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": null,
+        "tue": null,
+        "wed": null,
+        "thu": null,
+        "fri": null,
+        "sat": null,
+        "sun": null
+      }
+    },
+    "image_url": null,
+    "source_url": "https://tamchau.com/showroom/",
+    "checked_at": "2026-11-07T11:09:37.849269+00:00",
+    "data_status": "UNVERIFIED"
+  },
+  {
+    "place_id": "R003",
+    "name": "Tâm Châu Bảo Lộc",
+    "area": "BAO_LOC",
+    "interests": [],
+    "environment": "UNKNOWN",
+    "visit_duration_minutes": null,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": null,
+        "tue": null,
+        "wed": null,
+        "thu": null,
+        "fri": null,
+        "sat": null,
+        "sun": null
+      }
+    },
+    "image_url": null,
+    "source_url": "https://tamchau.com/showroom/",
+    "checked_at": "2026-11-07T11:09:37.849269+00:00",
+    "data_status": "UNVERIFIED"
+  }
+]
