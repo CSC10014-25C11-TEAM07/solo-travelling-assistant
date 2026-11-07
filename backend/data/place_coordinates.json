@@ -42,5 +42,27 @@
     "checked_at": "2026-11-07T11:09:37.849269+00:00",
     "data_timestamp": "2026-11-07T11:01:08Z",
     "license": "ODbL-1.0"
+  },
+  {
+    "place_id": "P010",
+    "latitude": 11.9443315,
+    "longitude": 108.454585,
+    "source_url": "https://www.openstreetmap.org/node/6152524285",
+    "source_name": "Still Cafe",
+    "reported_opening_hours": "Mo-Su 07:00-22:00",
+    "checked_at": "2026-11-07T11:35:38.920867+00:00",
+    "data_timestamp": "2026-11-07T11:01:08Z",
+    "license": "ODbL-1.0"
+  },
+  {
+    "place_id": "P011",
+    "latitude": 11.9418201,
+    "longitude": 108.4338744,
+    "source_url": "https://www.openstreetmap.org/node/4206500720",
+    "source_name": "An Cafe",
+    "reported_opening_hours": "07:00-22:00",
+    "checked_at": "2026-11-07T11:35:38.920867+00:00",
+    "data_timestamp": "2026-11-07T11:01:08Z",
+    "license": "ODbL-1.0"
   }
 ]

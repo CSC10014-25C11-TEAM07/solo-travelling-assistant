@@ -29,6 +29,8 @@
   },
   "devDependencies": {
     "@types/react": "~19.3.0",
+    "eslint": "^9.0.0",
+    "eslint-config-expo": "~58.0.4",
     "typescript": "~6.0.3"
   },
   "scripts": {
@@ -37,7 +39,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "test:f01": "node --experimental-strip-types --test tests/places.test.mjs",
+    "test:f01:integration": "node --experimental-strip-types tests/places.integration.mjs"
   },
   "private": true
 }

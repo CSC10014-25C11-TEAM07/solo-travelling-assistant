@@ -1,50 +1,54 @@
 """Integration smoke check with Đăng's real auth module and a temporary SQLite DB.
 
-Use --auth-file to test a reviewed local snapshot of PR #12 before it is merged.
+Use --auth-ref to test a reviewed Git snapshot of PR #12 before it is merged.
 This script never adds a token bypass to the application or writes to app.sqlite3.
 """
 
 import argparse
-from contextlib import asynccontextmanager
+from contextlib import contextmanager
 import importlib.util
 from pathlib import Path
 import sqlite3
 import sys
 import tempfile
 
-from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 BACKEND = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(BACKEND))
 
-from places_api import router as places_router
+from auth_integration import auth_snapshot, create_integration_app
+
+
+@contextmanager
+def local_auth(path):
+    spec = importlib.util.spec_from_file_location("auth", path)
+    auth = importlib.util.module_from_spec(spec)
+    previous = sys.modules.get("auth")
+    sys.modules["auth"] = auth
+    try:
+        spec.loader.exec_module(auth)
+        yield auth, str(path)
+    finally:
+        if previous is None:
+            sys.modules.pop("auth", None)
+        else:
+            sys.modules["auth"] = previous
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--auth-file", type=Path, default=BACKEND / "auth.py")
+    source = parser.add_mutually_exclusive_group()
+    source.add_argument("--auth-file", type=Path)
+    source.add_argument("--auth-ref", help="Trusted project Git ref, e.g. origin/feat/2-auth-api")
     args = parser.parse_args()
-    if not args.auth_file.is_file():
+    path = args.auth_file or BACKEND / "auth.py"
+    if args.auth_ref is None and not path.is_file():
         parser.exit(2, "Auth module is not merged yet. See docs/F01-HUONG-DAN-BAO04.md.\n")
-    spec = importlib.util.spec_from_file_location("auth", args.auth_file)
-    auth = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(auth)
-    previous = sys.modules.get("auth")
-    sys.modules["auth"] = auth
-    try:
+    snapshot = auth_snapshot(args.auth_ref) if args.auth_ref else local_auth(path)
+    with snapshot as (auth, revision):
         with tempfile.TemporaryDirectory(prefix="f01-auth-check-") as directory:
-            auth.DB_PATH = Path(directory) / "test.sqlite3"
-
-            @asynccontextmanager
-            async def lifespan(_app):
-                auth.init_auth_db()
-                auth.init_sessions_db()
-                yield
-
-            app = FastAPI(lifespan=lifespan)
-            app.include_router(auth.router)
-            app.include_router(places_router)
+            app = create_integration_app(auth, Path(directory) / "test.sqlite3")
             url = "/api/v1/places/recommendations?interests=coffee"
             credentials = {"username": "f01_integration_test", "password": "MOCK-password-for-test-only"}
             with TestClient(app) as client:
@@ -69,12 +73,8 @@ def main():
                 expired = client.get(url, headers=headers)
                 assert expired.status_code == 401 and expired.json()["code"] == "SESSION_EXPIRED"
             print("PASS: register → login → F01; invalid/expired/revoked sessions rejected; interests validated.")
+            print(f"Auth source: {revision}")
             print("Used real auth code with a temporary SQLite database; no production account or token created.")
-    finally:
-        if previous is None:
-            sys.modules.pop("auth", None)
-        else:
-            sys.modules["auth"] = previous
 
 
 if __name__ == "__main__":

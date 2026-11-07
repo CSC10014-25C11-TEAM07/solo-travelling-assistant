@@ -235,6 +235,128 @@
     "data_status": "UNVERIFIED"
   },
   {
+    "place_id": "P010",
+    "name": "Still Cafe",
+    "area": "DALAT_CENTER",
+    "interests": [
+      "coffee"
+    ],
+    "environment": "UNKNOWN",
+    "visit_duration_minutes": null,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": "https://visitlamdong.vn/vi/stillcafe",
+    "checked_at": "2026-11-07T11:35:38.920867+00:00",
+    "data_status": "UNVERIFIED"
+  },
+  {
+    "place_id": "P011",
+    "name": "An Cafe",
+    "area": "DALAT_CENTER",
+    "interests": [
+      "coffee"
+    ],
+    "environment": "UNKNOWN",
+    "visit_duration_minutes": null,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": "https://www.openstreetmap.org/node/4206500720",
+    "checked_at": "2026-11-07T11:35:38.920867+00:00",
+    "data_status": "UNVERIFIED"
+  },
+  {
     "place_id": "R001",
     "name": "Tâm Châu Lộc An",
     "area": "LOC_AN",

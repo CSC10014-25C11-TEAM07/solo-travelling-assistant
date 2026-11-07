@@ -4,10 +4,15 @@ S01 cần gợi ý địa điểm đúng sở thích theo hợp đồng 06/11. B
 `GET /api/v1/places/recommendations` dùng query interests lặp, xác thực session,
 ưu tiên số nhãn khớp, trả tối đa 3 điểm và lỗi validation đúng field interests.
 
-Đã chuẩn bị 12 địa điểm ứng viên có nguồn, 6 chặng xe máy có hướng lấy từ
+Đã chuẩn bị 14 địa điểm ứng viên có nguồn, 14 chặng xe máy có hướng lấy từ
 Valhalla/OSM và bộ MOCK riêng cho nghỉ thêm/đổi điểm vì mưa.
-12 địa điểm vẫn giữ UNVERIFIED vì lịch tuần/thời lượng/tiếp cận còn thiếu hoặc mâu thuẫn;
-6 chặng là ước tính, chưa phủ đầy đủ HCM ⇄ Đà Lạt.
+14 địa điểm vẫn giữ UNVERIFIED vì lịch tuần/thời lượng/tiếp cận còn thiếu hoặc mâu thuẫn;
+14 chặng là ước tính, chưa phủ đầy đủ HCM ⇄ Đà Lạt.
+
+Thêm client TypeScript để Hân gọi F01 từ S01, cùng harness đăng ký/login thật + F01
+từ snapshot PR #12 trên SQLite tạm. Main chưa có màn S01 nên chưa ghép UI/Android.
+Để chạy lint/typecheck mobile, bổ sung cấu hình lint SDK 58 và sửa kiểu CSS/ref,
+hook hydration trong bộ khung; lockfile không đổi phiên bản dependency cũ.
 
 ## Cách thử và kết quả
 
@@ -16,10 +21,17 @@ backend/.venv/bin/python backend/scripts/validate_places.py
 backend/.venv/bin/python backend/scripts/validate_places.py --data-dir backend/data/fixtures/mock
 backend/.venv/bin/python -m unittest discover -s backend/tests -v
 backend/.venv/bin/python backend/scripts/preview_f01.py coffee
+backend/.venv/bin/python backend/scripts/check_f01_auth.py --auth-ref origin/feat/2-auth-api
 ```
 
-Validator qua cho hai bộ; 22 tests qua. Đã kiểm tra register/login/F01/logout/token hết hạn
-với code auth thật của PR #12 trên SQLite tạm; xem docs/testing/f01-results.md.
+Validator qua cho hai bộ; 22 tests backend và 9 tests transport qua. Mobile lint và
+typecheck qua. Đã kiểm tra register/login/F01/logout/token hết hạn với code auth thật
+của PR #12 trên SQLite tạm; client TypeScript gọi HTTP thật cũng qua. Auth snapshot:
+`2bd6854aea1addb9cad4c4a57a3fbcc37913aae7`. Xem `docs/testing/f01-results.md`.
+
+Chạy `backend/scripts/run_f01_demo.py --port 8001` bằng Python trong backend/.venv;
+tại `mobile/` chạy `npm run test:f01:integration`. Xem hướng dẫn đầy đủ trong
+`docs/F01-HUONG-DAN-BAO04.md`.
 
 ## Cần review và ghép
 

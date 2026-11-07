@@ -1,7 +1,11 @@
 # Hướng dẫn phần việc Bảo 04
 
-Bản đầu cho issue #8. Đọc theo thứ tự: chạy thử offline → kiểm nguồn → gửi hợp đồng
-cho nhóm → ghép tài khoản/giao diện/SQLite → chạy lại và mở PR.
+Cập nhật 07/11/2026, cho issue #8. Bạn là **Bảo 04**, phụ trách dữ liệu địa điểm,
+chặng di chuyển và API gợi ý F01. Bảo 06 phụ trách SQLite/lưu lịch.
+
+Đã fetch và đối chiếu `origin/main` ở `e841624`; chưa có commit mới hơn lúc đồng bộ.
+PR #11 SQLite đã ghép; PR #12 tài khoản và PR #10 ADAPT UI còn mở lúc kiểm tra.
+Các lệnh dưới đây chạy từ thư mục gốc repo trên Mac, trừ đoạn ghi rõ `cd mobile`.
 
 ## Phần đã làm
 
@@ -10,15 +14,36 @@ cho nhóm → ghép tài khoản/giao diện/SQLite → chạy lại và mở PR
 - Phản hồi 0–3 điểm; ảnh null; lỗi mã sở thích đúng `VALIDATION_ERROR`/`interests`.
 - Điểm nối với session thật của Đăng. Không có module auth thì báo 503;
   không nhận token bất kỳ. Đã thử code thật ở PR #12 trên cơ sở dữ liệu tạm.
-- 12 ứng viên có nguồn, 6 chặng xe máy có hướng từ nguồn định tuyến công khai,
+- 14 ứng viên có nguồn, 14 chặng xe máy có hướng từ nguồn định tuyến công khai,
   file ghi nguồn/chỗ thiếu và script kiểm cấu trúc/thu lại chặng.
 - Bộ MOCK riêng: 8 địa điểm, 10 chặng, trạng thái ngày 2 và T06/T08/T13/T15.
-- Kiểm thử backend và hướng dẫn ghép cho các bạn trong nhóm.
+- Harness chạy đăng ký/đăng nhập thật + F01 ngay khi PR #12 còn mở; không cần chép
+  auth.py hay tự merge nhánh tài khoản để thử.
+- Hàm gọi API TypeScript cho Hân, có xử lý lỗi và hủy request; 9 test transport.
+- 22 test backend; kiểm tra HTTP thật và gọi client TypeScript qua HTTP đã qua.
+- Bổ sung cấu hình ESLint phù hợp SDK 58 và sửa lỗi kiểu/hydration trong bộ khung;
+  lint/typecheck mobile đã qua. Những kiểm tra này chưa thay cho thử trên thiết bị.
 
-12 ứng viên hiện đều là **UNVERIFIED**, vì một số trường cần lập lịch còn chưa rõ.
-Sáu chặng SOURCED là ước tính thuật toán, không phải đo thực địa hoặc thời gian thực.
+14 ứng viên hiện đều là **UNVERIFIED**, vì một số trường cần lập lịch còn chưa rõ.
+14 chặng SOURCED là ước tính thuật toán, không phải đo thực địa hoặc thời gian thực.
 Bộ dữ liệu này giúp bắt đầu F01 và kiểm logic bằng MOCK; chưa đủ để khẳng định toàn bộ
 chuyến xe máy HCM ⇄ Đà Lạt 3–4 ngày đã khả thi.
+
+## Bạn còn phải làm gì, có phải đợi không?
+
+| Việc | Trạng thái và người phối hợp | Bạn làm tiếp thế nào |
+|---|---|---|
+| API F01, phân loại sở thích, dữ liệu MOCK | Có code và kiểm thử trên nhánh F01 | Chạy thử mục 1/5, nhờ Nhật review PR |
+| Tên trường, đường dẫn, mã sở thích | Đã chốt theo tài liệu 06/11 | Giữ hợp đồng hiện có |
+| Enum/shape giờ tuần, giá trị null | Còn là đề xuất; Đăng/Leader và Bảo 06 cần chốt | Dùng bảng trong docs/api/f01.md để lấy quyết định; có quyết định mới sửa model/JSON đồng bộ |
+| Dữ liệu đủ cho lịch thật | Chưa đủ | Với Nhật chọn điểm/chặng dùng demo, xác minh theo mục 4; không cần xác minh toàn bộ 14 ứng viên trước |
+| Đăng nhập + F01 trên main | Auth PR #12 còn mở | Thử ngay bằng harness mục 5; bản tích hợp chung cần Đăng ghép router/lifespan |
+| SQLite | Bảo 06 nhập dữ liệu sau chốt enum/shape | Bàn giao places.json, travel_times.json, nguồn và quy tắc thiếu chặng |
+| S01 và bằng chứng Android | Cần Hân ghép màn hình, Tân kiểm | Đưa Hân hàm gọi sẵn có ở mục 3; cùng chạy mục 6 trên thiết bị |
+
+**Không phải ngồi đợi file của người khác mới bắt đầu.** Bạn có thể chạy API, kiểm nguồn,
+bổ sung dữ liệu và thử auth ngay. Chỉ các bước chốt hợp đồng/nhập SQLite/ghép màn hình
+và nghiệm thu chung cần người phụ trách tương ứng. Chưa đủ điều kiện đóng issue #8.
 
 ## 1. Chạy thử ngay trên Mac của bạn
 
@@ -41,7 +66,7 @@ backend/.venv/bin/python -m unittest discover -s backend/tests -v
 
 Lần lượt mong đợi:
 
-- `VALID: 12 places; 6 directed legs`, với 12 địa điểm UNVERIFIED và 6 chặng SOURCED.
+- `VALID: 14 places; 14 directed legs`, với 14 địa điểm UNVERIFIED và 14 chặng SOURCED.
 - `VALID: 8 places; 10 directed legs`, toàn bộ MOCK.
 - `Ran 22 tests` và `OK`.
 
@@ -52,7 +77,7 @@ backend/.venv/bin/python backend/scripts/preview_f01.py coffee
 backend/.venv/bin/python backend/scripts/preview_f01.py nature culture
 ```
 
-Lệnh đầu trả Là Việt Nguyễn Công Trứ. Lệnh sau đưa Thiền viện Trúc Lâm lên trước
+Lệnh đầu trả Là Việt Nguyễn Công Trứ, Still Cafe và An Cafe. Lệnh sau đưa Thiền viện Trúc Lâm lên trước
 vì khớp cả nature/culture, rồi các điểm khớp một sở thích. Đây là **preview offline**,
 không chứng minh đăng nhập hoặc giao diện Android đã ghép.
 
@@ -68,8 +93,10 @@ không chứng minh đăng nhập hoặc giao diện Android đã ghép.
 | `backend/data/fixtures/` | Dữ liệu giả lập để Nhật/Linh/Tân ghép kiểm thử độc lập |
 | `docs/api/f01.md` | Gửi Hân/Đăng/Bảo 06; phân biệt đã chốt với đề xuất |
 | `docs/testing/f01-results.md` | Kết quả thực tế đã chạy và phần còn chờ kiểm trên app |
+| `backend/scripts/run_f01_demo.py` | Chạy auth thật + F01 cục bộ từ snapshot PR #12 |
+| `mobile/src/services/places.ts` | Hàm Hân có thể import để gọi F01 |
 
-Không đổi P001…P009/R001…R003 sau khi đã giao. `A01`…`A04` là mã hoạt động
+Không đổi P001…P011/R001…R003 sau khi đã giao. `A01`…`A04` là mã hoạt động
 trong lịch; một hoạt động VISIT trỏ tới một `place_id`. Hai loại mã có vai trò khác nhau.
 
 ## 3. Việc bạn cần chốt với nhóm
@@ -91,7 +118,7 @@ schema lịch trong `itinerary_schema.sql` để làm F01.
 
 Nhờ Nhật chọn các điểm thật dự định dùng và liệt kê chặng cần cho lịch demo.
 Mỗi cặp phải nêu rõ chiều, ví dụ P001→P005 và P005→P001.
-Sáu chặng hiện có chỉ nối bốn điểm trong Đà Lạt; chưa phủ tuyến đi/về HCM.
+14 chặng hiện có chỉ nối sáu điểm trong Đà Lạt; chưa phủ tuyến đi/về HCM hoặc mọi cặp.
 
 Nhật rà thời lượng, giờ từng ngày và các điểm thay thế hợp lệ. Có thể dùng bộ MOCK
 để ghép logic ngay trong lúc bổ sung dữ liệu thật. Các JSON trong `fixtures/`
@@ -108,6 +135,38 @@ Authorization: Bearer <access_token>
 
 Khi đổi sở thích, gọi lại API; hiện đúng 0–3 kết quả; ảnh null thì dùng ảnh mặc định.
 Nếu gọi mạng, cần tài khoản của Đăng và đăng nhập trước.
+
+Hàm gọi đã có trong `mobile/src/services/places.ts`. Ví dụ trong luồng của Hân,
+sau khi đã có `accessToken` từ login và `selectedInterests` kiểu `Interest[]`:
+
+```ts
+import { fetchRecommendations } from '@/services/places';
+
+const controller = new AbortController();
+const result = await fetchRecommendations({
+  apiUrl: process.env.EXPO_PUBLIC_API_URL ?? '',
+  accessToken,
+  interests: selectedInterests,
+  signal: controller.signal,
+});
+// result.places: render đúng số lượng 0–3 thẻ.
+// Khi bỏ màn hình/đổi sở thích: controller.abort(); bỏ qua AbortError.
+```
+
+Hân cần tự gắn loading/error/empty, ảnh mặc định và bảo đảm kết quả request cũ không
+ghi đè lựa chọn mới. Hiện màn hình trong main vẫn là bộ khung kiểm tra backend,
+chưa có S01 để ghép trực tiếp. Không ghi access token vào log hoặc mã nguồn.
+
+Kiểm tra phần mobile (Node >=22.18 để chạy test TypeScript; máy này dùng Node 26):
+
+```bash
+cd mobile
+npm ci
+npm run test:f01
+npm run lint
+npx tsc --noEmit
+cd ..
+```
 
 Nội dung ngắn bạn có thể tự gửi nhóm:
 
@@ -138,19 +197,91 @@ Các việc ưu tiên:
 | Là Việt Nguyễn Công Trứ | Giờ theo từng thứ và thời lượng trải nghiệm; nguồn đơn vị đã có tên/giờ chung |
 | Dinh III | Nghỉ trưa và giờ đóng cửa khác nhau giữa OSM/cổng du lịch |
 | Crazy House | Giờ mở cửa 07:30 hay 08:30; phân biệt không gian trong/ngoài nhà |
+| Still Cafe / An Cafe | Đã có giờ tuần từ OSM; cần xác nhận ngoại lệ, phần có mái và thời lượng |
 | Các điểm còn lại | Xác nhận lịch theo từng thứ trước khi dùng kiểm ràng buộc |
 | Tâm Châu Lộc An/Di Linh/Bảo Lộc | Giờ, điểm dừng xe máy, tiện ích và tiếp cận theo từng chiều |
 
 Bạn không bắt buộc gọi tất cả địa điểm ngay. Ưu tiên điểm thật được chọn cho demo;
 điểm chưa xác nhận tiếp tục mang UNVERIFIED. Không cần mua API để chạy bộ hiện có.
 
-## 5. Thử HTTP sau khi ghép tài khoản
+### Nguồn và công cụ: dùng thế nào cho đúng?
+
+- **Địa điểm:** mở URL trong `data_review.json` bằng trình duyệt. Ưu tiên website
+  của đơn vị và cổng visitlamdong.vn; đối chiếu đúng địa chỉ/chi nhánh. Không cần
+  tải một dataset Kaggle chung vì thường thiếu giờ, khu có mái và nguồn từng điểm.
+- **Giờ:** ghi chính xác thứ/ngày nghỉ/nghỉ trưa. P010/P011 có tag tuần OSM nên đã
+  điền được lịch thường; chưa có xác nhận ngày lễ. Khi nguồn mâu thuẫn, bạn gọi/hỏi
+  đơn vị hoặc nhờ người trong nhóm xác minh. Giữ ghi chú nguồn và ngày kiểm.
+- **Thời lượng:** con số từ cổng du lịch là thời lượng tham khảo, không bảo đảm
+  cho mọi người. Điểm null cần Nhật chốt giả định lập lịch; ghi rõ đó là giả định.
+- **Chặng xe máy:** dùng script thu Valhalla có sẵn, không lấy thời gian ô tô để
+  gắn nhãn xe máy. Không có dữ liệu thì báo thiếu, không dùng 0 hoặc khoảng cách
+  đường chim bay thay cho thời gian thực tế.
+- **Kiểm cấu trúc/API:** Terminal + validator/test; Swagger ở `/docs` là đủ để
+  thử thủ công. Không cần mua Postman hay công cụ AI để chạy F01.
+
+Ví dụ khi Nhật yêu cầu thêm P001→P011: cả hai ID đã có tọa độ. Tạo một file ngoài
+dataset, chẳng hạn `/tmp/f01-pairs.json`, nội dung:
+
+```json
+[{"from_place_id":"P001","to_place_id":"P011"}]
+```
+
+Sau đó chạy (thư mục output phải mới/chưa có file kết quả):
+
+```bash
+backend/.venv/bin/python backend/scripts/collect_travel_times.py --pairs /tmp/f01-pairs.json --output-dir /tmp/f01-new-routes
+```
+
+Đối chiếu `travel_times.json` và `travel_time_evidence.json` trong output; thêm đúng
+cặp mới vào hai file bàn giao, không ghi đè toàn bộ bộ cũ bằng một chặng. Nếu thu
+chiều ngược thì yêu cầu riêng. Với điểm chưa có tọa độ, xác minh và thêm tọa độ có
+nguồn vào `place_coordinates.json` trước. Chạy lại validator và restart backend.
+
+Public demo chỉ phù hợp đợt nhỏ 1–20 chặng. Nếu nhóm cần thu nhiều/gọi định tuyến
+cho người dùng liên tục, đó là lúc chọn dịch vụ trả phí hoặc tự host; bản này chưa
+cần mua key và chưa gắn tài khoản thanh toán nào.
+
+## 5. Thử HTTP ngay, rồi kiểm lại khi ghép main
 
 Tài khoản đang ở [PR #12](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/pull/12)
 ở thời điểm kiểm tra 07/11/2026. Khi Đăng ghép, giữ cả router/lifespan tài khoản
 và router F01 như hướng dẫn trong `docs/api/f01.md`.
 
-Chạy backend:
+### Chạy ngay khi PR #12 còn mở
+
+```bash
+git fetch origin
+backend/.venv/bin/python -m pip install -r backend/requirements-integration.txt
+backend/.venv/bin/python backend/scripts/check_f01_auth.py --auth-ref origin/feat/2-auth-api
+backend/.venv/bin/python backend/scripts/run_f01_demo.py --port 8001
+```
+
+Lệnh cuối giữ Terminal chạy. Harness đọc **code thật từ repo nhóm**, in commit SHA,
+khởi tạo SQLite tạm và chạy auth + F01 cùng tiến trình. SHA đã kiểm lần này là
+`2bd6854aea1addb9cad4c4a57a3fbcc37913aae7`; muốn tái hiện đúng bản đó, thêm
+`--auth-ref 2bd6854aea1addb9cad4c4a57a3fbcc37913aae7`.
+Không dùng ref từ repo lạ. Ctrl+C dừng server và xóa tài khoản demo tạm.
+
+Mở **http://127.0.0.1:8001/docs** rồi thao tác theo danh sách bên dưới.
+Hoặc giữ server demo đang chạy, mở Terminal khác ở gốc repo và kiểm tra luôn
+hàm TypeScript với HTTP thật:
+
+```bash
+cd mobile
+npm run test:f01:integration
+cd ..
+```
+
+Script tự tạo tài khoản test, login, gọi F01 và logout; không in mật khẩu/token.
+Chỉ chạy với server demo dùng SQLite tạm ở trên. Đổi port thì đặt `F01_TEST_PORT`.
+Muốn điện thoại gọi: thêm `--host 0.0.0.0`, đặt `EXPO_PUBLIC_API_URL` trong
+`mobile/.env` thành `http://IP_LAN_CUA_MAC:8001`; điện thoại cùng Wi-Fi, restart Expo.
+Đây là server phát triển cục bộ; chưa phải bản deploy của nhóm.
+
+### Sau khi Đăng ghép tài khoản vào nhánh chung
+
+Chạy backend bình thường:
 
 ```bash
 cd backend
@@ -159,7 +290,7 @@ cd backend
 
 Mở `http://127.0.0.1:8000/docs`:
 
-1. Sau khi auth đã ghép, dùng `/api/v1/auth/register` để tạo **tài khoản demo**.
+1. Dùng `/api/v1/auth/register` để tạo **tài khoản demo**.
    Theo bản auth đang kiểm, username 3–30 ký tự gồm a–z/số/gạch dưới;
    password 15–128 ký tự. Không dùng mật khẩu cá nhân để demo.
 2. `/api/v1/auth/login` bằng tài khoản vừa tạo; lấy `access_token`.
@@ -169,7 +300,7 @@ Mở `http://127.0.0.1:8000/docs`:
 6. Đăng xuất rồi dùng lại token cũ phải bị từ chối.
 
 Nếu hiện AUTH_NOT_READY hoặc chưa có /auth/register trên /docs: auth chưa ghép,
-dùng preview offline và test trước. Không tắt kiểm tra token để làm demo thành công giả.
+chuyển sang harness ở trên hoặc preview offline. Không tắt kiểm tra token.
 
 Sau khi `backend/auth.py` có trên nhánh chung, kiểm tra riêng việc ghép:
 
@@ -195,11 +326,12 @@ Cần các thư viện tài khoản theo requirements của Đăng, gồm argon2
 
 Nhánh công việc: `feat/8-places-f01`. Reviewer theo issue là Nhật.
 Mẫu mô tả ở `docs/F01-PR-DRAFT.md`; nêu rõ dữ liệu còn UNVERIFIED và auth đang ghép.
-Sau khi bạn rà diff và phần nhóm đã chốt, đẩy nhánh và mở **draft PR** vào main:
+Giữ PR ở trạng thái nháp trong lúc còn chốt dữ liệu/tích hợp. Sau mỗi lần sửa,
+commit trên nhánh này rồi đẩy tiếp; xem PR bằng:
 
 ```bash
 git push -u origin feat/8-places-f01
-gh pr create --draft --base main --head feat/8-places-f01 --title "#8 — Dataset ban đầu và API gợi ý F01" --body-file docs/F01-PR-DRAFT.md
+gh pr view feat/8-places-f01 --web
 ```
 
 Chỉ xem issue #8 hoàn tất khi Hân/Nhật dùng cùng bộ dữ liệu để chạy và kiểm thử,

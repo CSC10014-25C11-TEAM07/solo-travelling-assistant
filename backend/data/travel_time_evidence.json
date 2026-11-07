@@ -124,5 +124,181 @@
     "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
     "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
     "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+  },
+  {
+    "from_place_id": "P001",
+    "to_place_id": "P010",
+    "summary": {
+      "has_time_restrictions": false,
+      "has_toll": false,
+      "has_highway": false,
+      "has_ferry": false,
+      "min_lat": 11.941547,
+      "min_lon": 108.453395,
+      "max_lat": 11.944248,
+      "max_lon": 108.454645,
+      "time": 144.296,
+      "length": 0.428,
+      "cost": 199.245
+    },
+    "costing": "motorcycle",
+    "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
+    "checked_at": "2026-11-07T11:35:50.202853+00:00",
+    "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+  },
+  {
+    "from_place_id": "P010",
+    "to_place_id": "P001",
+    "summary": {
+      "has_time_restrictions": false,
+      "has_toll": false,
+      "has_highway": false,
+      "has_ferry": false,
+      "min_lat": 11.941547,
+      "min_lon": 108.453395,
+      "max_lat": 11.944248,
+      "max_lon": 108.454645,
+      "time": 149.837,
+      "length": 0.428,
+      "cost": 225.445
+    },
+    "costing": "motorcycle",
+    "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
+    "checked_at": "2026-11-07T11:35:51.581393+00:00",
+    "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+  },
+  {
+    "from_place_id": "P010",
+    "to_place_id": "P005",
+    "summary": {
+      "has_time_restrictions": false,
+      "has_toll": false,
+      "has_highway": false,
+      "has_ferry": false,
+      "min_lat": 11.939378,
+      "min_lon": 108.450977,
+      "max_lat": 11.944248,
+      "max_lon": 108.459838,
+      "time": 268.892,
+      "length": 1.823,
+      "cost": 487.245
+    },
+    "costing": "motorcycle",
+    "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
+    "checked_at": "2026-11-07T11:35:52.959913+00:00",
+    "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+  },
+  {
+    "from_place_id": "P005",
+    "to_place_id": "P010",
+    "summary": {
+      "has_time_restrictions": false,
+      "has_toll": false,
+      "has_highway": false,
+      "has_ferry": false,
+      "min_lat": 11.939378,
+      "min_lon": 108.450977,
+      "max_lat": 11.944248,
+      "max_lon": 108.459838,
+      "time": 254.626,
+      "length": 1.767,
+      "cost": 426.25
+    },
+    "costing": "motorcycle",
+    "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
+    "checked_at": "2026-11-07T11:35:54.341641+00:00",
+    "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+  },
+  {
+    "from_place_id": "P009",
+    "to_place_id": "P011",
+    "summary": {
+      "has_time_restrictions": false,
+      "has_toll": false,
+      "has_highway": false,
+      "has_ferry": false,
+      "min_lat": 11.934465,
+      "min_lon": 108.429418,
+      "max_lat": 11.941841,
+      "max_lon": 108.433848,
+      "time": 214.743,
+      "length": 1.407,
+      "cost": 316.982
+    },
+    "costing": "motorcycle",
+    "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
+    "checked_at": "2026-11-07T11:35:55.717292+00:00",
+    "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+  },
+  {
+    "from_place_id": "P011",
+    "to_place_id": "P009",
+    "summary": {
+      "has_time_restrictions": false,
+      "has_toll": false,
+      "has_highway": false,
+      "has_ferry": false,
+      "min_lat": 11.934465,
+      "min_lon": 108.428969,
+      "max_lat": 11.941841,
+      "max_lon": 108.433848,
+      "time": 211.065,
+      "length": 1.442,
+      "cost": 346.374
+    },
+    "costing": "motorcycle",
+    "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
+    "checked_at": "2026-11-07T11:35:57.095980+00:00",
+    "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+  },
+  {
+    "from_place_id": "P011",
+    "to_place_id": "P008",
+    "summary": {
+      "has_time_restrictions": false,
+      "has_toll": false,
+      "has_highway": false,
+      "has_ferry": false,
+      "min_lat": 11.930214,
+      "min_lon": 108.426682,
+      "max_lat": 11.941841,
+      "max_lon": 108.433848,
+      "time": 383.585,
+      "length": 1.974,
+      "cost": 1433.206
+    },
+    "costing": "motorcycle",
+    "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
+    "checked_at": "2026-11-07T11:35:58.474162+00:00",
+    "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+  },
+  {
+    "from_place_id": "P008",
+    "to_place_id": "P011",
+    "summary": {
+      "has_time_restrictions": false,
+      "has_toll": false,
+      "has_highway": false,
+      "has_ferry": false,
+      "min_lat": 11.930214,
+      "min_lon": 108.426826,
+      "max_lat": 11.941841,
+      "max_lon": 108.433848,
+      "time": 443.039,
+      "length": 2.39,
+      "cost": 889.369
+    },
+    "costing": "motorcycle",
+    "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
+    "checked_at": "2026-11-07T11:35:59.853085+00:00",
+    "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
   }
 ]

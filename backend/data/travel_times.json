@@ -52,5 +52,77 @@
     "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A11.9345615%2C%22lon%22%3A108.4306807%7D%2C%7B%22lat%22%3A11.9300468%2C%22lon%22%3A108.4296735%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
     "checked_at": "2026-11-07T11:05:18.165622+00:00",
     "data_status": "SOURCED"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "P001",
+    "to_place_id": "P010",
+    "duration_minutes": 3,
+    "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A11.9415603%2C%22lon%22%3A108.4542354%7D%2C%7B%22lat%22%3A11.9443315%2C%22lon%22%3A108.454585%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
+    "checked_at": "2026-11-07T11:35:50.202853+00:00",
+    "data_status": "SOURCED"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "P010",
+    "to_place_id": "P001",
+    "duration_minutes": 3,
+    "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A11.9443315%2C%22lon%22%3A108.454585%7D%2C%7B%22lat%22%3A11.9415603%2C%22lon%22%3A108.4542354%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
+    "checked_at": "2026-11-07T11:35:51.581393+00:00",
+    "data_status": "SOURCED"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "P010",
+    "to_place_id": "P005",
+    "duration_minutes": 5,
+    "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A11.9443315%2C%22lon%22%3A108.454585%7D%2C%7B%22lat%22%3A11.9405756%2C%22lon%22%3A108.4599038%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
+    "checked_at": "2026-11-07T11:35:52.959913+00:00",
+    "data_status": "SOURCED"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "P005",
+    "to_place_id": "P010",
+    "duration_minutes": 5,
+    "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A11.9405756%2C%22lon%22%3A108.4599038%7D%2C%7B%22lat%22%3A11.9443315%2C%22lon%22%3A108.454585%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
+    "checked_at": "2026-11-07T11:35:54.341641+00:00",
+    "data_status": "SOURCED"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "P009",
+    "to_place_id": "P011",
+    "duration_minutes": 4,
+    "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A11.9345615%2C%22lon%22%3A108.4306807%7D%2C%7B%22lat%22%3A11.9418201%2C%22lon%22%3A108.4338744%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
+    "checked_at": "2026-11-07T11:35:55.717292+00:00",
+    "data_status": "SOURCED"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "P011",
+    "to_place_id": "P009",
+    "duration_minutes": 4,
+    "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A11.9418201%2C%22lon%22%3A108.4338744%7D%2C%7B%22lat%22%3A11.9345615%2C%22lon%22%3A108.4306807%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
+    "checked_at": "2026-11-07T11:35:57.095980+00:00",
+    "data_status": "SOURCED"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "P011",
+    "to_place_id": "P008",
+    "duration_minutes": 7,
+    "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A11.9418201%2C%22lon%22%3A108.4338744%7D%2C%7B%22lat%22%3A11.9300468%2C%22lon%22%3A108.4296735%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
+    "checked_at": "2026-11-07T11:35:58.474162+00:00",
+    "data_status": "SOURCED"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "P008",
+    "to_place_id": "P011",
+    "duration_minutes": 8,
+    "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A11.9300468%2C%22lon%22%3A108.4296735%7D%2C%7B%22lat%22%3A11.9418201%2C%22lon%22%3A108.4338744%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
+    "checked_at": "2026-11-07T11:35:59.853085+00:00",
+    "data_status": "SOURCED"
   }
 ]

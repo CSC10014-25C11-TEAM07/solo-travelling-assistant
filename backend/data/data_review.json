@@ -1,6 +1,6 @@
 {
   "schema_version": "0.1-proposal",
-  "checked_at": "2026-11-07T11:09:37.849269+00:00",
+  "checked_at": "2026-11-07T11:35:38.920867+00:00",
   "meaning": "Thông tin đã tìm thấy nguồn; nhãn UNVERIFIED giữ nguyên khi lịch theo tuần, thời lượng hoặc tiếp cận còn thiếu. checked_at là lúc đọc nguồn online, không phải khảo sát tại chỗ.",
   "places": [
     {
@@ -100,6 +100,30 @@
       "pending": "OSM ghi 08:30–19:00; cần xác nhận trước khi dùng ràng buộc giờ. Không coi toàn bộ nơi này là trong nhà.",
       "duration_note": "Cổng du lịch nêu 60 phút.",
       "classification_note": "Nhãn sở thích/khu vực/môi trường là phân loại đề xuất từ loại hình và mô tả nguồn, cần nhóm rà soát.",
+      "ready_for_real_plan": false
+    },
+    {
+      "place_id": "P010",
+      "name": "Still Cafe",
+      "source_url": "https://visitlamdong.vn/vi/stillcafe",
+      "checked_at": "2026-11-07T11:35:38.920867+00:00",
+      "reported_hours": "Mo-Su 07:00-22:00",
+      "hours_source_url": "https://www.openstreetmap.org/node/6152524285",
+      "pending": "Lịch tuần lấy từ tag OSM, chưa xác nhận ngoại lệ/ngày lễ với đơn vị. Chưa xác nhận khu ngồi có mái và thời lượng; không tự dùng làm điểm thay thế vì mưa.",
+      "duration_note": "Chưa có thời lượng trải nghiệm được nhóm chốt; giữ null.",
+      "classification_note": "coffee dựa trên loại hình cafe. UNKNOWN cho môi trường vì chưa có nguồn đủ rõ.",
+      "ready_for_real_plan": false
+    },
+    {
+      "place_id": "P011",
+      "name": "An Cafe",
+      "source_url": "https://www.openstreetmap.org/node/4206500720",
+      "checked_at": "2026-11-07T11:35:38.920867+00:00",
+      "reported_hours": "07:00-22:00",
+      "hours_source_url": "https://www.openstreetmap.org/node/4206500720",
+      "pending": "Lịch tuần lấy từ tag OSM, chưa xác nhận ngoại lệ/ngày lễ với đơn vị. Chưa xác nhận khu ngồi có mái và thời lượng; không tự dùng làm điểm thay thế vì mưa.",
+      "duration_note": "Chưa có thời lượng trải nghiệm được nhóm chốt; giữ null.",
+      "classification_note": "coffee dựa trên loại hình cafe. UNKNOWN cho môi trường vì chưa có nguồn đủ rõ.",
       "ready_for_real_plan": false
     },
     {
