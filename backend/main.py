@@ -1,6 +1,21 @@
-from fastapi import FastAPI
+﻿from contextlib import asynccontextmanager
 
-app = FastAPI(title="Solo Travelling Assistant")
+from fastapi import FastAPI
+from fastapi.exceptions import RequestValidationError
+
+from auth import handle_validation_error, init_auth_db, init_sessions_db, router as auth_router
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    init_auth_db()
+    init_sessions_db()
+    yield
+
+
+app = FastAPI(title="Solo Travelling Assistant", lifespan=lifespan)
+app.add_exception_handler(RequestValidationError, handle_validation_error)
+app.include_router(auth_router)
 
 
 @app.get("/health")
