@@ -55,7 +55,30 @@ def write_mock(path):
                 raise
         else:
             raise AssertionError("Foreign key did not reject an orphan day")
-    print("MOCK written. Foreign key check passed.")
+        try:
+            with db:
+                db.execute("""
+                    INSERT INTO itineraries (
+                        itinerary_id, user_id, departure_date, return_date,
+                        departure_time, interests, min_rest_minutes, status,
+                        created_at, confirmed_at
+                    ) VALUES (
+                        'MOCK-ZERO-REST', 'MOCK-U1', '2026-11-09', '2026-11-11',
+                        '08:00', '["nature"]', 0, 'DRAFT',
+                        '2026-11-06T14:00:00Z', NULL
+                    )
+                """)
+        except sqlite3.IntegrityError as error:
+            if error.sqlite_errorcode != sqlite3.SQLITE_CONSTRAINT_CHECK:
+                raise
+            if "min_rest_minutes" not in str(error):
+                raise
+        else:
+            raise AssertionError("CHECK did not reject min_rest_minutes = 0")
+        assert db.execute(
+            "SELECT 1 FROM itineraries WHERE itinerary_id = 'MOCK-ZERO-REST'"
+        ).fetchone() is None
+    print("MOCK written. Foreign key and zero rest checks passed.")
 
 
 def read_mock(path):
@@ -92,3 +115,4 @@ if __name__ == "__main__":
         if not args.path.is_file():
             parser.error("Write the MOCK database first")
         read_mock(args.path)
+

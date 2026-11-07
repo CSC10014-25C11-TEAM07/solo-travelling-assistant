@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS itineraries (
     return_date TEXT NOT NULL,
     departure_time TEXT NOT NULL,
     interests TEXT NOT NULL,
-    min_rest_minutes INTEGER NOT NULL CHECK (min_rest_minutes >= 0),
+    min_rest_minutes INTEGER NOT NULL CHECK (min_rest_minutes > 0),
     status TEXT NOT NULL CHECK (status IN ('DRAFT', 'CURRENT')),
     version INTEGER NOT NULL DEFAULT 1 CHECK (version >= 1),
     created_at TEXT NOT NULL,
