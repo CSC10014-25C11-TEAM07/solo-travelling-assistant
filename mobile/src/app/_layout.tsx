@@ -1,18 +1,14 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
-
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
-
-SplashScreen.preventAutoHideAsync();
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
-  );
+import {Stack,router,useSegments} from 'expo-router';
+import {useEffect} from 'react';
+import {PlanProvider} from '@/features/plan/state';
+import {token} from '@/features/plan/api';
+function SessionGuard(){
+ const segments=useSegments();
+ useEffect(()=>{let active=true;const page=String(segments[0]||'');
+ if(!page||page==='login'||page==='register')return;
+ token().then(t=>{if(active&&!t)router.replace('/login')}).catch(()=>{if(active)router.replace('/login')});
+ return ()=>{active=false};
+ },[segments]);
+ return null;
 }
+export default function Layout(){return <PlanProvider><SessionGuard/><Stack screenOptions={{headerShown:false}}/></PlanProvider>}
