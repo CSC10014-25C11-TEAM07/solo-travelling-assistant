@@ -1,6 +1,0 @@
-import {useEffect,useState} from 'react';
-import {router} from 'expo-router';
-import {Text,View} from 'react-native';
-import {Action,Page,styles} from '@/features/plan/ui';
-import {configured,me,token} from '@/features/plan/api';
-export default function Home(){const [info,setInfo]=useState('Đang kiểm tra phiên…');useEffect(()=>{(async()=>{if(!configured){setInfo(' chưa kết nối backend');return}const t=await token();if(!t){setInfo('Vui lòng đăng nhập');return}try{await me();setInfo('Phiên hợp lệ')}catch(e){setInfo(e instanceof Error?e.message:'Chưa kiểm tra được phiên')}})()},[]);return <Page><View style={{backgroundColor:"rgba(255,251,241,0.96)",borderRadius:20,padding:16,gap:6}}><Text style={styles.title}>Solo Travelling Assistant</Text><Text style={styles.poetic}>Khám phá Đà Lạt theo cách của bạn</Text></View><View style={styles.card}><Text style={styles.heading}>Tài khoản & hành trình</Text><Text style={styles.muted}>{info}</Text><Action title="Đăng nhập" onPress={()=>router.push('/login')}/><Action title="Đăng ký" secondary onPress={()=>router.push('/register')}/><Action title="Lên kế hoạch chuyến đi" onPress={()=>router.push('/plan')}/><Action title="Xem lịch đã lưu" secondary onPress={()=>router.push('/current')}/></View></Page>}
