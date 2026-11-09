@@ -1,10 +1,11 @@
 # Hướng dẫn phần việc Bảo 04
 
-Cập nhật 07/11/2026, cho issue #8. Bạn là **Bảo 04**, phụ trách dữ liệu địa điểm,
+Cập nhật 09/11/2026, cho issue #8. Bạn là **Bảo 04**, phụ trách dữ liệu địa điểm,
 chặng di chuyển và API gợi ý F01. Bảo 06 phụ trách SQLite/lưu lịch.
 
-Đã fetch và đối chiếu `origin/main` ở `e841624`; chưa có commit mới hơn lúc đồng bộ.
-PR #11 SQLite đã ghép; PR #12 tài khoản và PR #10 ADAPT UI còn mở lúc kiểm tra.
+Đã ghép `origin/main` ở `e2ce034` theo review của Đăng trên PR #13.
+PR #11 SQLite, #12 tài khoản và #10 ADAPT UI đã ghép. S01–S03 của Hân ở PR #14
+đã bị revert bởi PR #15; chưa dùng bản đó làm bằng chứng tích hợp S01.
 Các lệnh dưới đây chạy từ thư mục gốc repo trên Mac, trừ đoạn ghi rõ `cd mobile`.
 
 ## Phần đã làm
@@ -12,17 +13,20 @@ Các lệnh dưới đây chạy từ thư mục gốc repo trên Mac, trừ đo
 - F01 đúng đường dẫn và cấu trúc nhóm chốt ngày 06/11/2026: query interests lặp,
   4 mã sở thích, khớp ít nhất một nhãn, ưu tiên khớp nhiều hơn, tối đa 3 kết quả.
 - Phản hồi 0–3 điểm; ảnh null; lỗi mã sở thích đúng `VALIDATION_ERROR`/`interests`.
-- Điểm nối với session thật của Đăng. Không có module auth thì báo 503;
-  không nhận token bất kỳ. Đã thử code thật ở PR #12 trên cơ sở dữ liệu tạm.
+- F01 cùng router tài khoản trong `main:app`, giữ lifespan khởi tạo bảng và xử lý
+  validation của Đăng. Đã thử đăng nhập/F01/đăng xuất trên SQLite tạm;
+  dùng lại token sau logout trả 401 INVALID_SESSION.
 - 14 ứng viên có nguồn, 14 chặng xe máy có hướng từ nguồn định tuyến công khai,
   file ghi nguồn/chỗ thiếu và script kiểm cấu trúc/thu lại chặng.
 - Bộ MOCK riêng: 8 địa điểm, 10 chặng, trạng thái ngày 2 và T06/T08/T13/T15.
-- Harness chạy đăng ký/đăng nhập thật + F01 ngay khi PR #12 còn mở; không cần chép
-  auth.py hay tự merge nhánh tài khoản để thử.
+- Harness chạy đăng ký/đăng nhập thật + F01 trên SQLite tạm từ snapshot Git,
+  để tái hiện phiên bản auth cụ thể mà không đổi dữ liệu ứng dụng.
 - Hàm gọi API TypeScript cho Hân, có xử lý lỗi và hủy request; 9 test transport.
-- 22 test backend; kiểm tra HTTP thật và gọi client TypeScript qua HTTP đã qua.
+- 23 test backend, gồm regression test chạy app/lifespan thật; HTTP thật và client
+  TypeScript gọi bản ghép đã qua.
 - Bổ sung cấu hình ESLint phù hợp SDK 58 và sửa lỗi kiểu/hydration trong bộ khung;
-  lint/typecheck mobile đã qua. Những kiểm tra này chưa thay cho thử trên thiết bị.
+  typecheck qua, lint 0 lỗi và 9 cảnh báo unused ở phần ADAPT nhận từ main.
+  Những kiểm tra này chưa thay cho thử trên thiết bị.
 
 14 ứng viên hiện đều là **UNVERIFIED**, vì một số trường cần lập lịch còn chưa rõ.
 14 chặng SOURCED là ước tính thuật toán, không phải đo thực địa hoặc thời gian thực.
@@ -37,7 +41,7 @@ chuyến xe máy HCM ⇄ Đà Lạt 3–4 ngày đã khả thi.
 | Tên trường, đường dẫn, mã sở thích | Đã chốt theo tài liệu 06/11 | Giữ hợp đồng hiện có |
 | Enum/shape giờ tuần, giá trị null | Còn là đề xuất; Đăng/Leader và Bảo 06 cần chốt | Dùng bảng trong docs/api/f01.md để lấy quyết định; có quyết định mới sửa model/JSON đồng bộ |
 | Dữ liệu đủ cho lịch thật | Chưa đủ | Với Nhật chọn điểm/chặng dùng demo, xác minh theo mục 4; không cần xác minh toàn bộ 14 ứng viên trước |
-| Đăng nhập + F01 trên main | Auth PR #12 còn mở | Thử ngay bằng harness mục 5; bản tích hợp chung cần Đăng ghép router/lifespan |
+| Đăng nhập + F01 trên nhánh F01 | Đã ghép code auth từ main và kiểm tra thành công | Chạy main:app ở mục 5; Nhật review PR #13 trước khi ghép F01 vào main |
 | SQLite | Bảo 06 nhập dữ liệu sau chốt enum/shape | Bàn giao places.json, travel_times.json, nguồn và quy tắc thiếu chặng |
 | S01 và bằng chứng Android | Cần Hân ghép màn hình, Tân kiểm | Đưa Hân hàm gọi sẵn có ở mục 3; cùng chạy mục 6 trên thiết bị |
 
@@ -68,7 +72,7 @@ Lần lượt mong đợi:
 
 - `VALID: 14 places; 14 directed legs`, với 14 địa điểm UNVERIFIED và 14 chặng SOURCED.
 - `VALID: 8 places; 10 directed legs`, toàn bộ MOCK.
-- `Ran 22 tests` và `OK`.
+- `Ran 23 tests` và `OK`.
 
 Xem gợi ý ngay, chưa cần ghép tài khoản hay mở app:
 
@@ -244,11 +248,11 @@ cần mua key và chưa gắn tài khoản thanh toán nào.
 
 ## 5. Thử HTTP ngay, rồi kiểm lại khi ghép main
 
-Tài khoản đang ở [PR #12](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/pull/12)
-ở thời điểm kiểm tra 07/11/2026. Khi Đăng ghép, giữ cả router/lifespan tài khoản
-và router F01 như hướng dẫn trong `docs/api/f01.md`.
+Tài khoản từ [PR #12](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/pull/12)
+đã ghép vào main và nhánh F01 ngày 09/11/2026. `backend/main.py` giữ lifespan,
+router tài khoản, handler validation và /health; thêm router F01 ngay sau auth_router.
 
-### Chạy ngay khi PR #12 còn mở
+### Server demo với SQLite tạm (tùy chọn)
 
 ```bash
 git fetch origin
@@ -279,7 +283,7 @@ Muốn điện thoại gọi: thêm `--host 0.0.0.0`, đặt `EXPO_PUBLIC_API_UR
 `mobile/.env` thành `http://IP_LAN_CUA_MAC:8001`; điện thoại cùng Wi-Fi, restart Expo.
 Đây là server phát triển cục bộ; chưa phải bản deploy của nhóm.
 
-### Sau khi Đăng ghép tài khoản vào nhánh chung
+### Chạy backend đã ghép tài khoản + F01
 
 Chạy backend bình thường:
 
@@ -302,7 +306,7 @@ Mở `http://127.0.0.1:8000/docs`:
 Nếu hiện AUTH_NOT_READY hoặc chưa có /auth/register trên /docs: auth chưa ghép,
 chuyển sang harness ở trên hoặc preview offline. Không tắt kiểm tra token.
 
-Sau khi `backend/auth.py` có trên nhánh chung, kiểm tra riêng việc ghép:
+Kiểm tra riêng session/F01 với auth.py hiện có và SQLite tạm:
 
 ```bash
 backend/.venv/bin/python backend/scripts/check_f01_auth.py

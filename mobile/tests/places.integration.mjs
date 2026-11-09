@@ -1,4 +1,4 @@
-/** Run only against run_f01_demo.py: creates a temporary account in its demo DB. */
+/** Run against a local server with an isolated demo DB; creates a test account. */
 import assert from 'node:assert/strict';
 import { randomBytes } from 'node:crypto';
 import { fetchRecommendations } from '../src/services/places.ts';

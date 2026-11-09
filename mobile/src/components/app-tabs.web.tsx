@@ -40,7 +40,7 @@ type TabButtonProps = Omit<TabTriggerSlotProps, 'ref'> &
 
 export function TabButton({ children, isFocused, ...props }: TabButtonProps) {
   return (
-    <Pressable {...props} style={({ pressed }) => pressed && styles.pressed}>
+    <Pressable {...props} ref={undefined} style={({ pressed }) => pressed ? styles.pressed : undefined}>
       <ThemedView
         type={isFocused ? 'backgroundSelected' : 'backgroundElement'}
         style={styles.tabButtonView}>

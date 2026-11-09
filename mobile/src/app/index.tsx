@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { router } from "expo-router";
 import { Button, StyleSheet, Text, View } from "react-native";
 
 export default function HomeScreen() {
@@ -44,6 +45,8 @@ export default function HomeScreen() {
       <Text style={styles.title}>Solo Travelling Assistant</Text>
 
       <Text style={styles.message}>{message}</Text>
+
+      <Button title="Điều chỉnh lịch trình" onPress={() => router.push("/adapt")} />
 
       <Button
         title={loading ? "Đang kiểm tra…" : "Kiểm tra backend"}
