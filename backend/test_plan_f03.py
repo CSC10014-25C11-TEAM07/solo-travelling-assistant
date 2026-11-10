@@ -201,5 +201,190 @@ class PlanAdaptTests(unittest.TestCase):
         self.assertEqual(self.current(), itinerary)
 
 
+    def route(self):
+        itinerary = self.confirm(self.draft())
+        day_id = itinerary["days"][0]["day_id"]
+
+        def activity(activity_id, kind, place, start, end, status="PENDING", optional=False):
+            return {
+                "activity_id": activity_id, "day_id": day_id, "type": kind,
+                "name": "MOCK " + activity_id, "place_id": place,
+                "start_time": start, "end_time": end, "status": status,
+                "is_optional": optional, "replaces_activity_id": None,
+                "completed_at": "2026-11-09T01:30:00Z" if status == "DONE" else None,
+            }
+
+        rows = [
+            activity("MOCK-OA", "TRAVEL", None, "08:00", "08:15", "DONE"),
+            activity("MOCK-A", "VISIT", "MOCK-A", "08:15", "08:30", "DONE"),
+            activity("MOCK-REST", "REST", "MOCK-A", "08:30", "09:00"),
+            activity("MOCK-AB", "TRAVEL", None, "09:00", "09:15"),
+            activity("MOCK-B", "VISIT", "MOCK-B", "09:15", "09:45", optional=True),
+            activity("MOCK-BC", "TRAVEL", None, "09:45", "10:00"),
+            activity("MOCK-C", "VISIT", "MOCK-C", "10:00", "10:30"),
+        ]
+        with store.connect() as db, db:
+            db.execute("DELETE FROM activities WHERE day_id = ?", (day_id,))
+            for row in rows:
+                db.execute("""
+                    INSERT INTO activities (
+                        activity_id, day_id, type, name, place_id, start_time,
+                        end_time, status, is_optional, replaces_activity_id, completed_at
+                    ) VALUES (
+                        :activity_id, :day_id, :type, :name, :place_id, :start_time,
+                        :end_time, :status, :is_optional, :replaces_activity_id, :completed_at
+                    )
+                """, row)
+        return self.current()
+
+    def reroute_proposal(self, itinerary, rain=False, same_place=False):
+        proposal = self.proposal(itinerary)
+        # Replace the generic storage fixture with a full route snapshot.
+        days = copy.deepcopy(itinerary["days"])
+        rows = {a["activity_id"]: a for a in days[0]["activities"]}
+        rows["MOCK-AB"]["status"] = "REPLACED"
+        rows["MOCK-BC"]["status"] = "REPLACED"
+        if rain:
+            rows["MOCK-B"]["status"] = "REPLACED"
+            indoor = {**rows["MOCK-B"], "activity_id": "MOCK-INDOOR",
+                      "name": "MOCK indoor", "place_id": "MOCK-INDOOR",
+                      "status": "PENDING", "replaces_activity_id": "MOCK-B"}
+            first = {**rows["MOCK-AB"], "activity_id": "MOCK-A-INDOOR",
+                     "status": "PENDING"}
+            second = {**rows["MOCK-BC"], "activity_id": "MOCK-INDOOR-C",
+                      "status": "PENDING"}
+            rows.update({a["activity_id"]: a for a in (indoor, first, second)})
+        else:
+            rows["MOCK-B"]["status"] = "DROPPED"
+            rows["MOCK-REST"]["end_time"] = "09:30"
+            rows["MOCK-C"].update(start_time="09:45", end_time="10:15")
+            if same_place:
+                rows["MOCK-C"].update(start_time="09:30", end_time="10:00")
+            else:
+                rows["MOCK-AC"] = {
+                    **rows["MOCK-AB"], "activity_id": "MOCK-AC",
+                    "name": "MOCK A to C", "start_time": "09:30",
+                    "end_time": "09:45", "status": "PENDING",
+                }
+        days[0]["activities"] = sorted(rows.values(), key=lambda a: (a["start_time"], a["activity_id"]))
+        # Fresh proposal ID; the earlier generic fixture remains undecided.
+        proposal["proposal_id"] = str(uuid4())
+        proposal["type"] = "REPLACE_LOCATION" if rain else "EXTEND_REST"
+        proposal["options"][0]["proposed_days"] = days
+        proposal["options"][0]["estimated_end_time"] = "10:30" if rain else "10:15"
+        save_proposal(proposal, itinerary["user_id"])
+        return proposal
+
+    def test_rest_drop_keeps_old_travel_and_accept_replay_has_no_duplicate(self):
+        itinerary = self.route()
+        proposal = self.reroute_proposal(itinerary)
+        self.assertEqual(self.current(), itinerary)
+        response = self.decision(proposal)
+        self.assertEqual(response.status_code, 200, response.text)
+        saved = response.json()["itinerary"]
+        rows = {a["activity_id"]: a for a in saved["days"][0]["activities"]}
+        self.assertEqual(rows["MOCK-B"]["status"], "DROPPED")
+        self.assertEqual(rows["MOCK-AB"]["status"], "REPLACED")
+        self.assertEqual(rows["MOCK-BC"]["status"], "REPLACED")
+        self.assertEqual(rows["MOCK-AC"]["status"], "PENDING")
+        self.assertIsNone(rows["MOCK-AC"]["replaces_activity_id"])
+        original = {a["activity_id"]: a for a in itinerary["days"][0]["activities"]}
+        self.assertEqual(rows["MOCK-OA"], original["MOCK-OA"])
+        self.assertEqual(rows["MOCK-AB"], {**original["MOCK-AB"], "status": "REPLACED"})
+        self.assertEqual(saved["version"], itinerary["version"] + 1)
+        self.assertEqual(self.decision(proposal).json(), response.json())
+        self.assertEqual(self.current(), saved)
+        with store.connect() as db:
+            self.assertEqual(db.execute("SELECT count(*) FROM activities WHERE activity_id = 'MOCK-AC'").fetchone()[0], 1)
+        with TestClient(create_app()) as restarted:
+            self.assertEqual(restarted.get("/api/v1/itineraries/current", headers=self.headers).json()["itinerary"], saved)
+
+    def test_rain_replacement_keeps_travel_history(self):
+        itinerary = self.route()
+        proposal = self.reroute_proposal(itinerary, rain=True)
+        response = self.decision(proposal)
+        self.assertEqual(response.status_code, 200, response.text)
+        rows = {a["activity_id"]: a for a in response.json()["itinerary"]["days"][0]["activities"]}
+        for activity_id in ("MOCK-B", "MOCK-AB", "MOCK-BC"):
+            self.assertEqual(rows[activity_id]["status"], "REPLACED")
+        self.assertEqual(rows["MOCK-INDOOR"]["replaces_activity_id"], "MOCK-B")
+        for activity_id in ("MOCK-A-INDOOR", "MOCK-INDOOR-C"):
+            self.assertEqual(rows[activity_id]["status"], "PENDING")
+        active = [a["activity_id"] for a in rows.values() if a["status"] in ("PENDING", "DONE")]
+        self.assertNotIn("MOCK-AB", active)
+        self.assertNotIn("MOCK-BC", active)
+        self.assertEqual(self.current(), response.json()["itinerary"])
+        self.assertEqual(self.decision(proposal).json(), response.json())
+
+    def test_reject_rest_and_rain_leave_route_unchanged(self):
+        itinerary = self.route()
+        for rain in (False, True):
+            proposal = self.reroute_proposal(itinerary, rain=rain)
+            rejected = self.decision(proposal, "REJECT")
+            self.assertEqual(rejected.status_code, 200, rejected.text)
+            self.assertEqual(rejected.json()["itinerary"], itinerary)
+            self.assertEqual(self.current(), itinerary)
+            self.assertEqual(self.decision(proposal, "REJECT").json(), rejected.json())
+
+    def test_reschedule_keeps_travel_ids(self):
+        itinerary = self.route()
+        proposal = self.proposal(itinerary)
+        days = copy.deepcopy(itinerary["days"])
+        for activity in days[0]["activities"]:
+            if activity["activity_id"] == "MOCK-AB":
+                activity.update(start_time="09:01", end_time="09:14")
+        proposal["proposal_id"] = str(uuid4())
+        proposal["options"][0]["proposed_days"] = days
+        save_proposal(proposal, itinerary["user_id"])
+        response = self.decision(proposal)
+        self.assertEqual(response.status_code, 200, response.text)
+        ids = [a["activity_id"] for a in response.json()["itinerary"]["days"][0]["activities"]]
+        self.assertEqual(set(ids), {a["activity_id"] for a in itinerary["days"][0]["activities"]})
+
+    def test_no_one_to_one_travel_replacement_required(self):
+        itinerary = self.route()
+        with store.connect() as db, db:
+            db.execute("UPDATE activities SET place_id = 'MOCK-A' WHERE activity_id = 'MOCK-C'")
+        itinerary = self.current()
+        proposal = self.reroute_proposal(itinerary, same_place=True)
+        response = self.decision(proposal)
+        self.assertEqual(response.status_code, 200, response.text)
+        rows = response.json()["itinerary"]["days"][0]["activities"]
+        pending_travel = [a for a in rows if a["type"] == "TRAVEL" and a["status"] == "PENDING"]
+        self.assertEqual(pending_travel, [])
+
+    def test_pending_travel_cannot_be_dropped_and_done_cannot_change(self):
+        itinerary = self.route()
+        for activity_id, change in (
+            ("MOCK-AB", {"status": "DROPPED"}),
+            ("MOCK-OA", {"status": "REPLACED"}),
+            ("MOCK-OA", {"end_time": "08:16"}),
+            ("MOCK-AB", {"start_time": "09:01"}),
+        ):
+            proposal = self.reroute_proposal(itinerary)
+            for activity in proposal["options"][0]["proposed_days"][0]["activities"]:
+                if activity["activity_id"] == activity_id:
+                    activity.update(change)
+            proposal["proposal_id"] = str(uuid4())
+            save_proposal(proposal, itinerary["user_id"])
+            response = self.decision(proposal)
+            self.assertEqual(response.status_code, 409, response.text)
+            self.assertEqual(response.json()["code"], "PROPOSAL_NO_LONGER_VALID")
+            self.assertEqual(self.current(), itinerary)
+
+    def test_reroute_failure_rolls_back_new_travel_and_history(self):
+        itinerary = self.route()
+        proposal = self.reroute_proposal(itinerary)
+        with store.connect() as db, db:
+            db.execute("CREATE TRIGGER fail_route BEFORE UPDATE OF decision ON adapt_proposals BEGIN SELECT RAISE(ABORT, 'forced failure'); END")
+        self.assertEqual(self.decision(proposal).status_code, 500)
+        self.assertEqual(self.current(), itinerary)
+        with store.connect() as db, db:
+            self.assertIsNone(db.execute("SELECT 1 FROM activities WHERE activity_id = 'MOCK-AC'").fetchone())
+            db.execute("DROP TRIGGER fail_route")
+        self.assertEqual(self.decision(proposal).status_code, 200)
+
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
