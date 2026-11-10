@@ -1,5 +1,4 @@
 import json
-import os
 import sqlite3
 from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
@@ -9,18 +8,12 @@ from uuid import uuid4
 ROOT = Path(__file__).resolve().parent
 
 
-def database_path():
-    configured = os.environ.get("DATABASE_PATH")
-    return Path(configured).resolve() if configured else ROOT / "data" / "app.sqlite"
-
-
 @contextmanager
 def connect():
-    path = database_path()
-    path.parent.mkdir(parents=True, exist_ok=True)
-    db = sqlite3.connect(path, timeout=15)
+    from auth import connect as auth_connect
+    db = auth_connect()
     db.row_factory = sqlite3.Row
-    db.execute("PRAGMA foreign_keys = ON")
+    db.execute("PRAGMA busy_timeout = 15000")
     try:
         yield db
     finally:

@@ -23,13 +23,15 @@ def current_user(
     request: Request,
     credentials: Annotated[HTTPAuthorizationCredentials | None, Depends(bearer)],
 ):
-    if credentials is None:
-        raise APIError(401, "AUTH_REQUIRED", "Vui lòng đăng nhập.")
-    # Đăng supplies a synchronous token -> user_id resolver after session validation.
-    resolver = request.app.state.resolve_user_id
-    if resolver is None:
-        raise APIError(503, "SERVER_ERROR", "Phần xác thực đang chờ tích hợp.")
-    return resolver(credentials.credentials)
+    import auth
+    from fastapi.responses import JSONResponse
+    import json
+    result = auth.session_response(credentials)
+    if isinstance(result, JSONResponse):
+        body = json.loads(result.body)
+        raise APIError(result.status_code, body["code"], body["message"])
+    return result["user_id"]
+
 
 
 class DraftInput(BaseModel):
