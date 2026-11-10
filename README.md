@@ -157,6 +157,7 @@ Kết quả mong đợi là **Kết nối backend thành công! Status: ok**.
 
 ## Dữ liệu địa điểm và API gợi ý F01
 
+- [Bộ bàn giao 10/11: tuyến 3/4 ngày, ba ca MOCK, nguồn và phần còn thiếu](docs/DATASET-HANDOFF-BAO04.md).
 - [Hướng dẫn phần việc Bảo 04, chạy thử trên Mac và các bước bàn giao](docs/F01-HUONG-DAN-BAO04.md).
 - [Hợp đồng F01 và các chi tiết dữ liệu còn là đề xuất](docs/api/f01.md).
 - [Nguồn, trạng thái dữ liệu và bộ kiểm thử MOCK](backend/data/README.md).

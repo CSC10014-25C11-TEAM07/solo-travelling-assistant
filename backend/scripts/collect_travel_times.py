@@ -61,7 +61,8 @@ def main():
                          "to_place_id": destination,
                          "duration_minutes": math.ceil(trip["summary"]["time"] / 60),
                          "source_url": str(response.request.url), "checked_at": checked,
-                         "data_status": "SOURCED"})
+                         # A successful routing response does not verify endpoint identity.
+                         "data_status": "UNVERIFIED"})
             evidence.append({"from_place_id": origin, "to_place_id": destination,
                              "summary": trip["summary"], "costing": "motorcycle",
                              "provider": "Valhalla FOSSGIS demo / OpenStreetMap",

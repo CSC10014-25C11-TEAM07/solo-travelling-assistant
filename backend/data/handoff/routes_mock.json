@@ -1,0 +1,151 @@
+[
+  {
+    "route_id": "MOCK-3D",
+    "data_status": "MOCK",
+    "snapshot": "fixtures/current_v1_3day.json",
+    "catalog": "fixtures/mock",
+    "target_ids": {
+      "day_id": "MOCK3D-DAY-2",
+      "rest_activity_id": "MOCK3D-REST",
+      "rain_activity_id": "MOCK3D-A03",
+      "preferred_keep_activity_id": "MOCK3D-A04"
+    },
+    "days": [
+      {
+        "day_id": "MOCK3D-DAY-1",
+        "day_number": 1,
+        "start_place_id": "MOCK-HCM",
+        "end_place_id": "MOCK-END",
+        "start_time": "06:00",
+        "end_deadline": "17:00",
+        "place_sequence": [
+          "MOCK-HCM",
+          "MOCK-ROAD-REST",
+          "MOCK-END"
+        ],
+        "visit_place_ids": []
+      },
+      {
+        "day_id": "MOCK3D-DAY-2",
+        "day_number": 2,
+        "start_place_id": "MOCK-END",
+        "end_place_id": "MOCK-END",
+        "start_time": "07:45",
+        "end_deadline": "16:30",
+        "place_sequence": [
+          "MOCK-END",
+          "MOCK-GA",
+          "MOCK-TEMPLE",
+          "MOCK-REST",
+          "MOCK-A03",
+          "MOCK-A04",
+          "MOCK-END"
+        ],
+        "visit_place_ids": [
+          "MOCK-GA",
+          "MOCK-TEMPLE",
+          "MOCK-A03",
+          "MOCK-A04"
+        ]
+      },
+      {
+        "day_id": "MOCK3D-DAY-3",
+        "day_number": 3,
+        "start_place_id": "MOCK-END",
+        "end_place_id": "MOCK-HCM",
+        "start_time": "06:00",
+        "end_deadline": "18:00",
+        "place_sequence": [
+          "MOCK-END",
+          "MOCK-ROAD-REST",
+          "MOCK-HCM"
+        ],
+        "visit_place_ids": []
+      }
+    ]
+  },
+  {
+    "route_id": "MOCK-4D",
+    "data_status": "MOCK",
+    "snapshot": "fixtures/current_v1_4day.json",
+    "catalog": "fixtures/mock",
+    "target_ids": {
+      "day_id": "MOCK4D-DAY-2",
+      "rest_activity_id": "MOCK4D-REST",
+      "rain_activity_id": "MOCK4D-A03",
+      "preferred_keep_activity_id": "MOCK4D-A04"
+    },
+    "days": [
+      {
+        "day_id": "MOCK4D-DAY-1",
+        "day_number": 1,
+        "start_place_id": "MOCK-HCM",
+        "end_place_id": "MOCK-END",
+        "start_time": "06:00",
+        "end_deadline": "17:00",
+        "place_sequence": [
+          "MOCK-HCM",
+          "MOCK-ROAD-REST",
+          "MOCK-END"
+        ],
+        "visit_place_ids": []
+      },
+      {
+        "day_id": "MOCK4D-DAY-2",
+        "day_number": 2,
+        "start_place_id": "MOCK-END",
+        "end_place_id": "MOCK-END",
+        "start_time": "07:45",
+        "end_deadline": "16:30",
+        "place_sequence": [
+          "MOCK-END",
+          "MOCK-GA",
+          "MOCK-TEMPLE",
+          "MOCK-REST",
+          "MOCK-A03",
+          "MOCK-A04",
+          "MOCK-END"
+        ],
+        "visit_place_ids": [
+          "MOCK-GA",
+          "MOCK-TEMPLE",
+          "MOCK-A03",
+          "MOCK-A04"
+        ]
+      },
+      {
+        "day_id": "MOCK4D-DAY-3",
+        "day_number": 3,
+        "start_place_id": "MOCK-END",
+        "end_place_id": "MOCK-END",
+        "start_time": "08:00",
+        "end_deadline": "17:00",
+        "place_sequence": [
+          "MOCK-END",
+          "MOCK-CULTURE",
+          "MOCK-REST",
+          "MOCK-INDOOR",
+          "MOCK-END"
+        ],
+        "visit_place_ids": [
+          "MOCK-CULTURE",
+          "MOCK-INDOOR"
+        ]
+      },
+      {
+        "day_id": "MOCK4D-DAY-4",
+        "day_number": 4,
+        "start_place_id": "MOCK-END",
+        "end_place_id": "MOCK-HCM",
+        "start_time": "06:00",
+        "end_deadline": "18:00",
+        "place_sequence": [
+          "MOCK-END",
+          "MOCK-ROAD-REST",
+          "MOCK-HCM"
+        ],
+        "visit_place_ids": []
+      }
+    ]
+  }
+]

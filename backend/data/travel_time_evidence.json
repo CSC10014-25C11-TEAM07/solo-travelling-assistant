@@ -17,8 +17,10 @@
     },
     "costing": "motorcycle",
     "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
+    "checked_at": "2026-11-10T06:29:22.701577+00:00",
     "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
-    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/",
+    "review_note": "Đã đối chiếu truy vấn motorcycle, cặp tọa độ và cách làm tròn. VERIFIED áp dụng cho ước tính nguồn, không chứng nhận điều kiện đường hoặc giao thông thực tế."
   },
   {
     "from_place_id": "P005",
@@ -38,8 +40,10 @@
     },
     "costing": "motorcycle",
     "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
+    "checked_at": "2026-11-10T06:29:24.084666+00:00",
     "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
-    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/",
+    "review_note": "Đã đối chiếu truy vấn motorcycle, cặp tọa độ và cách làm tròn. VERIFIED áp dụng cho ước tính nguồn, không chứng nhận điều kiện đường hoặc giao thông thực tế."
   },
   {
     "from_place_id": "P005",
@@ -59,8 +63,10 @@
     },
     "costing": "motorcycle",
     "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
+    "checked_at": "2026-11-10T06:29:25.468755+00:00",
     "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
-    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/",
+    "review_note": "Đã đối chiếu truy vấn motorcycle, cặp tọa độ và cách làm tròn. VERIFIED áp dụng cho ước tính nguồn, không chứng nhận điều kiện đường hoặc giao thông thực tế."
   },
   {
     "from_place_id": "P008",
@@ -80,8 +86,10 @@
     },
     "costing": "motorcycle",
     "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
+    "checked_at": "2026-11-10T06:29:26.846600+00:00",
     "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
-    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/",
+    "review_note": "Đã đối chiếu truy vấn motorcycle, cặp tọa độ và cách làm tròn. VERIFIED áp dụng cho ước tính nguồn, không chứng nhận điều kiện đường hoặc giao thông thực tế."
   },
   {
     "from_place_id": "P008",
@@ -101,8 +109,10 @@
     },
     "costing": "motorcycle",
     "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
+    "checked_at": "2026-11-10T06:29:28.220590+00:00",
     "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
-    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/",
+    "review_note": "Đã đối chiếu truy vấn motorcycle, cặp tọa độ và cách làm tròn. VERIFIED áp dụng cho ước tính nguồn, không chứng nhận điều kiện đường hoặc giao thông thực tế."
   },
   {
     "from_place_id": "P009",
@@ -122,8 +132,10 @@
     },
     "costing": "motorcycle",
     "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
+    "checked_at": "2026-11-10T06:29:29.605218+00:00",
     "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
-    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/",
+    "review_note": "Đã đối chiếu truy vấn motorcycle, cặp tọa độ và cách làm tròn. VERIFIED áp dụng cho ước tính nguồn, không chứng nhận điều kiện đường hoặc giao thông thực tế."
   },
   {
     "from_place_id": "P001",
@@ -143,9 +155,10 @@
     },
     "costing": "motorcycle",
     "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
-    "checked_at": "2026-11-07T11:35:50.202853+00:00",
+    "checked_at": "2026-11-10T06:29:30.986505+00:00",
     "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
-    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/",
+    "review_note": "Đã đối chiếu truy vấn motorcycle, cặp tọa độ và cách làm tròn. VERIFIED áp dụng cho ước tính nguồn, không chứng nhận điều kiện đường hoặc giao thông thực tế."
   },
   {
     "from_place_id": "P010",
@@ -165,9 +178,10 @@
     },
     "costing": "motorcycle",
     "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
-    "checked_at": "2026-11-07T11:35:51.581393+00:00",
+    "checked_at": "2026-11-10T06:29:32.367459+00:00",
     "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
-    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/",
+    "review_note": "Đã đối chiếu truy vấn motorcycle, cặp tọa độ và cách làm tròn. VERIFIED áp dụng cho ước tính nguồn, không chứng nhận điều kiện đường hoặc giao thông thực tế."
   },
   {
     "from_place_id": "P010",
@@ -187,9 +201,10 @@
     },
     "costing": "motorcycle",
     "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
-    "checked_at": "2026-11-07T11:35:52.959913+00:00",
+    "checked_at": "2026-11-10T06:29:33.745341+00:00",
     "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
-    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/",
+    "review_note": "Đã đối chiếu truy vấn motorcycle, cặp tọa độ và cách làm tròn. VERIFIED áp dụng cho ước tính nguồn, không chứng nhận điều kiện đường hoặc giao thông thực tế."
   },
   {
     "from_place_id": "P005",
@@ -209,9 +224,10 @@
     },
     "costing": "motorcycle",
     "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
-    "checked_at": "2026-11-07T11:35:54.341641+00:00",
+    "checked_at": "2026-11-10T06:29:35.134035+00:00",
     "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
-    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/",
+    "review_note": "Đã đối chiếu truy vấn motorcycle, cặp tọa độ và cách làm tròn. VERIFIED áp dụng cho ước tính nguồn, không chứng nhận điều kiện đường hoặc giao thông thực tế."
   },
   {
     "from_place_id": "P009",
@@ -231,9 +247,10 @@
     },
     "costing": "motorcycle",
     "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
-    "checked_at": "2026-11-07T11:35:55.717292+00:00",
+    "checked_at": "2026-11-10T06:29:36.523421+00:00",
     "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
-    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/",
+    "review_note": "Đã đối chiếu truy vấn motorcycle, cặp tọa độ và cách làm tròn. VERIFIED áp dụng cho ước tính nguồn, không chứng nhận điều kiện đường hoặc giao thông thực tế."
   },
   {
     "from_place_id": "P011",
@@ -253,9 +270,10 @@
     },
     "costing": "motorcycle",
     "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
-    "checked_at": "2026-11-07T11:35:57.095980+00:00",
+    "checked_at": "2026-11-10T06:29:37.911876+00:00",
     "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
-    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/",
+    "review_note": "Đã đối chiếu truy vấn motorcycle, cặp tọa độ và cách làm tròn. VERIFIED áp dụng cho ước tính nguồn, không chứng nhận điều kiện đường hoặc giao thông thực tế."
   },
   {
     "from_place_id": "P011",
@@ -275,9 +293,10 @@
     },
     "costing": "motorcycle",
     "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
-    "checked_at": "2026-11-07T11:35:58.474162+00:00",
+    "checked_at": "2026-11-10T06:29:39.293623+00:00",
     "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
-    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/",
+    "review_note": "Đã đối chiếu truy vấn motorcycle, cặp tọa độ và cách làm tròn. VERIFIED áp dụng cho ước tính nguồn, không chứng nhận điều kiện đường hoặc giao thông thực tế."
   },
   {
     "from_place_id": "P008",
@@ -297,8 +316,147 @@
     },
     "costing": "motorcycle",
     "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
-    "checked_at": "2026-11-07T11:35:59.853085+00:00",
+    "checked_at": "2026-11-10T06:29:40.684612+00:00",
     "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
-    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/",
+    "review_note": "Đã đối chiếu truy vấn motorcycle, cặp tọa độ và cách làm tròn. VERIFIED áp dụng cho ước tính nguồn, không chứng nhận điều kiện đường hoặc giao thông thực tế."
+  },
+  {
+    "from_place_id": "H001",
+    "to_place_id": "R003",
+    "summary": {
+      "has_time_restrictions": true,
+      "has_toll": false,
+      "has_highway": false,
+      "has_ferry": false,
+      "min_lat": 10.779852,
+      "min_lon": 106.698116,
+      "max_lat": 11.557929,
+      "max_lon": 107.81215,
+      "time": 22775.414,
+      "length": 219.721,
+      "cost": 31500.128
+    },
+    "costing": "motorcycle",
+    "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
+    "checked_at": "2026-11-10T06:29:42.459273+00:00",
+    "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/",
+    "review_note": "Tọa độ R003 là ứng viên OSM Trần Phú chưa khớp số nhà 294A. Giữ UNVERIFIED, chưa dùng tự động."
+  },
+  {
+    "from_place_id": "R003",
+    "to_place_id": "H001",
+    "summary": {
+      "has_time_restrictions": true,
+      "has_toll": false,
+      "has_highway": false,
+      "has_ferry": false,
+      "min_lat": 10.779852,
+      "min_lon": 106.695984,
+      "max_lat": 11.557929,
+      "max_lon": 107.81215,
+      "time": 22946.906,
+      "length": 220.374,
+      "cost": 31835.533
+    },
+    "costing": "motorcycle",
+    "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
+    "checked_at": "2026-11-10T06:29:44.234257+00:00",
+    "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/",
+    "review_note": "Tọa độ R003 là ứng viên OSM Trần Phú chưa khớp số nhà 294A. Giữ UNVERIFIED, chưa dùng tự động."
+  },
+  {
+    "from_place_id": "R003",
+    "to_place_id": "P001",
+    "summary": {
+      "has_time_restrictions": false,
+      "has_toll": false,
+      "has_highway": false,
+      "has_ferry": false,
+      "min_lat": 11.540398,
+      "min_lon": 107.809878,
+      "max_lat": 11.952072,
+      "max_lon": 108.45423,
+      "time": 14172.821,
+      "length": 131.508,
+      "cost": 13936.886
+    },
+    "costing": "motorcycle",
+    "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
+    "checked_at": "2026-11-10T06:29:45.812510+00:00",
+    "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/",
+    "review_note": "Tọa độ R003 là ứng viên OSM Trần Phú chưa khớp số nhà 294A. Giữ UNVERIFIED, chưa dùng tự động."
+  },
+  {
+    "from_place_id": "P001",
+    "to_place_id": "R003",
+    "summary": {
+      "has_time_restrictions": false,
+      "has_toll": false,
+      "has_highway": false,
+      "has_ferry": false,
+      "min_lat": 11.540398,
+      "min_lon": 107.809878,
+      "max_lat": 11.952072,
+      "max_lon": 108.45423,
+      "time": 14152.161,
+      "length": 131.442,
+      "cost": 13941.551
+    },
+    "costing": "motorcycle",
+    "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
+    "checked_at": "2026-11-10T06:29:47.393945+00:00",
+    "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/",
+    "review_note": "Tọa độ R003 là ứng viên OSM Trần Phú chưa khớp số nhà 294A. Giữ UNVERIFIED, chưa dùng tự động."
+  },
+  {
+    "from_place_id": "P001",
+    "to_place_id": "P011",
+    "summary": {
+      "has_time_restrictions": false,
+      "has_toll": false,
+      "has_highway": false,
+      "has_ferry": false,
+      "min_lat": 11.938673,
+      "min_lon": 108.431576,
+      "max_lat": 11.94201,
+      "max_lon": 108.45423,
+      "time": 409.708,
+      "length": 3.168,
+      "cost": 610.056
+    },
+    "costing": "motorcycle",
+    "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
+    "checked_at": "2026-11-10T06:29:48.776944+00:00",
+    "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/",
+    "review_note": "Đã đối chiếu truy vấn motorcycle, cặp tọa độ và cách làm tròn. VERIFIED áp dụng cho ước tính nguồn, không chứng nhận điều kiện đường hoặc giao thông thực tế."
+  },
+  {
+    "from_place_id": "P011",
+    "to_place_id": "P001",
+    "summary": {
+      "has_time_restrictions": false,
+      "has_toll": false,
+      "has_highway": false,
+      "has_ferry": false,
+      "min_lat": 11.938521,
+      "min_lon": 108.433848,
+      "max_lat": 11.943118,
+      "max_lon": 108.45423,
+      "time": 371.98,
+      "length": 2.79,
+      "cost": 568.625
+    },
+    "costing": "motorcycle",
+    "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
+    "checked_at": "2026-11-10T06:29:50.165755+00:00",
+    "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/",
+    "review_note": "Đã đối chiếu truy vấn motorcycle, cặp tọa độ và cách làm tròn. VERIFIED áp dụng cho ước tính nguồn, không chứng nhận điều kiện đường hoặc giao thông thực tế."
   }
 ]

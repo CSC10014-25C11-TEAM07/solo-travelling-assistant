@@ -1,0 +1,73 @@
+[
+  {
+    "place_id": "H001",
+    "checked_at": "2026-11-10T06:29:21.568605+00:00",
+    "query_url": "https://photon.komoot.io/api/?q=B%C6%B0u+%C4%91i%E1%BB%87n+Trung+t%C3%A2m+S%C3%A0i+G%C3%B2n&limit=4&lat=10.8&lon=106.7",
+    "selected_feature": {
+      "type": "Feature",
+      "properties": {
+        "osm_type": "W",
+        "osm_id": 39514793,
+        "osm_key": "amenity",
+        "osm_value": "post_office",
+        "type": "house",
+        "housenumber": "2",
+        "name": "Bưu điện Trung tâm Sài Gòn",
+        "street": "Công trường Công xã Paris",
+        "locality": "Khu phố 3",
+        "district": "Sài Gòn",
+        "city": "Ho Chi Minh City",
+        "country": "Việt Nam",
+        "postcode": "71016",
+        "countrycode": "VN",
+        "extent": [
+          106.6996491,
+          10.7803417,
+          106.700393,
+          10.7796208
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.6999921,
+          10.7799557
+        ]
+      }
+    },
+    "coordinate_match_status": "NAME_AND_ADDRESS_MATCH",
+    "review_note": "Photon/OSM trả tên và số 2 Công trường Công xã Paris; chưa xác minh chỗ tập kết/đỗ xe ngoài thực tế."
+  },
+  {
+    "place_id": "R003",
+    "checked_at": "2026-11-10T06:29:21.568605+00:00",
+    "query_url": "https://photon.komoot.io/api/?q=T%C3%A2m+Ch%C3%A2u+B%E1%BA%A3o+L%E1%BB%99c&limit=4&lat=11.55&lon=107.8",
+    "selected_feature": {
+      "type": "Feature",
+      "properties": {
+        "osm_type": "N",
+        "osm_id": 4660437689,
+        "osm_key": "amenity",
+        "osm_value": "fast_food",
+        "type": "house",
+        "name": "Nhà hàng Tâm Châu",
+        "street": "Trần Phú",
+        "district": "B'Lao",
+        "county": "Phường B'Lao",
+        "state": "Lâm Đồng",
+        "country": "Việt Nam",
+        "postcode": "66456",
+        "countrycode": "VN"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          107.812434,
+          11.5405599
+        ]
+      }
+    },
+    "coordinate_match_status": "CANDIDATE",
+    "review_note": "OSM có tên Nhà hàng Tâm Châu trên Trần Phú nhưng chưa có số nhà 294A; không coi tọa độ đúng chi nhánh đã xác minh."
+  }
+]
