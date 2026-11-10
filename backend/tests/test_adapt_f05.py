@@ -14,7 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from adapt_f05 import AdaptEngine, AdaptError, Catalog, validate_candidate
 from adapt_f05.demo import demo_inputs
 from adapt_f05.engine import active, validate_snapshot
-from adapt_f05.handoff import to_api_v1
+from adapt_f05.handoff import prepare_proposal, to_api_v1, validate_stored_option
 from adapt_f05.ranking import GeminiRanker, MockRanker, RankingError, RuleRanker
 
 REST = {"type": "EXTEND_REST", "base_version": 1, "rest_activity_id": "REST", "rest_until": "15:00"}
@@ -45,6 +45,17 @@ class AdaptTests(unittest.TestCase):
         for c in result.candidates:
             self.assertTrue(validate_candidate(self.trip, c, self.catalog))
             self.assertEqual(self.activity("REST", c.proposed_days)["end_time"], "15:00")
+            dropped = c.dropped_ids[0]
+            self.assertEqual(self.activity(dropped, c.proposed_days), {**self.activity(dropped), "status": "DROPPED"})
+            retired_ids = ("TRAVEL-1", "TRAVEL-2") if dropped == "A03" else ("TRAVEL-2", "TRAVEL-3")
+            for aid in retired_ids:
+                self.assertEqual(self.activity(aid, c.proposed_days), {**self.activity(aid), "status": "REPLACED"})
+            self.assertEqual({t["activity_id"] for t in c.travel_changes if t["operation"] == "REPLACE"}, set(retired_ids))
+            added, = [t for t in c.travel_changes if t["operation"] == "ADD"]
+            expected_edge = ["MOCK-REST", "MOCK-A04"] if dropped == "A03" else ["MOCK-A03", "MOCK-END"]
+            self.assertEqual(added["after_edge"], expected_edge)
+            self.assertEqual(added["after"]["status"], "PENDING")
+            self.assertIsNone(added["after"]["replaces_activity_id"])
             for aid in ("A01", "A02"):
                 self.assertEqual(self.activity(aid), self.activity(aid, c.proposed_days))
             self.assertEqual(c.proposed_days[0], before["days"][0])
@@ -55,6 +66,35 @@ class AdaptTests(unittest.TestCase):
         self.assertEqual(len(result.candidates), 1)
         self.assertEqual(result.candidates[0].dropped_ids, [])
         self.assertEqual(result.candidates[0].estimated_end_time, "16:30")
+        legs = result.candidates[0].travel_changes
+        self.assertEqual({leg["activity_id"] for leg in legs}, {"TRAVEL-1", "TRAVEL-2", "TRAVEL-3"})
+        for leg in legs:
+            self.assertEqual(leg["operation"], "RESCHEDULE")
+            self.assertEqual(leg["before_edge"], leg["after_edge"])
+            self.assertEqual(leg["before"]["activity_id"], leg["after"]["activity_id"])
+
+    def test_repeated_edges_keep_each_leg_id_when_only_times_change(self):
+        day = self.trip["days"][1]
+        day["end_deadline"] = "19:00"
+        route = self.catalog.routes[day["day_id"]]
+        self.catalog.routes[day["day_id"]] = replace(route, end_deadline="19:00")
+        for pid in ("MOCK-A03", "MOCK-A04"):
+            self.catalog.places[pid]["opening_hours"]["weekly"]["fri"] = [{"start": "08:00", "end": "19:00"}]
+        self.catalog.travel_times[("MOCK-A04", "MOCK-A03")] = {
+            **self.catalog.travel_times[("MOCK-A03", "MOCK-A04")],
+            "from_place_id": "MOCK-A04", "to_place_id": "MOCK-A03",
+        }
+        self.activity("TRAVEL-3").update(start_time="18:00", end_time="18:15")
+        day["activities"].extend([
+            {**self.activity("TRAVEL-2"), "activity_id": "BACK", "start_time": "16:00", "end_time": "16:15"},
+            {**self.activity("A03"), "activity_id": "A03-B", "start_time": "16:15", "end_time": "17:00"},
+            {**self.activity("TRAVEL-2"), "activity_id": "TRAVEL-2B", "start_time": "17:00", "end_time": "17:15"},
+            {**self.activity("A04"), "activity_id": "A04-B", "start_time": "17:15", "end_time": "18:00"},
+        ])
+        option, = self.generate(REST | {"rest_until": "14:15"}).candidates
+        self.assertEqual({leg["operation"] for leg in option.travel_changes}, {"RESCHEDULE"})
+        for aid, expected in (("TRAVEL-2", "15:15"), ("TRAVEL-2B", "17:15")):
+            self.assertEqual(self.activity(aid, option.proposed_days)["start_time"], expected)
 
     def test_t08_return_leg_makes_rest_until_deadline_impossible(self):
         result = self.generate(REST | {"rest_until": "16:30"})
@@ -77,6 +117,9 @@ class AdaptTests(unittest.TestCase):
         edges = [t["after_edge"] for t in c.travel_changes if t["after_edge"]]
         self.assertIn(["MOCK-REST", "MOCK-INDOOR"], edges)
         self.assertIn(["MOCK-INDOOR", "MOCK-A04"], edges)
+        for aid in ("TRAVEL-1", "TRAVEL-2"):
+            self.assertEqual(self.activity(aid, c.proposed_days), {**self.activity(aid), "status": "REPLACED"})
+        self.assertEqual(self.activity("TRAVEL-3", c.proposed_days), self.activity("TRAVEL-3"))
 
     def test_t15_closed_only_candidate(self):
         self.catalog.places["MOCK-INDOOR"]["opening_hours"]["weekly"]["fri"] = []
@@ -104,6 +147,12 @@ class AdaptTests(unittest.TestCase):
     def test_done_after_target_kept_by_rejecting_unsupported_reorder(self):
         self.activity("A04").update(status="DONE", completed_at="2026-11-13T09:00:00Z")
         self.assert_code("NO_FEASIBLE_ITINERARY", lambda: self.generate())
+
+    def test_rain_cannot_rebuild_done_inbound_travel(self):
+        self.activity("TRAVEL-1").update(status="DONE", completed_at="2026-11-13T07:15:00Z")
+        before = deepcopy(self.trip)
+        self.assert_code("NO_FEASIBLE_ITINERARY", lambda: self.generate(RAIN))
+        self.assertEqual(self.trip, before)
 
     def test_stale_version_and_not_current(self):
         self.assert_code("STALE_ITINERARY", lambda: self.generate(REST | {"base_version": 2}))
@@ -328,9 +377,34 @@ class AdaptTests(unittest.TestCase):
                 raise AssertionError("AI must not be called")
         self.assertEqual(self.generate(REST | {"rest_until":"16:30"}, ranker=MustNotRun()).candidates, [])
 
-    def test_api_export_fails_closed_for_pending_travel_contract(self):
-        result = self.generate()
-        self.assert_code("INTEGRATION_NOT_READY", lambda: to_api_v1(result, self.trip, self.catalog))
+    def test_export_travel_and_revalidate_after_storage_round_trip(self):
+        for payload in (REST, RAIN):
+            with self.subTest(payload=payload):
+                public, stored = prepare_proposal(self.generate(payload), self.trip, self.catalog)
+                stored = json.loads(json.dumps(stored))
+                self.assertEqual(public["proposal_id"], stored["proposal_id"])
+                for preview, option in zip(public["options"], stored["options"], strict=True):
+                    self.assertEqual(preview, {k: v for k, v in option.items() if k != "_validation"})
+                    self.assertNotIn("_validation", preview)
+                    self.assertEqual({leg["operation"] for leg in preview["travel_changes"]} - {"RESCHEDULE"},
+                                     {"ADD", "REPLACE"})
+                    for leg in preview["travel_changes"]:
+                        if leg["operation"] == "REPLACE":
+                            self.assertIsNone(leg["after_edge"])
+                            self.assertEqual(leg["after"], {**leg["before"], "status": "REPLACED"})
+                    self.assertTrue(validate_stored_option(self.trip, option, self.catalog))
+                    self.assertFalse(validate_stored_option(self.trip, preview, self.catalog))
+
+    def test_stored_option_rejects_tampered_leg_and_newer_data(self):
+        _, stored = prepare_proposal(self.generate(RAIN), self.trip, self.catalog)
+        option, = stored["options"]
+        tampered = deepcopy(option)
+        leg = next(leg for leg in tampered["travel_changes"] if leg["operation"] == "ADD")
+        leg["after_edge"][0] = "UNKNOWN"
+        self.assertFalse(validate_stored_option(self.trip, tampered, self.catalog))
+        self.assertFalse(validate_stored_option({**self.trip, "version": 2}, option, self.catalog))
+        self.catalog.places["MOCK-INDOOR"]["opening_hours"]["weekly"]["fri"] = []
+        self.assertFalse(validate_stored_option(self.trip, option, self.catalog))
 
     def test_empty_proposal_can_be_exported_but_not_implicitly_saved(self):
         result = self.generate(REST | {"rest_until":"16:30"})

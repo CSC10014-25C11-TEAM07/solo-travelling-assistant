@@ -8,6 +8,6 @@ Chỉ sửa module này, test ADAPT và tài liệu ADAPT trong công việc F05
 
 Mặc định chạy rules hoặc mock; không gọi Gemini thật khi chưa được yêu cầu. Không ghi key, token hoặc dữ liệu tài khoản vào log/test fixture. Không coi adapter HTTP được mock là bằng chứng AI thật.
 
-Đầu ra hiện là F05_DOMAIN_PREVIEW_V1 nội bộ. Chưa có thống nhất về thay/xóa TRAVEL trong hợp đồng F05/F06. Không bỏ qua handoff.to_api_v1 hoặc tự đăng ký endpoint nhận ACCEPT. Cần Bảo 06/Leader chốt trước.
+Quy tắc TRAVEL ngày 10/11/2026: giữ chặng PENDING không còn dùng dưới trạng thái REPLACED, chặng mới PENDING, chặng cùng hai đầu giữ ID khi đổi giờ, chặng DONE giữ nguyên. `prepare_proposal` tạo bản công khai và bản lưu riêng cho F06. Chỉ backend dùng `_validation` trong bản lưu để kiểm tra lại. Bảo 06 phụ trách tích hợp lưu và ACCEPT.
 
 Từ repo root chạy: `python -m unittest discover -s backend/tests -v`. Từ backend chạy: `python -m adapt_f05.demo --case rest --ranker mock`. Test mới phải bảo vệ bất biến nghiệp vụ, không chỉ so output với chính hàm đang kiểm thử.

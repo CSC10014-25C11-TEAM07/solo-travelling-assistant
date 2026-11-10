@@ -1,5 +1,6 @@
 """Bounded, deterministic scheduling; the ranker never controls times or IDs."""
 
+from collections import defaultdict, deque
 from copy import deepcopy
 from datetime import date, timedelta
 from itertools import combinations
@@ -114,8 +115,6 @@ class AdaptEngine:
             if item["place_id"] is not None and item["place_id"] not in self.catalog.places:
                 raise AdaptError("DATA_INCOMPLETE", f"Hoạt động {item['activity_id']} tham chiếu điểm không tồn tại.")
         index = next(i for i, a in enumerate(ordered) if a["activity_id"] == target_id)
-        if any(a["status"] == "DONE" for a in ordered[index + 1:]):
-            raise AdaptError("NO_FEASIBLE_ITINERARY", "Có hoạt động DONE phía sau; bản đầu không dịch phần lịch này.")
         if isinstance(request, RestRequest):
             if minutes(request.rest_until) <= minutes(target["end_time"]):
                 raise AdaptError("VALIDATION_ERROR", "rest_until phải sau giờ kết thúc khoảng nghỉ đã chọn.")
@@ -128,6 +127,8 @@ class AdaptEngine:
             if self.catalog.place(target["place_id"]).get("environment") != "OUTDOOR":
                 raise AdaptError("VALIDATION_ERROR", "Đổi vì mưa chỉ nhận VISIT OUTDOOR trong bản đầu.")
             anchor_index = next((i for i in range(index - 1, -1, -1) if ordered[i]["type"] != "TRAVEL"), -1)
+        if any(a["status"] == "DONE" for a in ordered[anchor_index + 1:]):
+            raise AdaptError("NO_FEASIBLE_ITINERARY", "Phần cần tính lại có hoạt động DONE.")
         return day, target, route, ordered, anchor_index
 
     def generate(self, itinerary: dict, payload: dict) -> AdaptResult:
@@ -220,17 +221,18 @@ class AdaptEngine:
         rebuilt = prefix
         old_edges = self._travel_edges(ordered, route)
         suffix_travel = {a["activity_id"]: a for a in ordered[anchor_index + 1:] if a["type"] == "TRAVEL"}
-        reusable = {(edge[0], edge[1]): suffix_travel[aid] for aid, edge in old_edges.items() if aid in suffix_travel}
+        reusable = defaultdict(deque)
+        for aid, row in suffix_travel.items():
+            reusable[old_edges[aid]].append(row)
         new_edges = {a["activity_id"]: old_edges[a["activity_id"]] for a in prefix if a["type"] == "TRAVEL"}
-        consumed_ids = {a["activity_id"] for a in rebuilt}
 
         def travel_to(destination):
             nonlocal cursor, previous_place
             duration = self.catalog.travel(previous_place, destination)
             if duration:
-                old = reusable.get((previous_place, destination))
-                if old and old["activity_id"] not in consumed_ids:
-                    row = deepcopy(old)
+                matching = reusable.get((previous_place, destination))
+                if matching:
+                    row = deepcopy(matching.popleft())
                 else:
                     row = {"activity_id": str(uuid5(namespace, f"travel:{len(rebuilt)}:{previous_place}:{destination}")),
                            "day_id": day["day_id"], "type": "TRAVEL", "name": "Di chuyển theo chặng đã kiểm tra",
@@ -238,7 +240,6 @@ class AdaptEngine:
                            "replaces_activity_id": None, "completed_at": None}
                 row.update(start_time=clock(cursor), end_time=clock(cursor + duration))
                 new_edges[row["activity_id"]] = (previous_place, destination)
-                consumed_ids.add(row["activity_id"])
                 rebuilt.append(row)
                 cursor += duration
             previous_place = destination
@@ -271,6 +272,10 @@ class AdaptEngine:
         travel_to(route.end_place_id)
         if cursor > minutes(route.end_deadline):
             raise AdaptError("NO_FEASIBLE_ITINERARY", f"Đến điểm kết thúc lúc {clock(cursor)}, vượt hạn {route.end_deadline}.")
+        # Retired legs retain their original ID, times and metadata in history.
+        for aid, row in suffix_travel.items():
+            if aid not in new_edges:
+                preserved.append({**row, "status": "REPLACED"})
         proposed_days = deepcopy(itinerary["days"])
         changed_day = next(d for d in proposed_days if d["day_id"] == day["day_id"])
         changed_day["activities"] = sorted(rebuilt + preserved, key=lambda a: (a["start_time"], a["activity_id"]))
@@ -315,7 +320,13 @@ class AdaptEngine:
             if old == new:
                 continue
             if (old or new)["type"] == "TRAVEL":
-                travel.append({"activity_id": aid, "operation": "ADD" if old is None else "REMOVE" if new is None else "RESCHEDULE",
+                if old is None:
+                    operation = "ADD"
+                elif new["status"] == "REPLACED":
+                    operation = "REPLACE"
+                else:
+                    operation = "RESCHEDULE"
+                travel.append({"activity_id": aid, "operation": operation,
                                "before": deepcopy(old), "after": deepcopy(new),
                                "before_edge": list(old_edges[aid]) if aid in old_edges else None,
                                "after_edge": list(new_edges[aid]) if aid in new_edges else None})

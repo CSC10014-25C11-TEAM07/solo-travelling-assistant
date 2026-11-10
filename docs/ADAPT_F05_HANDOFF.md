@@ -1,21 +1,23 @@
 # ADAPT F05 - cơ chế, kiểm thử và bàn giao
 
-Solo Travelling Assistant | Nhật | 09/11/2026
+Solo Travelling Assistant | Nhật | Cập nhật 10/11/2026
 
 ## 1. Phần đã thực hiện
 
 Đã viết logic ADAPT cho hai tình huống: kéo dài khoảng nghỉ và thay điểm tham quan ngoài trời vì người dùng báo mưa. Python tạo, tính giờ và kiểm tra các phương án. AI chỉ chọn thứ tự và mã lý do từ những phương án đã hợp lệ.
 
-Đầu ra hiện là bản xem trước nội bộ `F05_DOMAIN_PREVIEW_V1`. Không có thao tác cập nhật SQLite, không tự tăng version, không tự áp dụng phương án. Nhóm đã chọn giữ code Bảo 06 và bàn giao logic cùng điểm ghép, thay vì sửa PR #16 của bạn ấy trong nhánh Nhật.
+Module tạo bản xem trước nội bộ `F05_DOMAIN_PREVIEW_V1` và xuất dữ liệu F05 theo quy tắc lưu chặng ngày 10/11. F05 tính và kiểm tra phương án. Bảo 06 tích hợp lưu đề xuất và áp dụng quyết định F06 trong SQLite.
 
 | Nội dung | Trạng thái thực tế |
 |---|---|
 | Hai ca ADAPT, tính lại giờ và chặng | Đã code và test bằng dữ liệu MOCK |
+| Xuất chặng đổi giờ, chặng cũ REPLACED và chặng mới PENDING | Đã chạy trên snapshot 3/4 ngày của PR #19 |
 | Bảo toàn DONE, lịch ngày khác và lịch nguồn | Đã test |
 | AI xếp ưu tiên, kiểm tra đầu ra, fallback | Đã test bằng AI giả lập |
 | Adapter gọi Gemini | Đã viết; kiểm tra HTTP bằng transport giả lập |
 | Gemini thật, bằng chứng token/latency thật | Chưa chạy vì nhóm chưa có key |
-| Lưu đề xuất, F06 ACCEPT/REJECT, idempotency | Thuộc Bảo 06; chưa ghép vào ứng dụng |
+| Lưu đề xuất và REJECT | Đã thử qua PR #16 với SQLite tạm. REJECT lặp giữ nguyên lịch |
+| F06 ACCEPT với thay chặng | PR #16 hiện trả 409. Cần Bảo 06 cập nhật validator |
 | Expo S04-S06 kết nối backend thật | Chưa kiểm thử đầu cuối |
 | PLAN F02 | Không triển khai trong phần ADAPT này |
 
@@ -35,7 +37,7 @@ Module là nhóm file cùng phụ trách một công việc. Module `backend/ada
 | catalog.py | Đọc dữ liệu, kiểm tra nhãn/nguồn, giờ mở cửa, chặng có hướng |
 | engine.py | Tìm phương án nghỉ/mưa, xếp giờ, tạo diff và kiểm tra lại |
 | ranking.py | Baseline dùng luật, MockRanker, GeminiRanker và kiểm tra JSON |
-| handoff.py | Chặn xuất API V1 khi chưa diễn đạt được thay đổi TRAVEL |
+| handoff.py | Xuất bản xem trước và dữ liệu riêng để F06 kiểm tra lại |
 | demo.py | Dựng ví dụ MOCK và cho chạy từ Terminal |
 | AGENTS.md | Nhắc kiểm tra PR trước code và giữ đúng phạm vi Nhật |
 
@@ -51,7 +53,7 @@ Luồng xử lý:
 
 Snapshot là bản dữ liệu lịch tại một thời điểm. Ví dụ version 1 có A03 còn PENDING; sau khi DONE, backend phải đọc version mới trước khi yêu cầu ADAPT. `deepcopy` tạo bản sao độc lập để việc tính thử không sửa đối tượng lịch đầu vào.
 
-Diff là bảng so sánh trước-sau. `changes` mô tả REST/VISIT theo các loại đã chốt; `travel_changes` mô tả riêng việc tính lại chặng trong kết quả nội bộ. Trường thứ hai chưa phải phần mở rộng đã được duyệt của API công khai.
+Diff là bảng so sánh trước và sau. `changes` mô tả REST/VISIT. `options[].travel_changes` mô tả chặng đổi giờ, chặng ngừng dùng và chặng mới cho S05. `proposed_days` chứa toàn bộ lịch và lịch sử sau khi áp dụng phương án.
 
 <!-- pagebreak -->
 
@@ -130,7 +132,7 @@ Fingerprint là mã SHA-256 đại diện nội dung. Thay đổi version, dữ 
 
 Catalog là lớp đọc dữ liệu, không ghi lại file Bảo 04. Chế độ VERIFIED chỉ nhận bản ghi VERIFIED có nguồn và thời điểm UTC; chế độ MOCK chỉ dùng MOCK. Không tự trộn dữ liệu hai chế độ. Dataset hiện có chưa đủ để chứng minh tính khả thi tuyến thật HCM-Da Lat.
 
-Nếu có DONE phía sau hoạt động đang muốn điều chỉnh, bản đầu từ chối sắp lại đoạn đó và nêu lý do. Không dịch DONE để lấy chỗ. Đây là giới hạn thuật toán bảo thủ cần được nêu khi demo.
+Nếu phần cần xếp lại chứa DONE, thuật toán từ chối phương án và nêu lý do. Ví dụ khi đổi điểm vì mưa, chặng đến điểm cũ đã DONE thì hệ thống cần biết vị trí hiện tại trước khi lập một chặng mới.
 
 <!-- pagebreak -->
 
@@ -181,7 +183,7 @@ cd backend
 .\.venv\Scripts\python.exe -X utf8 -m adapt_f05.demo --case rest --ranker mock
 ```
 
-Kết quả là JSON nội bộ. Đọc lần lượt: data_mode phải là MOCK; ranking.mode cho biết ai xếp thứ tự; candidates tối đa hai; proposed_days là bản xem trước; changes là phần REST/VISIT; travel_changes là phần chặng tính lại. candidates rỗng thì đọc no_option_reason và diagnostics để biết dữ liệu hoặc giới hạn nào gây loại.
+Kết quả demo là JSON nội bộ. `data_mode` là MOCK. `ranking.mode` cho biết cách xếp thứ tự. Mỗi candidate có lịch xem trước, thay đổi REST/VISIT và thay đổi chặng. Khi danh sách rỗng, đọc `no_option_reason` và `diagnostics` để biết vì sao.
 
 Demo mượn fixture ngày 2 của Bảo 04 và thêm hai ngày đệm MOCK để kiểm tra bảo toàn cấu trúc lịch 3 ngày. Hai ngày đệm không mô phỏng tuyến HCM-Da Lat. Test riêng cũng kiểm tra snapshot 4 ngày; không có nghĩa PLAN F02 đã được viết.
 
@@ -191,41 +193,43 @@ Lỗi thường gặp: chạy sai thư mục làm không import được adapt_f
 
 ## 8. Điểm ghép với Bảo 06 và Linh
 
-PR #16 đã có save_proposal và F06 decision. Nhật không sửa các file đó. Vướng mắc đã tái hiện: validate_preservation yêu cầu mọi activity_id cũ còn xuất hiện; apply_days chỉ INSERT/UPDATE, không xử lý chặng PENDING đã trở nên thừa.
+Ví dụ bỏ A04 làm hai chặng A03 → A04 và A04 → END chuyển sang `REPLACED`. Chặng A03 → END có ID mới và trạng thái `PENDING`. A04 là `VISIT` nên chuyển sang `DROPPED`. Chặng `DONE` và mọi ngày khác được bảo toàn.
 
-Ví dụ bỏ A04 cần thay A03-A04 và A04-END thành A03-END. Giữ cả hai TRAVEL cũ sẽ sai tuyến/giờ; đánh chúng DROPPED lại trái quy tắc DROP chỉ dành VISIT. Vì vậy không giả mạo loại thay đổi để vượt validator.
+| `travel_changes[].operation` | Dữ liệu trước và sau |
+|---|---|
+| `RESCHEDULE` | Cùng ID và cặp điểm đầu/cuối. `before` và `after` cho biết giờ cũ, mới |
+| `REPLACE` | Cùng ID và giờ cũ. `before.status=PENDING`, `after.status=REPLACED`. Cặp điểm cũ nằm trong `before_edge`, `after_edge=null` |
+| `ADD` | ID mới, `after.status=PENDING`, `before=null`. `after_edge=[from_place_id,to_place_id]` |
 
-Kết quả nội bộ mô tả đầy đủ before/after và điểm đầu/cuối của TRAVEL. `handoff.to_api_v1` trả INTEGRATION_NOT_READY nếu có các thay đổi này. Không đăng ký một API “chạy được” nhưng lưu sai. Đây là giới hạn tích hợp đã được người dùng đồng ý giữ để Bảo 06/Leader duyệt.
+`REPLACE` và `ADD` có thể xảy ra theo nhóm, ví dụ hai chặng cũ thành một chặng mới. Chặng mới để `replaces_activity_id=null`. Liên kết một-một qua trường này dành cho VISIT thay thế.
 
-Phương án đề nghị thống nhất, chưa tự áp dụng:
+1. F05 đọc CURRENT theo tài khoản rồi đóng giao dịch đọc trước khi gọi engine. Dùng `public, stored = prepare_proposal(result, itinerary, catalog)`, gọi `save_proposal(stored, user_id)` rồi trả `public`. Hai bản dùng cùng ID. Chỉ bản lưu chứa `_validation`.
+2. F06 tải option từ SQLite và gọi `validate_stored_option(itinerary, option, catalog)` với CURRENT và catalog mới. Hàm kiểm tra fingerprint và dựng lại lịch cùng diff bằng Python. Mobile gửi `proposal_id`, `decision` và `option_id` theo API quyết định.
+3. Bảo 06 cập nhật `validate_preservation` để chấp nhận TRAVEL PENDING → REPLACED khi dòng cũ chỉ đổi trạng thái. Giữ ràng buộc một VISIT thay thế cho VISIT cũ. `apply_days` có thể lưu các dòng giữ lịch sử và thêm chặng mới với schema hiện tại. Khi ghép, giữ quyết định, lịch và bước tăng version trong một giao dịch.
+4. Linh dùng `travel_changes` để dựng so sánh S05 theo các cặp điểm trước và sau. Khi tải lại CURRENT ở S06/S03, hiển thị `PENDING`/`DONE` trong tuyến hiện hành và để `REPLACED`/`DROPPED` trong lịch sử. S05/S06 hiện dùng cấu trúc mock riêng, cần nối adapter API có xác thực.
 
-1. Quy định rõ việc hủy/thay chặng PENDING là dữ liệu lịch tính lại, tách khỏi DROP VISIT. Chọn cách biểu diễn trong API hoặc bảng diff hiển thị; Leader/Bảo 06/Linh cùng xác nhận.
-2. Lưu snapshot và metadata kiểm tra nội bộ của candidate cùng proposal; frontend vẫn chỉ quyết định bằng proposal_id/option_id.
-3. F06 kiểm tra owner/current/version, đọc dataset mới và gọi validator từ snapshot tin cậy.
-4. Trong cùng transaction, xử lý các TRAVEL thừa đã duyệt, lưu lịch mới, tăng version một lần và lưu kết quả quyết định. Không sửa DONE hoặc lịch sử VISIT.
-5. Khi tạo F05, đọc lịch rồi đóng kết nối trước khi gọi AI. Chỉ mở giao dịch lưu sau khi có kết quả, kiểm tra version lại tại thời điểm lưu.
-6. Linh lấy diff đã thống nhất để hiển thị trước-sau, điểm xuất phát dự kiến và lý do/đánh đổi; thao tác xem/từ chối không tự đổi CURRENT.
+PR #16 tại `1fc48eb` lưu được đề xuất và REJECT giữ nguyên lịch. ACCEPT của T06/T13 trả `409 PROPOSAL_NO_LONGER_VALID` vì validator chỉ chấp nhận VISIT chuyển sang REPLACED. PR #18 tại `516d315` tập trung auth và S01–S03. Kiểm tra merge thử giữa #16 và #18 thấy xung đột `backend/main.py`, `backend/requirements.txt` và `mobile/src/app/index.tsx`. Các chủ PR cần thống nhất trước khi chạy toàn luồng.
 
-Bảo 04 cần bàn giao cấu hình RouteDay, dữ liệu VERIFIED và đủ chặng. Bảo 06 sở hữu persistence và quyền truy cập. Nhật sở hữu thuật toán và validator. Tân chạy lại toàn luồng khi ghép. Không chép đè code của nhau để làm demo nhanh.
+PR #19 tại `0682f3a` cung cấp snapshot 3/4 ngày và `handoff/routes_mock.json`. Dùng `target_ids` của từng tuyến để ánh xạ REST, điểm ngoài trời và điểm ưu tiên. Tạo `RouteDay` từ `day_id`, `start_place_id`, `end_place_id`, `start_time` và `end_deadline`. T15 dùng catalog `fixtures/mock-no-replacement`. Phiên bản manifest phục vụ báo cáo. `Catalog.version` là fingerprint kiểm tra dữ liệu lúc áp dụng.
 
 <!-- pagebreak -->
 
 ## 9. Kiểm thử, tiêu chí đạt và nguồn
 
-Kết quả đã chạy: 69 test đạt, gồm 46 test ADAPT/AI adapter mới và 23 test auth/F01 hiện có. Python 3.12, môi trường kiểm tra riêng; mọi dữ liệu và lời gọi AI thử nghiệm là MOCK. Kết quả này không thay thế benchmark 60 ca toàn hệ thống hoặc kiểm thử trên Expo Go.
+Đã chạy 72 test backend, gồm 49 test ADAPT và 23 test auth/F01. T06/T08/T13/T15 qua cả snapshot 3 và 4 ngày của PR #19. Chi tiết kết quả ghép thử F06 nằm trong `docs/testing/adapt-f05-results.md`.
 
 | Yêu cầu từ tài liệu Leader | Bằng chứng trong phần Nhật |
 |---|---|
-| T06: nghỉ thêm, đưa phương án bỏ hoạt động | Hai phương án kết thúc 16:15, giữ DONE |
+| T06: nghỉ thêm, đưa phương án bỏ hoạt động | Hai phương án kết thúc 16:15. Mỗi phương án giữ hai chặng cũ REPLACED, thêm một chặng PENDING |
 | T08: không còn phương án | Nghỉ 16:30 vẫn cần về; trả lý do, không đổi nguồn |
-| T13: thay điểm mưa | Old REPLACED, new PENDING, replaces_activity_id đúng |
+| T13: thay điểm mưa | VISIT mới liên kết VISIT cũ. Hai chặng cũ REPLACED, hai chặng mới PENDING, về 16:15 |
 | T15: điểm trong nhà đóng cửa | Không bịa phương án thay thế |
 | Chuẩn dữ liệu mục 5-8 | Giờ mở cửa, thời lượng, hai hướng riêng, tổng REST và điểm cuối |
 | Chuẩn dữ liệu mục 9-11 | Tách MOCK/VERIFIED, không đổi DONE, bảo toàn ngày khác |
 | AI chỉ xếp ưu tiên | ID/mã lý do sai bị chặn; timeout/quota chuyển fallback hoặc lỗi rõ |
 | Kiểm tra lại trước lưu | Thay snapshot/dataset hoặc sửa lịch xem trước làm validator từ chối |
 
-Chưa nghiệm thu: quyền đọc/sửa lịch đầu cuối; transaction ACCEPT/REJECT; gửi lặp; khởi động lại app vẫn đọc lịch đã áp dụng; Gemini thật; dataset tuyến thật. Các nội dung này cần ghép Bảo 06/Linh/Đăng rồi Tân kiểm thử. Không đóng toàn bộ issue #5 chỉ vì test domain đã xanh.
+Còn chờ kiểm thử ACCEPT và ACCEPT lặp cho T06/T13 sau khi PR #16 cập nhật validator, cùng việc tải lại lịch trên Expo. Luồng thử dùng SQLite tạm, catalog MOCK và xếp hạng bằng luật. Gemini thật và tuyến nguồn cần kiểm chứng riêng.
 
 Trước lượt code tiếp theo: đọc PR đang mở trên GitHub, kiểm tra head/changed files của PR liên quan, git status và nhánh. Commit nhỏ, chỉ stage file ADAPT; không dùng git add . khi có thay đổi của người khác.
 
@@ -236,5 +240,7 @@ Nguồn chính:
 - Hợp đồng dữ liệu/F01/F03: https://docs.google.com/document/d/1iRtt03N4jdBgnBuNHrsQkMCoc_8LmmQpyfauP8qcs1Y/edit
 - Issue #5: https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/issues/5
 - PR #16 đã đối chiếu, head 1fc48eb: https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/pull/16
+- PR #18, auth và S01–S03: https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/pull/18
+- PR #19, dữ liệu bàn giao 3/4 ngày: https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/pull/19
 
 Không đọc thư mục BAI_NOP_MIDTERM trong công việc này. Tài liệu này giải thích một phần triển khai ADAPT, không thay báo cáo thiết kế toàn hệ thống hoặc yêu cầu chính thức của môn học.

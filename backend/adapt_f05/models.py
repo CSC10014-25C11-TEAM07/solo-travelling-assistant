@@ -46,8 +46,7 @@ class Candidate:
     replacement_place_id: str | None
     proposed_days: list[dict]
     changes: list[dict]
-    # Pending TRAVEL rows are derived scheduling data. Removing them needs a
-    # team-approved F05/F06 contract; do not disguise this as DROP of a VISIT.
+    # TRAVEL changes are separate from DROP/REPLACE_LOCATION for visits.
     travel_changes: list[dict]
     estimated_end_time: str
     dataset_version: str
@@ -55,10 +54,6 @@ class Candidate:
     facts: dict[str, str] = field(default_factory=dict)
     reason: str = ""
     tradeoff: str = ""
-
-    @property
-    def requires_travel_contract(self) -> bool:
-        return bool(self.travel_changes)
 
     def to_dict(self):
         return asdict(self)
