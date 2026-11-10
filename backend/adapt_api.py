@@ -58,8 +58,11 @@ def validate_preservation(db, itinerary, days):
                         raise ValueError("Original activity metadata changed")
                 if activity["status"] == "DROPPED" and (not before["is_optional"] or before["type"] != "VISIT"):
                     raise ValueError("Mandatory activity dropped")
-                if activity["status"] == "REPLACED" and before["type"] != "VISIT":
-                    raise ValueError("Only visits may be replaced")
+                if activity["status"] == "REPLACED" and before["type"] not in ("VISIT", "TRAVEL"):
+                    raise ValueError("Only visits and pending travel may be replaced")
+                if before["type"] == "TRAVEL" and activity["status"] == "REPLACED":
+                    if any(activity[key] != before[key] for key in ("start_time", "end_time")):
+                        raise ValueError("Replaced travel must retain its original times")
             else:
                 if activity["status"] != "PENDING" or activity["completed_at"] is not None:
                     raise ValueError("New activity must be pending")
@@ -69,8 +72,12 @@ def validate_preservation(db, itinerary, days):
                 if replaced is not None:
                     if replaced not in old or new[replaced]["status"] != "REPLACED":
                         raise ValueError("Invalid replacement")
+                    if activity["type"] != old[replaced]["type"]:
+                        raise ValueError("Replacement type must match")
         for activity in new.values():
-            if activity["status"] == "REPLACED" and activity["activity_id"] in old and old[activity["activity_id"]]["status"] == "PENDING":
+            # Travel rerouting may replace many old legs with a different number
+            # of new legs. The one-to-one rule applies only to replaced visits.
+            if activity["type"] == "VISIT" and activity["status"] == "REPLACED" and activity["activity_id"] in old and old[activity["activity_id"]]["status"] == "PENDING":
                 replacements = [item for item in new.values() if item["replaces_activity_id"] == activity["activity_id"]]
                 if len(replacements) != 1 or replacements[0]["type"] != "VISIT":
                     raise ValueError("A replaced visit requires one replacement")
