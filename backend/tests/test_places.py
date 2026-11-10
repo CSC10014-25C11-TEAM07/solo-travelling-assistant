@@ -173,9 +173,9 @@ class DataIntegrityTests(unittest.TestCase):
             with self.assertRaises(ValidationError):
                 leg(origin, destination, minutes)
 
-    def test_sourced_claim_requires_complete_information(self):
+    def test_verified_claim_requires_complete_information(self):
         with self.assertRaises(ValidationError):
-            place("A", ["culture"], "SOURCED")
+            place("A", ["culture"], "VERIFIED")
 
     def test_hours_reject_overlap_or_invalid_times(self):
         for intervals in (

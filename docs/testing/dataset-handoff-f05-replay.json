@@ -1,0 +1,106 @@
+{
+  "dataset_version": "bao04-handoff-2026-11-10-v1",
+  "consumer_pr": 17,
+  "consumer_commit": "311e94b639f47daecc39867ea561e4604238c1d0",
+  "scope": "Real PR #17 domain engine with RULE_BASELINE, no AI network call or F06 persistence; not app acceptance",
+  "results": [
+    {
+      "route_id": "MOCK-3D",
+      "test_id": "T06",
+      "catalog": "fixtures/mock",
+      "candidate_count": 2,
+      "estimated_ends": [
+        "16:15",
+        "16:15"
+      ],
+      "source_unchanged": true,
+      "done_and_other_days_preserved": true,
+      "candidate_snapshots_independently_audited": true,
+      "passed": true
+    },
+    {
+      "route_id": "MOCK-3D",
+      "test_id": "T08",
+      "catalog": "fixtures/mock",
+      "candidate_count": 0,
+      "estimated_ends": [],
+      "source_unchanged": true,
+      "done_and_other_days_preserved": true,
+      "candidate_snapshots_independently_audited": true,
+      "passed": true
+    },
+    {
+      "route_id": "MOCK-3D",
+      "test_id": "T13",
+      "catalog": "fixtures/mock",
+      "candidate_count": 1,
+      "estimated_ends": [
+        "16:15"
+      ],
+      "source_unchanged": true,
+      "done_and_other_days_preserved": true,
+      "candidate_snapshots_independently_audited": true,
+      "passed": true
+    },
+    {
+      "route_id": "MOCK-3D",
+      "test_id": "T15",
+      "catalog": "fixtures/mock-no-replacement",
+      "candidate_count": 0,
+      "estimated_ends": [],
+      "source_unchanged": true,
+      "done_and_other_days_preserved": true,
+      "candidate_snapshots_independently_audited": true,
+      "passed": true
+    },
+    {
+      "route_id": "MOCK-4D",
+      "test_id": "T06",
+      "catalog": "fixtures/mock",
+      "candidate_count": 2,
+      "estimated_ends": [
+        "16:15",
+        "16:15"
+      ],
+      "source_unchanged": true,
+      "done_and_other_days_preserved": true,
+      "candidate_snapshots_independently_audited": true,
+      "passed": true
+    },
+    {
+      "route_id": "MOCK-4D",
+      "test_id": "T08",
+      "catalog": "fixtures/mock",
+      "candidate_count": 0,
+      "estimated_ends": [],
+      "source_unchanged": true,
+      "done_and_other_days_preserved": true,
+      "candidate_snapshots_independently_audited": true,
+      "passed": true
+    },
+    {
+      "route_id": "MOCK-4D",
+      "test_id": "T13",
+      "catalog": "fixtures/mock",
+      "candidate_count": 1,
+      "estimated_ends": [
+        "16:15"
+      ],
+      "source_unchanged": true,
+      "done_and_other_days_preserved": true,
+      "candidate_snapshots_independently_audited": true,
+      "passed": true
+    },
+    {
+      "route_id": "MOCK-4D",
+      "test_id": "T15",
+      "catalog": "fixtures/mock-no-replacement",
+      "candidate_count": 0,
+      "estimated_ends": [],
+      "source_unchanged": true,
+      "done_and_other_days_preserved": true,
+      "candidate_snapshots_independently_audited": true,
+      "passed": true
+    }
+  ]
+}

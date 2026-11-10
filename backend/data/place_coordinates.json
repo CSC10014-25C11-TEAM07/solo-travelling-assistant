@@ -64,5 +64,31 @@
     "checked_at": "2026-11-07T11:35:38.920867+00:00",
     "data_timestamp": "2026-11-07T11:01:08Z",
     "license": "ODbL-1.0"
+  },
+  {
+    "place_id": "H001",
+    "latitude": 10.7799557,
+    "longitude": 106.6999921,
+    "source_url": "https://www.openstreetmap.org/way/39514793",
+    "source_name": "Bưu điện Trung tâm Sài Gòn",
+    "reported_opening_hours": null,
+    "checked_at": "2026-11-10T06:29:21.568605+00:00",
+    "license": "ODbL-1.0",
+    "geocoder_source_url": "https://photon.komoot.io/api/",
+    "coordinate_match_status": "NAME_AND_ADDRESS_MATCH",
+    "match_note": "Photon/OSM trả tên và số 2 Công trường Công xã Paris; chưa xác minh chỗ tập kết/đỗ xe ngoài thực tế."
+  },
+  {
+    "place_id": "R003",
+    "latitude": 11.5405599,
+    "longitude": 107.812434,
+    "source_url": "https://www.openstreetmap.org/node/4660437689",
+    "source_name": "Nhà hàng Tâm Châu",
+    "reported_opening_hours": null,
+    "checked_at": "2026-11-10T06:29:21.568605+00:00",
+    "license": "ODbL-1.0",
+    "geocoder_source_url": "https://photon.komoot.io/api/",
+    "coordinate_match_status": "CANDIDATE",
+    "match_note": "OSM có tên Nhà hàng Tâm Châu trên Trần Phú nhưng chưa có số nhà 294A; không coi tọa độ đúng chi nhánh đã xác minh."
   }
 ]

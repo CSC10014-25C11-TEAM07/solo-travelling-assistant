@@ -2,7 +2,7 @@
   {
     "place_id": "P001",
     "name": "Ga Đà Lạt",
-    "area": "DALAT_CENTER",
+    "area": "DALAT",
     "interests": [
       "culture"
     ],
@@ -28,7 +28,7 @@
   {
     "place_id": "P002",
     "name": "Thiền viện Trúc Lâm",
-    "area": "TUYEN_LAM",
+    "area": "DALAT",
     "interests": [
       "nature",
       "culture"
@@ -55,7 +55,7 @@
   {
     "place_id": "P003",
     "name": "Hồ Xuân Hương",
-    "area": "DALAT_CENTER",
+    "area": "DALAT",
     "interests": [
       "nature"
     ],
@@ -81,7 +81,7 @@
   {
     "place_id": "P004",
     "name": "Vườn hoa thành phố Đà Lạt",
-    "area": "DALAT_CENTER",
+    "area": "DALAT",
     "interests": [
       "nature"
     ],
@@ -107,7 +107,7 @@
   {
     "place_id": "P005",
     "name": "Bảo tàng Lâm Đồng",
-    "area": "DALAT_CENTER",
+    "area": "DALAT",
     "interests": [
       "culture"
     ],
@@ -133,7 +133,7 @@
   {
     "place_id": "P006",
     "name": "Là Việt Coffee — Nguyễn Công Trứ",
-    "area": "DALAT_CENTER",
+    "area": "DALAT",
     "interests": [
       "coffee"
     ],
@@ -159,11 +159,11 @@
   {
     "place_id": "P007",
     "name": "Cơm Niêu Hương Việt",
-    "area": "DALAT_CENTER",
+    "area": "DALAT",
     "interests": [
       "food"
     ],
-    "environment": "UNKNOWN",
+    "environment": null,
     "visit_duration_minutes": null,
     "opening_hours": {
       "timezone": "Asia/Ho_Chi_Minh",
@@ -185,7 +185,7 @@
   {
     "place_id": "P008",
     "name": "Dinh III Bảo Đại",
-    "area": "DALAT_CENTER",
+    "area": "DALAT",
     "interests": [
       "culture"
     ],
@@ -211,7 +211,7 @@
   {
     "place_id": "P009",
     "name": "Biệt thự Hằng Nga — Crazy House",
-    "area": "DALAT_CENTER",
+    "area": "DALAT",
     "interests": [
       "culture"
     ],
@@ -237,11 +237,11 @@
   {
     "place_id": "P010",
     "name": "Still Cafe",
-    "area": "DALAT_CENTER",
+    "area": "DALAT",
     "interests": [
       "coffee"
     ],
-    "environment": "UNKNOWN",
+    "environment": null,
     "visit_duration_minutes": null,
     "opening_hours": {
       "timezone": "Asia/Ho_Chi_Minh",
@@ -298,11 +298,11 @@
   {
     "place_id": "P011",
     "name": "An Cafe",
-    "area": "DALAT_CENTER",
+    "area": "DALAT",
     "interests": [
       "coffee"
     ],
-    "environment": "UNKNOWN",
+    "environment": null,
     "visit_duration_minutes": null,
     "opening_hours": {
       "timezone": "Asia/Ho_Chi_Minh",
@@ -359,9 +359,9 @@
   {
     "place_id": "R001",
     "name": "Tâm Châu Lộc An",
-    "area": "LOC_AN",
+    "area": "EN_ROUTE",
     "interests": [],
-    "environment": "UNKNOWN",
+    "environment": null,
     "visit_duration_minutes": null,
     "opening_hours": {
       "timezone": "Asia/Ho_Chi_Minh",
@@ -383,9 +383,9 @@
   {
     "place_id": "R002",
     "name": "Tâm Châu Di Linh",
-    "area": "DI_LINH",
+    "area": "EN_ROUTE",
     "interests": [],
-    "environment": "UNKNOWN",
+    "environment": null,
     "visit_duration_minutes": null,
     "opening_hours": {
       "timezone": "Asia/Ho_Chi_Minh",
@@ -407,9 +407,9 @@
   {
     "place_id": "R003",
     "name": "Tâm Châu Bảo Lộc",
-    "area": "BAO_LOC",
+    "area": "EN_ROUTE",
     "interests": [],
-    "environment": "UNKNOWN",
+    "environment": null,
     "visit_duration_minutes": null,
     "opening_hours": {
       "timezone": "Asia/Ho_Chi_Minh",
@@ -426,6 +426,30 @@
     "image_url": null,
     "source_url": "https://tamchau.com/showroom/",
     "checked_at": "2026-11-07T11:09:37.849269+00:00",
+    "data_status": "UNVERIFIED"
+  },
+  {
+    "place_id": "H001",
+    "name": "Bưu điện Trung tâm Sài Gòn — mốc tập kết đề xuất",
+    "area": "HCMC",
+    "interests": [],
+    "environment": null,
+    "visit_duration_minutes": null,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": null,
+        "tue": null,
+        "wed": null,
+        "thu": null,
+        "fri": null,
+        "sat": null,
+        "sun": null
+      }
+    },
+    "image_url": null,
+    "source_url": "https://www.openstreetmap.org/way/39514793",
+    "checked_at": "2026-11-10T06:29:21.568605+00:00",
     "data_status": "UNVERIFIED"
   }
 ]

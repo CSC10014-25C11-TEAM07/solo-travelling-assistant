@@ -1,96 +1,73 @@
-# Dữ liệu địa điểm và chặng di chuyển F01
+# Dữ liệu địa điểm và tuyến mẫu
 
-Bộ đầu tiên cho issue #8, bám tên trường trong quyết định nhóm ngày 06/11/2026.
-Enum và cấu trúc giờ tuần là **đề xuất v0.1**, xem `docs/api/f01.md` trước khi nhập SQLite.
+Phiên bản **bao04-handoff-2026-11-10-v1**, áp dụng chuẩn dữ liệu Leader chốt 09/11.
+Đọc [hướng dẫn bàn giao](../../docs/DATASET-HANDOFF-BAO04.md) để biết bộ dùng cho từng ca,
+nguồn, cách reset và phần cần bổ sung. Hợp đồng HTTP F01 không đổi.
 
-## Nội dung hiện có
-
-| File | Nội dung |
+| File/thư mục | Nội dung |
 |---|---|
-| `places.json` | 14 ứng viên có nguồn: 11 điểm Đà Lạt và 3 chi nhánh Tâm Châu để khảo sát điểm nghỉ |
-| `travel_times.json` | 14 chặng có hướng giữa P001/P005/P008/P009/P010/P011; ước tính xe máy từ Valhalla |
-| `data_review.json` | Những trường đã đọc được, giờ nguồn báo và việc còn cần xác nhận cho từng điểm |
-| `sources.json` | Nguồn và cách gán thông tin cho từng nhóm trường |
-| `place_coordinates.json` | 6 tọa độ từ OSM để tái tạo các truy vấn chặng |
-| `travel_time_evidence.json` | Số giây/khoảng cách nguồn trả, phương thức lấy và cách làm tròn |
-| `fixtures/mock/` | 8 địa điểm và 10 chặng giả lập, ID có tiền tố MOCK |
-| `fixtures/current_v1_day2.json` | Trạng thái ngày 2 làm đầu vào kiểm thử, không phải JSON PLAN chính thức |
-| `fixtures/scenarios.json` | Đầu vào/kết quả mong đợi T06, T08, T13, T15 |
+| `places.json` | 15 hồ sơ có nguồn, đều UNVERIFIED; 11 trải nghiệm, 3 điểm nghỉ và mốc H001 |
+| `travel_times.json` | 20 chặng có hướng: 16 ước tính VERIFIED, 4 qua R003 còn UNVERIFIED |
+| `place_coordinates.json` | 8 tọa độ/ứng viên; R003 chưa khớp số nhà |
+| `travel_time_evidence.json` | Summary, checked_at UTC, query, phương thức/làm tròn và nhận xét rà soát |
+| `data_review.json`, `handoff/source_checks.json` | Trường thiếu, xung đột, ngày đọc thực tế và việc cần bổ sung |
+| `handoff/routes_source.json` | Tuyến nguồn 3/4 ngày; cả hai chưa đủ điều kiện lập lịch thật |
+| `handoff/routes_mock.json` | RouteDay và mapping ID cho snapshot MOCK 3/4 ngày |
+| `fixtures/current_v1_3day.json`, `current_v1_4day.json` | CURRENT MOCK đủ ngày đi/về, nghỉ và chặng, version 1 |
+| `fixtures/mock/` | 11 điểm/20 chặng MOCK cho nghỉ thêm và đổi mưa thành công |
+| `fixtures/mock-no-replacement/` | 11 điểm/20 chặng MOCK riêng cho ca không có điểm thay thế |
+| `fixtures/scenarios.json` | T06/T08/T13/T15, request, catalog và đường đi/kết quả mong đợi |
+| `fixtures/current_v1_day2.json` | Fixture ngày 2 cũ, giữ cho tương thích demo |
 
-## Trạng thái và giới hạn dữ liệu thật
+## Quy tắc dữ liệu
 
-14 địa điểm đều giữ **UNVERIFIED**: tên và một phần thông tin đã có nguồn,
-nhưng lịch từng thứ, thời lượng hoặc điều kiện tiếp cận còn thiếu/mâu thuẫn.
-Không chuyển sang SOURCED chỉ vì có một URL. `checked_at` là lúc đọc nguồn online,
-không phải ngày khảo sát tại chỗ. Không dùng 14 dòng này như một lịch thực tế đã xác minh.
+- Area chỉ có HCMC/DALAT/EN_ROUTE. Môi trường có INDOOR/OUTDOOR/MIXED.
+  Hồ sơ UNVERIFIED chưa rõ môi trường giữ null, không đoán là trong nhà.
+- VERIFIED/MOCK/UNVERIFIED thay nhãn SOURCED cũ. Có URL chưa đủ gắn VERIFIED.
+  16 chặng đã thực sự thu lại và rà query motorcycle, số giây/cách làm tròn.
+- Mọi địa điểm thật hiện vẫn UNVERIFIED: giờ tuần, thời lượng, tọa độ chi nhánh hoặc
+  điều kiện tiếp cận còn thiếu/mâu thuẫn. Không dùng như lịch thật đã nghiệm thu.
+- A→B và B→A độc lập; cùng ID hợp lệ là 0. Thiếu chặng không phải 0.
+- MOCK tách riêng; không dùng bù dữ liệu thực. `get_travel_time` cần opt-in cho MOCK.
+- T15 dùng catalog riêng: điểm INDOOR đóng cửa, quán còn lại MIXED. Không xóa điểm
+  đang được ngày khác tham chiếu hoặc dùng catalog T13 có quán INDOOR mở cửa.
+- min_rest_minutes là tổng REST mỗi ngày. 16:30 chỉ là hạn của ca demo ngày 2.
+- Restart backend sau khi đổi JSON để bỏ cache. F01 không gọi dịch vụ định tuyến.
 
-- F01 có thể gợi ý tên/nhãn đã tổng hợp từ nguồn. Phần tạo lịch thật phải xử lý dữ liệu thiếu.
-- Giờ nguồn báo được giữ ở `data_review.json`. Không tự sao chép một khoảng giờ chung sang 7 ngày.
-- P010 Still Cafe và P011 An Cafe có tag giờ tuần OSM; chuyển hai tag đơn giản này
-  thành 07:00–22:00 mỗi ngày và giữ tag gốc/URL. Chưa xác nhận ngoại lệ, khu có mái,
-  thời lượng nên vẫn UNVERIFIED. Không suy luận hai quán là điểm thay thế khi mưa.
-- Bảo tàng Lâm Đồng: trang liên hệ, trang trưng bày số và OSM có giờ khác nhau.
-  Trang trưng bày số còn có địa chỉ Hà Nội trong nội dung nên không dùng để chốt giờ.
-- Dinh III: cổng du lịch và OSM khác nhau về giờ nghỉ trưa/giờ đóng cửa.
-- Crazy House: cổng du lịch ghi mở 07:30; OSM ghi 08:30.
-- Điểm nghỉ Tâm Châu: là ứng viên từ website đơn vị, chưa xác nhận giờ, tiện ích,
-  khả năng dừng xe máy hoặc chiều tiếp cận. `interests: []` để không trộn vào thẻ gợi ý trải nghiệm.
-- `environment` và nhãn sở thích là phân loại đề xuất từ mô tả nguồn; cần rà phần thực sự có mái.
-- Tất cả ảnh là null; frontend dùng ảnh mặc định theo hợp đồng.
-- Chưa có đủ chặng HCM ⇄ Đà Lạt hoặc ma trận đủ cho mọi kết hợp địa điểm. Nhật cần chỉ rõ
-  các cặp còn thiếu từ lịch demo, rồi bổ sung có nguồn hoặc dùng bộ MOCK độc lập.
-
-## Quy tắc chặng
-
-- A→B và B→A là hai dòng độc lập. Không nhân đôi hoặc suy chiều ngược.
-- Cùng một ID đã tồn tại: 0 phút. Thiếu chặng: báo thiếu dữ liệu, không dùng 0.
-- `get_travel_time` chặn chặng UNVERIFIED và mặc định chặn MOCK; test phải chỉ rõ `allow_mock=True`.
-- Mười bốn chặng SOURCED lấy từ Valhalla/FOSSGIS public demo, profile **motorcycle**.
-  Thời gian là `ceil(summary.time / 60)`. Giữ số liệu thô trong evidence.
-- Đây là ước tính từ bản đồ/thuật toán, không bao gồm bảo đảm điều kiện đường,
-  giao thông thời gian thực, nghỉ hoặc khoảng đệm. Profile motorcycle của Valhalla được ghi beta.
-- Các tham số ưu tiên tránh đường lớn/thu phí không có nghĩa đã xác minh mọi đoạn đường.
-- App F01 không gọi máy chủ demo này. Script chỉ thu một số chặng để làm dữ liệu ngoại tuyến.
-
-## Kiểm tra và bổ sung
-
-Từ thư mục gốc repo:
+## Kiểm tra offline
 
 ```bash
 backend/.venv/bin/python backend/scripts/validate_places.py
 backend/.venv/bin/python backend/scripts/validate_places.py --data-dir backend/data/fixtures/mock
+backend/.venv/bin/python backend/scripts/validate_places.py --data-dir backend/data/fixtures/mock-no-replacement
+backend/.venv/bin/python backend/scripts/audit_data_handoff.py
 ```
 
-Khi bổ sung một điểm:
+Audit exit 0 xác nhận cấu trúc/kỳ vọng của bộ kiểm khớp. Tuyến thật báo riêng
+`ready_for_real_plan: false` và từng gap. Không sửa số liệu để ép tuyến thành khả thi.
 
-1. Giữ ID đã bàn giao; tạo ID mới cho điểm mới. A01–A04 là ID hoạt động, không phải place_id.
-2. Ghi nguồn và thời điểm đọc; đối chiếu lịch theo từng ngày và giờ nghỉ trưa.
-3. Cập nhật `data_review.json`, nêu rõ thông tin nào là ước tính hoặc chưa xác minh.
-4. Chỉ đổi SOURCED khi các trường cần thiết đã được đối chiếu; kiểm tra lại validator.
-5. Khởi động lại backend để bỏ cache catalog.
-
-Thu lại 14 chặng hiện có vào thư mục mới để review:
+## Thu thêm chặng
 
 ```bash
-backend/.venv/bin/python backend/scripts/collect_travel_times.py --output-dir /tmp/sta-routes-review
+backend/.venv/bin/python backend/scripts/collect_travel_times.py --pairs /tmp/f01-pairs.json --output-dir /tmp/sta-routes-review
 ```
 
-Script cần httpx trong `requirements-dev.txt`, không cần API key. Giới hạn một đợt nhỏ
-1–20 chặng, cách nhau ít nhất 1,2 giây, không tự retry. Lỗi nguồn thì dừng, không tạo
-thời gian giả. Dùng thư mục output mới; đối chiếu rồi mới thay dữ liệu bàn giao.
+Pairs chứa from_place_id/to_place_id; các ID cần tọa độ có nguồn. Chọn thư mục output
+mới. Script giới hạn đợt nhỏ 1–20 chặng, cách nhau 1,2 giây, không tự retry; lỗi nguồn
+thì dừng. Kết quả mới luôn UNVERIFIED để chờ rà đúng điểm, query và evidence rồi mới
+quyết định nhãn. Không chép đè bộ cũ bằng output chỉ chứa một chặng.
 
 ## Nguồn và ghi công
 
-- [Cổng du lịch Lâm Đồng](https://visitlamdong.vn/): dữ kiện cơ bản và thời lượng tham khảo;
-  giữ URL từng địa điểm trong dataset, không sao chép bài mô tả hoặc ảnh.
-- [Là Việt](https://laviet.coffee/tu-chung-toi/),
-  [Bảo tàng Lâm Đồng](https://baotanglamdong.com.vn/contact),
-  [Tâm Châu](https://tamchau.com/showroom/): thông tin do đơn vị công bố.
+- [Cổng du lịch Lâm Đồng](https://visitlamdong.vn/), [Là Việt](https://laviet.coffee/tu-chung-toi/),
+  [Bảo tàng Lâm Đồng](https://baotanglamdong.com.vn/contact), [Tâm Châu](https://tamchau.com/gioi-thieu/):
+  giữ URL từng điểm, không sao chép bài mô tả/ảnh. Ảnh trong catalog nguồn đều null.
 - © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), ODbL 1.0:
-  tọa độ, tag opening_hours trong evidence và mạng đường nền.
-  Giữ ghi công/điều kiện ODbL khi sử dụng hoặc phân phối phần dữ liệu bắt nguồn từ OSM.
-- [Valhalla](https://valhalla.github.io/valhalla/api/route/api-reference/) và
-  [FOSSGIS public demo](https://valhalla.github.io/valhalla/start/introduction/):
-  ước tính chặng. Bản này chỉ thực hiện lấy mẫu nhỏ, không cấu hình làm backend định tuyến cho người dùng.
+  tọa độ, tag giờ và mạng đường; giữ ghi công/điều kiện ODbL khi dùng hoặc phân phối.
+  [Photon](https://photon.komoot.io/) cung cấp geocoding OSM cho H001/R003.
+- [Valhalla route API](https://valhalla.github.io/valhalla/api/route/api-reference/):
+  motorcycle; ceil(summary.time/60). Public demo chỉ dùng lấy mẫu nhỏ, không làm
+  backend định tuyến cho người dùng.
 
-SOURCED không đồng nghĩa “cập nhật thời gian thực” hoặc “đã xác minh tuyến an toàn”.
+VERIFIED của ước tính không bảo đảm traffic, giờ đến thực tế hay quyền/độ an toàn đi
+xe máy từng đoạn. Bốn chặng qua tọa độ ứng viên R003 vẫn UNVERIFIED.
