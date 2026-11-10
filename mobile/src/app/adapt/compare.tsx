@@ -1,6 +1,7 @@
 import { router } from 'expo-router';
 import { Text, View } from 'react-native';
 import { useAdapt } from '@/features/adapt/context';
+import { previewTravelChanges, travelRouteName } from '@/features/adapt/model';
 import { Action, ChangePanel, Header, MockLabel, OptionPanels, Page, SectionTitle, PlacePhoto, palette, styles } from '@/features/adapt/ui';
 export default function CompareScreen() {
   const { trip, response, request, busy, error, choose, reject, isMock } = useAdapt();
@@ -25,6 +26,14 @@ export default function CompareScreen() {
             <Text style={{ color: palette.green, fontSize: 12 }}>⚖  <Text style={{ fontWeight: '800' }}>Đánh đổi:</Text> {proposal.tradeoff}</Text>
             <Text style={{ color: palette.green, fontSize: 12 }}>⚑  <Text style={{ fontWeight: '800' }}>Kết thúc dự kiến:</Text> {proposal.finish}</Text>
           </View>
+        </View>
+        <View style={{ backgroundColor: '#edf4e4', padding: 10, borderRadius: 12, gap: 4 }}>
+          <Text style={{ color: palette.green, fontWeight: '900' }}>Tuyến di chuyển trước / sau · {isMock ? 'MOCK' : 'F05'}</Text>
+          {previewTravelChanges(trip, proposal).length === 0
+            ? <Text style={styles.muted}>Chưa có dữ liệu chặng tương ứng từ F05; không suy đoán tuyến.</Text>
+            : previewTravelChanges(trip, proposal).map((change, i) => <Text key={i} style={styles.muted}>
+                {change.action === 'REPLACE' ? 'Trước (REPLACED)' : change.action === 'CREATE' ? 'Sau (PENDING)' : 'Đổi giờ (RESCHEDULE)'}: {change.after || change.before ? travelRouteName(trip, (change.after ?? change.before)!.from_place_id, (change.after ?? change.before)!.to_place_id) : 'Chưa có dữ liệu chặng'} · {change.action === 'RESCHEDULE' ? `${change.before?.start_time}–${change.before?.end_time} → ${change.after?.start_time}–${change.after?.end_time}` : `${(change.after ?? change.before)?.start_time}–${(change.after ?? change.before)?.end_time}`}
+              </Text>)}
         </View>
         <Action title={busy ? 'Đang áp dụng…' : 'Áp dụng phương án này'} disabled={busy} onPress={async () => { if (await choose(proposal)) router.replace('/adapt/result'); }}/>
       </View>;
