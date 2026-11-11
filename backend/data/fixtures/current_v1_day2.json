@@ -1,0 +1,122 @@
+{
+  "fixture_only": true,
+  "data_status": "MOCK",
+  "note": "Bộ dữ liệu ngày 2 để Nhật/Linh/Tân ghép kiểm thử; không phải hợp đồng JSON PLAN/ADAPT chính thức hoặc lịch 4 ngày hoàn chỉnh.",
+  "itinerary_id": "MOCK-CURRENT-V1",
+  "version": 1,
+  "status": "CURRENT",
+  "departure_date": "2026-11-12",
+  "return_date": "2026-11-15",
+  "day": {
+    "day_id": "MOCK-DAY-2",
+    "day_number": 2,
+    "date": "2026-11-13",
+    "end_deadline": "16:30"
+  },
+  "activities": [
+    {
+      "activity_id": "A01",
+      "day_id": "MOCK-DAY-2",
+      "type": "VISIT",
+      "name": "MOCK — Ga",
+      "place_id": "MOCK-GA",
+      "start_time": "08:00",
+      "end_time": "09:30",
+      "status": "DONE",
+      "is_optional": false,
+      "replaces_activity_id": null,
+      "completed_at": "2026-11-13T02:30:00Z"
+    },
+    {
+      "activity_id": "A02",
+      "day_id": "MOCK-DAY-2",
+      "type": "VISIT",
+      "name": "MOCK — Thiền viện",
+      "place_id": "MOCK-TEMPLE",
+      "start_time": "09:45",
+      "end_time": "12:00",
+      "status": "DONE",
+      "is_optional": false,
+      "replaces_activity_id": null,
+      "completed_at": "2026-11-13T05:00:00Z"
+    },
+    {
+      "activity_id": "REST",
+      "day_id": "MOCK-DAY-2",
+      "type": "REST",
+      "name": "MOCK — Nghỉ trưa",
+      "place_id": "MOCK-REST",
+      "start_time": "13:00",
+      "end_time": "14:00",
+      "status": "PENDING",
+      "is_optional": false,
+      "replaces_activity_id": null,
+      "completed_at": null
+    },
+    {
+      "activity_id": "TRAVEL-1",
+      "day_id": "MOCK-DAY-2",
+      "type": "TRAVEL",
+      "name": "MOCK — Đi A03",
+      "place_id": null,
+      "start_time": "14:00",
+      "end_time": "14:15",
+      "status": "PENDING",
+      "is_optional": false,
+      "replaces_activity_id": null,
+      "completed_at": null
+    },
+    {
+      "activity_id": "A03",
+      "day_id": "MOCK-DAY-2",
+      "type": "VISIT",
+      "name": "MOCK — Hồ",
+      "place_id": "MOCK-A03",
+      "start_time": "14:15",
+      "end_time": "15:00",
+      "status": "PENDING",
+      "is_optional": true,
+      "replaces_activity_id": null,
+      "completed_at": null
+    },
+    {
+      "activity_id": "TRAVEL-2",
+      "day_id": "MOCK-DAY-2",
+      "type": "TRAVEL",
+      "name": "MOCK — Đi A04",
+      "place_id": null,
+      "start_time": "15:00",
+      "end_time": "15:15",
+      "status": "PENDING",
+      "is_optional": false,
+      "replaces_activity_id": null,
+      "completed_at": null
+    },
+    {
+      "activity_id": "A04",
+      "day_id": "MOCK-DAY-2",
+      "type": "VISIT",
+      "name": "MOCK — Vườn hoa",
+      "place_id": "MOCK-A04",
+      "start_time": "15:15",
+      "end_time": "16:00",
+      "status": "PENDING",
+      "is_optional": true,
+      "replaces_activity_id": null,
+      "completed_at": null
+    },
+    {
+      "activity_id": "TRAVEL-3",
+      "day_id": "MOCK-DAY-2",
+      "type": "TRAVEL",
+      "name": "MOCK — Về điểm kết thúc",
+      "place_id": null,
+      "start_time": "16:00",
+      "end_time": "16:15",
+      "status": "PENDING",
+      "is_optional": false,
+      "replaces_activity_id": null,
+      "completed_at": null
+    }
+  ]
+}

@@ -1,0 +1,631 @@
+[
+  {
+    "place_id": "MOCK-GA",
+    "name": "MOCK — Ga minh họa",
+    "area": "DALAT",
+    "interests": [
+      "culture"
+    ],
+    "environment": "MIXED",
+    "visit_duration_minutes": 90,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "place_id": "MOCK-TEMPLE",
+    "name": "MOCK — Thiền viện minh họa",
+    "area": "DALAT",
+    "interests": [
+      "culture",
+      "nature"
+    ],
+    "environment": "MIXED",
+    "visit_duration_minutes": 135,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "place_id": "MOCK-REST",
+    "name": "MOCK — Điểm nghỉ minh họa",
+    "area": "DALAT",
+    "interests": [],
+    "environment": "INDOOR",
+    "visit_duration_minutes": 60,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "place_id": "MOCK-A03",
+    "name": "MOCK — Hồ minh họa",
+    "area": "DALAT",
+    "interests": [
+      "nature"
+    ],
+    "environment": "OUTDOOR",
+    "visit_duration_minutes": 45,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "place_id": "MOCK-A04",
+    "name": "MOCK — Vườn hoa minh họa",
+    "area": "DALAT",
+    "interests": [
+      "nature"
+    ],
+    "environment": "OUTDOOR",
+    "visit_duration_minutes": 45,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "place_id": "MOCK-INDOOR",
+    "name": "MOCK — Quán cà phê trong nhà minh họa",
+    "area": "DALAT",
+    "interests": [
+      "coffee"
+    ],
+    "environment": "INDOOR",
+    "visit_duration_minutes": 45,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "place_id": "MOCK-CLOSED",
+    "name": "MOCK — Bảo tàng đóng cửa minh họa",
+    "area": "DALAT",
+    "interests": [
+      "culture"
+    ],
+    "environment": "INDOOR",
+    "visit_duration_minutes": 45,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [],
+        "tue": [],
+        "wed": [],
+        "thu": [],
+        "fri": [],
+        "sat": [],
+        "sun": []
+      }
+    },
+    "image_url": null,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "place_id": "MOCK-END",
+    "name": "MOCK — Điểm kết thúc ngày minh họa",
+    "area": "DALAT",
+    "interests": [],
+    "environment": "INDOOR",
+    "visit_duration_minutes": 15,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "place_id": "MOCK-HCM",
+    "name": "MOCK — Mốc TP.HCM",
+    "area": "HCMC",
+    "interests": [],
+    "environment": "INDOOR",
+    "visit_duration_minutes": 15,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "place_id": "MOCK-ROAD-REST",
+    "name": "MOCK — Điểm nghỉ dọc tuyến",
+    "area": "EN_ROUTE",
+    "interests": [],
+    "environment": "INDOOR",
+    "visit_duration_minutes": 60,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "place_id": "MOCK-CULTURE",
+    "name": "MOCK — Điểm văn hóa ngày 3",
+    "area": "DALAT",
+    "interests": [
+      "culture"
+    ],
+    "environment": "OUTDOOR",
+    "visit_duration_minutes": 45,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "07:00",
+            "end": "18:00"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  }
+]

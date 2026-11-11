@@ -1,0 +1,15 @@
+{
+  "dataset_version": "bao04-handoff-2026-11-10-v1",
+  "standard_url": "https://docs.google.com/document/d/1aPJjNORsFIYY0XOlLE6LmhI6lv7sKjg6Up0Gcb-wvSY/edit",
+  "standard_date": "2026-11-09",
+  "source_routes": "handoff/routes_source.json",
+  "mock_routes": "handoff/routes_mock.json",
+  "scenarios": "fixtures/scenarios.json",
+  "source_mode": "UNVERIFIED routes; individually reviewed estimates retain their own labels",
+  "mock_mode": "Fully synthetic travel/hours, never substitute into the source catalog",
+  "s01_device_test": {
+    "status": "NOT_RUN",
+    "depends_on": "Hân PR #18 integrated backend/app build",
+    "checklist": "docs/testing/s01-f01-handoff.md"
+  }
+}

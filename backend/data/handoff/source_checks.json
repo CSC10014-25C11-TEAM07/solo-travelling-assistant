@@ -1,0 +1,114 @@
+{
+  "checked_at": "2026-11-10T06:43:02.344762+00:00",
+  "scope": "Ưu tiên điểm trong tuyến nguồn 3/4 ngày. Không phải xác minh onsite.",
+  "observations": [
+    {
+      "place_id": "P001",
+      "source_url": "https://visitlamdong.vn/vi/nhagadalat",
+      "found": {
+        "general_hours": "07:00–17:30",
+        "visit_duration_minutes": 90
+      },
+      "unresolved": [
+        "lịch theo từng thứ/ngày lễ",
+        "tiếp cận mốc tập kết và chặng tới nơi lưu trú"
+      ]
+    },
+    {
+      "place_id": "P005",
+      "source_url": "https://baotanglamdong.com.vn/contact",
+      "found": {
+        "general_hours": "07:30–17:30",
+        "address": "04 Hùng Vương"
+      },
+      "unresolved": [
+        "lịch tuần/nghỉ trưa khác OSM",
+        "thời lượng khu trưng bày"
+      ]
+    },
+    {
+      "place_id": "P008",
+      "source_url": "https://visitlamdong.vn/vi/dinhiii",
+      "found": {
+        "general_hours": "07:00–17:30",
+        "visit_duration_minutes": 60
+      },
+      "unresolved": [
+        "OSM tách nghỉ trưa 11:00–13:00 và đóng 17:00"
+      ]
+    },
+    {
+      "place_id": "P009",
+      "source_url": "https://visitlamdong.vn/vi/bietthuhangnga",
+      "found": {
+        "general_hours": "07:30–19:00",
+        "visit_duration_minutes": 60
+      },
+      "unresolved": [
+        "OSM mở 08:30; chưa chốt lịch theo thứ"
+      ]
+    },
+    {
+      "place_id": "P010",
+      "source_url": "https://visitlamdong.vn/vi/stillcafe",
+      "found": {
+        "general_hours": "07:00–22:00",
+        "address": "59 Nguyễn Trãi"
+      },
+      "unresolved": [
+        "thời lượng chuẩn",
+        "khu có mái",
+        "ngoại lệ/ngày lễ"
+      ]
+    },
+    {
+      "place_id": "P011",
+      "source_url": "https://www.openstreetmap.org/node/4206500720",
+      "found": {
+        "cached_weekly_hours": "07:00–22:00",
+        "last_successful_read": "2026-11-07"
+      },
+      "unresolved": [
+        "chưa đọc lại được OSM lượt 10/11",
+        "thời lượng",
+        "môi trường/ngoại lệ"
+      ]
+    },
+    {
+      "place_id": "R003",
+      "source_url": "https://tamchau.com/gioi-thieu/",
+      "found": {
+        "address_from_operator": "294A Trần Phú, Bảo Lộc"
+      },
+      "access_result": "trang trực tiếp 403; thông tin đơn vị còn có trong chỉ mục tìm kiếm",
+      "unresolved": [
+        "tọa độ geocoder chưa có số nhà",
+        "giờ và tiếp cận xe máy"
+      ]
+    },
+    {
+      "place_id": "H001",
+      "source_url": "https://www.openstreetmap.org/way/39514793",
+      "found": {
+        "photon_name": "Bưu điện Trung tâm Sài Gòn",
+        "photon_address": "2 Công trường Công xã Paris"
+      },
+      "unresolved": [
+        "đỗ xe/tập kết",
+        "giờ tiếp cận điểm đầu/cuối"
+      ]
+    }
+  ],
+  "network_limitations": [
+    "Hai truy vấn Overpass timeout; OSM API kết nối bị reset. Không tự điền thông tin không nhận được."
+  ],
+  "routing_batch": {
+    "profile": "motorcycle",
+    "count": 20,
+    "verified_estimates": 16,
+    "unverified_endpoint_estimates": 4,
+    "raw_evidence": "travel_time_evidence.json",
+    "rounding": "ceil(seconds/60)",
+    "limitations": "Không có traffic trực tiếp, thời gian nghỉ, buffer hay xác minh quyền đi xe máy từng đoạn đường."
+  }
+}
