@@ -1,0 +1,10 @@
+import React,{createContext,useContext,useState,useEffect} from 'react';
+import * as SecureStore from 'expo-secure-store';
+import {Platform} from 'react-native';
+const store={getItemAsync:async(k:string)=>Platform.OS==='web'?(typeof localStorage==='undefined'?null:localStorage.getItem(k)):SecureStore.getItemAsync(k),setItemAsync:async(k:string,v:string)=>{if(Platform.OS==='web'){if(typeof localStorage!=='undefined')localStorage.setItem(k,v)}else await SecureStore.setItemAsync(k,v)},deleteItemAsync:async(k:string)=>{if(Platform.OS==='web'){if(typeof localStorage!=='undefined')localStorage.removeItem(k)}else await SecureStore.deleteItemAsync(k)}};
+import {FormData,Trip,clearSavedTrip} from './api';
+type Context={ready:boolean;account:string|null;setAccount:(a:string|null)=>void;form:FormData;setForm:(f:FormData)=>void;trip:Trip|null;setTrip:(t:Trip|null)=>void;selectedIds:string[];setSelectedIds:(v:string[])=>void;clearSession:()=>Promise<void>};
+const C=createContext<Context|null>(null);
+export function PlanProvider({children}:{children:React.ReactNode}){const [form,setForm]=useState<FormData>({departure_date:'2026-12-10',return_date:'2026-12-13',departure_time:'06:00',min_rest_minutes:'60',interests:['nature']});const [trip,setTrip]=useState<Trip|null>(null);const [account,setAccount]=useState<string|null>(null);const [selectedIds,setSelectedIds]=useState<string[]>([]);const [ready,setReady]=useState(false);useEffect(()=>{setReady(true)},[]);const clearSession=async()=>{await clearSavedTrip();setAccount(null);setTrip(null);setSelectedIds([]);setForm({departure_date:'2026-12-10',return_date:'2026-12-13',departure_time:'06:00',min_rest_minutes:'60',interests:['nature']});};const updateTrip=(value:Trip|null)=>{setTrip(value);};return <C.Provider value={{ready,account,setAccount,form,setForm,trip,setTrip:updateTrip,selectedIds,setSelectedIds,clearSession}}>{children}</C.Provider>}
+export function usePlan(){const c=useContext(C);if(!c)throw Error('PlanProvider missing');return c}
+export const tripDays=(t:Trip)=>t.itinerary_days||t.days||[];
