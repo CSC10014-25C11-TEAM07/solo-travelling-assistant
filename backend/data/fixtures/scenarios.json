@@ -1,0 +1,183 @@
+[
+  {
+    "test_id": "T06",
+    "data_status": "MOCK",
+    "reset_to": "current_v1_day2.json",
+    "trigger": {
+      "type": "EXTEND_REST",
+      "base_version": 1,
+      "rest_activity_id": "REST",
+      "rest_until": "15:00",
+      "preferred_keep_activity_id": "A04"
+    },
+    "expected": {
+      "viewing_keeps_version": 1,
+      "keep_both_end": "17:15",
+      "proposal_A": {
+        "drop": "A03",
+        "keep": "A04",
+        "end": "16:15"
+      },
+      "proposal_B": {
+        "keep": "A03",
+        "drop": "A04",
+        "end": "16:15"
+      },
+      "reject_rest": [
+        "13:00",
+        "14:00"
+      ],
+      "accept_rest": [
+        "13:00",
+        "15:00"
+      ],
+      "preserve": [
+        "A01",
+        "A02",
+        "return_date"
+      ]
+    },
+    "catalog": "fixtures/mock",
+    "departure_place_id": "MOCK-REST",
+    "end_place_id": "MOCK-END",
+    "date": "2026-11-13",
+    "end_deadline": "16:30",
+    "checked_paths": [
+      {
+        "path_id": "keep-both",
+        "visit_place_ids": [
+          "MOCK-A03",
+          "MOCK-A04"
+        ],
+        "departure_time": "15:00",
+        "expected_arrival": "17:15",
+        "expected_feasible": false
+      },
+      {
+        "path_id": "drop-A03",
+        "visit_place_ids": [
+          "MOCK-A04"
+        ],
+        "departure_time": "15:00",
+        "expected_arrival": "16:15",
+        "expected_feasible": true
+      },
+      {
+        "path_id": "drop-A04",
+        "visit_place_ids": [
+          "MOCK-A03"
+        ],
+        "departure_time": "15:00",
+        "expected_arrival": "16:15",
+        "expected_feasible": true
+      }
+    ]
+  },
+  {
+    "test_id": "T08",
+    "data_status": "MOCK",
+    "reset_to": "current_v1_day2.json",
+    "trigger": {
+      "type": "EXTEND_REST",
+      "base_version": 1,
+      "rest_activity_id": "REST",
+      "rest_until": "16:30",
+      "preferred_keep_activity_id": "A04"
+    },
+    "expected": {
+      "valid_proposals": 0,
+      "reason": "Còn ít nhất 15 phút đi đến điểm kết thúc nên vượt 16:30.",
+      "version": 1
+    },
+    "catalog": "fixtures/mock",
+    "departure_place_id": "MOCK-REST",
+    "end_place_id": "MOCK-END",
+    "date": "2026-11-13",
+    "end_deadline": "16:30",
+    "checked_paths": [
+      {
+        "path_id": "drop-both",
+        "visit_place_ids": [],
+        "departure_time": "16:30",
+        "expected_arrival": "16:45",
+        "expected_feasible": false
+      }
+    ]
+  },
+  {
+    "test_id": "T13",
+    "data_status": "MOCK",
+    "reset_to": "current_v1_day2.json",
+    "trigger": {
+      "type": "REPLACE_LOCATION",
+      "base_version": 1,
+      "activity_id": "A03",
+      "reason": "RAIN"
+    },
+    "expected": {
+      "replacement_place_id": "MOCK-INDOOR",
+      "old_activity_status_after_accept": "REPLACED",
+      "new_activity_status_after_accept": "PENDING",
+      "new_activity_replaces": "A03",
+      "replacement_start": "14:15",
+      "replacement_end": "15:00",
+      "day_end": "16:15",
+      "preserve": [
+        "A01",
+        "A02",
+        "REST",
+        "A04"
+      ]
+    },
+    "catalog": "fixtures/mock",
+    "departure_place_id": "MOCK-REST",
+    "end_place_id": "MOCK-END",
+    "date": "2026-11-13",
+    "end_deadline": "16:30",
+    "checked_paths": [
+      {
+        "path_id": "indoor",
+        "visit_place_ids": [
+          "MOCK-INDOOR",
+          "MOCK-A04"
+        ],
+        "departure_time": "14:00",
+        "expected_arrival": "16:15",
+        "expected_feasible": true
+      }
+    ]
+  },
+  {
+    "test_id": "T15",
+    "data_status": "MOCK",
+    "reset_to": "current_v1_day2.json",
+    "trigger": {
+      "type": "REPLACE_LOCATION",
+      "base_version": 1,
+      "activity_id": "A03",
+      "reason": "RAIN"
+    },
+    "expected": {
+      "valid_proposals": 0,
+      "reason": "Điểm trong nhà duy nhất đóng cửa.",
+      "version": 1
+    },
+    "catalog": "fixtures/mock-no-replacement",
+    "departure_place_id": "MOCK-REST",
+    "end_place_id": "MOCK-END",
+    "date": "2026-11-13",
+    "end_deadline": "16:30",
+    "checked_paths": [
+      {
+        "path_id": "closed-indoor",
+        "visit_place_ids": [
+          "MOCK-CLOSED",
+          "MOCK-A04"
+        ],
+        "departure_time": "14:00",
+        "expected_arrival": null,
+        "expected_feasible": false
+      }
+    ]
+  }
+]

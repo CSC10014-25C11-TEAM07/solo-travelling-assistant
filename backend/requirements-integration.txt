@@ -1,0 +1,3 @@
+-r requirements-dev.txt
+# Dependency of the auth snapshot from PR #12, used only by integration tools.
+argon2-cffi

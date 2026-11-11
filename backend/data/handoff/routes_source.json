@@ -1,0 +1,200 @@
+[
+  {
+    "route_id": "SOURCE-3D",
+    "data_status": "UNVERIFIED",
+    "departure_date": "2026-12-14",
+    "return_date": "2026-12-16",
+    "min_rest_minutes": 60,
+    "deadline_basis": "Đề xuất cấu hình tuyến để Nhật kiểm: ngày nội vùng 17:00, ngày về 18:00; không lấy 16:30 của MOCK làm quy tắc thật.",
+    "limitations": [
+      "P001 là mốc tập kết Đà Lạt, không phải nơi lưu trú; chưa có chặng đến/về chỗ ngủ.",
+      "Tọa độ R003 còn thiếu xác nhận đúng số nhà 294A; ước tính chặng liên quan chưa được dùng tự động.",
+      "Chưa xác nhận giờ tuần, thời lượng và quyền tiếp cận của các điểm cần dùng; chưa chứng minh lịch khả thi."
+    ],
+    "days": [
+      {
+        "day_id": "SOURCE3D-DAY-1",
+        "day_number": 1,
+        "date": "2026-12-14",
+        "start_place_id": "H001",
+        "end_place_id": "P001",
+        "start_time": "06:00",
+        "end_deadline": "17:00",
+        "place_sequence": [
+          "H001",
+          "R003",
+          "P001"
+        ],
+        "visit_place_ids": [],
+        "rest_stops": [
+          {
+            "place_id": "R003",
+            "duration_minutes": 60
+          }
+        ]
+      },
+      {
+        "day_id": "SOURCE3D-DAY-2",
+        "day_number": 2,
+        "date": "2026-12-15",
+        "start_place_id": "P001",
+        "end_place_id": "P001",
+        "start_time": "08:00",
+        "end_deadline": "17:00",
+        "place_sequence": [
+          "P001",
+          "P010",
+          "P005",
+          "P001"
+        ],
+        "visit_place_ids": [
+          "P001",
+          "P010",
+          "P005"
+        ],
+        "rest_stops": [
+          {
+            "place_id": "P010",
+            "duration_minutes": 60
+          }
+        ]
+      },
+      {
+        "day_id": "SOURCE3D-DAY-3",
+        "day_number": 3,
+        "date": "2026-12-16",
+        "start_place_id": "P001",
+        "end_place_id": "H001",
+        "start_time": "06:00",
+        "end_deadline": "18:00",
+        "place_sequence": [
+          "P001",
+          "R003",
+          "H001"
+        ],
+        "visit_place_ids": [],
+        "rest_stops": [
+          {
+            "place_id": "R003",
+            "duration_minutes": 60
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "route_id": "SOURCE-4D",
+    "data_status": "UNVERIFIED",
+    "departure_date": "2026-12-14",
+    "return_date": "2026-12-17",
+    "min_rest_minutes": 60,
+    "deadline_basis": "Đề xuất cấu hình tuyến để Nhật kiểm: ngày nội vùng 17:00, ngày về 18:00; không lấy 16:30 của MOCK làm quy tắc thật.",
+    "limitations": [
+      "P001 là mốc tập kết Đà Lạt, không phải nơi lưu trú; chưa có chặng đến/về chỗ ngủ.",
+      "Tọa độ R003 còn thiếu xác nhận đúng số nhà 294A; ước tính chặng liên quan chưa được dùng tự động.",
+      "Chưa xác nhận giờ tuần, thời lượng và quyền tiếp cận của các điểm cần dùng; chưa chứng minh lịch khả thi."
+    ],
+    "days": [
+      {
+        "day_id": "SOURCE4D-DAY-1",
+        "day_number": 1,
+        "date": "2026-12-14",
+        "start_place_id": "H001",
+        "end_place_id": "P001",
+        "start_time": "06:00",
+        "end_deadline": "17:00",
+        "place_sequence": [
+          "H001",
+          "R003",
+          "P001"
+        ],
+        "visit_place_ids": [],
+        "rest_stops": [
+          {
+            "place_id": "R003",
+            "duration_minutes": 60
+          }
+        ]
+      },
+      {
+        "day_id": "SOURCE4D-DAY-2",
+        "day_number": 2,
+        "date": "2026-12-15",
+        "start_place_id": "P001",
+        "end_place_id": "P001",
+        "start_time": "08:00",
+        "end_deadline": "17:00",
+        "place_sequence": [
+          "P001",
+          "P010",
+          "P005",
+          "P001"
+        ],
+        "visit_place_ids": [
+          "P001",
+          "P010",
+          "P005"
+        ],
+        "rest_stops": [
+          {
+            "place_id": "P010",
+            "duration_minutes": 60
+          }
+        ]
+      },
+      {
+        "day_id": "SOURCE4D-DAY-3",
+        "day_number": 3,
+        "date": "2026-12-16",
+        "start_place_id": "P001",
+        "end_place_id": "P001",
+        "start_time": "08:00",
+        "end_deadline": "17:00",
+        "place_sequence": [
+          "P001",
+          "P005",
+          "P008",
+          "P009",
+          "P011",
+          "P001"
+        ],
+        "visit_place_ids": [
+          "P008",
+          "P009",
+          "P011"
+        ],
+        "rest_stops": [
+          {
+            "place_id": "P005",
+            "duration_minutes": 30
+          },
+          {
+            "place_id": "P011",
+            "duration_minutes": 30
+          }
+        ]
+      },
+      {
+        "day_id": "SOURCE4D-DAY-4",
+        "day_number": 4,
+        "date": "2026-12-17",
+        "start_place_id": "P001",
+        "end_place_id": "H001",
+        "start_time": "06:00",
+        "end_deadline": "18:00",
+        "place_sequence": [
+          "P001",
+          "R003",
+          "H001"
+        ],
+        "visit_place_ids": [],
+        "rest_stops": [
+          {
+            "place_id": "R003",
+            "duration_minutes": 60
+          }
+        ]
+      }
+    ]
+  }
+]
