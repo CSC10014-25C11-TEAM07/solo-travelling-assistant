@@ -162,6 +162,18 @@ Kết quả mong đợi là **Kết nối backend thành công! Status: ok**.
 - [Hợp đồng F01 và các chi tiết dữ liệu còn là đề xuất](docs/api/f01.md).
 - [Nguồn, trạng thái dữ liệu và bộ kiểm thử MOCK](backend/data/README.md).
 
+## Nạp lại lịch MOCK cho kiểm thử tích hợp
+
+Từ thư mục gốc, dùng Python trong môi trường backend đã cài thư viện:
+
+```bash
+python -X utf8 backend/scripts/reset_demo.py
+```
+
+Lệnh khôi phục CURRENT v1 bốn ngày vào SQLite kiểm thử riêng, không dùng database
+app mặc định. Xem [hướng dẫn](docs/testing/demo-reset-guide.md) để chọn lịch
+3/4 ngày, catalog T15, tài khoản thử và cách đọc bằng chứng chạy lại hai lần.
+
 ## Quy tắc làm việc
 
 Mỗi việc có nhánh riêng và mở Pull Request vào main.
