@@ -1,0 +1,182 @@
+[
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-REST",
+    "to_place_id": "MOCK-A03",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-A03",
+    "to_place_id": "MOCK-A04",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-A04",
+    "to_place_id": "MOCK-END",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-REST",
+    "to_place_id": "MOCK-A04",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-A03",
+    "to_place_id": "MOCK-END",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-REST",
+    "to_place_id": "MOCK-END",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-REST",
+    "to_place_id": "MOCK-INDOOR",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-INDOOR",
+    "to_place_id": "MOCK-A04",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-REST",
+    "to_place_id": "MOCK-CLOSED",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-CLOSED",
+    "to_place_id": "MOCK-A04",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-END",
+    "to_place_id": "MOCK-GA",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-GA",
+    "to_place_id": "MOCK-TEMPLE",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-TEMPLE",
+    "to_place_id": "MOCK-REST",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-HCM",
+    "to_place_id": "MOCK-ROAD-REST",
+    "duration_minutes": 120,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-ROAD-REST",
+    "to_place_id": "MOCK-END",
+    "duration_minutes": 120,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-END",
+    "to_place_id": "MOCK-ROAD-REST",
+    "duration_minutes": 120,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-ROAD-REST",
+    "to_place_id": "MOCK-HCM",
+    "duration_minutes": 120,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-END",
+    "to_place_id": "MOCK-CULTURE",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-CULTURE",
+    "to_place_id": "MOCK-REST",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "MOCK-INDOOR",
+    "to_place_id": "MOCK-END",
+    "duration_minutes": 15,
+    "source_url": null,
+    "checked_at": null,
+    "data_status": "MOCK"
+  }
+]

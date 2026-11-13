@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-07T11:35:38.920867+00:00",
+  "checked_at": "2026-11-10T06:43:02.344762+00:00",
   "primary_sources": [
     "https://baotanglamdong.com.vn/contact",
     "https://laviet.coffee/tu-chung-toi/",
@@ -42,16 +42,33 @@
     {
       "url": "https://wiki.openstreetmap.org/wiki/Key:opening_hours",
       "use": "Cách hiểu giờ tuần OSM; chỉ chuyển hai tag đơn giản có trong dữ liệu, không dùng parser tổng quát."
+    },
+    {
+      "url": "https://photon.komoot.io/",
+      "use": "Geocoding OSM mốc H001 và ứng viên tọa độ R003. R003 chưa khớp số nhà; không dùng tự động."
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/39514793",
+      "use": "Mốc Bưu điện Trung tâm Sài Gòn từ Photon; chưa xác nhận chỗ tập kết."
+    },
+    {
+      "url": "https://www.openstreetmap.org/node/4660437689",
+      "use": "Tên Nhà hàng Tâm Châu trên Trần Phú, thiếu số nhà 294A trong dữ liệu geocoder; giữ ứng viên."
+    },
+    {
+      "url": "https://docs.google.com/document/d/1aPJjNORsFIYY0XOlLE6LmhI6lv7sKjg6Up0Gcb-wvSY/edit",
+      "use": "Chuẩn dữ liệu Leader chốt 09/11: area, data_status, môi trường, tổng nghỉ/ngày và cấu hình tuyến."
     }
   ],
   "field_provenance": {
     "names": "Nguồn chính của từng địa điểm.",
     "interests": "Phân loại đề xuất của nhóm dựa trên loại hình/mô tả.",
-    "area": "Bộ mã đề xuất, không phải tên đơn vị hành chính chính thức.",
-    "environment": "Phân loại từ mô tả nguồn; UNKNOWN khi thiếu; cần rà soát phần thực sự có mái.",
+    "area": "HCMC, DALAT, EN_ROUTE theo chuẩn Leader chốt 09/11/2026; không phải mã hành chính.",
+    "environment": "INDOOR/OUTDOOR/MIXED theo chuẩn chung. null chỉ dùng ở hồ sơ UNVERIFIED chưa biết; hồ sơ này không dùng lập lịch thực.",
     "visit_duration_minutes": "Giá trị từ cổng du lịch khi có; null khi chưa có nguồn/chưa chốt.",
     "opening_hours": "Null theo từng ngày khi thiếu lịch tuần hoặc có xung đột. P010/P011 chuyển từ tag opening_hours OSM; ngoại lệ/ngày lễ chưa được xác nhận nên vẫn UNVERIFIED. Giữ tag gốc ở place_coordinates.json và data_review.json.",
     "image_url": "Null; frontend dùng ảnh mặc định, chưa sao chép ảnh bên thứ ba.",
-    "travel_times": "Nguồn truy vấn đầy đủ từng chặng; kết quả ước tính Valhalla motorcycle, giữ số liệu thô ở travel_time_evidence.json."
-  }
+    "travel_times": "20 truy vấn motorcycle đã thu lại 10/11, đối chiếu số giây/cách làm tròn. 16 ước tính VERIFIED; 4 chặng qua R003 giữ UNVERIFIED do chưa khớp đúng số nhà. Không bảo đảm an toàn hoặc giao thông thực tế."
+  },
+  "schema_version": "shared-data-v1-2026-11-09"
 }

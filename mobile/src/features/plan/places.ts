@@ -1,0 +1,32 @@
+export type LocalPlace={id:string;name:string;area:string;category:string;description:string;duration:string};
+export const LOCAL_PLACES:LocalPlace[]=[
+  {id:'doi-mong-mo',name:'Đồi Mộng Mơ',area:'Phía bắc Đà Lạt',category:'nature',description:'Vườn hoa và cảnh quan đồi thông',duration:'60–90 phút'},
+  {id:'tui-mo-to',name:'Tiệm cà phê Túi Mơ To',area:'Trại Mát',category:'coffee',description:'Không gian cà phê và ngắm cảnh',duration:'45–75 phút'},
+  {id:'ho-xuan-huong',name:'Hồ Xuân Hương',area:'Trung tâm',category:'nature',description:'Đi dạo ven hồ, chụp ảnh',duration:'45–90 phút'},
+  {id:'quang-truong-lam-vien',name:'Quảng trường Lâm Viên',area:'Trung tâm',category:'culture',description:'Kiến trúc biểu tượng Đà Lạt',duration:'30–60 phút'},
+  {id:'cho-da-lat',name:'Chợ Đà Lạt',area:'Trung tâm',category:'food',description:'Đặc sản, đồ ăn và quà lưu niệm',duration:'60–90 phút'},
+  {id:'ga-da-lat',name:'Ga Đà Lạt',area:'Trại Mát',category:'culture',description:'Kiến trúc cổ, chụp ảnh',duration:'45–75 phút'},
+  {id:'chua-linh-phuoc',name:'Chùa Linh Phước',area:'Trại Mát',category:'culture',description:'Khảm sành, tham quan văn hóa',duration:'45–75 phút'},
+  {id:'doi-che-cau-dat',name:'Đồi chè Cầu Đất',area:'Cầu Đất',category:'nature',description:'Đồi chè xanh và không khí trong lành',duration:'60–90 phút'},
+  {id:'ho-tuyen-lam',name:'Hồ Tuyền Lâm',area:'Tuyền Lâm',category:'nature',description:'Rừng thông và mặt hồ yên bình',duration:'60–120 phút'},
+  {id:'thien-vien-truc-lam',name:'Thiền viện Trúc Lâm',area:'Tuyền Lâm',category:'culture',description:'Không gian tĩnh lặng, cảnh quan đẹp',duration:'45–60 phút'},
+  {id:'thac-datanla',name:'Thác Datanla',area:'Tuyền Lâm',category:'nature',description:'Tham quan thác và rừng thông',duration:'60–90 phút'},
+  {id:'langbiang',name:'Khu du lịch Langbiang',area:'Bắc Đà Lạt',category:'nature',description:'Ngắm cảnh núi cao',duration:'60–120 phút'},
+  {id:'vuon-hoa-thanh-pho',name:'Vườn hoa thành phố',area:'Trung tâm',category:'nature',description:'Vườn hoa nhiều màu sắc',duration:'60–90 phút'},
+  {id:'lang-hoa-van-thanh',name:'Làng hoa Vạn Thành',area:'Tà Nung',category:'nature',description:'Vườn hoa và nghề trồng hoa',duration:'60–90 phút'},
+  {id:'crazy-house',name:'Biệt thự Hằng Nga (Crazy House)',area:'Trung tâm',category:'culture',description:'Kiến trúc độc đáo',duration:'45–75 phút'},
+  {id:'nha-tho-con-ga',name:'Nhà thờ Con Gà',area:'Trung tâm',category:'culture',description:'Kiến trúc cổ Đà Lạt',duration:'30–45 phút'},
+  {id:'domaine-de-marie',name:'Nhà thờ Domaine de Marie',area:'Trung tâm',category:'culture',description:'Không gian kiến trúc màu hồng',duration:'30–45 phút'},
+  {id:'doi-robin',name:'Đồi Robin',area:'Tuyền Lâm',category:'nature',description:'Ngắm cảnh Đà Lạt từ trên cao',duration:'30–60 phút'},
+  {id:'canh-dong-cam-tu-cau',name:'Cánh đồng hoa cẩm tú cầu',area:'Trại Mát',category:'nature',description:'Chụp ảnh cùng hoa theo mùa',duration:'45–75 phút'},
+  {id:'the-florest',name:'The Florest – Hoa Trong Rừng',area:'Tà Nung',category:'nature',description:'Không gian hoa và rừng',duration:'60–90 phút'},
+  {id:'fresh-garden',name:'Fresh Garden Đà Lạt',area:'Tà Nung',category:'nature',description:'Không gian hoa và chụp ảnh',duration:'60–90 phút'},
+  {id:'kho-coffee',name:'K’Ho Coffee',area:'Bắc Đà Lạt',category:'coffee',description:'Tìm hiểu văn hóa cà phê địa phương',duration:'45–75 phút'},
+  {id:'cho-dem',name:'Chợ đêm Đà Lạt',area:'Trung tâm',category:'food',description:'Khám phá món ăn địa phương',duration:'60–90 phút'},
+  {id:'thung-lung-tinh-yeu',name:'Thung lũng Tình Yêu',area:'Bắc Đà Lạt',category:'nature',description:'Hồ, đồi thông và vườn hoa',duration:'90–120 phút'},
+  {id:'duong-ham-dat-set',name:'Đường hầm Đất Sét',area:'Hồ Tuyền Lâm',category:'culture',description:'Công trình nghệ thuật đất đỏ đặc trưng',duration:'60–90 phút'},
+  {id:'dinh-bao-dai-iii',name:'Dinh Bảo Đại III',area:'Trung tâm',category:'culture',description:'Kiến trúc lịch sử và khuôn viên xanh',duration:'45–75 phút'},
+  {id:'tram-trai-mat',name:'Trại Mát',area:'Trại Mát',category:'culture',description:'Làng ngoại ô và cảnh quan',duration:'45–60 phút'},
+];
+// Địa điểm tham khảo; kiểm tra giờ mở cửa và giá trước chuyến đi.
+// Nguồn: vietnam.travel, dalattourist.com.vn, dalat.vn.

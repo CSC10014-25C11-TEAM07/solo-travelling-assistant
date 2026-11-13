@@ -1,14 +1,15 @@
-"""Dataset v0.1 proposals; field names follow the 2026-11-06 team contract."""
+"""Dataset types aligned with the Leader's shared standard of 2026-11-09."""
 
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 Interest = Literal["nature", "coffee", "culture", "food"]
-Environment = Literal["INDOOR", "OUTDOOR", "MIXED", "UNKNOWN"]
-DataStatus = Literal["SOURCED", "MOCK", "UNVERIFIED"]
+Area = Literal["HCMC", "DALAT", "EN_ROUTE"]
+Environment = Literal["INDOOR", "OUTDOOR", "MIXED"]
+DataStatus = Literal["VERIFIED", "MOCK", "UNVERIFIED"]
 DAYS = ("mon", "tue", "wed", "thu", "fri", "sat", "sun")
 INTEREST_LABELS = {
     "nature": "thiên nhiên",
@@ -63,8 +64,8 @@ class OpeningHours(DatasetModel):
 def checked_timestamp(value):
     if value is not None:
         parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
-        if parsed.tzinfo is None:
-            raise ValueError("checked_at must include a timezone")
+        if parsed.utcoffset() != timedelta(0):
+            raise ValueError("checked_at must be UTC")
     return value
 
 
@@ -77,9 +78,10 @@ def source_url(value):
 class Place(DatasetModel):
     place_id: str = Field(min_length=1)
     name: str = Field(min_length=1)
-    area: str = Field(min_length=1)
+    area: Area
     interests: list[Interest]
-    environment: Environment
+    # null is incomplete intake, never a fourth environment code or an indoor fallback.
+    environment: Environment | None
     visit_duration_minutes: int | None = Field(ge=1)
     opening_hours: OpeningHours
     image_url: str | None
@@ -94,10 +96,12 @@ class Place(DatasetModel):
     def consistent_source(self):
         if len(self.interests) != len(set(self.interests)):
             raise ValueError("Duplicate interest tags")
-        if self.data_status == "SOURCED":
+        if self.environment is None and self.data_status != "UNVERIFIED":
+            raise ValueError("Unknown environment requires UNVERIFIED intake status")
+        if self.data_status == "VERIFIED":
             if not self.source_url or not self.checked_at:
-                raise ValueError("SOURCED records need a source and checked_at")
-            if self.environment == "UNKNOWN" or self.visit_duration_minutes is None:
+                raise ValueError("VERIFIED records need a source and checked_at")
+            if self.environment is None or self.visit_duration_minutes is None:
                 raise ValueError("Incomplete places must remain UNVERIFIED")
             if any(value is None for value in self.opening_hours.weekly.values()):
                 raise ValueError("Unknown weekly hours require UNVERIFIED status")
@@ -122,6 +126,6 @@ class TravelTime(DatasetModel):
         same_place = self.from_place_id == self.to_place_id
         if same_place != (self.duration_minutes == 0):
             raise ValueError("Only same-place legs may have zero duration")
-        if self.data_status == "SOURCED" and (not self.source_url or not self.checked_at):
-            raise ValueError("SOURCED travel times need a source and checked_at")
+        if self.data_status == "VERIFIED" and (not self.source_url or not self.checked_at):
+            raise ValueError("VERIFIED travel times need a source and checked_at")
         return self
