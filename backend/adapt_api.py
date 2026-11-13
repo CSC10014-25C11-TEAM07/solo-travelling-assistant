@@ -5,7 +5,11 @@ from fastapi import APIRouter, Depends, Request
 from pydantic import BaseModel, ConfigDict, model_validator
 
 import itinerary_store as store
-from adapt_store import apply_days
+from adapt_store import apply_days, save_proposal
+from adapt_f05.engine import AdaptEngine
+from adapt_f05.handoff import prepare_proposal, validate_stored_option
+from adapt_f05.models import AdaptError, RestRequest, RainRequest
+from pydantic import Field
 from itinerary_api import APIError, DraftInput, current_user, owned, validate_plan
 
 router = APIRouter(prefix="/api/v1")
@@ -89,6 +93,32 @@ def validate_preservation(db, itinerary, days):
     validate_plan(payload, active_days)
 
 
+@router.post("/itineraries/{itinerary_id}/adapt-proposals", status_code=201)
+def propose(
+    itinerary_id: str,
+    payload: Annotated[RestRequest | RainRequest, Field(discriminator="type")],
+    request: Request,
+    user_id: Annotated[str, Depends(current_user)],
+):
+    with store.connect() as db:
+        itinerary = owned(db, itinerary_id, user_id)
+        if store.current_id(db, user_id) != itinerary_id:
+            raise APIError(409, "NOT_CURRENT_ITINERARY", "Hãy tải lại lịch hiện hành.")
+    if itinerary["version"] != payload.base_version:
+        raise APIError(409, "STALE_ITINERARY", "Lịch đã thay đổi. Hãy tải lại.")
+    provider = request.app.state.catalog_provider
+    if provider is None:
+        raise APIError(503, "AI_UNAVAILABLE", "Chưa cấu hình dữ liệu tuyến F05.")
+    try:
+        catalog = provider(itinerary)
+        result = AdaptEngine(catalog).generate(itinerary, payload.model_dump())
+        public, stored = prepare_proposal(result, itinerary, catalog)
+    except AdaptError as error:
+        raise APIError(error.status, error.code, error.message) from error
+    save_proposal(stored, user_id)
+    return public
+
+
 @router.post("/adapt-proposals/{proposal_id}/decision")
 def decide(
     proposal_id: str, payload: DecisionInput, request: Request,
@@ -119,6 +149,13 @@ def decide(
             if option is None:
                 raise APIError(422, "INVALID_OPTION", "Phương án không thuộc đề xuất.")
             validator = request.app.state.option_validator
+            provider = request.app.state.catalog_provider
+            if validator is None and provider is not None:
+                def validator(current, selected):
+                    try:
+                        return validate_stored_option(current, selected, provider(current))
+                    except AdaptError:
+                        return False
             if validator is None:
                 raise APIError(503, "AI_UNAVAILABLE", "Đang chờ bộ kiểm tra ràng buộc F05.")
             try:

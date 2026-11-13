@@ -22,10 +22,11 @@ async def lifespan(app):
     yield
 
 
-def create_app(plan_provider=mock_plan, option_validator=None):
+def create_app(plan_provider=mock_plan, option_validator=None, *, catalog_provider=None):
     app = FastAPI(title="Solo Travelling Assistant", lifespan=lifespan)
     app.state.plan_provider = plan_provider
     app.state.option_validator = option_validator
+    app.state.catalog_provider = catalog_provider
     app.include_router(auth.router)
     app.include_router(places_router)
     app.include_router(itinerary_router)
