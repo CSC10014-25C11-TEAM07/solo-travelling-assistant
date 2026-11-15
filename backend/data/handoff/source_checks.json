@@ -12,18 +12,37 @@
       "unresolved": [
         "lịch theo từng thứ/ngày lễ",
         "tiếp cận mốc tập kết và chặng tới nơi lưu trú"
-      ]
+      ],
+      "last_checked_at": "2026-11-15T09:36:27Z"
     },
     {
       "place_id": "P005",
       "source_url": "https://baotanglamdong.com.vn/contact",
       "found": {
         "general_hours": "07:30–17:30",
-        "address": "04 Hùng Vương"
+        "address": "04 Hùng Vương",
+        "visit_duration_minutes": 120
       },
       "unresolved": [
-        "lịch tuần/nghỉ trưa khác OSM",
-        "thời lượng khu trưng bày"
+        "lịch tuần/nghỉ trưa chưa thống nhất",
+        "120 phút của toàn điểm không xác nhận riêng khu có mái cho RAIN"
+      ],
+      "last_checked_at": "2026-11-15T09:36:27Z",
+      "duration_source_url": "https://visitlamdong.vn/vi/baotangld",
+      "conflicting_hours": [
+        {
+          "source_url": "https://baotanglamdong.com.vn/contact",
+          "reported": "07:30–17:30"
+        },
+        {
+          "source_url": "https://visitlamdong.vn/vi/baotangld",
+          "reported": "07:30–16:30"
+        },
+        {
+          "source_url": "https://www.openstreetmap.org/node/1152350875",
+          "reported": "Mo-Su 07:15–11:30,13:30–17:00",
+          "last_read": "2026-11-07"
+        }
       ]
     },
     {
@@ -59,7 +78,8 @@
         "thời lượng chuẩn",
         "khu có mái",
         "ngoại lệ/ngày lễ"
-      ]
+      ],
+      "last_checked_at": "2026-11-15T09:36:27Z"
     },
     {
       "place_id": "P011",
@@ -97,18 +117,54 @@
         "đỗ xe/tập kết",
         "giờ tiếp cận điểm đầu/cuối"
       ]
+    },
+    {
+      "place_id": "P006",
+      "source_url": "https://laviet.coffee/tu-chung-toi/",
+      "last_checked_at": "2026-11-15T09:36:27Z",
+      "found": {
+        "address": "200 Nguyễn Công Trứ",
+        "general_hours": "07:00–22:00"
+      },
+      "unresolved": [
+        "thời lượng trải nghiệm",
+        "lịch theo từng thứ/ngày lễ"
+      ]
     }
   ],
   "network_limitations": [
-    "Hai truy vấn Overpass timeout; OSM API kết nối bị reset. Không tự điền thông tin không nhận được."
+    "Hai truy vấn Overpass timeout; OSM API kết nối bị reset. Không tự điền thông tin không nhận được.",
+    "15/11: tamchau.com/showroom và gioi-thieu vẫn HTTP403; crazyhouse.vn timeout. Không nâng nhãn từ kết quả tìm kiếm hoặc khi nguồn không đọc được."
   ],
   "routing_batch": {
     "profile": "motorcycle",
-    "count": 20,
-    "verified_estimates": 16,
+    "count": 24,
+    "verified_estimates": 20,
     "unverified_endpoint_estimates": 4,
     "raw_evidence": "travel_time_evidence.json",
     "rounding": "ceil(seconds/60)",
-    "limitations": "Không có traffic trực tiếp, thời gian nghỉ, buffer hay xác minh quyền đi xe máy từng đoạn đường."
-  }
+    "limitations": "Không có traffic trực tiếp, thời gian nghỉ, buffer hay xác minh quyền đi xe máy từng đoạn đường.",
+    "previous_batch_date": "2026-11-10",
+    "latest_added_pairs": [
+      {
+        "from_place_id": "P008",
+        "to_place_id": "P001"
+      },
+      {
+        "from_place_id": "P011",
+        "to_place_id": "P005"
+      },
+      {
+        "from_place_id": "P005",
+        "to_place_id": "P009"
+      },
+      {
+        "from_place_id": "P009",
+        "to_place_id": "P001"
+      }
+    ],
+    "latest_reviewed_at": "2026-11-15T09:40:27.512363+00:00"
+  },
+  "latest_review_at": "2026-11-15T09:36:27Z",
+  "latest_review_scope": "15/11 chỉ cập nhật mục có last_checked_at; các checked_at cũ giữ nguyên. Không khảo sát tại chỗ."
 }

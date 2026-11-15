@@ -112,7 +112,7 @@
       "culture"
     ],
     "environment": "INDOOR",
-    "visit_duration_minutes": null,
+    "visit_duration_minutes": 120,
     "opening_hours": {
       "timezone": "Asia/Ho_Chi_Minh",
       "weekly": {
@@ -127,7 +127,7 @@
     },
     "image_url": null,
     "source_url": "https://baotanglamdong.com.vn/contact",
-    "checked_at": "2026-11-07T11:09:37.849269+00:00",
+    "checked_at": "2026-11-15T09:36:27Z",
     "data_status": "UNVERIFIED"
   },
   {

@@ -163,6 +163,8 @@ def audit(directory):
     sources = read(directory / manifest["source_routes"])
     require(sorted(len(r["days"]) for r in sources) == [3, 4], "SOURCE_ROUTE_COVERAGE")
     source = [source_route(route, catalog) for route in sources]
+    replacements = source_replacements(read(directory / manifest["source_adapt_checks"]), catalog)
     return {"dataset_version": manifest["dataset_version"],
             "checks_passed": all(item["passed"] for item in mock_routes + cases),
-            "mock_routes": mock_routes, "scenarios": cases, "source_routes": source}
+            "mock_routes": mock_routes, "scenarios": cases, "source_routes": source,
+            "source_adapt_checks": replacements}
