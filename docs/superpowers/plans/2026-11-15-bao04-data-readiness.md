@@ -57,8 +57,9 @@
 
 **Interfaces:** `replay(directory) -> dict` reports T06/T08/T13/T15 × 3/4 days via the real merged F05 consumer. Check counts 2/0/1/0, end16:15, preserved DONE/other days, serialized stored-option validation and independently audited snapshots.
 
-- [ ] Write behavior tests for consumer replay and a missing rain leg; observe RED.
-- [ ] Implement reproducible rules-only replay without persistence or AI claims.
-- [ ] Re-run all validators, backend suite, replay and authenticated F01 preference tests with temporary SQLite; record commit/version and precise scope.
-- [ ] Update handoff/status docs: four MOCK cases ready, source blockers with next actions, device/AI/SQLite not inferred. Update S01 prerequisite because PR #18 is now merged.
-- [ ] Fresh whole-branch review, correct material findings, verify, commit and open PR referencing #8. Update persistent project context in the original workspace.
+- [x] Behavior tests cover consumer replay and a missing rain leg; current suite reverified at9679151. Historical RED execution is documented in the handoff report, not re-established by this review.
+- [x] Implement reproducible rules-only replay without persistence or AI claims.
+- [x] Re-run all validators, backend suite, replay and authenticated F01 preference tests with temporary SQLite; record commit/version and precise scope.
+- [x] Update handoff/status docs: four MOCK cases ready, source blockers with next actions, device/AI/SQLite not inferred. Update S01 prerequisite because PR #18 is now merged.
+- [x] Fresh whole-branch read-only review of0b446b1..9679151; no critical/important findings. Re-ran103 backend tests,three validators,audit,replay and source export; fixed two minor documentation inconsistencies. Updated persistent project context in the original workspace.
+- PR handoff references #8 and explicitly leaves real-source readiness and device/live integration acceptance outstanding; see `docs/DATASET-HANDOFF-PR.md`.

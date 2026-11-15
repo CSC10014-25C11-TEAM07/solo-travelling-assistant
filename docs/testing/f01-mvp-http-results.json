@@ -59,10 +59,7 @@
     },
     {
       "interests": [
-        [
-          "interests",
-          "invalid"
-        ]
+        "invalid"
       ],
       "http_status": 422,
       "code": "VALIDATION_ERROR",
