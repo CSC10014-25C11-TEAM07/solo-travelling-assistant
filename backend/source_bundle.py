@@ -8,6 +8,8 @@ from place_catalog import PlaceCatalog
 
 
 def export_source_bundle(directory: Path, output: Path):
+    if output.is_symlink():
+        raise ValueError("OUTPUT_EXISTS: symlink destination is not a new directory")
     directory, output = directory.resolve(), output.resolve()
     if output.is_relative_to(directory) or directory.is_relative_to(output):
         raise ValueError("OUTPUT_OVERLAPS_SOURCE")

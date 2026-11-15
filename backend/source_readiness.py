@@ -142,6 +142,15 @@ def source_route(route, catalog):
                          "end_deadline": day["end_deadline"]})
         finish, schedule, slot_gaps = schedule_day(day, catalog)
         gaps.extend(slot_gaps)
+        weekday = DAYS[date.fromisoformat(day["date"]).weekday()]
+        for label, pid, when in (("START", day["start_place_id"], minutes(day["start_time"])),
+                                 ("END", day["end_place_id"], finish)):
+            windows = catalog.places[pid].opening_hours.weekly[weekday]
+            anchor = {**common, "place_id": pid, "weekday": weekday}
+            if windows is None:
+                gaps.append({"code": f"UNKNOWN_{label}_ACCESS", **anchor})
+            elif not windows or (when is not None and not any(minutes(w.start) <= when <= minutes(w.end) for w in windows)):
+                gaps.append({"code": f"{label}_CLOSED", **anchor})
         if finish is not None and finish > minutes(day["end_deadline"]):
             gaps.append({"code": "SCHEDULE_LATE", **common, "conditional_earliest_finish": clock(finish),
                          "end_deadline": day["end_deadline"]})

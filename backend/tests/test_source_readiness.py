@@ -111,6 +111,15 @@ class SourceReadinessTests(unittest.TestCase):
         self.assertFalse(result["ready_for_real_plan"], result)
         self.assertIn("UNRESOLVED_ROUTE_LIMITATION", self.codes(result))
 
+    def test_start_anchor_access_is_checked_even_without_a_visit(self):
+        route, catalog = inputs()
+        raw = catalog.places["H"].model_dump()
+        raw["opening_hours"]["weekly"]["mon"] = [{"start": "10:00", "end": "17:00"}]
+        catalog.places["H"] = Place.model_validate(raw)
+        result = source_route(route, catalog)
+        self.assertFalse(result["ready_for_real_plan"], result)
+        self.assertIn("START_CLOSED", self.codes(result))
+
     def test_rain_checks_all_edges_including_final_endpoint(self):
         from source_readiness import source_replacements
         _, catalog = inputs()

@@ -33,11 +33,11 @@
 
 **Interfaces:** Keep `source_route(route, catalog) -> dict`; add `source_replacements(paths, catalog) -> list[dict]`. Add `source_adapt_checks` to the manifest and offline report only.
 
-- [ ] Write failing tests: VISIT makes a route late, wait for next opening, closed REST, rest/visit outside sequence, unknown/missing directed final leg and invalid date range.
-- [ ] Run `python -m unittest discover -s backend/tests -p test_source_readiness.py -v` and observe failures.
-- [ ] Audit structural dates and endpoints, accumulate travel+REST+VISIT lower bounds, compute earliest schedules with opening windows; report exact gaps and never infer missing data.
-- [ ] Test rain with missing incoming/outgoing/final directed legs and non-INDOOR candidate.
-- [ ] Run the new tests and full backend suite; commit this independently verifiable change.
+- [x] Write failing tests: VISIT makes a route late, wait for next opening, closed REST, rest/visit outside sequence, unknown/missing directed final leg and invalid date range.
+- [x] Run `python -m unittest discover -s backend/tests -p test_source_readiness.py -v` and observe failures.
+- [x] Audit structural dates and endpoints, accumulate travel+REST+VISIT lower bounds, compute earliest schedules with opening windows; report exact gaps and never infer missing data.
+- [x] Test rain with missing incoming/outgoing/final directed legs and non-INDOOR candidate.
+- [x] Run the new tests and full backend suite; commit this independently verifiable change.
 
 ### Task 2: Reviewed source pack and reproducible export
 
@@ -45,11 +45,11 @@
 
 **Interfaces:** Export source `places.json`, `travel_times.json`, route/ADAPT configs, provenance and readiness report into a NEW `--output-dir`; no database mutation or status promotion. Missing/blocked real-world data stays visible.
 
-- [ ] Read current primary sources for selected venues; update only supported facts and actual read timestamps.
-- [ ] Add only the directed edges needed by declared rain/drop checks, retaining raw estimates and endpoint review.
-- [ ] Write export tests for complete selection, no MOCK, unchanged labels, blocked readiness, existing output and source-directory protection; observe RED.
-- [ ] Implement the standalone export CLI and verify JSON loads with `PlaceCatalog`.
-- [ ] Run catalog validators, offline audit, exporter and full suite; commit.
+- [x] Read current primary sources for selected venues; update only supported facts and actual read timestamps.
+- [x] Add only the directed edges needed by declared rain/drop checks, retaining raw estimates and endpoint review.
+- [x] Write export tests for complete selection, no MOCK, unchanged labels, blocked readiness, existing output and source-directory protection; observe RED.
+- [x] Implement the standalone export CLI and verify JSON loads with `PlaceCatalog`.
+- [x] Run catalog validators, offline audit, exporter and full suite; commit.
 
 ### Task 3: Freeze MOCK and handoff evidence
 

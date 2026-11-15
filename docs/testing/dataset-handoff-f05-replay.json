@@ -1,106 +1,156 @@
 {
-  "dataset_version": "bao04-handoff-2026-11-10-v1",
-  "consumer_pr": 17,
-  "consumer_commit": "311e94b639f47daecc39867ea561e4604238c1d0",
-  "scope": "Real PR #17 domain engine with RULE_BASELINE, no AI network call or F06 persistence; not app acceptance",
-  "results": [
+  "dataset_version": "bao04-mvp-2026-11-15-v1",
+  "mode": "MOCK_DATA_RULE_RANKER",
+  "checked_at": "2026-11-15T09:45:27.387002+00:00",
+  "checks_passed": true,
+  "implementation_sha256": {
+    "__init__.py": "6f3e404ac8436c76ead8a048d80f7e94a47f9c7b8c06196a3b8a3c624895d2a9",
+    "catalog.py": "acb2b6ede86f32b1ae968ee52c66d6bbbe09ef4da09710f4239e4bf8871c0fcc",
+    "demo.py": "03813f5a3eb60937a8560475ae7a097e577c36bfbff2795e4de1506b0c84e088",
+    "engine.py": "a99c1b0049e9b4c77f3685cc69a960057ef55f4e76969c7824187042fdd5fcf1",
+    "handoff.py": "468abe7d172d496b89cbc97fcd76cb7c67d1690e82085991013ecb86e7f3404a",
+    "models.py": "c8acee602dbd7f230f64c5dcdb4bc0f7dc14e147e03398e5eefa2f52e7906b0c",
+    "ranking.py": "9606a9cd2187f15c54ee9ab1ade99eb44fa69d132b5117a42433757b165adaeb"
+  },
+  "fixture_sha256": {
+    "fixtures/current_v1_3day.json": "b6cef7d33bed77e0a87a4582c358b9bd8dea85e668a05805b965baa0b4290b3b",
+    "fixtures/current_v1_4day.json": "2780deef172815eed781fb0e9ca6e4620d9d2342781ba0709b13cd376b58d054",
+    "fixtures/mock-no-replacement/places.json": "99cd2137eb3de1570e771f79c5d8b0fbad20eeaf1d7dcc5c844c8ea5e89704e8",
+    "fixtures/mock-no-replacement/travel_times.json": "645c39f8b1afafa424968624ac6c5bd060bf46c5ae75f439fc5e3e0f8e626fc2",
+    "fixtures/mock/places.json": "5fd8238461d334079eb354c05ebfc4c81d00e5455deb3f227145fa4d200b3ecd",
+    "fixtures/mock/travel_times.json": "645c39f8b1afafa424968624ac6c5bd060bf46c5ae75f439fc5e3e0f8e626fc2",
+    "fixtures/scenarios.json": "fa79320c3a4cafbff3b04722c9f79611ac5943441b5c60d6e08febbfef42bb05",
+    "handoff/routes_mock.json": "2a7b16a6a5fa5a5f67f63ac9895bd2fe0ac5f03448d483d341c294bebd77257a"
+  },
+  "runs": [
     {
       "route_id": "MOCK-3D",
       "test_id": "T06",
       "catalog": "fixtures/mock",
-      "candidate_count": 2,
-      "estimated_ends": [
+      "passed": true,
+      "errors": [],
+      "option_count": 2,
+      "end_times": [
         "16:15",
         "16:15"
       ],
-      "source_unchanged": true,
+      "original_unchanged": true,
+      "stored_options_valid": true,
+      "no_option_reason": null,
       "done_and_other_days_preserved": true,
-      "candidate_snapshots_independently_audited": true,
-      "passed": true
+      "independent_snapshots_valid": true
     },
     {
       "route_id": "MOCK-3D",
       "test_id": "T08",
       "catalog": "fixtures/mock",
-      "candidate_count": 0,
-      "estimated_ends": [],
-      "source_unchanged": true,
+      "passed": true,
+      "errors": [],
+      "option_count": 0,
+      "end_times": [],
+      "original_unchanged": true,
+      "stored_options_valid": true,
+      "no_option_reason": "Không tìm được phương án trong phạm vi tìm kiếm đã giới hạn. MOCK-A04 đóng cửa hoặc không đủ 45 phút tham quan. Đến điểm kết thúc lúc 17:45, vượt hạn 16:30. Đến điểm kết thúc lúc 16:45, vượt hạn 16:30.",
       "done_and_other_days_preserved": true,
-      "candidate_snapshots_independently_audited": true,
-      "passed": true
+      "independent_snapshots_valid": true
     },
     {
       "route_id": "MOCK-3D",
       "test_id": "T13",
       "catalog": "fixtures/mock",
-      "candidate_count": 1,
-      "estimated_ends": [
+      "passed": true,
+      "errors": [],
+      "option_count": 1,
+      "end_times": [
         "16:15"
       ],
-      "source_unchanged": true,
+      "original_unchanged": true,
+      "stored_options_valid": true,
+      "no_option_reason": null,
       "done_and_other_days_preserved": true,
-      "candidate_snapshots_independently_audited": true,
-      "passed": true
+      "independent_snapshots_valid": true
     },
     {
       "route_id": "MOCK-3D",
       "test_id": "T15",
       "catalog": "fixtures/mock-no-replacement",
-      "candidate_count": 0,
-      "estimated_ends": [],
-      "source_unchanged": true,
+      "passed": true,
+      "errors": [],
+      "option_count": 0,
+      "end_times": [],
+      "original_unchanged": true,
+      "stored_options_valid": true,
+      "no_option_reason": "Không tìm được phương án trong phạm vi tìm kiếm đã giới hạn. MOCK-CLOSED đóng cửa hoặc không đủ 45 phút tham quan.",
       "done_and_other_days_preserved": true,
-      "candidate_snapshots_independently_audited": true,
-      "passed": true
+      "independent_snapshots_valid": true
     },
     {
       "route_id": "MOCK-4D",
       "test_id": "T06",
       "catalog": "fixtures/mock",
-      "candidate_count": 2,
-      "estimated_ends": [
+      "passed": true,
+      "errors": [],
+      "option_count": 2,
+      "end_times": [
         "16:15",
         "16:15"
       ],
-      "source_unchanged": true,
+      "original_unchanged": true,
+      "stored_options_valid": true,
+      "no_option_reason": null,
       "done_and_other_days_preserved": true,
-      "candidate_snapshots_independently_audited": true,
-      "passed": true
+      "independent_snapshots_valid": true
     },
     {
       "route_id": "MOCK-4D",
       "test_id": "T08",
       "catalog": "fixtures/mock",
-      "candidate_count": 0,
-      "estimated_ends": [],
-      "source_unchanged": true,
+      "passed": true,
+      "errors": [],
+      "option_count": 0,
+      "end_times": [],
+      "original_unchanged": true,
+      "stored_options_valid": true,
+      "no_option_reason": "Không tìm được phương án trong phạm vi tìm kiếm đã giới hạn. MOCK-A04 đóng cửa hoặc không đủ 45 phút tham quan. Đến điểm kết thúc lúc 17:45, vượt hạn 16:30. Đến điểm kết thúc lúc 16:45, vượt hạn 16:30.",
       "done_and_other_days_preserved": true,
-      "candidate_snapshots_independently_audited": true,
-      "passed": true
+      "independent_snapshots_valid": true
     },
     {
       "route_id": "MOCK-4D",
       "test_id": "T13",
       "catalog": "fixtures/mock",
-      "candidate_count": 1,
-      "estimated_ends": [
+      "passed": true,
+      "errors": [],
+      "option_count": 1,
+      "end_times": [
         "16:15"
       ],
-      "source_unchanged": true,
+      "original_unchanged": true,
+      "stored_options_valid": true,
+      "no_option_reason": null,
       "done_and_other_days_preserved": true,
-      "candidate_snapshots_independently_audited": true,
-      "passed": true
+      "independent_snapshots_valid": true
     },
     {
       "route_id": "MOCK-4D",
       "test_id": "T15",
       "catalog": "fixtures/mock-no-replacement",
-      "candidate_count": 0,
-      "estimated_ends": [],
-      "source_unchanged": true,
+      "passed": true,
+      "errors": [],
+      "option_count": 0,
+      "end_times": [],
+      "original_unchanged": true,
+      "stored_options_valid": true,
+      "no_option_reason": "Không tìm được phương án trong phạm vi tìm kiếm đã giới hạn. MOCK-CLOSED đóng cửa hoặc không đủ 45 phút tham quan.",
       "done_and_other_days_preserved": true,
-      "candidate_snapshots_independently_audited": true,
-      "passed": true
+      "independent_snapshots_valid": true
     }
+  ],
+  "not_verified": [
+    "public HTTP API",
+    "SQLite/F06 transactions and restart",
+    "Gemini/live AI",
+    "Expo Go/device",
+    "real routes"
   ]
 }

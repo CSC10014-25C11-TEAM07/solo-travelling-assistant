@@ -62,6 +62,16 @@ class SourceBundleTests(unittest.TestCase):
         self.assertIn("OUTPUT_OVERLAPS_SOURCE", result.stderr)
         self.assertFalse(target.exists())
 
+    def test_dangling_symlink_output_is_not_followed(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            target = Path(temporary) / "link"
+            destination = Path(temporary) / "must-not-create"
+            target.symlink_to(destination, target_is_directory=True)
+            result = self.run_export(target)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("OUTPUT_EXISTS", result.stderr)
+            self.assertFalse(destination.exists())
+
 
 if __name__ == "__main__":
     unittest.main()
