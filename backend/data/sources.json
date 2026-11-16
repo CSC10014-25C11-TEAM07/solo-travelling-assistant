@@ -12,7 +12,13 @@
     "https://visitlamdong.vn/vi/nhagadalat",
     "https://visitlamdong.vn/vi/thienvientruclam",
     "https://visitlamdong.vn/vi/vuonhoathanhpho",
-    "https://visitlamdong.vn/vi/stillcafe"
+    "https://visitlamdong.vn/vi/stillcafe",
+    "https://crazyhouse.vn/tham-quan",
+    "https://crazyhouse.vn/contact",
+    "https://crazyhouse.vn/chinh-sach",
+    "https://www.tamchaucenter.com/lien-he",
+    "https://www.ancafeglobal.com/",
+    "https://baotanglamdong.com.vn/tickets"
   ],
   "additional_sources": [
     {
@@ -66,9 +72,10 @@
     "area": "HCMC, DALAT, EN_ROUTE theo chuẩn Leader chốt 09/11/2026; không phải mã hành chính.",
     "environment": "INDOOR/OUTDOOR/MIXED theo chuẩn chung. null chỉ dùng ở hồ sơ UNVERIFIED chưa biết; hồ sơ này không dùng lập lịch thực.",
     "visit_duration_minutes": "Giá trị từ cổng du lịch khi có; null khi chưa có nguồn/chưa chốt.",
-    "opening_hours": "Null theo từng ngày khi thiếu lịch tuần hoặc có xung đột. P010/P011 chuyển từ tag opening_hours OSM; ngoại lệ/ngày lễ chưa được xác nhận nên vẫn UNVERIFIED. Giữ tag gốc ở place_coordinates.json và data_review.json.",
+    "opening_hours": "P009: 08:30–18:00 hằng ngày theo trang dịch vụ tham quan của đơn vị; giữ lịch portal/OSM khác biệt và lý do chọn nguồn trong handoff/source_checks.json. P010/P011 còn tag OSM cũ; các điểm khác giữ null khi thiếu lịch tuần/xung đột.",
     "image_url": "Null; frontend dùng ảnh mặc định, chưa sao chép ảnh bên thứ ba.",
-    "travel_times": "20 truy vấn motorcycle đã thu lại 10/11, đối chiếu số giây/cách làm tròn. 16 ước tính VERIFIED; 4 chặng qua R003 giữ UNVERIFIED do chưa khớp đúng số nhà. Không bảo đảm an toàn hoặc giao thông thực tế."
+    "travel_times": "24 truy vấn motorcycle đã rà endpoint/query/số giây/làm tròn:20 ước tính VERIFIED (16 lượt10/11 và4 lượt15/11),4 chặng R003 UNVERIFIED do chưa khớp cổng/số nhà. Không thu thêm/đổi chặng ngày16/11; không bảo đảm traffic hay quyền đi thực tế."
   },
-  "schema_version": "shared-data-v1-2026-11-09"
+  "schema_version": "shared-data-v1-2026-11-09",
+  "latest_review_at": "2026-11-16T08:15:27.542403+00:00"
 }

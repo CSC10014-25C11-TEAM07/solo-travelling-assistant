@@ -1,13 +1,13 @@
 {
   "schema_version": "shared-data-v1-2026-11-09",
-  "checked_at": "2026-11-10T06:43:02.344762+00:00",
+  "checked_at": "2026-11-16T08:15:27.542403+00:00",
   "meaning": "Thông tin còn thiếu/mâu thuẫn giữ UNVERIFIED. Nhãn SOURCED cũ đã bỏ; VERIFIED chỉ sau đối chiếu các trường cần dùng. Thời điểm đọc nguồn không phải khảo sát tại chỗ.",
   "places": [
     {
       "place_id": "P001",
       "name": "Ga Đà Lạt",
       "source_url": "https://visitlamdong.vn/vi/nhagadalat",
-      "checked_at": "2026-11-10T06:43:02.344762+00:00",
+      "checked_at": "2026-11-16T08:11:07.297433+00:00",
       "reported_hours": "07:00–17:30",
       "pending": "Nguồn chưa tách giờ theo từng thứ.",
       "duration_note": "Cổng du lịch nêu 90 phút.",
@@ -17,7 +17,7 @@
         "opening_hours.weekly"
       ],
       "selected_for_source_route": true,
-      "next_action": "Nhật ưu tiên các trường thiếu của điểm được chọn; xác minh lịch đúng chi nhánh/ngày trước khi dùng tự động."
+      "next_action": "Cổng tỉnh đọc lại 15/11 nêu 90 phút và 07:00–17:30; cần xác nhận lịch tuần, tiếp cận mốc ngoài giờ và chặng nơi lưu trú."
     },
     {
       "place_id": "P002",
@@ -33,7 +33,7 @@
         "opening_hours.weekly"
       ],
       "selected_for_source_route": false,
-      "next_action": "Nhật ưu tiên các trường thiếu của điểm được chọn; xác minh lịch đúng chi nhánh/ngày trước khi dùng tự động."
+      "next_action": "Bảo 04 tiếp tục đối chiếu các trường thiếu của điểm được chọn; Nhật kiểm lịch sau khi nhận dữ liệu. Giữ UNVERIFIED nếu thiếu bằng chứng."
     },
     {
       "place_id": "P003",
@@ -49,7 +49,7 @@
         "opening_hours.weekly"
       ],
       "selected_for_source_route": false,
-      "next_action": "Nhật ưu tiên các trường thiếu của điểm được chọn; xác minh lịch đúng chi nhánh/ngày trước khi dùng tự động."
+      "next_action": "Bảo 04 tiếp tục đối chiếu các trường thiếu của điểm được chọn; Nhật kiểm lịch sau khi nhận dữ liệu. Giữ UNVERIFIED nếu thiếu bằng chứng."
     },
     {
       "place_id": "P004",
@@ -65,30 +65,31 @@
         "opening_hours.weekly"
       ],
       "selected_for_source_route": false,
-      "next_action": "Nhật ưu tiên các trường thiếu của điểm được chọn; xác minh lịch đúng chi nhánh/ngày trước khi dùng tự động."
+      "next_action": "Bảo 04 tiếp tục đối chiếu các trường thiếu của điểm được chọn; Nhật kiểm lịch sau khi nhận dữ liệu. Giữ UNVERIFIED nếu thiếu bằng chứng."
     },
     {
       "place_id": "P005",
       "name": "Bảo tàng Lâm Đồng",
       "source_url": "https://baotanglamdong.com.vn/contact",
-      "checked_at": "2026-11-10T06:43:02.344762+00:00",
+      "checked_at": "2026-11-16T08:15:27.542403+00:00",
       "reported_hours": "07:30–17:30",
-      "pending": "Giờ khác trang trưng bày số và OSM; giữ null, không chọn một nguồn làm lịch chắc chắn. Chỉ xét khu trưng bày trong nhà cho ca mưa. Đọc lại website chính thức 10/11: vẫn nêu 07:30–17:30 nhưng chưa giải quyết xung đột lịch tuần/nghỉ trưa.",
-      "duration_note": "Nhật cần chốt thời lượng phù hợp; chưa tự điền.",
+      "pending": "Ngoài 07:30–17:30 ở header/contact, chính trang tickets của đơn vị ghi hằng ngày 08:00–17:00. Cổng tỉnh/OSM còn khác; chưa xác nhận nghỉ trưa và phạm vi khu trưng bày có mái.",
+      "duration_note": "Cổng du lịch tỉnh visitlamdong.vn/vi/baotangld nêu 120 phút cho toàn điểm, đọc 15/11; không phải thời lượng riêng chỉ khu trong nhà.",
       "classification_note": "area dùng HCMC/DALAT/EN_ROUTE đã chốt 09/11; environment null chỉ ở hồ sơ UNVERIFIED còn thiếu, không phải mã môi trường thứ tư.",
       "ready_for_real_plan": false,
       "missing_fields": [
-        "visit_duration_minutes",
-        "opening_hours.weekly"
+        "opening_hours.weekly",
+        "indoor_visit_scope"
       ],
       "selected_for_source_route": true,
-      "next_action": "Nhật ưu tiên các trường thiếu của điểm được chọn; xác minh lịch đúng chi nhánh/ngày trước khi dùng tự động."
+      "next_action": "Hỏi 02633 812 624 (số công khai của bảo tàng) về lịch từng ngày/nghỉ trưa và 120 phút toàn điểm có áp dụng riêng khu trong nhà không. Giữ weekly null và UNVERIFIED.",
+      "duration_source_url": "https://visitlamdong.vn/vi/baotangld"
     },
     {
       "place_id": "P006",
       "name": "Là Việt Coffee — Nguyễn Công Trứ",
       "source_url": "https://laviet.coffee/tu-chung-toi/",
-      "checked_at": "2026-11-10T06:43:02.344762+00:00",
+      "checked_at": "2026-11-15T09:36:27Z",
       "reported_hours": "07:00–22:00",
       "pending": "Tên và giờ có ở website đơn vị; chưa thấy lịch riêng từng ngày. Khu ngồi có mái theo mô tả cổng du lịch.",
       "duration_note": "Chưa có thời lượng trải nghiệm được chốt.",
@@ -99,7 +100,7 @@
         "opening_hours.weekly"
       ],
       "selected_for_source_route": false,
-      "next_action": "Nhật ưu tiên các trường thiếu của điểm được chọn; xác minh lịch đúng chi nhánh/ngày trước khi dùng tự động."
+      "next_action": "Website đơn vị đọc lại 15/11 xác nhận 200 Nguyễn Công Trứ, 07:00–22:00. Cần thời lượng và lịch tuần/ngày lễ riêng; chưa chọn vào tuyến nhỏ vì chưa có tọa độ/chặng đủ dùng."
     },
     {
       "place_id": "P007",
@@ -117,7 +118,7 @@
         "opening_hours.weekly"
       ],
       "selected_for_source_route": false,
-      "next_action": "Nhật ưu tiên các trường thiếu của điểm được chọn; xác minh lịch đúng chi nhánh/ngày trước khi dùng tự động."
+      "next_action": "Bảo 04 tiếp tục đối chiếu các trường thiếu của điểm được chọn; Nhật kiểm lịch sau khi nhận dữ liệu. Giữ UNVERIFIED nếu thiếu bằng chứng."
     },
     {
       "place_id": "P008",
@@ -133,29 +134,36 @@
         "opening_hours.weekly"
       ],
       "selected_for_source_route": true,
-      "next_action": "Nhật ưu tiên các trường thiếu của điểm được chọn; xác minh lịch đúng chi nhánh/ngày trước khi dùng tự động."
+      "next_action": "Bảo 04 tiếp tục đối chiếu các trường thiếu của điểm được chọn; Nhật kiểm lịch sau khi nhận dữ liệu. Giữ UNVERIFIED nếu thiếu bằng chứng."
     },
     {
       "place_id": "P009",
       "name": "Biệt thự Hằng Nga — Crazy House",
-      "source_url": "https://visitlamdong.vn/vi/bietthuhangnga",
-      "checked_at": "2026-11-10T06:43:02.344762+00:00",
-      "reported_hours": "07:30–19:00",
-      "pending": "OSM ghi 08:30–19:00; cần xác nhận trước khi dùng ràng buộc giờ. Không coi toàn bộ nơi này là trong nhà.",
-      "duration_note": "Cổng du lịch nêu 60 phút.",
+      "source_url": "https://crazyhouse.vn/tham-quan",
+      "checked_at": "2026-11-16T08:15:27.542403+00:00",
+      "reported_hours": "Mo-Su 08:30-18:00",
+      "pending": "Không còn thiếu trường của hồ sơ VISIT thông thường. Lịch do đơn vị trực tiếp công bố được chọn thay lịch portal/OSM khác nhau; giữ các giá trị đối chiếu trong source_checks.json.",
+      "duration_note": "60 phút là ước tính tham quan của cổng du lịch tỉnh, đọc lại 16/11; không phải thời lượng tối thiểu do cơ sở cam kết.",
       "classification_note": "area dùng HCMC/DALAT/EN_ROUTE đã chốt 09/11; environment null chỉ ở hồ sơ UNVERIFIED còn thiếu, không phải mã môi trường thứ tư.",
-      "ready_for_real_plan": false,
-      "missing_fields": [
-        "opening_hours.weekly"
-      ],
+      "ready_for_real_plan": true,
+      "missing_fields": [],
       "selected_for_source_route": true,
-      "next_action": "Nhật ưu tiên các trường thiếu của điểm được chọn; xác minh lịch đúng chi nhánh/ngày trước khi dùng tự động."
+      "next_action": "Dùng cho VISIT theo lịch tuần thường lệ; không dùng làm điểm thay mưa vì MIXED. Không tự dùng giờ tham quan làm giờ lưu trú hoặc coi cả tuyến đã sẵn sàng.",
+      "hours_source_url": "https://crazyhouse.vn/tham-quan",
+      "verification_scope": "Đối chiếu tên/địa chỉ, loại trải nghiệm, MIXED, thời lượng ước tính và giờ tuần; không phải kiểm tra onsite, còn phòng hay bảo đảm giờ mở trong tương lai.",
+      "verification_basis": {
+        "identity_and_area": "https://crazyhouse.vn/contact",
+        "environment_and_interests": "https://crazyhouse.vn/tham-quan (mô tả khu vườn, lối đi ngoài trời và các không gian bên trong; phân loại nhóm MIXED/culture)",
+        "visit_duration_minutes": "https://visitlamdong.vn/vi/bietthuhangnga (60 phút; ước tính từ cổng tỉnh)",
+        "opening_hours.weekly": "https://crazyhouse.vn/tham-quan (08:30–18:00, tất cả ngày trong tuần)",
+        "image_url": "null, không sao chép ảnh"
+      }
     },
     {
       "place_id": "P010",
       "name": "Still Cafe",
       "source_url": "https://visitlamdong.vn/vi/stillcafe",
-      "checked_at": "2026-11-10T06:43:02.344762+00:00",
+      "checked_at": "2026-11-16T08:11:04.035672+00:00",
       "reported_hours": "Mo-Su 07:00-22:00",
       "hours_source_url": "https://www.openstreetmap.org/node/6152524285",
       "pending": "Lịch tuần lấy từ tag OSM, chưa xác nhận ngoại lệ/ngày lễ với đơn vị. Chưa xác nhận khu ngồi có mái và thời lượng; không tự dùng làm điểm thay thế vì mưa.",
@@ -167,16 +175,16 @@
         "visit_duration_minutes"
       ],
       "selected_for_source_route": true,
-      "next_action": "Nhật ưu tiên các trường thiếu của điểm được chọn; xác minh lịch đúng chi nhánh/ngày trước khi dùng tự động."
+      "next_action": "Cổng tỉnh đọc lại 15/11 xác nhận tên/59 Nguyễn Trãi/giờ chung, không có thời lượng. Hỏi 0368 151 215 về thời lượng, khu có mái và lịch tuần/ngày lễ; không tự điền 45/60 phút."
     },
     {
       "place_id": "P011",
       "name": "An Cafe",
-      "source_url": "https://www.openstreetmap.org/node/4206500720",
-      "checked_at": "2026-11-07T11:35:38.920867+00:00",
+      "source_url": "https://www.ancafeglobal.com/",
+      "checked_at": "2026-11-16T08:15:27.542403+00:00",
       "reported_hours": "07:00-22:00",
       "hours_source_url": "https://www.openstreetmap.org/node/4206500720",
-      "pending": "Lịch tuần lấy từ tag OSM, chưa xác nhận ngoại lệ/ngày lễ với đơn vị. Chưa xác nhận khu ngồi có mái và thời lượng; không tự dùng làm điểm thay thế vì mưa.",
+      "pending": "Website An CaFe xác nhận 63Bis Ba Tháng Hai. Nội dung chữ không nêu giờ tuần hoặc thời lượng; lịch 07:00–22:00 vẫn chỉ từ OSM cũ. Chưa xác minh phạm vi có mái.",
       "duration_note": "Chưa có thời lượng trải nghiệm được nhóm chốt; giữ null.",
       "classification_note": "area dùng HCMC/DALAT/EN_ROUTE đã chốt 09/11; environment null chỉ ở hồ sơ UNVERIFIED còn thiếu, không phải mã môi trường thứ tư.",
       "ready_for_real_plan": false,
@@ -185,7 +193,7 @@
         "visit_duration_minutes"
       ],
       "selected_for_source_route": true,
-      "next_action": "Tag giờ OSM được đọc ngày 07/11; chưa kiểm lại được nguồn OSM trong lượt này. Cần xác nhận thời lượng và khu có mái."
+      "next_action": "Dùng kênh liên hệ công khai trên ancafeglobal.com để hỏi giờ/thời lượng/phạm vi có mái; không nhầm An Coffee tại 30 Hoàng Diệu và không gắn INDOOR chỉ theo ảnh/thiết kế."
     },
     {
       "place_id": "R001",
@@ -203,7 +211,7 @@
         "opening_hours.weekly"
       ],
       "selected_for_source_route": false,
-      "next_action": "Nhật ưu tiên các trường thiếu của điểm được chọn; xác minh lịch đúng chi nhánh/ngày trước khi dùng tự động."
+      "next_action": "Bảo 04 tiếp tục đối chiếu các trường thiếu của điểm được chọn; Nhật kiểm lịch sau khi nhận dữ liệu. Giữ UNVERIFIED nếu thiếu bằng chứng."
     },
     {
       "place_id": "R002",
@@ -221,15 +229,15 @@
         "opening_hours.weekly"
       ],
       "selected_for_source_route": false,
-      "next_action": "Nhật ưu tiên các trường thiếu của điểm được chọn; xác minh lịch đúng chi nhánh/ngày trước khi dùng tự động."
+      "next_action": "Bảo 04 tiếp tục đối chiếu các trường thiếu của điểm được chọn; Nhật kiểm lịch sau khi nhận dữ liệu. Giữ UNVERIFIED nếu thiếu bằng chứng."
     },
     {
       "place_id": "R003",
       "name": "Tâm Châu Bảo Lộc",
-      "source_url": "https://tamchau.com/showroom/",
-      "checked_at": "2026-11-10T06:43:02.344762+00:00",
-      "reported_hours": null,
-      "pending": "Website đơn vị có chi nhánh 294A Trần Phú. Chưa xác minh giờ, chiều tiếp cận và khả năng dừng xe máy. Tọa độ OSM Trần Phú chưa có số nhà 294A; 4 ước tính chặng liên quan đều giữ UNVERIFIED.",
+      "source_url": "https://www.tamchaucenter.com/lien-he",
+      "checked_at": "2026-11-16T08:11:03.884101+00:00",
+      "reported_hours": "Nội dung liên hệ: Mo-Su 07:00-22:00; footer: 06:30-22:00",
+      "pending": "Đã đọc được website Tâm Châu Center: đúng tên/294A Trần Phú. Cùng trang có hai giờ mở khác nhau; bản đồ nhúng là khung nhìn, chưa xác nhận tọa độ cổng và tiếp cận xe máy.",
       "duration_note": "Thời gian nghỉ do nhu cầu người dùng quyết định.",
       "classification_note": "area dùng HCMC/DALAT/EN_ROUTE đã chốt 09/11; environment null chỉ ở hồ sơ UNVERIFIED còn thiếu, không phải mã môi trường thứ tư.",
       "ready_for_real_plan": false,
@@ -240,7 +248,7 @@
         "coordinate_branch_match"
       ],
       "selected_for_source_route": true,
-      "next_action": "Nhật ưu tiên các trường thiếu của điểm được chọn; xác minh lịch đúng chi nhánh/ngày trước khi dùng tự động."
+      "next_action": "Hỏi đơn vị giờ tuần/nghỉ trưa, pin đúng cổng xe máy và tiếp cận hai chiều qua 0263 3866 904 (số công khai tại trang liên hệ). Chưa đổi tọa độ hoặc nâng nhãn bốn chặng R003."
     },
     {
       "place_id": "H001",
@@ -258,7 +266,7 @@
         "opening_hours.weekly"
       ],
       "selected_for_source_route": true,
-      "next_action": "Nhật ưu tiên các trường thiếu của điểm được chọn; xác minh lịch đúng chi nhánh/ngày trước khi dùng tự động."
+      "next_action": "Bảo 04 tiếp tục đối chiếu các trường thiếu của điểm được chọn; Nhật kiểm lịch sau khi nhận dữ liệu. Giữ UNVERIFIED nếu thiếu bằng chứng."
     }
   ]
 }

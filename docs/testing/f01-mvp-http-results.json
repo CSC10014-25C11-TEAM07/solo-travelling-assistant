@@ -1,0 +1,85 @@
+{
+  "dataset_version": "bao04-mvp-2026-11-16-v1",
+  "checked_at": "2026-11-16T08:20:34.551639+00:00",
+  "transport": "FastAPI TestClient through real main.app public routes; temporary real SQLite auth; no dependencies overridden",
+  "catalog_sha256": {
+    "places.json": "b68559b4a336fe8c4db8ebd764777ea4eae0ddd75c22996cb5d9836581c54aca",
+    "travel_times.json": "fd1cded55d323663d6628a88ed9c202e92aa652ea8971b966747ea675aabaa15"
+  },
+  "cases": [
+    {
+      "interests": [
+        "coffee"
+      ],
+      "http_status": 200,
+      "place_ids": [
+        "P006",
+        "P010",
+        "P011"
+      ],
+      "passed": true
+    },
+    {
+      "interests": [
+        "nature"
+      ],
+      "http_status": 200,
+      "place_ids": [
+        "P002",
+        "P003",
+        "P004"
+      ],
+      "passed": true
+    },
+    {
+      "interests": [
+        "culture",
+        "nature"
+      ],
+      "http_status": 200,
+      "place_ids": [
+        "P002",
+        "P001",
+        "P003"
+      ],
+      "passed": true
+    },
+    {
+      "interests": [
+        "food"
+      ],
+      "http_status": 200,
+      "place_ids": [
+        "P007"
+      ],
+      "passed": true
+    },
+    {
+      "interests": [],
+      "http_status": 422,
+      "code": "VALIDATION_ERROR",
+      "field": "interests",
+      "passed": true
+    },
+    {
+      "interests": [
+        "invalid"
+      ],
+      "http_status": 422,
+      "code": "VALIDATION_ERROR",
+      "field": "interests",
+      "passed": true
+    },
+    {
+      "case": "revoked_session",
+      "http_status": 401,
+      "code": "INVALID_SESSION",
+      "passed": true
+    }
+  ],
+  "not_verified": [
+    "Expo Go/S01 device",
+    "external HTTP server/network",
+    "F02/F05/F06 API or live AI"
+  ]
+}
