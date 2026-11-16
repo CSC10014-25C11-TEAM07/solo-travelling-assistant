@@ -72,23 +72,24 @@ export async function request(
       error.status = res.status;
       error.code = data.code || detail.code;
       error.field = data.field || detail.field;
-
       throw error;
     }
-
     return data;
   } catch (e) {
     if (e instanceof Error && e.name === 'AbortError') {
       throw new Error(
         'Máy chủ phản hồi quá lâu. Vui lòng thử lại.'
       );
-    if (e instanceof TypeError) {
-      throw new Error(
-    'Không thể kết nối máy chủ. Vui lòng kiểm tra mạng và thử lại.'
-      );
-}
     }
-
+    if (
+      e instanceof TypeError ||
+      (e instanceof Error &&
+        e.message === 'Network request failed')
+    ) {
+      throw new Error(
+        'Không thể kết nối máy chủ. Vui lòng kiểm tra mạng và thử lại.'
+      );
+    }
     throw e;
   } finally {
     clearTimeout(timeout);
