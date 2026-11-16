@@ -7,8 +7,8 @@ export const isActive = (status: ActivityStatus | TravelLeg['status']) => status
 export type Activity = { id: string; title: string; time: string; status: ActivityStatus; outdoor?: boolean };
 export type CurrentTrip = { id: string; version: number; day: number; restStart: string; restEnd: string; restPlaceId?: string; deadline: string; activities: Activity[]; travelLegs?: TravelLeg[] };
 export type AdaptRequest = { kind: AdaptKind; tripId: string; baseVersion: number; activityId?: string; restUntil?: string; preferredKeep?: string };
-export type Proposal = { id: string; baseVersion: number; kind: AdaptKind; title: string; summary: string; explanation: string; tradeoff: string; finish: string; removeId?: string; replaceId?: string; replacement?: string; restUntil?: string; travelChanges?: TravelChange[] };
-export type ProposalResponse = { proposals: Proposal[]; conflict?: string; source: 'MOCK' | 'API' };
+export type Proposal = { apiChanges?: string[]; id: string; baseVersion: number; kind: AdaptKind; title: string; summary: string; explanation: string; tradeoff: string; finish: string; removeId?: string; replaceId?: string; replacement?: string; restUntil?: string; travelChanges?: TravelChange[] };
+export type ProposalResponse = { proposalId?: string; proposals: Proposal[]; conflict?: string; source: 'MOCK' | 'API' };
 
 export const demoTrip: CurrentTrip = {
   id: 'MOCK-TRIP-01', version: 1, day: 2, restStart: '13:00', restEnd: '14:00', restPlaceId: 'A02', deadline: '16:30',
@@ -30,6 +30,8 @@ export const demoTrip: CurrentTrip = {
 export function placeName(trip: CurrentTrip, placeId: string): string {
   const known = trip.activities.find(a => a.id === placeId);
   if (known) return known.title;
+  const names = 'placeNames' in trip ? trip.placeNames as Record<string, string> : undefined;
+  if (names?.[placeId]) return names[placeId];
   if (placeId === 'END-DAY') return 'Điểm kết thúc ngày';
   if (placeId.startsWith('MOCK-INDOOR-')) {
     const optionId = placeId.slice('MOCK-INDOOR-'.length);
@@ -43,7 +45,9 @@ export function placeName(trip: CurrentTrip, placeId: string): string {
 
 /** Show the rest location from itinerary data, never a hard-coded homestay. */
 export function restPlaceName(trip: CurrentTrip): string {
-  return trip.restPlaceId ? placeName(trip, trip.restPlaceId) : 'địa điểm nghỉ theo lịch';
+  if (!trip.restPlaceId) return 'địa điểm nghỉ theo lịch';
+  const label = placeName(trip, trip.restPlaceId);
+  return 'rawDays' in trip && label === trip.restPlaceId ? 'địa điểm nghỉ theo lịch (chưa có tên)' : label;
 }
 
 export function travelRouteName(trip: CurrentTrip, from: string, to: string): string {
@@ -64,7 +68,7 @@ export function validateRequest(trip: CurrentTrip, req: AdaptRequest): string | 
     } catch (e) { return (e as Error).message; }
   } else {
     const activity = trip.activities.find(a => a.id === req.activityId);
-    if (!activity || !activity.outdoor || activity.status !== 'TODO') return 'Chỉ chọn hoạt động ngoài trời chưa thực hiện.';
+    if (!activity || activity.status !== 'TODO' || (!activity.outdoor && !('rawDays' in trip))) return 'Chỉ chọn hoạt động ngoài trời chưa thực hiện.';
   }
   return null;
 }

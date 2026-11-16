@@ -1,48 +1,22 @@
 Refs #8
 
-Nhật/Bảo 06/Tân cần cùng bộ dữ liệu cho tuyến 3/4 ngày và ba ca ADAPT trong lúc chờ
-ghép UI. Bản này bàn giao **bao04-handoff-2026-11-10-v1**, có manifest, RouteDay,
-snapshot CURRENT đầy đủ và checklist S01, thay các enum đề xuất cũ bằng chuẩn Leader 09/11.
+Bàn giao dữ liệu/F01 của Bảo 04 theo phân công MVP 14/11. Phiên bản hiện tại:
+`bao04-mvp-2026-11-16-v1`, tiếp tục mốc 15/11 và bộ đã merge ở PR #19.
 
-## Bộ dữ liệu và mục đích
+- Giữ bốn ca MOCK T06/T08/T13/T15; CLI replay tám lượt trên snapshot 3/4 ngày qua F05 đã merge, kiểm DONE/ngày khác, bản lưu JSON và snapshot đề xuất độc lập.
+- Audit nguồn tính VISIT, REST, chờ mở cửa, ngày/điểm nghỉ, chặng đúng hướng/điểm cuối và giờ tiếp cận mốc. Thiếu dữ liệu hoặc trễ không báo ready.
+- Nguồn ngày 16/11: P009 Crazy House đối chiếu đủ trường hồ sơ VISIT, dùng lịch đơn vị 08:30–18:00 hằng ngày, MIXED và thời lượng ước tính 60 phút của cổng tỉnh. Giữ đối chiếu với giờ portal/OSM và lý do chọn nguồn; không lấy VERIFIED của một điểm làm nghiệm thu tuyến.
+- Catalog: 15 điểm (1 VERIFIED, 14 UNVERIFIED), 24 chặng (20 ước tính VERIFIED, 4 qua R003 UNVERIFIED). Đọc được Tâm Châu Center và An CaFe; giữ xung đột hai giờ mở Tâm Châu và lịch khác nhau trên trang vé/header bảo tàng. Không đoán cổng, thời lượng café hoặc phạm vi INDOOR.
+- Xuất tập nguồn nhỏ 8 điểm/24 chặng + cấu hình/provenance/readiness sang thư mục mới. Không ghi SQLite/đổi hợp đồng hoặc sửa phần tích hợp, AI, mobile của các bạn khác.
+- Có `docs/DATA-SOURCE-VERIFY-BAO04.md`: phần trợ lý đã tra cứu, mẫu hỏi có nguồn liên hệ, mẫu ghi kết quả và ứng viên nơi ngủ để nhóm chốt. Chưa gửi tin, gọi điện, đặt phòng hoặc thay cấu hình tuyến.
 
-- `handoff/routes_source.json`: chọn hai tuyến TP.HCM–Bảo Lộc–Đà Lạt–TP.HCM 3/4 ngày,
-  điểm đầu/cuối/hạn từng ngày và tổng nghỉ. **Cả hai chưa đủ để lập lịch thật**.
-- Catalog nguồn: 15 điểm UNVERIFIED; thu/rà lại 20 chặng motorcycle, 16 ước tính VERIFIED
-  và 4 qua R003 giữ UNVERIFIED vì tọa độ chưa khớp số nhà 294A.
-- `fixtures/mock/` + CURRENT 3D/4D: T06 nghỉ thêm phải bỏ A03 hoặc A04; T13 đổi mưa có
-  đủ REST→INDOOR, INDOOR→A04 và chặng về. T08 là ca nghỉ quá muộn bổ sung.
-- `fixtures/mock-no-replacement/`: T15, không bị lẫn quán INDOOR mở từ T13; vẫn giữ
-  đủ ID/chặng cho snapshot 4 ngày.
+Kiểm tra lại ngày 16/11:
 
-`source_checks.json`, `data_review.json` và audit report nêu nguồn, trường thiếu và
-xung đột từng điểm. Hạn 17:00/18:00 của tuyến nguồn là đề xuất cần Nhật kiểm; ngày đi
-có cận dưới điều kiện 17:17, đã vượt 17:00 trước VISIT/buffer. P001 chỉ là mốc tập kết,
-không phải chỗ lưu trú. Không dùng MOCK bù vào source hay gắn VERIFIED vì có URL.
+- `python -m unittest discover -s backend/tests -q`: **103 tests PASS**.
+- Ba catalog validators, `audit_data_handoff.py`, `replay_handoff_f05.py` (**8 lượt PASS**, counts 2/0/1/0) và `prepare_source_bundle.py --output-dir <new-dir>`: exit0.
+- F01 qua main.app TestClient + SQLite auth tạm: **7 ca PASS**, gồm đổi sở thích, input thiếu/sai và token đã logout. JSON report có hash catalog/chặng, không có token.
+- Chi tiết/tái hiện ở `docs/testing/dataset-handoff-results.md`; hai tuyến nguồn vẫn ready=false, với 34/44 gaps (gồm mục lặp theo ngày).
 
-## Kiểm tra
+Tuyến thật 3/4 ngày vẫn BLOCKED: giờ/thời lượng/tiếp cận venue, pin cổng R003, nơi ngủ/chặng nối và ngày đi có cận dưới 17:17 vượt hạn đề xuất 17:00 trước buffer. Hai nhánh mưa đủ chặng nhưng venue còn thiếu dữ liệu. Chưa xác nhận S01/Expo Go, F02/F05 AI thật hoặc F06/SQLite qua app. Không đóng #8 và không tự merge.
 
-```bash
-backend/.venv/bin/python -m unittest discover -s backend/tests -v
-backend/.venv/bin/python backend/scripts/validate_places.py
-backend/.venv/bin/python backend/scripts/validate_places.py --data-dir backend/data/fixtures/mock
-backend/.venv/bin/python backend/scripts/validate_places.py --data-dir backend/data/fixtures/mock-no-replacement
-backend/.venv/bin/python backend/scripts/audit_data_handoff.py
-```
-
-37 backend tests PASS. Replay code domain của Nhật PR #17 commit `311e94b` cho T06/T08/T13/T15
-trên cả hai snapshot: 8 lượt PASS, 2/0/1/0 candidate, giữ DONE/ngày khác, mốc khả thi 16:15.
-Đã kiểm độc lập các snapshot đề xuất. Test chống thiếu chặng tới/đi tiếp, catalog bị lẫn,
-thiếu ca/nhánh, thiếu nghỉ và collector tự nâng nhãn cũng qua.
-
-Chi tiết: `docs/DATASET-HANDOFF-BAO04.md`, `docs/testing/dataset-handoff-results.md`.
-
-## Ghép và giới hạn
-
-Nhật dùng RouteDay/target_ids và catalog đúng ca; Bảo 06 ánh xạ tài khoản/ID, nhập/reset
-SQLite; Tân ghi commit + dataset_version + thực tế/bằng chứng. Các hồ sơ còn thiếu giữ
-UNVERIFIED. Collector thu mới cũng luôn xuất UNVERIFIED chờ review.
-
-Chưa xác nhận F06 persistence/Gemini/tuyến thật hoặc app. Khi Hân có bản ghép PR #18,
-chạy `docs/testing/s01-f01-handoff.md` để chốt đổi sở thích trên S01; hiện **NOT_RUN**.
-Không đóng #8 từ PR này.
+Nhật nhận fixture/RouteDay và dữ liệu có nhãn; Bảo 06 nhận source pack để rà/import; Tân dùng đúng catalog và ghi mode/version; Hân/Bảo 04 chạy S01 trên bản ghép. Hướng dẫn ở `docs/DATASET-HANDOFF-BAO04.md` và `docs/DATA-SOURCE-VERIFY-BAO04.md`.

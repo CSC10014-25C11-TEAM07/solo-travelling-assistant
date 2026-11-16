@@ -12,6 +12,21 @@
       "unresolved": [
         "lịch theo từng thứ/ngày lễ",
         "tiếp cận mốc tập kết và chặng tới nơi lưu trú"
+      ],
+      "last_checked_at": "2026-11-16T08:11:07.297433+00:00",
+      "evidence": [
+        {
+          "source_url": "https://visitlamdong.vn/vi/nhagadalat",
+          "checked_at": "2026-11-16T08:11:07.297433+00:00",
+          "transport": "HTTPS GET, system certificate validation",
+          "response_sha256": "ca586141b3cbd9786c1f6da5ca97e68fd0817ec14ab57c620719f947ed257eaa",
+          "reviewed_fields": [
+            "identity",
+            "address",
+            "general_hours",
+            "visit_duration_minutes"
+          ]
+        }
       ]
     },
     {
@@ -19,11 +34,55 @@
       "source_url": "https://baotanglamdong.com.vn/contact",
       "found": {
         "general_hours": "07:30–17:30",
-        "address": "04 Hùng Vương"
+        "address": "04 Hùng Vương",
+        "visit_duration_minutes": 120
       },
       "unresolved": [
-        "lịch tuần/nghỉ trưa khác OSM",
-        "thời lượng khu trưng bày"
+        "lịch tuần/nghỉ trưa chưa thống nhất; trang tickets cũng mâu thuẫn với header/contact",
+        "120 phút của toàn điểm không xác nhận riêng khu có mái cho RAIN"
+      ],
+      "last_checked_at": "2026-11-16T08:15:27.542403+00:00",
+      "duration_source_url": "https://visitlamdong.vn/vi/baotangld",
+      "conflicting_hours": [
+        {
+          "source_url": "https://baotanglamdong.com.vn/contact",
+          "reported": "07:30–17:30"
+        },
+        {
+          "source_url": "https://visitlamdong.vn/vi/baotangld",
+          "reported": "07:30–16:30"
+        },
+        {
+          "source_url": "https://www.openstreetmap.org/node/1152350875",
+          "reported": "Mo-Su 07:15–11:30,13:30–17:00",
+          "last_read": "2026-11-07"
+        },
+        {
+          "source_url": "https://baotanglamdong.com.vn/tickets",
+          "reported": "Hằng ngày 08:00-17:00; header cùng trang vẫn07:30-17:30",
+          "checked_at": "2026-11-16T08:15:27.542403+00:00"
+        }
+      ],
+      "evidence": [
+        {
+          "source_url": "https://baotanglamdong.com.vn/tickets",
+          "checked_at": "2026-11-16T08:15:27.542403+00:00",
+          "transport": "web reader",
+          "reviewed_fields": [
+            "daily hours in booking-information section",
+            "conflicting header"
+          ]
+        },
+        {
+          "source_url": "https://baotanglamdong.com.vn/contact",
+          "checked_at": "2026-11-16T08:15:27.542403+00:00",
+          "transport": "web reader",
+          "reviewed_fields": [
+            "general_hours",
+            "04 Hùng Vương address",
+            "public_phone"
+          ]
+        }
       ]
     },
     {
@@ -39,14 +98,56 @@
     },
     {
       "place_id": "P009",
-      "source_url": "https://visitlamdong.vn/vi/bietthuhangnga",
+      "source_url": "https://crazyhouse.vn/tham-quan",
       "found": {
-        "general_hours": "07:30–19:00",
-        "visit_duration_minutes": 60
+        "address": "03 Huỳnh Thúc Kháng, Đà Lạt",
+        "weekly_hours": "Mo-Su 08:30-18:00",
+        "visit_duration_minutes": 60,
+        "environment": "MIXED"
       },
-      "unresolved": [
-        "OSM mở 08:30; chưa chốt lịch theo thứ"
-      ]
+      "unresolved": [],
+      "last_checked_at": "2026-11-16T08:15:27.542403+00:00",
+      "hours_resolution": {
+        "selected_source_url": "https://crazyhouse.vn/tham-quan",
+        "reason": "Trang dịch vụ tham quan của đơn vị trực tiếp ghi rõ giờ và tất cả ngày trong tuần cho đúng cơ sở. Ưu tiên lịch vận hành này; không suy ra lịch tuần từ giờ chung của portal hoặc dùng khung OSM cũ. Không khẳng định nguồn khác đã đổi hay website đơn vị có ngày xuất bản mới hơn.",
+        "other_reported_hours": [
+          {
+            "source_url": "https://visitlamdong.vn/vi/bietthuhangnga",
+            "reported": "07:30-19:00",
+            "checked_at": "2026-11-16T08:11:03.547997+00:00"
+          },
+          {
+            "source_url": "https://www.openstreetmap.org/relation/20657435",
+            "reported": "Mo-Su 08:30-19:00",
+            "last_read": "2026-11-07"
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "source_url": "https://crazyhouse.vn/tham-quan",
+          "checked_at": "2026-11-16T08:11:01.630427+00:00",
+          "transport": "HTTPS GET, system certificate validation",
+          "response_sha256": "d81bcf1b3d05980e1cdc9a97de16386efe00e6104abe11d27c4736d71c8cfb20",
+          "reviewed_fields": [
+            "opening_hours.weekly",
+            "environment description"
+          ]
+        },
+        {
+          "source_url": "https://visitlamdong.vn/vi/bietthuhangnga",
+          "checked_at": "2026-11-16T08:11:03.547997+00:00",
+          "transport": "HTTPS GET, system certificate validation",
+          "response_sha256": "11ba905db011b14399cb91ad2fb135c24ab0b080ede97f4a761816658e94a52e",
+          "reviewed_fields": [
+            "visit_duration_minutes",
+            "address"
+          ]
+        }
+      ],
+      "verification_scope": "Đối chiếu tên/địa chỉ, loại trải nghiệm, MIXED, thời lượng ước tính và giờ tuần; không phải kiểm tra onsite, còn phòng hay bảo đảm giờ mở trong tương lai.",
+      "lodging_note": "Cơ sở có dịch vụ lưu trú và chính sách check-in từ14:00/check-out không muộn hơn12:00. Chỉ là ứng viên để nhóm chọn; chưa đặt phòng, chưa xác nhận cổng/đỗ xe, giờ vào ra sớm/muộn hoặc chặng nối nơi ngủ.",
+      "lodging_policy_source_url": "https://crazyhouse.vn/chinh-sach"
     },
     {
       "place_id": "P010",
@@ -59,31 +160,77 @@
         "thời lượng chuẩn",
         "khu có mái",
         "ngoại lệ/ngày lễ"
+      ],
+      "last_checked_at": "2026-11-16T08:11:04.035672+00:00",
+      "evidence": [
+        {
+          "source_url": "https://visitlamdong.vn/vi/stillcafe",
+          "checked_at": "2026-11-16T08:11:04.035672+00:00",
+          "transport": "HTTPS GET, system certificate validation",
+          "response_sha256": "bc32df9f5380c58d3939fbfe4ae55227b1064f03be3bbc98d8a0408bc7be38a9",
+          "reviewed_fields": [
+            "identity",
+            "address",
+            "general_hours"
+          ]
+        }
       ]
     },
     {
       "place_id": "P011",
-      "source_url": "https://www.openstreetmap.org/node/4206500720",
+      "source_url": "https://www.ancafeglobal.com/",
       "found": {
-        "cached_weekly_hours": "07:00–22:00",
-        "last_successful_read": "2026-11-07"
+        "address_from_operator": "63Bis Ba Tháng Hai, Đà Lạt",
+        "cached_weekly_hours": "07:00-22:00",
+        "hours_last_successful_read": "2026-11-07"
       },
       "unresolved": [
-        "chưa đọc lại được OSM lượt 10/11",
+        "website đơn vị không ghi giờ tuần bằng chữ",
         "thời lượng",
-        "môi trường/ngoại lệ"
+        "môi trường/khu có mái và ngoại lệ"
+      ],
+      "last_checked_at": "2026-11-16T08:15:27.542403+00:00",
+      "evidence": [
+        {
+          "source_url": "https://www.ancafeglobal.com/",
+          "checked_at": "2026-11-16T08:15:27.542403+00:00",
+          "transport": "web reader",
+          "reviewed_fields": [
+            "operator name",
+            "63Bis Ba Tháng Hai address"
+          ]
+        }
       ]
     },
     {
       "place_id": "R003",
-      "source_url": "https://tamchau.com/gioi-thieu/",
+      "source_url": "https://www.tamchaucenter.com/lien-he",
       "found": {
-        "address_from_operator": "294A Trần Phú, Bảo Lộc"
+        "address_from_operator": "294A Trần Phú, Bảo Lộc",
+        "contact_section_weekly_hours": "Mo-Su 07:00-22:00",
+        "footer_general_hours": "06:30-22:00",
+        "public_phone": "0263 3866 904"
       },
-      "access_result": "trang trực tiếp 403; thông tin đơn vị còn có trong chỉ mục tìm kiếm",
+      "access_result": "Đọc thành công trang đơn vị Tâm Châu Center; trang tamchau.com cũ vẫn403 qua web reader.",
       "unresolved": [
-        "tọa độ geocoder chưa có số nhà",
-        "giờ và tiếp cận xe máy"
+        "hai giờ mở cửa trên cùng trang chưa thống nhất",
+        "pin đúng cổng/số nhà chưa đối chiếu; tâm khung nhìn Google Maps nhúng không phải tọa độ điểm",
+        "môi trường, chỗ dừng xe máy và tiếp cận hai chiều"
+      ],
+      "last_checked_at": "2026-11-16T08:11:03.884101+00:00",
+      "evidence": [
+        {
+          "source_url": "https://www.tamchaucenter.com/lien-he",
+          "checked_at": "2026-11-16T08:11:03.884101+00:00",
+          "transport": "HTTPS GET, system certificate validation",
+          "response_sha256": "1026bf58e7111244839821a3112115e22555f0115bcae384721ffbba048abdd9",
+          "reviewed_fields": [
+            "operator identity",
+            "address",
+            "conflicting hours",
+            "public contact"
+          ]
+        }
       ]
     },
     {
@@ -97,18 +244,55 @@
         "đỗ xe/tập kết",
         "giờ tiếp cận điểm đầu/cuối"
       ]
+    },
+    {
+      "place_id": "P006",
+      "source_url": "https://laviet.coffee/tu-chung-toi/",
+      "last_checked_at": "2026-11-15T09:36:27Z",
+      "found": {
+        "address": "200 Nguyễn Công Trứ",
+        "general_hours": "07:00–22:00"
+      },
+      "unresolved": [
+        "thời lượng trải nghiệm",
+        "lịch theo từng thứ/ngày lễ"
+      ]
     }
   ],
   "network_limitations": [
-    "Hai truy vấn Overpass timeout; OSM API kết nối bị reset. Không tự điền thông tin không nhận được."
+    "Hai truy vấn Overpass timeout; OSM API kết nối bị reset. Không tự điền thông tin không nhận được.",
+    "15/11: tamchau.com/showroom và gioi-thieu vẫn HTTP403; crazyhouse.vn timeout. Không nâng nhãn từ kết quả tìm kiếm hoặc khi nguồn không đọc được.",
+    "16/11: một số trang portal timeout qua web reader nhưng đọc được HTTPS bằng curl với chứng chỉ hệ thống; không tắt kiểm tra TLS. An CaFe đọc qua web reader; dalat.vn có lỗi chứng chỉ qua curl. Chỉ cập nhật last_checked_at cho nội dung thật sự đọc được."
   ],
   "routing_batch": {
     "profile": "motorcycle",
-    "count": 20,
-    "verified_estimates": 16,
+    "count": 24,
+    "verified_estimates": 20,
     "unverified_endpoint_estimates": 4,
     "raw_evidence": "travel_time_evidence.json",
     "rounding": "ceil(seconds/60)",
-    "limitations": "Không có traffic trực tiếp, thời gian nghỉ, buffer hay xác minh quyền đi xe máy từng đoạn đường."
-  }
+    "limitations": "Không có traffic trực tiếp, thời gian nghỉ, buffer hay xác minh quyền đi xe máy từng đoạn đường.",
+    "previous_batch_date": "2026-11-10",
+    "latest_added_pairs": [
+      {
+        "from_place_id": "P008",
+        "to_place_id": "P001"
+      },
+      {
+        "from_place_id": "P011",
+        "to_place_id": "P005"
+      },
+      {
+        "from_place_id": "P005",
+        "to_place_id": "P009"
+      },
+      {
+        "from_place_id": "P009",
+        "to_place_id": "P001"
+      }
+    ],
+    "latest_reviewed_at": "2026-11-15T09:40:27.512363+00:00"
+  },
+  "latest_review_at": "2026-11-16T08:15:27.542403+00:00",
+  "latest_review_scope": "16/11 chỉ cập nhật mục có last_checked_at tương ứng. Đọc nguồn web và đối chiếu trường; không gọi điện, không onsite, không gửi biểu mẫu. Thời điểm đọc không phải ngày nguồn xuất bản."
 }
