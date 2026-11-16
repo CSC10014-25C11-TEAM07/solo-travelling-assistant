@@ -1,0 +1,268 @@
+[
+  {
+    "observed_at": "2026-11-16T13:34:56.184157+00:00",
+    "interests": [
+      "nature"
+    ],
+    "status": 200,
+    "bearer_present": true,
+    "place_ids": [
+      "P002",
+      "P003",
+      "P004"
+    ],
+    "place_names": [
+      "Thiền viện Trúc Lâm",
+      "Hồ Xuân Hương",
+      "Vườn hoa thành phố Đà Lạt"
+    ],
+    "code": null,
+    "controlled_delay_seconds": 0,
+    "controlled_503": false,
+    "elapsed_seconds": 0.007
+  },
+  {
+    "observed_at": "2026-11-16T13:35:27.755149+00:00",
+    "interests": [
+      "coffee"
+    ],
+    "status": 200,
+    "bearer_present": true,
+    "place_ids": [
+      "P006",
+      "P010",
+      "P011"
+    ],
+    "place_names": [
+      "Là Việt Coffee — Nguyễn Công Trứ",
+      "Still Cafe",
+      "An Cafe"
+    ],
+    "code": null,
+    "controlled_delay_seconds": 0,
+    "controlled_503": false,
+    "elapsed_seconds": 0.006
+  },
+  {
+    "observed_at": "2026-11-16T14:02:30.489932+00:00",
+    "interests": [
+      "nature"
+    ],
+    "status": 200,
+    "bearer_present": true,
+    "place_ids": [
+      "P002",
+      "P003",
+      "P004"
+    ],
+    "place_names": [
+      "Thiền viện Trúc Lâm",
+      "Hồ Xuân Hương",
+      "Vườn hoa thành phố Đà Lạt"
+    ],
+    "code": null,
+    "controlled_delay_seconds": 0,
+    "controlled_503": false,
+    "elapsed_seconds": 0.012
+  },
+  {
+    "observed_at": "2026-11-16T14:03:16.905034+00:00",
+    "interests": [
+      "nature",
+      "culture"
+    ],
+    "status": 200,
+    "bearer_present": true,
+    "place_ids": [
+      "P002",
+      "P001",
+      "P003"
+    ],
+    "place_names": [
+      "Thiền viện Trúc Lâm",
+      "Ga Đà Lạt",
+      "Hồ Xuân Hương"
+    ],
+    "code": null,
+    "controlled_delay_seconds": 0,
+    "controlled_503": false,
+    "elapsed_seconds": 0.004
+  },
+  {
+    "observed_at": "2026-11-16T14:03:47.338285+00:00",
+    "interests": [
+      "culture"
+    ],
+    "status": 200,
+    "bearer_present": true,
+    "place_ids": [
+      "P001",
+      "P002",
+      "P005"
+    ],
+    "place_names": [
+      "Ga Đà Lạt",
+      "Thiền viện Trúc Lâm",
+      "Bảo tàng Lâm Đồng"
+    ],
+    "code": null,
+    "controlled_delay_seconds": 0,
+    "controlled_503": false,
+    "elapsed_seconds": 0.003
+  },
+  {
+    "observed_at": "2026-11-16T14:04:28.687755+00:00",
+    "interests": [
+      "coffee"
+    ],
+    "status": 200,
+    "bearer_present": true,
+    "place_ids": [
+      "P006",
+      "P010",
+      "P011"
+    ],
+    "place_names": [
+      "Là Việt Coffee — Nguyễn Công Trứ",
+      "Still Cafe",
+      "An Cafe"
+    ],
+    "code": null,
+    "controlled_delay_seconds": 5,
+    "controlled_503": false,
+    "elapsed_seconds": 5.008
+  },
+  {
+    "observed_at": "2026-11-16T14:04:49.009894+00:00",
+    "interests": [
+      "coffee",
+      "nature"
+    ],
+    "status": 200,
+    "bearer_present": true,
+    "place_ids": [
+      "P002",
+      "P003",
+      "P004"
+    ],
+    "place_names": [
+      "Thiền viện Trúc Lâm",
+      "Hồ Xuân Hương",
+      "Vườn hoa thành phố Đà Lạt"
+    ],
+    "code": null,
+    "controlled_delay_seconds": 0,
+    "controlled_503": false,
+    "elapsed_seconds": 0.003
+  },
+  {
+    "observed_at": "2026-11-16T14:04:51.146357+00:00",
+    "interests": [
+      "nature"
+    ],
+    "status": 200,
+    "bearer_present": true,
+    "place_ids": [
+      "P002",
+      "P003",
+      "P004"
+    ],
+    "place_names": [
+      "Thiền viện Trúc Lâm",
+      "Hồ Xuân Hương",
+      "Vườn hoa thành phố Đà Lạt"
+    ],
+    "code": null,
+    "controlled_delay_seconds": 0,
+    "controlled_503": false,
+    "elapsed_seconds": 0.002
+  },
+  {
+    "observed_at": "2026-11-16T14:04:51.765226+00:00",
+    "interests": [
+      "coffee"
+    ],
+    "status": 200,
+    "bearer_present": true,
+    "place_ids": [
+      "P006",
+      "P010",
+      "P011"
+    ],
+    "place_names": [
+      "Là Việt Coffee — Nguyễn Công Trứ",
+      "Still Cafe",
+      "An Cafe"
+    ],
+    "code": null,
+    "controlled_delay_seconds": 5,
+    "controlled_503": false,
+    "elapsed_seconds": 5.005
+  },
+  {
+    "observed_at": "2026-11-16T14:44:39.586617+00:00",
+    "interests": [
+      "nature"
+    ],
+    "status": 200,
+    "bearer_present": true,
+    "place_ids": [
+      "P002",
+      "P003",
+      "P004"
+    ],
+    "place_names": [
+      "Thiền viện Trúc Lâm",
+      "Hồ Xuân Hương",
+      "Vườn hoa thành phố Đà Lạt"
+    ],
+    "code": null,
+    "controlled_delay_seconds": 0,
+    "controlled_503": false,
+    "elapsed_seconds": 0.003
+  },
+  {
+    "observed_at": "2026-11-16T14:45:13.540688+00:00",
+    "interests": [
+      "coffee"
+    ],
+    "status": 200,
+    "bearer_present": true,
+    "place_ids": [
+      "P006",
+      "P010",
+      "P011"
+    ],
+    "place_names": [
+      "Là Việt Coffee — Nguyễn Công Trứ",
+      "Still Cafe",
+      "An Cafe"
+    ],
+    "code": null,
+    "controlled_delay_seconds": 5,
+    "controlled_503": false,
+    "elapsed_seconds": 5.003
+  },
+  {
+    "observed_at": "2026-11-16T14:46:16.080181+00:00",
+    "interests": [
+      "coffee"
+    ],
+    "status": 200,
+    "bearer_present": true,
+    "place_ids": [
+      "P006",
+      "P010",
+      "P011"
+    ],
+    "place_names": [
+      "Là Việt Coffee — Nguyễn Công Trứ",
+      "Still Cafe",
+      "An Cafe"
+    ],
+    "code": null,
+    "controlled_delay_seconds": 5,
+    "controlled_503": false,
+    "elapsed_seconds": 5.008
+  }
+]

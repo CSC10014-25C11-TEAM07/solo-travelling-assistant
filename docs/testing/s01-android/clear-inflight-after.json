@@ -1,0 +1,17 @@
+{
+  "case": "clear-inflight-after",
+  "status": "PASS",
+  "expected_place_ids": [],
+  "actual_place_ids": [],
+  "screenshot": "s01-android/clear-inflight-after.png",
+  "ui_tree": "s01-android/clear-inflight-after.xml",
+  "controlled_delay_seconds": 5,
+  "observed_text": [
+    "Chưa có gợi ý phù hợp."
+  ],
+  "stage": "LOCAL_PROPOSAL_NOT_PUBLISHED",
+  "base_commit": "dbb46affa6ad371f98ec133b61f8b2ec3d41528f",
+  "plan_source_sha256": "acba168d59abdc5838a829deb6baf3b2738e2a9326c0b506fa4c5cca11b8c994",
+  "captured_at": "2026-11-16T14:46:23.267257+00:00",
+  "test_exit_code": 0
+}

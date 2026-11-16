@@ -1,22 +1,23 @@
-Refs #8
+Refs #8. Tiếp tục phần chưa nghiệm thu sau PR #24 đã merge.
 
-Bàn giao dữ liệu/F01 của Bảo 04 theo phân công MVP 14/11. Phiên bản hiện tại:
-`bao04-mvp-2026-11-16-v1`, tiếp tục mốc 15/11 và bộ đã merge ở PR #19.
+Bổ sung kiểm chứng S01 trên Android Emulator/Expo Go58 với main `dbb46af` và dataset `bao04-mvp-2026-11-16-v1`. S01 gọi API/session SQLite thật, hiển thị đúng khi đổi coffee→nature và chọn nhiều sở thích. Ca bỏ hết sở thích lúc request đang tải bị kẹt loading; có ảnh/XML, query/status/ID không chứa token, và regression thất bại trước sửa.
 
-- Giữ bốn ca MOCK T06/T08/T13/T15; CLI replay tám lượt trên snapshot 3/4 ngày qua F05 đã merge, kiểm DONE/ngày khác, bản lưu JSON và snapshot đề xuất độc lập.
-- Audit nguồn tính VISIT, REST, chờ mở cửa, ngày/điểm nghỉ, chặng đúng hướng/điểm cuối và giờ tiếp cận mốc. Thiếu dữ liệu hoặc trễ không báo ready.
-- Nguồn ngày 16/11: P009 Crazy House đối chiếu đủ trường hồ sơ VISIT, dùng lịch đơn vị 08:30–18:00 hằng ngày, MIXED và thời lượng ước tính 60 phút của cổng tỉnh. Giữ đối chiếu với giờ portal/OSM và lý do chọn nguồn; không lấy VERIFIED của một điểm làm nghiệm thu tuyến.
-- Catalog: 15 điểm (1 VERIFIED, 14 UNVERIFIED), 24 chặng (20 ước tính VERIFIED, 4 qua R003 UNVERIFIED). Đọc được Tâm Châu Center và An CaFe; giữ xung đột hai giờ mở Tâm Châu và lịch khác nhau trên trang vé/header bảo tàng. Không đoán cổng, thời lượng café hoặc phạm vi INDOOR.
-- Xuất tập nguồn nhỏ 8 điểm/24 chặng + cấu hình/provenance/readiness sang thư mục mới. Không ghi SQLite/đổi hợp đồng hoặc sửa phần tích hợp, AI, mobile của các bạn khác.
-- Có `docs/DATA-SOURCE-VERIFY-BAO04.md`: phần trợ lý đã tra cứu, mẫu hỏi có nguồn liên hệ, mẫu ghi kết quả và ứng viên nơi ngủ để nhóm chốt. Chưa gửi tin, gọi điện, đặt phòng hoặc thay cấu hình tuyến.
+Bản vá thêm `L(false)` trong nhánh sở thích rỗng đã có regression PASS cục bộ, được bàn giao dưới dạng patch trong `docs/testing/s01-android/`. Việc đưa thay đổi vào file S01 của Hân đang chờ Bảo 04 quyết định; PR #26 của Hân đang mở ở cùng file. Manifest/checklist ghi **PARTIAL_EMULATOR_FAIL** cho main và **NOT_RUN** cho điện thoại thật.
 
-Kiểm tra lại ngày 16/11:
+Cập nhật người chốt tuyến là Bảo 04 theo xác nhận của người dùng. Có phương án cụ thể chờ chọn: Crazy House, ngân sách VISIT Still/An60phút, hạn ngày đi/về18:00 và buffer30phút. Bổ sung evidence riêng cho chặng P001→P009 (452.109giây→8phút,3.055km, vẫn UNVERIFIED). Đề xuất chưa áp dụng vào catalog/tuyến; cổng/giờ lưu trú và các venue còn thiếu nguồn. Hai tuyến hiện hành vẫn ready=false với34/44gaps.
 
-- `python -m unittest discover -s backend/tests -q`: **103 tests PASS**.
-- Ba catalog validators, `audit_data_handoff.py`, `replay_handoff_f05.py` (**8 lượt PASS**, counts 2/0/1/0) và `prepare_source_bundle.py --output-dir <new-dir>`: exit0.
-- F01 qua main.app TestClient + SQLite auth tạm: **7 ca PASS**, gồm đổi sở thích, input thiếu/sai và token đã logout. JSON report có hash catalog/chặng, không có token.
-- Chi tiết/tái hiện ở `docs/testing/dataset-handoff-results.md`; hai tuyến nguồn vẫn ready=false, với 34/44 gaps (gồm mục lặp theo ngày).
+Kiểm tra đã chạy:
 
-Tuyến thật 3/4 ngày vẫn BLOCKED: giờ/thời lượng/tiếp cận venue, pin cổng R003, nơi ngủ/chặng nối và ngày đi có cận dưới 17:17 vượt hạn đề xuất 17:00 trước buffer. Hai nhánh mưa đủ chặng nhưng venue còn thiếu dữ liệu. Chưa xác nhận S01/Expo Go, F02/F05 AI thật hoặc F06/SQLite qua app. Không đóng #8 và không tự merge.
+- Backend: **123 tests PASS**; mobile F01 transport: **9 PASS**; typecheck: **PASS**.
+- Native main: **7 ca PASS,1 FAIL**; native regression của patch cục bộ: **PASS**. Chỉ regression đó được chạy lại trên patch.
+- Lint: **FAIL**, cùng4errors/31warnings trước và sau patch; vị trí/rule được ghi trong `checks.json`.
+- Review độc lập không có phát hiện critical/important; cập nhật trạng thái S01 cũ theo góp ý nhỏ.
 
-Nhật nhận fixture/RouteDay và dữ liệu có nhãn; Bảo 06 nhận source pack để rà/import; Tân dùng đúng catalog và ghi mode/version; Hân/Bảo 04 chạy S01 trên bản ghép. Hướng dẫn ở `docs/DATASET-HANDOFF-BAO04.md` và `docs/DATA-SOURCE-VERIFY-BAO04.md`.
+Tài liệu/bằng chứng:
+
+- [Checklist và kết quả S01](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/testing/s01-f01-handoff.md)
+- [Kết quả máy đọc được và lint](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/testing/s01-android/checks.json)
+- [Nguồn còn thiếu và lựa chọn Bảo04 cần chốt](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/DATA-SOURCE-VERIFY-BAO04.md)
+- [Đầu vào/bằng chứng phương án tuyến](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/testing/source-route-proposal.json)
+
+Chưa nghiệm thu điện thoại thật, tuyến thật, AI hoặc toàn luồng PLAN/ADAPT bằng những kiểm tra này. Issue #8 còn phần dữ liệu/kiểm tích hợp cần hoàn thiện; không đóng issue từ bằng chứng MOCK hoặc API riêng lẻ.

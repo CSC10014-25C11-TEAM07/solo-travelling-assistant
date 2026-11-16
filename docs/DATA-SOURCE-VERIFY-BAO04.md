@@ -2,7 +2,7 @@
 
 Trợ lý đã tra cứu, đối chiếu và cập nhật dữ liệu ở PR #24. Bảo 04 không phải tự
 thu thập lại từ đầu. Các mục dưới đây là phần còn cần phản hồi thực tế hoặc quyết
-định của nhóm; mẫu hỏi đã soạn sẵn. Chưa gọi điện hoặc gửi tin nhắn cho đơn vị/nhóm.
+định của Bảo 04; mẫu hỏi đã soạn sẵn. Chưa gọi điện hoặc gửi tin nhắn cho đơn vị/nhóm.
 
 Dataset: **bao04-mvp-2026-11-16-v1**. Bằng chứng theo từng điểm nằm trong
 `backend/data/handoff/source_checks.json`; trạng thái/trường thiếu ở
@@ -58,8 +58,8 @@ mái như Still. Không chép một số điện thoại có định dạng bấ
 liên hệ đã xác nhận. Dinh III cần xác nhận lịch nghỉ trưa qua kênh chính thức; chưa
 chọn giờ portal thay cho lịch OSM đang khác nhau.
 
-Nếu quán không có thời lượng cố định, nhóm có thể chốt thời gian dự kiến cho lịch.
-Ghi đó là **tham số lập lịch do nhóm chọn**, không ghi “quán xác nhận thời lượng”.
+Nếu quán không có thời lượng cố định, Bảo 04 có thể chốt thời gian dự kiến cho lịch.
+Ghi đó là **tham số lập lịch do Bảo 04 chọn**, không ghi “quán xác nhận thời lượng”.
 Hiện tại chưa có quyết định này, nên `visit_duration_minutes` của P010/P011 vẫn null.
 
 Ghi kết quả theo mẫu dưới, chỉ điền sau khi nhận phản hồi:
@@ -79,13 +79,13 @@ Trợ lý có thể chuyển kết quả này vào JSON, kiểm nhãn, thu đún
 validator/audit. Chỉ giữ thông tin nghiệp vụ cần thiết; không lưu số riêng hoặc
 thông tin cá nhân của người trả lời.
 
-## Hai quyết định cần nhóm chốt
+## Cấu hình do Bảo 04 quyết định
 
 **Nơi ngủ và điểm đầu/cuối.** Đã tìm được một ứng viên có nguồn ngay trong khu vực
 dữ liệu hiện có: [Crazy House có lưu trú](https://crazyhouse.vn/), 03 Huỳnh Thúc
 Kháng. [Chính sách](https://crazyhouse.vn/chinh-sach) nêu nhận phòng từ 14:00, trả
 phòng không muộn hơn 12:00. Đây chỉ là **ứng viên**, chưa chọn/đặt phòng, chưa xác
-nhận còn phòng hoặc cổng vào sớm/muộn. Nhóm có thể chọn nơi khác.
+nhận còn phòng hoặc cổng vào sớm/muộn. Bảo 04 có thể chọn nơi khác.
 
 Sau khi chọn, cần xác nhận địa chỉ/cổng, giờ ra/vào, đỗ xe, tọa độ và chặng tới/từ
 điểm đầu/cuối mỗi ngày. Không lấy giờ tham quan P009 làm giờ khách lưu trú; không
@@ -102,16 +102,24 @@ H001 cũng cần chốt vị trí tập kết/đỗ xe và quyền tiếp cận 
 là phép tính có điều kiện vì tọa độ cổng R003 còn thiếu; không phải giờ đến được
 bảo đảm. Ngày về tương ứng cận dưới 17:19 so với hạn 18:00. Cần chốt lại tuyến/điểm
 nghỉ và ngân sách giờ có buffer; không rút ngắn chặng hoặc nới hạn trong dữ liệu để
-báo PASS. Giữ cấu hình đang có cho tới khi nhóm quyết định.
+báo PASS. Giữ cấu hình đang có cho tới khi Bảo 04 chốt. Người dùng đã xác nhận Bảo 04 là
+người quyết định các lựa chọn này; không cần chờ nhóm trưởng chọn thay.
 
-Tin nhắn đề xuất để Bảo 04 chuyển cho nhóm (chưa gửi):
+Đề xuất cụ thể đang chờ Bảo 04 chốt (chưa áp dụng):
 
-> Mình đã cập nhật nguồn ngày 16/11 ở PR #24. Crazy House đã đối chiếu đủ hồ sơ VISIT;
-> các điểm còn thiếu/xung đột đều có nguồn và câu hỏi sẵn. Nhờ nhóm chốt nơi lưu trú,
-> vị trí tập kết H001 và cách xử lý ngày đi có cận dưới 17:17 vượt hạn đề xuất 17:00
-> trước buffer/chặng tới nơi ngủ. Xin chốt thêm ngân sách thời gian trải nghiệm
-> Still/An nếu quán không quy định. Khi có quyết định, mình bổ sung dữ liệu/chặng và
-> chạy lại audit; hiện hai tuyến nguồn vẫn BLOCKED.
+| Mục | Đề xuất và căn cứ |
+|---|---|
+| Nơi ngủ mẫu | Crazy House, 03 Huỳnh Thúc Kháng; chính sách/địa chỉ có nguồn. Chưa xác nhận cổng khách lưu trú, ra/vào lúc 06:00 hoặc còn phòng |
+| Thời lượng Still/An | VISIT 60 phút mỗi điểm là ngân sách lập lịch đề xuất; REST tính riêng. Chưa điền vào catalog như thông tin đơn vị xác nhận |
+| Hạn ngày đi/về | 18:00; ngày nội vùng vẫn 17:00. Đây là thay đổi cấu hình đề xuất có lý do, không sửa thời lượng nguồn hoặc rút REST để ép lịch PASS |
+| Buffer | 30 phút ngoài REST 60 phút/ngày; không phải bảo đảm giao thông/an toàn hoặc giờ đến thực tế |
+| Chặng mới đã thu | P001→P009: 452.109 giây, làm tròn 8 phút, 3.055 km. Nguồn trả ước tính motorcycle có hướng; vẫn UNVERIFIED, chưa nhập catalog |
+| Cận dưới có điều kiện | Ngày đi 06:00+380+60+237+8+30=17:55; ngày về 06:00+8+236+60+383+30=17:57. Còn phụ thuộc tọa độ/cổng R003 và cổng/tiếp cận nơi ngủ |
+
+[Đầu vào, query và summary của đề xuất](testing/source-route-proposal.json) giữ
+`PENDING_USER_DECISION`, `applied_to_catalog_or_routes:false`. Chỉ sau khi Bảo 04
+chốt mới cập nhật cấu hình được chọn, bổ sung hồ sơ nơi ngủ/chặng đầy đủ và chạy
+audit lại. Chấp nhận các lựa chọn này không tự xác minh venue hoặc làm tuyến ready.
 
 Điểm nghỉ/mốc đầu-cuối không có VISIT không được điền giả thời lượng 1 phút để qua
 schema. `Place` hiện yêu cầu thời lượng tham quan khi gắn VERIFIED

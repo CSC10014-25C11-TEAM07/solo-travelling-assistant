@@ -14,7 +14,7 @@ và TestClient; không xác nhận đã nghiệm thu app.
 | Bản lưu F05 | JSON round trip + validate_stored_option PASS; snapshot đề xuất kiểm độc lập chặng/giờ/REST; giữ DONE/ngày khác |
 | Source bundle CLI | Xuất 8 điểm/24 chặng, cấu hình, tọa độ/evidence và blockers; giữ nguyên nhãn, không ghi DB |
 | F01 public routes trên main.app | TestClient + đăng ký/login/session SQLite thật: coffee/nature/multi/food đúng; anchors bị loại; input thiếu/sai422; token sau logout401 |
-| S01/Expo Go | **NOT_RUN** trên thiết bị; PR18 đã merge, dùng checklist s01-f01-handoff.md |
+| S01/Expo Go | Đợt nguồn ban đầu NOT_RUN; kiểm tiếp trên main dbb46af: Android Emulator **PARTIAL_FAIL**, điện thoại thật **NOT_RUN**. Xem [kết quả S01](s01-f01-handoff.md) |
 | AI thật, API F05/F06, SQLite ACCEPT/REJECT/restart | **Chưa xác nhận bởi đợt kiểm này** |
 
 ## Đối chiếu nguồn ngày 16/11

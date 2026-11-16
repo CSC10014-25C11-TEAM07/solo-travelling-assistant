@@ -4,7 +4,7 @@ Phiên bản **bao04-mvp-2026-11-16-v1**, áp dụng chuẩn dữ liệu Leader 
 Đọc [hướng dẫn bàn giao](../../docs/DATASET-HANDOFF-BAO04.md) để biết bộ dùng cho từng ca,
 nguồn, cách reset và phần cần bổ sung. Hợp đồng HTTP F01 không đổi.
 [Xác minh nguồn 16/11](../../docs/DATA-SOURCE-VERIFY-BAO04.md) có kết quả mới, mẫu hỏi
-đơn vị và hai quyết định nhóm còn thiếu. Trợ lý đã thực hiện phần tra cứu có thể làm qua web.
+đơn vị và cấu hình còn cần Bảo 04 chốt. Trợ lý đã thực hiện phần tra cứu có thể làm qua web.
 
 | File/thư mục | Nội dung |
 |---|---|
@@ -89,3 +89,8 @@ quyết định nhãn. Không chép đè bộ cũ bằng output chỉ chứa m�
 
 VERIFIED của ước tính không bảo đảm traffic, giờ đến thực tế hay quyền/độ an toàn đi
 xe máy từng đoạn. Bốn chặng qua tọa độ ứng viên R003 vẫn UNVERIFIED.
+
+S01 đã kiểm trên Android Emulator/Expo Go ở main dbb46af; còn lỗi clear-inflight.
+Điện thoại thật vẫn NOT_RUN. Xem `s01_device_test` trong manifest và
+[checklist/kết quả S01](../../docs/testing/s01-f01-handoff.md). Chỉ metadata kiểm
+chứng được cập nhật; catalog, chặng và cấu hình tuyến bao04-mvp-2026-11-16-v1 giữ nguyên.

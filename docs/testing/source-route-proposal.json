@@ -1,0 +1,85 @@
+{
+  "status": "PENDING_USER_DECISION",
+  "prepared_at": "2026-11-16T14:41:03.557389+00:00",
+  "current_dataset_version": "bao04-mvp-2026-11-16-v1",
+  "decision_owner": "Bảo 04 (user clarified sole decision authority)",
+  "applied_to_catalog_or_routes": false,
+  "proposal": {
+    "lodging_candidate": {
+      "name": "Crazy House",
+      "address": "03 Huỳnh Thúc Kháng, Đà Lạt",
+      "identity_source_url": "https://crazyhouse.vn/contact",
+      "policy_source_url": "https://crazyhouse.vn/chinh-sach",
+      "published_check_in_from": "14:00",
+      "published_check_out_no_later_than": "12:00",
+      "chosen": false,
+      "gate_and_early_access_verified": false,
+      "room_availability_verified": false
+    },
+    "cafe_visit_minutes": {
+      "P010": 60,
+      "P011": 60
+    },
+    "duration_basis": "Proposed planning budget selected by Bảo04 if accepted; not duration confirmed by venue; REST additional and separate.",
+    "end_deadlines": {
+      "outbound": "18:00",
+      "local_days": "17:00",
+      "return": "18:00"
+    },
+    "buffer_minutes": 30,
+    "min_rest_minutes": 60
+  },
+  "conditional_time_budget": {
+    "departure": "06:00",
+    "outbound": {
+      "minutes_to_existing_station_anchor": 677,
+      "minutes_station_to_candidate_visit_coordinate": 8,
+      "buffer_minutes": 30,
+      "conditional_finish_including_buffer": "17:55"
+    },
+    "return": {
+      "minutes_candidate_visit_coordinate_to_station": 8,
+      "minutes_station_to_hcm_via_rest": 679,
+      "buffer_minutes": 30,
+      "conditional_finish_including_buffer": "17:57"
+    }
+  },
+  "new_directed_leg": {
+    "travel_time_id": null,
+    "from_place_id": "P001",
+    "to_place_id": "P009",
+    "duration_minutes": 8,
+    "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A11.9415603%2C%22lon%22%3A108.4542354%7D%2C%7B%22lat%22%3A11.9345615%2C%22lon%22%3A108.4306807%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
+    "checked_at": "2026-11-16T14:04:31.395937+00:00",
+    "data_status": "UNVERIFIED"
+  },
+  "raw_routing_summary": {
+    "from_place_id": "P001",
+    "to_place_id": "P009",
+    "summary": {
+      "has_time_restrictions": false,
+      "has_toll": false,
+      "has_highway": false,
+      "has_ferry": false,
+      "min_lat": 11.934465,
+      "min_lon": 108.430869,
+      "max_lat": 11.94201,
+      "max_lon": 108.45423,
+      "time": 452.109,
+      "length": 3.055,
+      "cost": 687.202
+    },
+    "costing": "motorcycle",
+    "provider": "Valhalla FOSSGIS demo / OpenStreetMap",
+    "checked_at": "2026-11-16T14:04:31.395937+00:00",
+    "duration_basis": "ceil(summary.time / 60); model estimate, not real-time or measured travel",
+    "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
+  },
+  "limits": [
+    "Times conditional on R003 candidate coordinates, not verified gate/access or actual traffic.",
+    "P009 VISIT coordinates and opening hours do not confirm lodging entrance or guest access.",
+    "30min buffer is a proposal, not a safety or on-time guarantee; buffer is not REST.",
+    "No source records, normal route deadlines or VERIFIED labels changed by this proposal.",
+    "Both existing real routes remain blocked pending venue fields, gate/access and lodging connectors."
+  ]
+}

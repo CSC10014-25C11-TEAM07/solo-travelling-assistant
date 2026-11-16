@@ -1,0 +1,17 @@
+{
+  "case": "clear-inflight-before",
+  "status": "FAIL",
+  "expected_place_ids": [],
+  "actual_place_ids": [],
+  "screenshot": "s01-android/clear-inflight-before.png",
+  "ui_tree": "s01-android/clear-inflight-before.xml",
+  "controlled_delay_seconds": 5,
+  "observed_text": [
+    "Đang tải gợi ý…"
+  ],
+  "stage": "BASELINE_MAIN",
+  "base_commit": "dbb46affa6ad371f98ec133b61f8b2ec3d41528f",
+  "plan_source_sha256": "fb691ec9412efa9442d28a70b2c8b71ff49eb48b0d1fa47b3f97900aed79952e",
+  "captured_at": "2026-11-16T14:45:23.735783+00:00",
+  "test_exit_code": 1
+}
