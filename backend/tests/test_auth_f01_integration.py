@@ -36,6 +36,23 @@ class AuthF01IntegrationTests(unittest.TestCase):
                     self.assertEqual(response.status_code, 200)
                     self.assertGreater(len(response.json()["places"]), 0)
                     self.assertLessEqual(len(response.json()["places"]), 3)
+                    for interests, expected in (
+                        (["coffee"], ["P006", "P010", "P011"]),
+                        (["nature"], ["P002", "P003", "P004"]),
+                        (["nature", "culture"], ["P002", "P001", "P003"]),
+                        (["food"], ["P007"]),
+                    ):
+                        changed = client.get(
+                            "/api/v1/places/recommendations",
+                            params=[("interests", interest) for interest in interests], headers=headers,
+                        )
+                        self.assertEqual(changed.status_code, 200)
+                        actual = [place["place_id"] for place in changed.json()["places"]]
+                        self.assertEqual(actual, expected)
+                        self.assertFalse(set(actual) & {"H001", "R001", "R002", "R003"})
+                    cleared = client.get("/api/v1/places/recommendations", headers=headers)
+                    self.assertEqual(cleared.status_code, 422)
+                    self.assertEqual(cleared.json()["field"], "interests")
                     invalid = client.get(
                         "/api/v1/places/recommendations?interests=invalid", headers=headers,
                     )

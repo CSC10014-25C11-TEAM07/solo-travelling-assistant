@@ -1,0 +1,23 @@
+[
+  {
+    "check_id": "RAIN-MIDDLE-P005",
+    "replacement_place_id": "P005",
+    "place_sequence": [
+      "P010",
+      "P005",
+      "P008",
+      "P001"
+    ],
+    "purpose": "Điểm trước → điểm thay vì mưa → điểm tiếp theo → điểm cuối Đà Lạt; chỉ rà độ phủ, chưa có lịch thật hợp lệ."
+  },
+  {
+    "check_id": "RAIN-LAST-P005",
+    "replacement_place_id": "P005",
+    "place_sequence": [
+      "P011",
+      "P005",
+      "P001"
+    ],
+    "purpose": "Thay VISIT cuối buổi: phải đủ chặng tới P005 và về P001."
+  }
+]

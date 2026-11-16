@@ -1,8 +1,9 @@
 # Kiểm tra đổi sở thích trên S01 cùng Hân
 
-Trạng thái: **NOT_RUN trên app/thiết bị**. Chuẩn bị ngày 10/11/2026 cho bộ
-bao04-handoff-2026-11-10-v1. PR giao diện #18 đang mở lúc kiểm tra; các bước dưới đây
-là tiêu chí cần chạy trên bản ghép, không phải kết quả đã đạt.
+Trạng thái: **NOT_RUN trên app/thiết bị**. Cập nhật ngày 16/11/2026 cho bộ
+bao04-mvp-2026-11-16-v1. PR giao diện #18 đã merge vào main 0b446b1; cần kiểm tra trên
+bản ghép hiện tại. TestClient đã kiểm API F01 qua phiên SQLite thật (f01-mvp-http-results.json),
+chưa chứng minh thao tác S01/điện thoại. Các bước dưới đây vẫn là tiêu chí cần chạy.
 
 ## Chuẩn bị
 

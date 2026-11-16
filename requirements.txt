@@ -1,0 +1,12 @@
+# Backend API
+fastapi[standard]>=0.115,<1
+uvicorn>=0.30,<1
+
+# Data validation - project uses Pydantic v2
+pydantic>=2,<3
+
+# Password hashing
+argon2-cffi
+
+# HTTP clients, data scripts and API tests
+httpx>=0.28,<1

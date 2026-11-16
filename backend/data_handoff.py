@@ -6,6 +6,7 @@ from pathlib import Path
 
 from place_catalog import PlaceCatalog, MissingTravelTime
 from place_models import DAYS, TimeWindow
+from source_readiness import source_route, source_replacements
 
 
 def read(path: Path):
@@ -147,64 +148,6 @@ def mock_case(case, catalog):
     return {"test_id": case["test_id"], "catalog": case["catalog"], "passed": not errors, "paths": results, "errors": errors}
 
 
-def source_route(route, catalog):
-    gaps, days = [], []
-    require(len(route["days"]) in (3, 4), "SOURCE_DAY_COUNT")
-    require(route["min_rest_minutes"] > 0, "REST_REQUIREMENT")
-    previous_end = None
-    if route["data_status"] != "VERIFIED":
-        gaps.append({"code": "ROUTE_NOT_VERIFIED", "detail": "Điểm cuối, hạn giờ và giới hạn tuyến còn cần Nhật kiểm tra."})
-    for number, day in enumerate(route["days"], 1):
-        require(day["day_number"] == number, "SOURCE_DAY_ORDER")
-        require(day["place_sequence"][0] == day["start_place_id"] and day["place_sequence"][-1] == day["end_place_id"], "SOURCE_ENDPOINTS")
-        require(minutes(day["start_time"]) < minutes(day["end_deadline"]), "SOURCE_CLOCK_RANGE")
-        require(previous_end is None or previous_end == day["start_place_id"], "MISSING_OVERNIGHT_CONNECTION")
-        previous_end = day["end_place_id"]
-        weekday = DAYS[date.fromisoformat(day["date"]).weekday()]
-        for pid in dict.fromkeys(day["place_sequence"]):
-            place = catalog.places[pid]
-            common = {"day_id": day["day_id"], "place_id": pid}
-            if place.data_status != "VERIFIED":
-                gaps.append({"code": "UNVERIFIED_PLACE", **common})
-            if place.environment is None:
-                gaps.append({"code": "UNKNOWN_ENVIRONMENT", **common})
-            if pid in day["visit_place_ids"]:
-                if place.visit_duration_minutes is None:
-                    gaps.append({"code": "UNKNOWN_VISIT_DURATION", **common})
-                if place.opening_hours.weekly[weekday] is None:
-                    gaps.append({"code": "UNKNOWN_OPENING_HOURS", "weekday": weekday, **common})
-                elif not place.opening_hours.weekly[weekday]:
-                    gaps.append({"code": "CLOSED_ON_DATE", "weekday": weekday, **common})
-            if any(r["place_id"] == pid for r in day["rest_stops"]) and place.opening_hours.weekly[weekday] is None:
-                gaps.append({"code": "UNKNOWN_REST_ACCESS", **common})
-        total, complete = sum(r["duration_minutes"] for r in day["rest_stops"]), True
-        require(total >= route["min_rest_minutes"], f"REST_SHORTFALL: {day['day_id']}")
-        legs = []
-        for origin, destination in zip(day["place_sequence"], day["place_sequence"][1:]):
-            pair = {"from_place_id": origin, "to_place_id": destination}
-            if origin == destination:
-                continue
-            leg = catalog.travel_times.get((origin, destination))
-            if leg is None:
-                complete = False
-                gaps.append({"code": "MISSING_LEG", "day_id": day["day_id"], **pair})
-                legs.append({**pair, "duration_minutes": None})
-            else:
-                total += leg.duration_minutes
-                legs.append({**pair, "duration_minutes": leg.duration_minutes, "data_status": leg.data_status})
-                if leg.data_status != "VERIFIED":
-                    gaps.append({"code": "UNVERIFIED_LEG", "day_id": day["day_id"], **pair})
-        lower_finish = minutes(day["start_time"]) + total if complete else None
-        if lower_finish is not None and lower_finish > minutes(day["end_deadline"]):
-            gaps.append({"code": "LOWER_BOUND_LATE", "day_id": day["day_id"],
-                         "conditional_earliest_finish": clock(lower_finish), "end_deadline": day["end_deadline"]})
-        days.append({"day_id": day["day_id"], "legs": legs,
-                     "travel_rest_lower_bound_minutes": total if complete else None,
-                     "note": "Cận dưới có điều kiện từ các ước tính, chưa cộng VISIT/buffer và chưa xác nhận điểm R003."})
-    require(catalog.places[previous_end].area == "HCMC", "SOURCE_FINAL_DAY_NOT_HCMC")
-    return {"route_id": route["route_id"], "day_count": len(route["days"]),
-            "ready_for_real_plan": not gaps, "gaps": gaps, "days": days, "limitations": route["limitations"]}
-
 
 def audit(directory):
     manifest = read(directory / "handoff/manifest.json")
@@ -220,6 +163,8 @@ def audit(directory):
     sources = read(directory / manifest["source_routes"])
     require(sorted(len(r["days"]) for r in sources) == [3, 4], "SOURCE_ROUTE_COVERAGE")
     source = [source_route(route, catalog) for route in sources]
+    replacements = source_replacements(read(directory / manifest["source_adapt_checks"]), catalog)
     return {"dataset_version": manifest["dataset_version"],
             "checks_passed": all(item["passed"] for item in mock_routes + cases),
-            "mock_routes": mock_routes, "scenarios": cases, "source_routes": source}
+            "mock_routes": mock_routes, "scenarios": cases, "source_routes": source,
+            "source_adapt_checks": replacements}

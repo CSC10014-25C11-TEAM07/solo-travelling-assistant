@@ -1,0 +1,165 @@
+{
+  "recorded_date": "2026-11-10",
+  "base_commit": "01e667ebdd32dae4d8784cb4a4ea30d4a5c2ae60",
+  "tested_uncommitted_changes": true,
+  "python_version": "3.12.3",
+  "scope": "Actual local CLI execution, SQLite commit and readback. No Gemini/Android or full T01-T15 acceptance.",
+  "consecutive_runs_identical": true,
+  "runs": [
+    {
+      "days": 3,
+      "attempt": 1,
+      "command": "python -X utf8 backend/scripts/reset_demo.py --days 3 --scenario T06",
+      "exit_code": 0,
+      "persisted_snapshot_matches": true,
+      "output": {
+        "reset": "PASS",
+        "database": "/home/vndt4/solo-travelling-assistant/backend/.test-data/tan-demo.test.sqlite3",
+        "dataset_version": "bao04-handoff-2026-11-10-v1",
+        "dataset_fingerprint": "1ef2acdac726c7fa4eb973376d643dbcd59992721e61c361c5467018f6570d7d",
+        "snapshot": "fixtures/current_v1_3day.json",
+        "catalog": "fixtures/mock",
+        "scenario": "T06",
+        "state_fingerprint": "785926b66083a25eebb7eef0b71555544aeaffc344bd285b2fe0824d28e29592",
+        "user_id": "MOCK-TAN-USER",
+        "itinerary_id": "MOCK3D-CURRENT",
+        "status": "CURRENT",
+        "version": 1,
+        "day_count": 3,
+        "activity_count": 17,
+        "target_ids": {
+          "day_id": "MOCK3D-DAY-2",
+          "rest_activity_id": "MOCK3D-REST",
+          "rain_activity_id": "MOCK3D-A03",
+          "preferred_keep_activity_id": "MOCK3D-A04"
+        },
+        "scope": "MOCK SQLite reset and readback; not Gemini or Android acceptance"
+      }
+    },
+    {
+      "days": 3,
+      "attempt": 2,
+      "command": "python -X utf8 backend/scripts/reset_demo.py --days 3 --scenario T06",
+      "exit_code": 0,
+      "persisted_snapshot_matches": true,
+      "output": {
+        "reset": "PASS",
+        "database": "/home/vndt4/solo-travelling-assistant/backend/.test-data/tan-demo.test.sqlite3",
+        "dataset_version": "bao04-handoff-2026-11-10-v1",
+        "dataset_fingerprint": "1ef2acdac726c7fa4eb973376d643dbcd59992721e61c361c5467018f6570d7d",
+        "snapshot": "fixtures/current_v1_3day.json",
+        "catalog": "fixtures/mock",
+        "scenario": "T06",
+        "state_fingerprint": "785926b66083a25eebb7eef0b71555544aeaffc344bd285b2fe0824d28e29592",
+        "user_id": "MOCK-TAN-USER",
+        "itinerary_id": "MOCK3D-CURRENT",
+        "status": "CURRENT",
+        "version": 1,
+        "day_count": 3,
+        "activity_count": 17,
+        "target_ids": {
+          "day_id": "MOCK3D-DAY-2",
+          "rest_activity_id": "MOCK3D-REST",
+          "rain_activity_id": "MOCK3D-A03",
+          "preferred_keep_activity_id": "MOCK3D-A04"
+        },
+        "scope": "MOCK SQLite reset and readback; not Gemini or Android acceptance"
+      }
+    },
+    {
+      "days": 4,
+      "attempt": 1,
+      "command": "python -X utf8 backend/scripts/reset_demo.py --days 4 --scenario T06",
+      "exit_code": 0,
+      "persisted_snapshot_matches": true,
+      "output": {
+        "reset": "PASS",
+        "database": "/home/vndt4/solo-travelling-assistant/backend/.test-data/tan-demo.test.sqlite3",
+        "dataset_version": "bao04-handoff-2026-11-10-v1",
+        "dataset_fingerprint": "d093999bb94346ace7a57dff0ff64804294371ed6c57ab5bfb44e842d8f04c2e",
+        "snapshot": "fixtures/current_v1_4day.json",
+        "catalog": "fixtures/mock",
+        "scenario": "T06",
+        "state_fingerprint": "92f3b53a588d54129ecb2b046d2eea7f951d6dbb192d19f2a8a35330a357ce81",
+        "user_id": "MOCK-TAN-USER",
+        "itinerary_id": "MOCK4D-CURRENT",
+        "status": "CURRENT",
+        "version": 1,
+        "day_count": 4,
+        "activity_count": 24,
+        "target_ids": {
+          "day_id": "MOCK4D-DAY-2",
+          "rest_activity_id": "MOCK4D-REST",
+          "rain_activity_id": "MOCK4D-A03",
+          "preferred_keep_activity_id": "MOCK4D-A04"
+        },
+        "scope": "MOCK SQLite reset and readback; not Gemini or Android acceptance"
+      }
+    },
+    {
+      "days": 4,
+      "attempt": 2,
+      "command": "python -X utf8 backend/scripts/reset_demo.py --days 4 --scenario T06",
+      "exit_code": 0,
+      "persisted_snapshot_matches": true,
+      "output": {
+        "reset": "PASS",
+        "database": "/home/vndt4/solo-travelling-assistant/backend/.test-data/tan-demo.test.sqlite3",
+        "dataset_version": "bao04-handoff-2026-11-10-v1",
+        "dataset_fingerprint": "d093999bb94346ace7a57dff0ff64804294371ed6c57ab5bfb44e842d8f04c2e",
+        "snapshot": "fixtures/current_v1_4day.json",
+        "catalog": "fixtures/mock",
+        "scenario": "T06",
+        "state_fingerprint": "92f3b53a588d54129ecb2b046d2eea7f951d6dbb192d19f2a8a35330a357ce81",
+        "user_id": "MOCK-TAN-USER",
+        "itinerary_id": "MOCK4D-CURRENT",
+        "status": "CURRENT",
+        "version": 1,
+        "day_count": 4,
+        "activity_count": 24,
+        "target_ids": {
+          "day_id": "MOCK4D-DAY-2",
+          "rest_activity_id": "MOCK4D-REST",
+          "rain_activity_id": "MOCK4D-A03",
+          "preferred_keep_activity_id": "MOCK4D-A04"
+        },
+        "scope": "MOCK SQLite reset and readback; not Gemini or Android acceptance"
+      }
+    }
+  ],
+  "runtime": {
+    "fastapi": "0.162.3",
+    "starlette": "1.10.0",
+    "pydantic": "2.14.3",
+    "argon2-cffi": "25.1.0",
+    "httpx": "0.28.1",
+    "sqlite": "3.45.1"
+  },
+  "implementation_files_sha256": {
+    "backend/demo_reset.py": "d70d114a1837e9b01626a3f8a9b020ba3c377e414f4bd212bbd52b5ffe27533a",
+    "backend/scripts/reset_demo.py": "42ad4e3bcfa992cc64c6a4c51bbbbd87bb24836478248a4874a638bbf85d632e",
+    "backend/tests/test_demo_reset.py": "68e3ae8223286814038f88400f26c40b958988892a07badb77425cff2d5506ac"
+  },
+  "automated_tests": [
+    {
+      "command": "python -X utf8 -m unittest discover -s backend/tests -p test_demo_reset.py -v",
+      "tests": 11,
+      "passed": 11,
+      "exit_code": 0,
+      "included_in_next_suite": true
+    },
+    {
+      "command": "python -X utf8 -m unittest discover -s backend/tests -v",
+      "tests": 97,
+      "passed": 97,
+      "exit_code": 0
+    },
+    {
+      "command": "python -X utf8 -m unittest discover -s backend -p test_plan_f03.py -v",
+      "tests": 16,
+      "passed": 16,
+      "exit_code": 0
+    }
+  ],
+  "unique_suite_test_count": 113
+}

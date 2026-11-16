@@ -1,4 +1,6 @@
+import os
 import sqlite3
+from pathlib import Path
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
@@ -55,4 +57,22 @@ def create_app(plan_provider=mock_plan, option_validator=None, *, catalog_provid
     return app
 
 
-app = create_app()
+def configured_app():
+    if os.environ.get("ADAPT_MODE") != "MOCK":
+        return create_app()
+
+    from demo_reset import DATA_DIR, DEFAULT_DATABASE, checked_database, load_bundle
+    from f05_provider import make_catalog_provider
+
+    database = Path(os.environ.get("ADAPT_MOCK_DB", str(DEFAULT_DATABASE)))
+    days = int(os.environ.get("ADAPT_MOCK_DAYS", "4"))
+    scenario = os.environ.get("ADAPT_MOCK_SCENARIO", "T06")
+    bundle = load_bundle(days, scenario)
+    auth.DB_PATH = checked_database(database)
+    provider = make_catalog_provider(
+        DATA_DIR / bundle.catalog_path, {days: bundle.route}, mode="MOCK"
+    )
+    return create_app(catalog_provider=provider)
+
+
+app = configured_app()
