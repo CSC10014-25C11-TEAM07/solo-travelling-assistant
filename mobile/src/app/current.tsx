@@ -95,18 +95,18 @@ export default function Current() {
           Đang tải lịch…
         </Text>
       ) : !trip ? (
-        <View style={styles.card}>
-          <Text style={styles.heading}>
-            {error
-              ? 'Chưa thể tải lịch'
-              : 'Bạn chưa có lịch đã lưu'}
-          </Text>
+  <View style={styles.card}>
+    <Text style={styles.heading}>
+      {error
+        ? 'Chưa thể tải lịch'
+        : 'Bạn chưa có lịch đã lưu'}
+    </Text>
 
-          <Action
-            title="Lên kế hoạch chuyến đi"
-            onPress={() => router.push('/plan')}
-          />
-        </View>
+            <Action
+      title="Lên kế hoạch chuyến đi"
+      onPress={() => router.push('/plan')}
+    />
+  </View>
       ) : (
         <>
           <Text style={styles.muted}>
@@ -125,9 +125,11 @@ export default function Current() {
 
             <Text style={styles.muted}>
               Mã lịch: {trip.itinerary_id}
-            </Text>
-          </View>
-
+            </Text><Action
+    title="Điều chỉnh lịch trình"
+    onPress={() => router.push('/adapt')}
+  />
+</View>
           <View style={styles.row}>
             {days.map(d => (
               <View
