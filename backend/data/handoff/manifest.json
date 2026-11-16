@@ -1,5 +1,5 @@
 {
-  "dataset_version": "bao04-mvp-2026-11-15-v1",
+  "dataset_version": "bao04-mvp-2026-11-16-v1",
   "standard_url": "https://docs.google.com/document/d/1aPJjNORsFIYY0XOlLE6LmhI6lv7sKjg6Up0Gcb-wvSY/edit",
   "standard_date": "2026-11-09",
   "source_routes": "handoff/routes_source.json",
@@ -12,8 +12,8 @@
     "depends_on": "PR18 đã merge; cần bản ghép hiện tại và kiểm tra Expo Go theo checklist, chưa có bằng chứng thiết bị.",
     "checklist": "docs/testing/s01-f01-handoff.md"
   },
-  "previous_dataset_version": "bao04-handoff-2026-11-10-v1",
-  "released_at": "2026-11-15T09:36:27Z",
+  "previous_dataset_version": "bao04-mvp-2026-11-15-v1",
+  "released_at": "2026-11-16T08:15:27.542403+00:00",
   "source_adapt_checks": "handoff/source_adapt_checks.json",
   "mock_freeze_note": "MOCK giữ nguyên nội dung từ PR19; kiểm lại T06/T08/T13/T15 × snapshot3D/4D trên module F05 hiện đã merge.",
   "minimum_source_bundle": {
@@ -21,5 +21,6 @@
     "mode": "REVIEW_ONLY",
     "sqlite_owner": "Bảo 06; công cụ này không ghi database",
     "selection": "Hợp các place_sequence của tuyến3/4ngày và source_adapt_checks, cùng toàn bộ chặng giữa các điểm đó."
-  }
+  },
+  "source_review_note": "16/11: P009 đối chiếu đủ trường hồ sơ VISIT;14 điểm khác còn UNVERIFIED. Hai tuyến nguồn vẫn BLOCKED; không đổi cấu hình tuyến/chặng/MOCK. Hướng dẫn phần cần xác nhận: docs/DATA-SOURCE-VERIFY-BAO04.md."
 }

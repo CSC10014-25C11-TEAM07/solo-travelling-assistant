@@ -1,19 +1,21 @@
 # Hướng dẫn phần việc Bảo 04
 
-Cập nhật 15/11/2026. Bạn phụ trách dữ liệu địa điểm, chặng và F01 ở issue #8.
-PR #13 đã vào main. Việc mới là bộ **bao04-mvp-2026-11-15-v1** theo yêu cầu Leader,
+Cập nhật 16/11/2026. Bạn phụ trách dữ liệu địa điểm, chặng và F01 ở issue #8.
+PR #13 đã vào main. Việc mới là bộ **bao04-mvp-2026-11-16-v1** theo yêu cầu Leader,
 trên nhánh feat/8-data-readiness-15nov, theo phân công MVP 14/11. PR #19 đã merge.
 
 Đọc [bàn giao dữ liệu](DATASET-HANDOFF-BAO04.md) trước: có tuyến nguồn 3/4 ngày,
 snapshot MOCK đầy đủ, mapping T06/T08/T13/T15, nguồn và thông tin thiếu.
 Chuẩn Leader 09/11 thay các enum đề xuất trong hướng dẫn cũ.
+Trợ lý đã bổ sung nguồn ngày 16/11; [hướng dẫn xác minh](DATA-SOURCE-VERIFY-BAO04.md)
+có kết quả tra cứu, câu hỏi cho đơn vị và hai quyết định nhóm còn thiếu.
 
 ## Phần đã có
 
 - F01 đúng hợp đồng: interests lặp, nature/coffee/culture/food, khớp ít nhất một nhãn,
   ưu tiên số nhãn khớp, tối đa 3 kết quả, ảnh null và lỗi interests đúng cấu trúc.
 - Auth thật + F01 cùng main.app; token sau logout bị 401.
-- Catalog nguồn: 15 hồ sơ UNVERIFIED, 20 ước tính chặng VERIFIED, 4 chặng còn UNVERIFIED.
+- Catalog nguồn: 15 hồ sơ (P009 VERIFIED, 14 UNVERIFIED), 20 ước tính chặng VERIFIED, 4 chặng còn UNVERIFIED.
   Có file ghi rõ thiếu gì; chưa tuyên bố tuyến thật đã khả thi.
 - Snapshot CURRENT MOCK 3/4 ngày, đủ đầu/cuối/hạn giờ/nghỉ/chặng. Ca không có phương
   án mưa dùng catalog riêng, không lẫn quán hợp lệ.

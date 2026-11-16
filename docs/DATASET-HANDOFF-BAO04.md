@@ -1,6 +1,6 @@
-# Bàn giao Bảo 04 — mốc MVP 15/11/2026
+# Bàn giao Bảo 04 — mốc MVP 16/11/2026
 
-Phiên bản: **bao04-mvp-2026-11-15-v1**, tiếp tục bộ PR #19. Phạm vi theo mục 3.5
+Phiên bản: **bao04-mvp-2026-11-16-v1**, tiếp tục bộ PR #19. Phạm vi theo mục 3.5
 bản phân công 14/11: dữ liệu, F01, loader/validator và cấu hình tuyến. Không sửa
 router, SQLite, provider AI hoặc giao diện của các bạn khác.
 
@@ -31,7 +31,7 @@ RuleRanker, 8 lượt T06/T08/T13/T15 × 3D/4D. SHA256 của fixture và impleme
 
 ## Tập nguồn nhỏ đã đối chiếu
 
-Catalog đầy đủ: **15 điểm UNVERIFIED; 24 chặng có hướng, gồm 20 ước tính VERIFIED
+Catalog đầy đủ: **15 điểm: P009 VERIFIED, 14 UNVERIFIED; 24 chặng có hướng, gồm 20 ước tính VERIFIED
 và 4 qua R003 UNVERIFIED**. Tập tối thiểu gồm 8 điểm được cả tuyến và nhánh mưa
 tham chiếu: H001, R003, P001, P005, P008, P009, P010, P011; kèm 24 chặng, tọa độ,
 raw evidence, cấu hình và báo cáo. Đây là **REVIEW_ONLY**, không phải seed tự động
@@ -53,7 +53,27 @@ Bổ sung 15/11:
 VERIFIED của chặng là **ước tính mô hình** đã rà cặp tọa độ/query motorcycle và
 `ceil(summary.time/60)`, không phải đo thực tế, traffic hoặc xác nhận quyền đi xe máy
 từng đoạn. Collector luôn xuất UNVERIFIED; chỉ bốn chặng mới đã rà thủ công mới được
-nâng nhãn. Tất cả venue vẫn UNVERIFIED. Không dùng dữ liệu MOCK bù vào bộ nguồn.
+nâng nhãn. Đợt 16/11 chỉ P009 đủ bằng chứng hồ sơ VISIT để chuyển VERIFIED; tuyến
+nguồn vẫn BLOCKED. Không dùng dữ liệu MOCK bù vào bộ nguồn.
+
+## Bổ sung nguồn ngày 16/11
+
+- P009: [đơn vị](https://crazyhouse.vn/tham-quan) công bố rõ lịch tham quan
+  08:30–18:00 tất cả ngày trong tuần, mô tả có phần bên trong và ngoài trời. Đọc lại
+  [cổng tỉnh](https://visitlamdong.vn/vi/bietthuhangnga) cho thời lượng ước tính60 phút
+  và địa chỉ 03 Huỳnh Thúc Kháng. Đã điền weekly, giữ MIXED, chuyển VERIFIED theo hồ sơ
+  VISIT đã đối chiếu. Giờ đơn vị được chọn thay portal/OSM; giữ mọi khác biệt và
+  lý do chọn nguồn trong source_checks.json, không khẳng định ngày xuất bản mới hơn.
+- Đã đọc được [Tâm Châu Center](https://www.tamchaucenter.com/lien-he), xác nhận
+  địa chỉ 294A nhưng cùng trang ghi 07:00 và 06:30. Giữ giờ null, tọa độ cổng/chặng
+  UNVERIFIED; không dùng tâm khung nhìn của bản đồ nhúng làm pin địa điểm.
+- P005: [trang vé](https://baotanglamdong.com.vn/tickets) còn ghi 08:00–17:00, khác
+  header/contact 07:30–17:30. Bổ sung xung đột; không nâng nhãn hoặc lấy giao hai khung.
+- Đọc lại P001/P010 và website An CaFe 63Bis Ba Tháng Hai; cập nhật đúng nguồn định danh,
+  không tự điền thời lượng hoặc phân loại INDOOR. Không thu/chỉnh chặng trong đợt này.
+- Đã chuẩn bị [hướng dẫn xác minh](DATA-SOURCE-VERIFY-BAO04.md): câu hỏi có sẵn,
+  nguồn liên hệ, mẫu ghi phản hồi, ứng viên nơi ngủ có nguồn và nội dung cần nhóm chốt.
+  Chưa gọi điện, gửi tin, đặt phòng hoặc thay cấu hình tuyến.
 
 ## Những chỗ Bảo 04 cần xác minh tiếp
 
@@ -61,12 +81,12 @@ nâng nhãn. Tất cả venue vẫn UNVERIFIED. Không dùng dữ liệu MOCK b�
 
 | Ưu tiên | Điểm/việc | Đã có | Cần hỏi/ghi bằng chứng |
 |---|---|---|---|
-| 1 | R003 Tâm Châu 294A Trần Phú, Bảo Lộc | Ứng viên tọa độ theo tên/đường, bốn chặng ước tính | Đúng số nhà/tọa độ cổng, giờ tuần, chỗ dừng xe máy và tiếp cận hai chiều; website vẫn 403 ngày 15/11 |
-| 1 | Điểm ngủ Đà Lạt + H001 | Ga P001 và bưu điện H001 mới là mốc đề xuất | Chọn địa chỉ lưu trú thực; giờ/chỗ tiếp cận điểm đầu-cuối; tọa độ và chặng nối nơi ngủ. Không gọi ga là homestay |
-| 1 | P005 Bảo tàng, 02633 812 624 | 120 phút toàn điểm, 04 Hùng Vương | Lịch từng thứ/ngày lễ, nghỉ trưa, thời lượng/phạm vi khu có mái cho RAIN; giải quyết ba lịch khác nhau |
+| 1 | R003 Tâm Châu 294A Trần Phú, Bảo Lộc | Ứng viên tọa độ theo tên/đường, bốn chặng ước tính | Đúng số nhà/tọa độ cổng, giờ tuần, chỗ dừng xe máy và tiếp cận hai chiều; trang Center đọc được 16/11 nhưng có hai giờ mở khác nhau |
+| 1 | Điểm ngủ Đà Lạt + H001 | Ga P001 và bưu điện H001 là mốc đề xuất; Crazy House chỉ là ứng viên lưu trú có nguồn | Chọn địa chỉ lưu trú thực; giờ/chỗ tiếp cận điểm đầu-cuối; tọa độ và chặng nối nơi ngủ. Không gọi ga là homestay |
+| 1 | P005 Bảo tàng, 02633 812 624 | 120 phút toàn điểm, 04 Hùng Vương; trang vé cũng khác header | Lịch từng thứ/ngày lễ, nghỉ trưa, thời lượng/phạm vi khu có mái cho RAIN; giải quyết các lịch khác nhau, kể cả trên trang vé của đơn vị |
 | 2 | P010 Still Cafe, 0368 151 215 | 59 Nguyễn Trãi, giờ chung 07:00–22:00 | Thời lượng tham quan dự kiến được nhóm chốt, khu có mái và ngoại lệ giờ |
-| 2 | P011 An Cafe | Tag giờ OSM cũ 07:00–22:00 | Thời lượng, môi trường, lịch tuần/ngày lễ; chưa có lần đọc nguồn mới |
-| 2 | P001/P008/P009 | Thời lượng lần lượt 90/60/60 phút | Lịch tuần; P008 có xung đột nghỉ trưa, P009 có xung đột giờ mở; không tự chọn một nguồn để gắn VERIFIED |
+| 2 | P011 An CaFe | Website đơn vị xác nhận 63Bis Ba Tháng Hai; giờ OSM cũ 07:00–22:00 | Thời lượng, môi trường và lịch tuần/ngày lễ; website không nêu bằng chữ |
+| 2 | P001/P008 | Thời lượng90/60 phút; P009 đã xử lý riêng bằng lịch đơn vị trực tiếp | Lịch tuần P001; P008 có xung đột nghỉ trưa; không đoán từ giờ chung |
 
 Cách ghi: URL/ảnh thông tin đơn vị hoặc nội dung trả lời có ngày, địa chỉ đúng chi nhánh,
 7 ngày mở cửa (kể cả nghỉ trưa), thời lượng và phạm vi có mái. Điền vào

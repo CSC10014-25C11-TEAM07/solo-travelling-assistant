@@ -1,12 +1,14 @@
 # Dữ liệu địa điểm và tuyến mẫu
 
-Phiên bản **bao04-mvp-2026-11-15-v1**, áp dụng chuẩn dữ liệu Leader chốt 09/11.
+Phiên bản **bao04-mvp-2026-11-16-v1**, áp dụng chuẩn dữ liệu Leader chốt 09/11.
 Đọc [hướng dẫn bàn giao](../../docs/DATASET-HANDOFF-BAO04.md) để biết bộ dùng cho từng ca,
 nguồn, cách reset và phần cần bổ sung. Hợp đồng HTTP F01 không đổi.
+[Xác minh nguồn 16/11](../../docs/DATA-SOURCE-VERIFY-BAO04.md) có kết quả mới, mẫu hỏi
+đơn vị và hai quyết định nhóm còn thiếu. Trợ lý đã thực hiện phần tra cứu có thể làm qua web.
 
 | File/thư mục | Nội dung |
 |---|---|
-| `places.json` | 15 hồ sơ có nguồn, đều UNVERIFIED; 11 trải nghiệm, 3 điểm nghỉ và mốc H001 |
+| `places.json` | 15 hồ sơ có nguồn: P009 VERIFIED, 14 UNVERIFIED; 11 trải nghiệm, 3 điểm nghỉ và mốc H001 |
 | `travel_times.json` | 24 chặng có hướng: 20 ước tính VERIFIED, 4 qua R003 còn UNVERIFIED |
 | `place_coordinates.json` | 8 tọa độ/ứng viên; R003 chưa khớp số nhà |
 | `travel_time_evidence.json` | Summary, checked_at UTC, query, phương thức/làm tròn và nhận xét rà soát |
@@ -26,9 +28,11 @@ nguồn, cách reset và phần cần bổ sung. Hợp đồng HTTP F01 không �
   Hồ sơ UNVERIFIED chưa rõ môi trường giữ null, không đoán là trong nhà.
 - VERIFIED/MOCK/UNVERIFIED thay nhãn SOURCED cũ. Có URL chưa đủ gắn VERIFIED.
   20 ước tính đã được rà query motorcycle, đầu/cuối, số giây/cách làm tròn; 4 chặng bổ sung ngày 15/11.
-  Nhãn VERIFIED ở đây chỉ áp dụng ước tính, không xác minh venue hay quyền đi từng đoạn.
-- Mọi địa điểm thật hiện vẫn UNVERIFIED: giờ tuần, thời lượng, tọa độ chi nhánh hoặc
-  điều kiện tiếp cận còn thiếu/mâu thuẫn. Không dùng như lịch thật đã nghiệm thu.
+  Nhãn VERIFIED của chặng chỉ áp dụng ước tính, không xác minh venue hay quyền đi từng đoạn.
+- P009 đã đối chiếu đủ hồ sơ VISIT: lịch đơn vị 08:30–18:00 hằng ngày, MIXED và
+  thời lượng ước tính 60 phút từ cổng tỉnh. Giữ nguồn/khác biệt cũ và lý do chọn giờ
+  trong source_checks.json. VERIFIED ở cấp điểm không xác nhận cả tuyến. 14 điểm
+  còn lại UNVERIFIED vì thiếu/xung đột giờ, thời lượng, chi nhánh hoặc tiếp cận.
 - A→B và B→A độc lập; cùng ID hợp lệ là 0. Thiếu chặng không phải 0.
 - MOCK tách riêng; không dùng bù dữ liệu thực. `get_travel_time` cần opt-in cho MOCK.
 - T15 dùng catalog riêng: điểm INDOOR đóng cửa, quán còn lại MIXED. Không xóa điểm
@@ -72,6 +76,10 @@ quyết định nhãn. Không chép đè bộ cũ bằng output chỉ chứa m�
 - [Cổng du lịch Lâm Đồng](https://visitlamdong.vn/), [Là Việt](https://laviet.coffee/tu-chung-toi/),
   [Bảo tàng Lâm Đồng](https://baotanglamdong.com.vn/contact), [Tâm Châu](https://tamchau.com/gioi-thieu/):
   giữ URL từng điểm, không sao chép bài mô tả/ảnh. Ảnh trong catalog nguồn đều null.
+- Bổ sung 16/11: [Crazy House](https://crazyhouse.vn/tham-quan),
+  [Tâm Châu Center](https://www.tamchaucenter.com/lien-he),
+  [An CaFe](https://www.ancafeglobal.com/) và [trang vé bảo tàng](https://baotanglamdong.com.vn/tickets).
+  Giữ nguồn từng trường và quyết định xử lý xung đột trong `handoff/source_checks.json`.
 - © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), ODbL 1.0:
   tọa độ, tag giờ và mạng đường; giữ ghi công/điều kiện ODbL khi dùng hoặc phân phối.
   [Photon](https://photon.komoot.io/) cung cấp geocoding OSM cho H001/R003.

@@ -1,5 +1,5 @@
 {
-  "dataset_version": "bao04-mvp-2026-11-15-v1",
+  "dataset_version": "bao04-mvp-2026-11-16-v1",
   "checks_passed": true,
   "mock_routes": [
     {
@@ -520,11 +520,6 @@
         {
           "code": "UNVERIFIED_PLACE",
           "day_id": "SOURCE4D-DAY-3",
-          "place_id": "P009"
-        },
-        {
-          "code": "UNVERIFIED_PLACE",
-          "day_id": "SOURCE4D-DAY-3",
           "place_id": "P011"
         },
         {
@@ -543,12 +538,6 @@
           "weekday": "wed",
           "day_id": "SOURCE4D-DAY-3",
           "place_id": "P008"
-        },
-        {
-          "code": "UNKNOWN_OPENING_HOURS",
-          "weekday": "wed",
-          "day_id": "SOURCE4D-DAY-3",
-          "place_id": "P009"
         },
         {
           "code": "UNKNOWN_VISIT_DURATION",
