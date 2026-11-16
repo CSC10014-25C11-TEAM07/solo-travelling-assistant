@@ -397,7 +397,7 @@ export default function CompareScreen() {
             },
           ]}
         >
-          Giữ nguyên ở cả hai phương án
+          Giữ nguyên trong các phương án
         </Text>
 
         <Text style={styles.muted}>
