@@ -1,4 +1,4 @@
-
+﻿
 import { useState } from 'react';
 import { router } from 'expo-router';
 import {
@@ -13,8 +13,7 @@ import { usePlan, tripDays } from '@/features/plan/state';
 import { configured, confirmDraft } from '@/features/plan/api';
 
 export default function Draft() {
-  const { trip, setTrip } = usePlan();
-
+const { trip, setTrip, draftId, setDraftId } = usePlan();
   const [day, D] = useState(1);
   const [busy, B] = useState(false);
   const [err, E] = useState('');
@@ -89,26 +88,27 @@ export default function Draft() {
 
   async function confirm() {
     if (!trip || busy) return;
-
+    if (!draftId) {
+    E('Không tìm thấy mã lịch nháp. Vui lòng tạo lại lịch.');
+    return;
+  }
     B(true);
     E('');
 
-    try {
-      const next = configured
-        ? await confirmDraft(trip.itinerary_id)
-        : { ...trip, status: 'CURRENT' as const };
-
-      setTrip(next);
-      router.replace('/current');
-    } catch (e) {
-      E(
-        e instanceof Error
-          ? e.message
-          : 'Không lưu được lịch'
-      );
-    } finally {
-      B(false);
-    }
+     try {
+    const next = await confirmDraft(draftId);
+    setTrip(next);
+    setDraftId(null);
+    router.replace('/current');
+  } catch (e) {
+    E(
+      e instanceof Error
+        ? e.message
+        : 'Không xác nhận được lịch.'
+    );
+  } finally {
+    B(false);
+  }
   }
 
   return (
