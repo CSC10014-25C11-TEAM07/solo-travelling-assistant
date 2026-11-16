@@ -146,20 +146,14 @@ export default function Current() {
           </View>
 
           <View style={styles.card}>
-
             {[...(
               days.find(d => d.day_number === day)
                 ?.activities || []
             )]
-              .filter(a =>
-                a.status === 'PENDING' ||
-                a.status === 'DONE'
-              )
               .sort((a, b) =>
                 a.start_time.localeCompare(b.start_time)
               )
               .map(a => (
-
                 <View
                   key={a.activity_id}
                   style={{
@@ -201,44 +195,6 @@ export default function Current() {
                 </View>
               ))}
           </View>
-
-          <View style={styles.card}>
-            <Text style={styles.heading}>
-              Lịch sử điều chỉnh
-            </Text>
-
-            {(days.find(d => d.day_number === day)
-              ?.activities || [])
-              .filter(a =>
-                a.status === 'DROPPED' ||
-                a.status === 'REPLACED'
-              )
-              .sort((a, b) =>
-                a.start_time.localeCompare(b.start_time)
-              )
-              .map(a => (
-                <View
-                  key={a.activity_id}
-                  style={{
-                    gap: 7,
-                    paddingVertical: 10,
-                    borderBottomWidth: 1,
-                    borderColor: '#dce8d6',
-                  }}
-                >
-                  <Text style={styles.muted}>
-                    {a.start_time}–{a.end_time} · {a.name}
-                  </Text>
-
-                  <Text style={styles.muted}>
-                    {a.status === 'DROPPED'
-                      ? 'Đã bỏ'
-                      : 'Đã thay thế'}
-                  </Text>
-                </View>
-              ))}
-          </View>
-
         </>
       )}
 
