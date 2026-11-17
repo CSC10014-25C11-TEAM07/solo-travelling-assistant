@@ -14,26 +14,25 @@ export default function Current() {
   const [busy, setBusy] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+const reload = useCallback(async () => {
+  setBusy('reload');
+  setLoading(true);
+  setError('');
 
-  const reload = useCallback(async () => {
-    setBusy('reload');
-    setLoading(true);
-    setError('');
-
-    try {
-      const latest = await latestTrip();
-      setTrip(latest);
-    } catch (e) {
-      setError(
-        e instanceof Error
-          ? e.message
-          : 'Không đọc được lịch đã lưu.'
-      );
-    } finally {
-      setBusy('');
-      setLoading(false);
-    }
-  }, [setTrip]);
+  try {
+    const latest = await latestTrip();
+    setTrip(latest);
+  } catch (e) {
+    setError(
+      e instanceof Error
+        ? e.message
+        : 'Không đọc được lịch đã lưu.'
+    );
+  } finally {
+    setBusy('');
+    setLoading(false);
+  }
+}, [setTrip]);
 
   useFocusEffect(
     useCallback(() => {
@@ -55,14 +54,11 @@ export default function Current() {
         activityId,
         trip.version
       );
-
       setTrip(updated);
     } catch (e) {
       if ((e as { status?: number }).status === 409) {
-        setError(
-          'Lịch đã thay đổi. Đang tải phiên bản mới.'
-        );
-        await reload();
+  await reload();
+  setError('Lịch đã thay đổi. Vui lòng kiểm tra phiên bản mới.');
       } else {
         setError(
           e instanceof Error
@@ -124,10 +120,11 @@ export default function Current() {
             </Text>
 
             <Text style={styles.muted}>
-              Mã lịch: {trip.itinerary_id}
-            </Text><Action
-    title="Điều chỉnh lịch trình"
-    onPress={() => router.push('/adapt')}
+  Mã lịch: {trip.itinerary_id}
+</Text>
+<Action
+  title="Điều chỉnh lịch trình"
+  onPress={() => router.push('/adapt')}
   />
 </View>
           <View style={styles.row}>
@@ -145,15 +142,18 @@ export default function Current() {
             ))}
           </View>
 
-          <View style={styles.card}>
-            {[...(
-              days.find(d => d.day_number === day)
-                ?.activities || []
-            )]
-              .sort((a, b) =>
-                a.start_time.localeCompare(b.start_time)
-              )
-              .map(a => (
+          <View style={styles.card}>{[...(
+  days.find(d => d.day_number === day)
+    ?.activities || []
+)]
+  .filter(
+    a => a.status === 'PENDING' || a.status === 'DONE'
+  )
+  .sort((a, b) =>
+    a.start_time.localeCompare(b.start_time)
+  )
+  .map(a => (
+
                 <View
                   key={a.activity_id}
                   style={{
@@ -169,13 +169,9 @@ export default function Current() {
 
                   <Text style={styles.muted}>
                     {a.type} ·{' '}
-                    {a.status === 'DONE'
-                      ? 'Đã hoàn thành'
-                      : a.status === 'DROPPED'
-                      ? 'Đã bỏ'
-                      : a.status === 'REPLACED'
-                      ? 'Đã thay thế'
-                      : 'Chưa thực hiện'}
+                   {a.status === 'DONE'
+                   ? 'Đã hoàn thành'
+                   : 'Chưa thực hiện'}
                   </Text>
 
                   {a.status === 'PENDING' && (
