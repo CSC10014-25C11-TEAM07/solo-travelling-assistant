@@ -1,7 +1,7 @@
 """Integration helpers for Bảo 06's catalog_provider and option_validator."""
 
 from adapt_f05.engine import AdaptEngine
-from adapt_f05.catalog import Catalog, RouteDay
+from adapt_f05.catalog import Catalog, RouteDay, checked_buffer
 from adapt_f05.handoff import prepare_proposal, validate_stored_option
 from adapt_f05.models import AdaptError
 from adapt_f05.ranking import GeminiRanker, RankingError
@@ -19,6 +19,7 @@ def make_catalog_provider(data_directory, routes_by_days, *, mode):
         if not route or route.get("data_status") != mode or len(route.get("days", [])) != len(days):
             raise AdaptError("DATA_INCOMPLETE", f"Thiếu tuyến {len(days)} ngày được cấu hình {mode}.")
         mappings = []
+        buffer = checked_buffer(route.get("buffer_minutes", 0))
         for number, (day, configured) in enumerate(zip(days, route["days"], strict=True), 1):
             if day["day_number"] != number or day["end_deadline"] != configured["end_deadline"]:
                 raise AdaptError("DATA_INCOMPLETE", f"Hạn hoặc số thứ tự ngày {number} không khớp tuyến.")
@@ -26,7 +27,8 @@ def make_catalog_provider(data_directory, routes_by_days, *, mode):
                                      end_place_id=configured["end_place_id"], start_time=configured["start_time"],
                                      end_deadline=configured["end_deadline"]))
         try:
-            return Catalog.load(data_directory, mappings, mode=mode)
+            return Catalog.load(data_directory, mappings, mode=mode,
+                                buffer_minutes_by_day={day.day_id: buffer for day in mappings})
         except AdaptError:
             raise
         except (OSError, ValueError, KeyError, TypeError) as error:
