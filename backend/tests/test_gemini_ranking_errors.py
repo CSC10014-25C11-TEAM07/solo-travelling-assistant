@@ -33,6 +33,17 @@ class GeminiRankingErrorTests(unittest.TestCase):
     def provider(self, opener):
         return GeminiRanker(api_key="NOT-A-REAL-KEY", model="fake-test-model", opener=opener)
 
+    def test_model_schema_restricts_codes_but_local_validation_remains_strict(self):
+        captured = {}
+        def opener(request, timeout):
+            captured.update(json.loads(request.data))
+            return response(envelope())
+        self.provider(opener).rank(CONTEXT)
+        row = captured["generationConfig"]["responseJsonSchema"]["properties"]["rankings"]["items"]["properties"]
+        self.assertEqual(row["candidate_id"]["enum"], ["allowed"])
+        self.assertEqual(row["reason_codes"]["items"]["enum"], ["VALID"])
+        self.assertEqual(row["tradeoff_code"]["enum"], ["TRADEOFF"])
+
     def test_non_object_rows_and_invented_facts_fail_closed(self):
         invalid = [None, 1, [], "allowed", {"candidate_id": ["allowed"],
             "reason_codes": ["VALID"], "tradeoff_code": "TRADEOFF"},

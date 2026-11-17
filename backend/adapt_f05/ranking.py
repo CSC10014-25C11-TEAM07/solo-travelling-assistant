@@ -8,7 +8,7 @@ import time
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
-PROMPT_VERSION = "adapt-rank-v1"
+PROMPT_VERSION = "adapt-rank-v2"
 
 
 class RankingError(Exception):
@@ -90,10 +90,14 @@ class GeminiRanker:
             self.audit["failure_code"] = code
             return RankingError(code, message, status)
 
+        candidates = context["candidates"]
+        allowed_ids = [candidate["candidate_id"] for candidate in candidates]
+        allowed_reasons = sorted({code for candidate in candidates for code in candidate["facts"] if code != "TRADEOFF"})
         schema = {"type": "object", "properties": {"rankings": {"type": "array", "items": {
-            "type": "object", "properties": {"candidate_id": {"type": "string"},
-                "reason_codes": {"type": "array", "items": {"type": "string"}},
-                "tradeoff_code": {"type": "string"}},
+            "type": "object", "properties": {"candidate_id": {"type": "string", "enum": allowed_ids},
+                "reason_codes": {"type": "array", "items": {"type": "string", "enum": allowed_reasons},
+                                 "minItems": 1, "maxItems": 3},
+                "tradeoff_code": {"type": "string", "enum": ["TRADEOFF"]}},
             "required": ["candidate_id", "reason_codes", "tradeoff_code"], "additionalProperties": False}}},
             "required": ["rankings"], "additionalProperties": False}
         body = {"systemInstruction": {"parts": [{"text": (
