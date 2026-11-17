@@ -1,7 +1,7 @@
 # Hướng dẫn phần việc Bảo 04
 
 Cập nhật 16/11/2026. Bạn phụ trách dữ liệu địa điểm, chặng và F01 ở issue #8.
-PR #13 đã vào main. Việc mới là bộ **bao04-mvp-2026-11-17-v1** theo yêu cầu Leader,
+PR #13 đã vào main. Việc mới là bộ **bao04-mvp-2026-11-17-v2** theo yêu cầu Leader,
 trên nhánh feat/8-data-readiness-15nov, theo phân công MVP 14/11. PR #19 đã merge.
 
 Đọc [bàn giao dữ liệu](DATASET-HANDOFF-BAO04.md) trước: có tuyến nguồn 3/4 ngày,
@@ -84,7 +84,7 @@ Ctrl+C dừng server/xóa tài khoản tạm. Nó tái hiện auth, không thay 
 2. Ưu tiên xác minh đúng chi nhánh R003, giờ tuần/nghỉ trưa và thời lượng các điểm đã
    chọn. Gaps có mã trong report. Chưa đủ thì giữ UNVERIFIED.
 3. Bảo04 đã chốt L001 Crazy House, VISIT Still/An60 phút, hạn đi/về18:00 và buffer30.
-   Cận dưới có điều kiện gồm chặng nơi ngủ/REST/buffer là17:55/17:57; còn thiếu
+   V2 dùng chặng trực tiếp giữa các stop; cận dưới có điều kiện gồm nơi ngủ/REST/buffer là17:42/17:45; còn thiếu
    giờ/quyền tiếp cận nên chưa được dùng làm lịch khả thi. Nhật nhận cấu hình rồi kiểm ràng buộc.
 4. PR #18 đã merge; khi có build ghép hiện tại, chạy checklist S01 và giữ bằng chứng đổi sở thích.
    EXPO_PUBLIC_API_URL dùng IP LAN; restart Expo sau đổi .env.

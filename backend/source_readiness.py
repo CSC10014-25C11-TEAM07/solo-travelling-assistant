@@ -46,6 +46,27 @@ def directed_legs(sequence, catalog, common):
     return legs, gaps
 
 
+def ordered_stops(day):
+    """REST/VISIT operations in the same order as the source-day audit."""
+    visits, rests, result = set(day["visit_place_ids"]), {
+        r["place_id"]: r["duration_minutes"] for r in day["rest_stops"]}, []
+    for pid in day["place_sequence"]:
+        if pid in visits:
+            result.append({"type": "VISIT", "place_id": pid})
+            visits.remove(pid)
+        if pid in rests:
+            result.append({"type": "REST", "place_id": pid, "duration_minutes": rests.pop(pid)})
+    return result
+
+
+def stop_sequence(day, stops):
+    sequence = [day["start_place_id"]]
+    for pid in [s["place_id"] for s in stops] + [day["end_place_id"]]:
+        if pid != sequence[-1]:
+            sequence.append(pid)
+    return sequence
+
+
 def schedule_day(day, catalog):
     """Earliest schedule, with separate VISIT/REST; unknown inputs stop timing."""
     now, schedule, gaps = minutes(day["start_time"]), [], []
@@ -128,6 +149,11 @@ def source_route(route, catalog):
         require(len(day["visit_place_ids"]) == len(set(day["visit_place_ids"])), "DUPLICATE_VISIT")
         require(len(day["rest_stops"]) == len({r["place_id"] for r in day["rest_stops"]}), "DUPLICATE_REST_STOP")
         require(all(type(r["duration_minutes"]) is int and r["duration_minutes"] > 0 for r in day["rest_stops"]), "REST_DURATION")
+        if "stops" in day:
+            declared = [{k: s[k] for k in ("type", "place_id", "duration_minutes") if k in s}
+                        for s in day["stops"]]
+            require(declared == ordered_stops(day), "SOURCE_STOPS_MISMATCH")
+            require(stop_sequence(day, declared) == sequence, "SOURCE_STOPS_PATH_MISMATCH")
         rest = sum(r["duration_minutes"] for r in day["rest_stops"])
         require(rest >= route["min_rest_minutes"], f"REST_SHORTFALL: {did}")
         for pid in dict.fromkeys(sequence):

@@ -7,6 +7,7 @@ from pathlib import Path
 from place_catalog import PlaceCatalog, MissingTravelTime
 from place_models import DAYS, TimeWindow
 from source_readiness import source_route, source_replacements
+from source_scenarios import source_scenarios
 
 
 def read(path: Path):
@@ -164,7 +165,9 @@ def audit(directory):
     require(sorted(len(r["days"]) for r in sources) == [3, 4], "SOURCE_ROUTE_COVERAGE")
     source = [source_route(route, catalog) for route in sources]
     replacements = source_replacements(read(directory / manifest["source_adapt_checks"]), catalog)
+    source_cases = source_scenarios(read(directory / manifest["source_scenarios"]), sources, catalog) \
+        if "source_scenarios" in manifest else []
     return {"dataset_version": manifest["dataset_version"],
             "checks_passed": all(item["passed"] for item in mock_routes + cases),
             "mock_routes": mock_routes, "scenarios": cases, "source_routes": source,
-            "source_adapt_checks": replacements}
+            "source_adapt_checks": replacements, "source_scenarios": source_cases}

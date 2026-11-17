@@ -19,8 +19,11 @@ def export_source_bundle(directory: Path, output: Path):
     manifest = read(directory / "handoff/manifest.json")
     routes = read(directory / manifest["source_routes"])
     checks = read(directory / manifest["source_adapt_checks"])
+    cases = read(directory / manifest["source_scenarios"]) if "source_scenarios" in manifest else []
     ids = {pid for route in routes for day in route["days"] for pid in day["place_sequence"]}
     ids.update(pid for check in checks for pid in check["place_sequence"])
+    ids.update(case[key] for case in cases for key in ("replacement_place_id", "visit_place_id", "rest_place_id")
+               if key in case)
     places = [catalog.places[pid] for pid in sorted(ids)]
     legs = [leg for pair, leg in catalog.travel_times.items() if set(pair) <= ids]
     if any(p.data_status == "MOCK" for p in places) or any(leg.data_status == "MOCK" for leg in legs):
@@ -41,8 +44,8 @@ def export_source_bundle(directory: Path, output: Path):
         "manifest.json": summary,
         "places.json": [p.model_dump() for p in places],
         "travel_times.json": [leg.model_dump() for leg in legs],
-        "routes_source.json": routes, "source_adapt_checks.json": checks,
-        "readiness.json": {key: report[key] for key in ("dataset_version", "source_routes", "source_adapt_checks")},
+        "routes_source.json": routes, "source_adapt_checks.json": checks, "source_scenarios.json": cases,
+        "readiness.json": {key: report[key] for key in ("dataset_version", "source_routes", "source_adapt_checks", "source_scenarios")},
         "data_review.json": review, "source_checks.json": source_checks,
         "sources.json": read(directory / "sources.json"),
         "place_coordinates.json": [p for p in read(directory / "place_coordinates.json") if p["place_id"] in ids],

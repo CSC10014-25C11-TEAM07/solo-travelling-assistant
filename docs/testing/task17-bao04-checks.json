@@ -1,0 +1,204 @@
+{
+  "dataset_version": "bao04-mvp-2026-11-17-v2",
+  "checked_at": "2026-11-17T09:01:59.968345+00:00",
+  "base_commit": "140479163c74bdb11eb5ae1d3aa7f19dfa097236",
+  "mode": "DATA_SOURCE_REVIEW_AND_MOCK_RULE_REPLAY_NO_LIVE_AI",
+  "commands": [
+    {
+      "command": "python -m unittest discover -s backend/tests",
+      "exit_code": 0,
+      "test_count": 136
+    },
+    {
+      "command": "python backend/scripts/validate_places.py",
+      "exit_code": 0,
+      "places": 16,
+      "directed_legs": 42,
+      "place_status": {
+        "VERIFIED": 1,
+        "UNVERIFIED": 15
+      },
+      "travel_status": {
+        "VERIFIED": 28,
+        "UNVERIFIED": 14
+      }
+    },
+    {
+      "command": "python backend/scripts/validate_places.py --data-dir backend/data/fixtures/mock",
+      "exit_code": 0,
+      "places": 11,
+      "directed_legs": 20
+    },
+    {
+      "command": "python backend/scripts/validate_places.py --data-dir backend/data/fixtures/mock-no-replacement",
+      "exit_code": 0,
+      "places": 11,
+      "directed_legs": 20
+    },
+    {
+      "command": "python backend/scripts/audit_data_handoff.py --output docs/testing/dataset-handoff-report.json",
+      "exit_code": 0
+    },
+    {
+      "command": "python backend/scripts/replay_handoff_f05.py --output docs/testing/dataset-handoff-f05-replay.json",
+      "exit_code": 0,
+      "run_count": 8
+    },
+    {
+      "command": "python backend/scripts/prepare_source_bundle.py --output-dir <new-directory>",
+      "exit_code": 0,
+      "bundle": {
+        "dataset_version": "bao04-mvp-2026-11-17-v2",
+        "mode": "REVIEW_ONLY",
+        "place_count": 10,
+        "directed_leg_count": 42,
+        "ready_for_real_plan": false,
+        "source_adapt_ready": false,
+        "note": "JSON review/import input only; không ghi SQLite, không đổi nhãn. Đọc readiness.json trước khi dùng."
+      }
+    },
+    {
+      "command": "git diff --quiet 1404791 -- <shared/mobile/fixture paths>",
+      "paths": [
+        "mobile",
+        "backend/data/fixtures",
+        "backend/data/handoff/routes_mock.json",
+        "backend/plan_f02.py",
+        "backend/adapt_f05",
+        "backend/main.py",
+        "backend/adapt_api.py",
+        "backend/adapt_store.py",
+        "backend/itinerary_api.py",
+        "backend/itinerary_store.py",
+        "backend/place_models.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0
+    }
+  ],
+  "red_green": [
+    {
+      "scope": "source REST/RAIN scenario audit",
+      "red_exit": 1,
+      "green_exit": 0,
+      "note": "Configured source cases were ignored before change; coverage, invalid extra REST, timing, incoming/outgoing legs, and INDOOR guards asserted."
+    },
+    {
+      "scope": "F02 stops consistency",
+      "red_exit": 1,
+      "green_exit": 0,
+      "note": "Before change, audit accepted divergent REST order and skipped transit waypoint."
+    },
+    {
+      "scope": "source scenario export and selection",
+      "red_exit": 1,
+      "green_exit": 0,
+      "note": "Before change, export omitted source_scenarios.json and replacement-only ID selection."
+    }
+  ],
+  "source_routes": [
+    {
+      "route_id": "SOURCE-3D",
+      "ready_for_real_plan": false,
+      "gap_count": 38,
+      "gap_codes": {
+        "ROUTE_NOT_VERIFIED": 1,
+        "UNRESOLVED_ROUTE_LIMITATION": 3,
+        "UNVERIFIED_PLACE": 10,
+        "UNKNOWN_ENVIRONMENT": 8,
+        "UNVERIFIED_LEG": 6,
+        "UNKNOWN_REST_ACCESS": 2,
+        "UNKNOWN_START_ACCESS": 3,
+        "UNKNOWN_END_ACCESS": 3,
+        "UNKNOWN_OPENING_HOURS": 2
+      },
+      "lower_bound_finish_including_buffer": [
+        "17:42",
+        "14:24",
+        "17:45"
+      ]
+    },
+    {
+      "route_id": "SOURCE-4D",
+      "ready_for_real_plan": false,
+      "gap_count": 50,
+      "gap_codes": {
+        "ROUTE_NOT_VERIFIED": 1,
+        "UNRESOLVED_ROUTE_LIMITATION": 3,
+        "UNVERIFIED_PLACE": 14,
+        "UNKNOWN_ENVIRONMENT": 10,
+        "UNVERIFIED_LEG": 8,
+        "UNKNOWN_REST_ACCESS": 3,
+        "UNKNOWN_START_ACCESS": 4,
+        "UNKNOWN_END_ACCESS": 4,
+        "UNKNOWN_OPENING_HOURS": 3
+      },
+      "lower_bound_finish_including_buffer": [
+        "17:42",
+        "14:24",
+        "13:04",
+        "17:45"
+      ]
+    }
+  ],
+  "source_scenarios": [
+    {
+      "case_id": "SOURCE3D-REST-30",
+      "source_data_complete": false,
+      "ready_for_real_adapt": false,
+      "gap_count": 32
+    },
+    {
+      "case_id": "SOURCE3D-RAIN-P006",
+      "source_data_complete": false,
+      "ready_for_real_adapt": false,
+      "gap_count": 32
+    },
+    {
+      "case_id": "SOURCE4D-REST-30",
+      "source_data_complete": false,
+      "ready_for_real_adapt": false,
+      "gap_count": 32
+    },
+    {
+      "case_id": "SOURCE4D-RAIN-P006",
+      "source_data_complete": false,
+      "ready_for_real_adapt": false,
+      "gap_count": 32
+    }
+  ],
+  "provider_probe_evidence": "docs/testing/task17-provider-observations.json",
+  "graph_coverage": {
+    "variant_day_paths": 30,
+    "optional_drop_paths": 212,
+    "missing_pairs": [],
+    "note": "Counts repeated paths across base/scenario probes. This checks directed-edge existence, not VERIFIED status, hours or feasibility."
+  },
+  "preserved_existing_directed_records": 26,
+  "not_verified": [
+    "Real source-route feasibility and actual travel time/road permission",
+    "R003/L001 exact gate, access/parking, hotel availability; remaining venue weekly hours/environment",
+    "Live Gemini, runtime F02/F05 acceptance, SQLite ACCEPT/REJECT/restart",
+    "New native/physical-phone acceptance; TASK17 iPhone MOCK results are reported by the assignment, not rerun here",
+    "Shared engine fixes for REST windows, buffer/access or anchor-role verification"
+  ],
+  "input_sha256": {
+    "backend/data_handoff.py": "76f08d50dc5f1a50636434319d09e7d9f2d14d3c5ec103a5430bec792987a599",
+    "backend/source_readiness.py": "c73ef7e591701869fe1508ab851904d85b46078aaef80cf76c0683eda6aa45ed",
+    "backend/source_scenarios.py": "d3a0537b6d4d4ec4da2deff9835f860fd827675e6779a2fef029d4b6dc14be72",
+    "backend/source_bundle.py": "d75cc7f7ab0d0e0c3580e727a023da8169f3bb86b5f9295c413a69953bfc4574",
+    "backend/data/places.json": "a9ad21cd1a97f68e8c8e8e669713236795e35893758d3144dcc25471edaa0c96",
+    "backend/data/travel_times.json": "c8ca2cefd4b123d4394f199052c38bb8458eb2baa29512a1a5c68e9059c57572",
+    "backend/data/place_coordinates.json": "b3c007f41114961fcfcd933b34c622f59f53b42d50e9a47f0eccd6a74f8338c0",
+    "backend/data/travel_time_evidence.json": "644462c4858658df3ea68b516628e613d16e2b161f0bdb360746090119d06915",
+    "backend/data/data_review.json": "42f6a9ee70d5863290a0470914ef44b85c122e5a47a7fbc7f51963275069ea15",
+    "backend/data/handoff/routes_source.json": "8ab80fddecb24c46032971028f22df059458a3b477da5285107ae5e274a1ec99",
+    "backend/data/handoff/source_adapt_checks.json": "80e848e51d140f5b61c240caa0a4c6c0fccd01729fab0655e0143ce60ec28c62",
+    "backend/data/handoff/source_scenarios.json": "a8c74174cb4d4f83d697ba312c51baf74af93c81a6bcd5005d7e0830edc9d731",
+    "backend/data/handoff/source_checks.json": "0f95cabb6a3ec6349bfc2c7d07ece457545a167b5026efa60468a7a469d2cc43",
+    "backend/data/handoff/manifest.json": "5e1eab9576ba783a354f6f7ff5b2d7e20818e522628de18756674a182e851449"
+  }
+}

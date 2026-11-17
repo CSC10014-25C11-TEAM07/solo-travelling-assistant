@@ -1,13 +1,13 @@
 {
   "schema_version": "shared-data-v1-2026-11-09",
-  "checked_at": "2026-11-17T08:12:19.817068+00:00",
+  "checked_at": "2026-11-17T08:51:30.611433+00:00",
   "meaning": "Thông tin còn thiếu/mâu thuẫn giữ UNVERIFIED. Nhãn SOURCED cũ đã bỏ; VERIFIED chỉ sau đối chiếu các trường cần dùng. Thời điểm đọc nguồn không phải khảo sát tại chỗ.",
   "places": [
     {
       "place_id": "P001",
       "name": "Ga Đà Lạt",
       "source_url": "https://visitlamdong.vn/vi/nhagadalat",
-      "checked_at": "2026-11-16T08:11:07.297433+00:00",
+      "checked_at": "2026-11-17T08:35:10.896392+00:00",
       "reported_hours": "07:00–17:30",
       "pending": "Nguồn chưa tách giờ theo từng thứ.",
       "duration_note": "Cổng du lịch nêu 90 phút.",
@@ -17,7 +17,7 @@
         "opening_hours.weekly"
       ],
       "selected_for_source_route": true,
-      "next_action": "Xác nhận giờ tuần và quyền đi qua mốc06:00/cận18:00; chặng hai chiều với L001 đã có ước tính tham chiếu nhưng cổng L001 chưa xác minh."
+      "next_action": "Xác minh lịch tuần/ngày lễ cho VISIT90 phút ngày nội vùng. Tuyến mới không đi qua ga lúc06:00/ngày đi-về; không còn cần dùng ga làm waypoint không có hoạt động."
     },
     {
       "place_id": "P002",
@@ -71,36 +71,41 @@
       "place_id": "P005",
       "name": "Bảo tàng Lâm Đồng",
       "source_url": "https://baotanglamdong.com.vn/contact",
-      "checked_at": "2026-11-16T08:15:27.542403+00:00",
+      "checked_at": "2026-11-17T08:35:07.559752+00:00",
       "reported_hours": "07:30–17:30",
-      "pending": "Ngoài 07:30–17:30 ở header/contact, chính trang tickets của đơn vị ghi hằng ngày 08:00–17:00. Cổng tỉnh/OSM còn khác; chưa xác nhận nghỉ trưa và phạm vi khu trưng bày có mái.",
+      "pending": "Giờ header/contact07:30–17:30 khác tickets hằng ngày08:00–17:00; giữ weekly null. Chưa xác nhận lịch REST ở khu được phép ngồi nghỉ.",
       "duration_note": "Cổng du lịch tỉnh visitlamdong.vn/vi/baotangld nêu 120 phút cho toàn điểm, đọc 15/11; không phải thời lượng riêng chỉ khu trong nhà.",
-      "classification_note": "area dùng HCMC/DALAT/EN_ROUTE đã chốt 09/11; environment null chỉ ở hồ sơ UNVERIFIED còn thiếu, không phải mã môi trường thứ tư.",
+      "classification_note": "Hồ sơ120 phút là toàn khu bảo tàng có không gian ngoài trời và các phòng trưng bày; sửa INDOOR→MIXED. Không dùng cả P005 làm điểm thay mưa.",
       "ready_for_real_plan": false,
       "missing_fields": [
         "opening_hours.weekly",
-        "indoor_visit_scope"
+        "rest_access"
       ],
       "selected_for_source_route": true,
-      "next_action": "Hỏi 02633 812 624 (số công khai của bảo tàng) về lịch từng ngày/nghỉ trưa và 120 phút toàn điểm có áp dụng riêng khu trong nhà không. Giữ weekly null và UNVERIFIED.",
+      "next_action": "Xác minh lịch tuần/nghỉ trưa và quyền REST. RAIN dùng P006 có phạm vi trong nhà rõ hơn; không coi120 phút toàn khu là INDOOR.",
       "duration_source_url": "https://visitlamdong.vn/vi/baotangld"
     },
     {
       "place_id": "P006",
       "name": "Là Việt Coffee — Nguyễn Công Trứ",
       "source_url": "https://laviet.coffee/tu-chung-toi/",
-      "checked_at": "2026-11-15T09:36:27Z",
+      "checked_at": "2026-11-17T08:35:06.930889+00:00",
       "reported_hours": "07:00–22:00",
-      "pending": "Tên và giờ có ở website đơn vị; chưa thấy lịch riêng từng ngày. Khu ngồi có mái theo mô tả cổng du lịch.",
-      "duration_note": "Chưa có thời lượng trải nghiệm được chốt.",
+      "pending": "Địa chỉ200 Nguyễn Công Trứ và giờ chung07:00–22:00 đối chiếu đơn vị/cổng tỉnh; cổng tỉnh mô tả khu ghế ngồi có trần cao. Không có bảng lịch tuần/ngày lễ, giữ weekly null và UNVERIFIED.",
+      "duration_note": "Ngân sách mẫu VISIT60 phút cho ngồi cà phê trong nhà ở ca RAIN theo TASK17; chọn đồng nhất ngân sách café hiện có, không phải tour/thời lượng do quán xác nhận.",
       "classification_note": "area dùng HCMC/DALAT/EN_ROUTE đã chốt 09/11; environment null chỉ ở hồ sơ UNVERIFIED còn thiếu, không phải mã môi trường thứ tư.",
       "ready_for_real_plan": false,
       "missing_fields": [
-        "visit_duration_minutes",
         "opening_hours.weekly"
       ],
-      "selected_for_source_route": false,
-      "next_action": "Website đơn vị đọc lại 15/11 xác nhận 200 Nguyễn Công Trứ, 07:00–22:00. Cần thời lượng và lịch tuần/ngày lễ riêng; chưa chọn vào tuyến nhỏ vì chưa có tọa độ/chặng đủ dùng."
+      "selected_for_source_route": true,
+      "next_action": "Xác nhận lịch từng thứ/nghỉ trưa/ngày lễ cho đúng200 Nguyễn Công Trứ. Không cần lấy lại tọa độ hoặc chặng mẫu; không biến giờ chung thành lịch tuần.",
+      "visit_scope": "Chỉ khu ghế ngồi có trần nhà; không gồm tour rang/chế biến, sân hoặc khu sản xuất.",
+      "planning_budget": {
+        "duration_minutes": 60,
+        "basis": "TASK17 implementation budget; not a venue fact or new explicit user approval",
+        "recorded_at": "2026-11-17T08:51:30.611433+00:00"
+      }
     },
     {
       "place_id": "P007",
@@ -124,7 +129,7 @@
       "place_id": "P008",
       "name": "Dinh III Bảo Đại",
       "source_url": "https://visitlamdong.vn/vi/dinhiii",
-      "checked_at": "2026-11-10T06:43:02.344762+00:00",
+      "checked_at": "2026-11-17T08:35:10.656694+00:00",
       "reported_hours": "07:00–17:30",
       "pending": "OSM ghi 07:00–11:00,13:00–17:00; chưa gộp thành giờ mở cửa chắc chắn.",
       "duration_note": "Cổng du lịch nêu 60 phút.",
@@ -163,7 +168,7 @@
       "place_id": "P010",
       "name": "Still Cafe",
       "source_url": "https://visitlamdong.vn/vi/stillcafe",
-      "checked_at": "2026-11-16T08:11:04.035672+00:00",
+      "checked_at": "2026-11-17T08:35:08.436745+00:00",
       "reported_hours": "Mo-Su 07:00-22:00",
       "hours_source_url": "https://www.openstreetmap.org/node/6152524285",
       "pending": "Lịch tuần lấy từ tag OSM, chưa xác nhận ngoại lệ/ngày lễ với đơn vị. Chưa xác nhận khu ngồi có mái ; không tự dùng làm điểm thay thế vì mưa.",
@@ -187,7 +192,7 @@
       "place_id": "P011",
       "name": "An Cafe",
       "source_url": "https://www.ancafeglobal.com/",
-      "checked_at": "2026-11-16T08:15:27.542403+00:00",
+      "checked_at": "2026-11-17T08:35:06.435835+00:00",
       "reported_hours": "07:00-22:00",
       "hours_source_url": "https://www.openstreetmap.org/node/4206500720",
       "pending": "Website An CaFe xác nhận 63Bis Ba Tháng Hai. Nội dung chữ không nêu giờ tuần ; lịch 07:00–22:00 vẫn chỉ từ OSM cũ. Chưa xác minh phạm vi có mái.",
@@ -260,7 +265,7 @@
         "coordinate_branch_match"
       ],
       "selected_for_source_route": true,
-      "next_action": "Hỏi đơn vị giờ tuần/nghỉ trưa, pin đúng cổng xe máy và tiếp cận hai chiều qua 0263 3866 904 (số công khai tại trang liên hệ). Chưa đổi tọa độ hoặc nâng nhãn bốn chặng R003."
+      "next_action": "Hỏi đơn vị giờ tuần/nghỉ trưa, pin đúng cổng xe máy và tiếp cận hai chiều qua 0263 3866 904 (số công khai tại trang liên hệ). Chưa đổi tọa độ hoặc nâng nhãn sáu chặng chạm R003."
     },
     {
       "place_id": "H001",
@@ -310,7 +315,7 @@
         "record": "docs/testing/source-route-proposal.json",
         "address": "03 Huỳnh Thúc Kháng, Đà Lạt"
       },
-      "next_action": "Đối chiếu cổng khách lưu trú, tiếp cận06:00 và cuối ngày/đỗ xe, khả năng lưu trú vào ngày mẫu. Sau pin đúng cổng, thu lại cả hai chiều L001↔P001."
+      "next_action": "Đối chiếu pin cổng khách lưu trú/ra vào06:00/đỗ xe và khả năng lưu trú ngày mẫu. Sau pin đúng cổng, thu lại toàn bộ chặng chạm L001, không chỉ cặp L001↔P001."
     }
   ]
 }

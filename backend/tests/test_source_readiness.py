@@ -124,6 +124,22 @@ class SourceReadinessTests(unittest.TestCase):
             with self.subTest(field=field), self.assertRaisesRegex(ValueError, "STOP_OUTSIDE_ROUTE"):
                 source_route(route, catalog)
 
+    def test_declared_f02_stops_cannot_change_the_audited_rest_order(self):
+        route, catalog = inputs()
+        route["days"][1]["stops"] = [
+            {"type": "VISIT", "place_id": "B", "is_optional": True},
+            {"type": "REST", "place_id": "A", "duration_minutes": 60}]
+        with self.assertRaisesRegex(ValueError, "SOURCE_STOPS_MISMATCH"):
+            source_route(route, catalog)
+
+    def test_f02_stops_cannot_silently_skip_a_transit_waypoint(self):
+        route, catalog = inputs()
+        route["days"][0]["place_sequence"] = ["H", "B", "A"]
+        route["days"][0]["stops"] = [
+            {"type": "REST", "place_id": "A", "duration_minutes": 60}]
+        with self.assertRaisesRegex(ValueError, "SOURCE_STOPS_PATH_MISMATCH"):
+            source_route(route, catalog)
+
     def test_missing_return_leg_not_filled_by_reverse(self):
         route, catalog = inputs()
         del catalog.travel_times[("B", "A")]

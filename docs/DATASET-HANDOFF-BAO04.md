@@ -1,11 +1,14 @@
 # Bàn giao Bảo 04 — cập nhật cấu hình 17/11/2026
 
-Phiên bản: **bao04-mvp-2026-11-17-v1**, tiếp tục bộ PR #19. Phạm vi theo mục 3.5
+Phiên bản: **bao04-mvp-2026-11-17-v2**, tiếp tục bộ PR #19. Phạm vi theo mục 3.5
 bản phân công 14/11: dữ liệu, F01, loader/validator và cấu hình tuyến. Không sửa
 router, SQLite, provider AI hoặc giao diện của các bạn khác.
 
 **Đã chốt bốn ca MOCK và tập nguồn nhỏ để rà/nạp. Hai tuyến nguồn chưa đủ điều kiện
 lập lịch thật.** Nghiệm thu 18/11 vẫn cần AI thật, API/lưu thật và Expo Go có bằng chứng.
+
+Chi tiết đợt TASK17 và yêu cầu phần dùng chung: [bàn giao17/11](TASK17-BAO04-HANDOFF.md).
+Các mục15/11–16/11 bên dưới là lịch sử nguồn; bảng và cấu hình hiện hành theo v2.
 
 ## Chọn bộ đúng ca
 
@@ -21,7 +24,8 @@ lập lịch thật.** Nghiệm thu 18/11 vẫn cần AI thật, API/lưu thật
 | CURRENT đầy đủ | `fixtures/current_v1_3day.json`, `current_v1_4day.json` | Đủ ngày đi/về HCMC, TRAVEL/REST/VISIT; ID riêng cho từng snapshot |
 | Mapping cho Nhật/Tân | `handoff/routes_mock.json`, `fixtures/scenarios.json` | Lấy `target_ids` đúng snapshot, không gửi metadata `checked_paths` lên API |
 | Nguồn 3/4 ngày | `handoff/routes_source.json` | Cấu hình còn BLOCKED, xem `gaps` trong audit |
-| Nguồn cho nhánh mưa | `handoff/source_adapt_checks.json` | P010→P005→P008→P001→L001 và P011→P005→P001→L001 đủ chặng; chưa đủ venue/giờ để chạy thật |
+| Hai ca ADAPT nguồn | `handoff/source_scenarios.json` |4 ca nghỉ thêm/RAIN ×3D/4D, audit ngày trước/sau; chưa phải F05/CURRENT thật |
+| Nguồn cho nhánh mưa | `handoff/source_adapt_checks.json` | L001→P006→P010→P005→L001 và P005→P006→P009→P011→L001 đủ chặng; chưa đủ venue/giờ để chạy thật |
 
 MOCK giữ nguyên nội dung từ PR #19: hai catalog đều 11 điểm/20 chặng, snapshot3D/4D
 version1. Ca T15 không xóa ID vì ngày khác còn tham chiếu. `current_v1_day2.json` là
@@ -31,9 +35,9 @@ RuleRanker, 8 lượt T06/T08/T13/T15 × 3D/4D. SHA256 của fixture và impleme
 
 ## Tập nguồn nhỏ đã đối chiếu
 
-Catalog đầy đủ: **16 điểm: P009 VERIFIED, 15 UNVERIFIED; 26 chặng có hướng, gồm20 ước tính VERIFIED
-và6 UNVERIFIED (4 qua R003,2 nối L001)**. Tập tối thiểu gồm9 điểm được cả tuyến và nhánh mưa
-tham chiếu: H001, R003, L001, P001, P005, P008, P009, P010, P011; kèm26 chặng, tọa độ,
+Catalog đầy đủ: **16 điểm: P009 VERIFIED, 15 UNVERIFIED; 42 chặng có hướng, gồm28 ước tính VERIFIED
+và14 UNVERIFIED chạm R003/L001**. Tập tối thiểu gồm10 điểm được cả tuyến và nhánh mưa
+tham chiếu: H001, R003, L001, P001, P005, P006, P008, P009, P010, P011; kèm42 chặng, tọa độ,
 raw evidence, cấu hình và báo cáo. Đây là **REVIEW_ONLY**, không phải seed tự động
 được phép lập lịch thật. Catalog F01 đầy đủ giữ16 điểm; L001 có interests rỗng nên không xuất hiện trong gợi ý.
 
@@ -84,6 +88,9 @@ nguồn vẫn BLOCKED. Không dùng dữ liệu MOCK bù vào bộ nguồn.
 - Hai chặng P001→L001 và L001→P001 được truy vấn độc lập17/11, mỗi chiều8 phút;
   dùng tọa độ khu P009 làm tham chiếu nên giữ UNVERIFIED, chưa phải pin cổng khách lưu trú.
 - Các đêm của cả tuyến3/4ngày kết thúc/bắt đầu L001; nhánh mưa cũng nối đủ về L001.
+  Đợt TASK17 dùng các chặng trực tiếp giữa stop để bỏ waypoint không có hoạt động;
+  R003↔L001 đều232 phút/UNVERIFIED. P005 toàn khu sửa MIXED; RAIN dùng P006.
+  `stops` bàn giao F02 và4source_scenarios đã có; engine vẫn cần chủ phần tích hợp xử lý buffer/giờ REST.
 - VISIT Still/An60 phút mỗi điểm là ngân sách do Bảo04 chọn, không phải quán xác nhận.
   REST riêng đủ60 phút/ngày. Ngày đi/về hạn18:00, nội vùng17:00; buffer30 phút/ngày.
 - Audit dự phòng buffer trước deadline, kể cả sau WAIT; không biến buffer thành REST
@@ -95,11 +102,12 @@ nguồn vẫn BLOCKED. Không dùng dữ liệu MOCK bù vào bộ nguồn.
 
 | Ưu tiên | Điểm/việc | Đã có | Cần hỏi/ghi bằng chứng |
 |---|---|---|---|
-| 1 | R003 Tâm Châu 294A Trần Phú, Bảo Lộc | Ứng viên tọa độ theo tên/đường, bốn chặng ước tính | Đúng số nhà/tọa độ cổng, giờ tuần, chỗ dừng xe máy và tiếp cận hai chiều; trang Center đọc được 16/11 nhưng có hai giờ mở khác nhau |
+| 1 | R003 Tâm Châu 294A Trần Phú, Bảo Lộc | Ứng viên tọa độ theo tên/đường, sáu chặng ước tính chạm R003 | Đúng số nhà/tọa độ cổng, giờ tuần, chỗ dừng xe máy và tiếp cận hai chiều; trang Center đọc được 16/11 nhưng có hai giờ mở khác nhau |
 | 1 | Điểm ngủ Đà Lạt + H001 | L001 Crazy House đã chọn; H001 là mốc tập kết, hai chặng L001↔P001 đã có ước tính | Cổng/giờ khách lưu trú, còn phòng/đỗ xe và quyền tiếp cận H00106:00; thu lại chặng theo pin cổng đã xác minh |
-| 1 | P005 Bảo tàng, 02633 812 624 | 120 phút toàn điểm, 04 Hùng Vương; trang vé cũng khác header | Lịch từng thứ/ngày lễ, nghỉ trưa, thời lượng/phạm vi khu có mái cho RAIN; giải quyết các lịch khác nhau, kể cả trên trang vé của đơn vị |
+| 1 | P005 Bảo tàng, 02633 812 624 | 120 phút toàn điểm, 04 Hùng Vương; trang vé cũng khác header | Lịch từng thứ/ngày lễ, nghỉ trưa và quyền REST; toàn khu P005 đã sửa MIXED, RAIN dùng khu trong nhà P006 |
 | 2 | P010 Still Cafe, 0368 151 215 | 59 Nguyễn Trãi, giờ chung 07:00–22:00 | VISIT60 phút đã chốt; còn khu có mái và ngoại lệ giờ |
 | 2 | P011 An CaFe | Website đơn vị xác nhận 63Bis Ba Tháng Hai; giờ OSM cũ 07:00–22:00 | VISIT60 phút đã chốt; còn môi trường và lịch tuần/ngày lễ |
+| 2 | P006 Là Việt200 Nguyễn Công Trứ | Khu ghế ngồi có trần, tọa độ marker cổng tỉnh, chặng và ngân sách mẫu60 phút | Giờ tuần/nghỉ trưa/ngày lễ; giờ chung07:00–22:00 chưa đủ |
 | 2 | P001/P008 | Thời lượng90/60 phút; P009 đã xử lý riêng bằng lịch đơn vị trực tiếp | Lịch tuần P001; P008 có xung đột nghỉ trưa; không đoán từ giờ chung |
 
 Cách ghi: URL/ảnh thông tin đơn vị hoặc nội dung trả lời có ngày, địa chỉ đúng chi nhánh,
@@ -109,11 +117,11 @@ nhân hoặc thông tin không cần thiết; các số ở bảng là số liê
 Thời lượng tự chọn ghi là tham số lập lịch đã được Bảo04 chốt; không
 biến thành thời lượng “đơn vị xác nhận”.
 
-**Ngân sách giờ đã chốt:** ngày đi06:00+380+REST60+237+8 nối L001+buffer30=**17:55**;
-ngày về06:00+8+236+REST60+383+buffer30=**17:57**, so với hạn18:00. Hai ngày chỉ
-còn5/3 phút ngoài khoản dự phòng; đây là cận dưới có điều kiện, chưa tính WAIT khi
+**Ngân sách giờ đã chốt:** ngày đi06:00+380+REST60+232+buffer30=**17:42**;
+ngày về06:00+232+REST60+383+buffer30=**17:45**, so với hạn18:00. Hai ngày chỉ
+còn18/15 phút ngoài khoản dự phòng; đây là cận dưới có điều kiện, chưa tính WAIT khi
 giờ nghỉ/mốc chưa rõ. Audit không còn MISSING_LEG/LOWER_BOUND_LATE, nhưng cả hai
-tuyến vẫn ready=false (42/55 gaps lặp theo ngày). Lịch đầy đủ còn null vì thiếu
+tuyến vẫn ready=false (38/50 gaps lặp theo ngày). Lịch đầy đủ còn null vì thiếu
 giờ/quyền tiếp cận; không coi cận dưới là lịch khả thi hoặc bảo đảm giao thông/an toàn.
 
 ## Chạy lại và bàn giao cho nhóm
@@ -134,7 +142,7 @@ python backend/scripts/prepare_source_bundle.py --output-dir /tmp/sta-source-rev
 Exporter yêu cầu thư mục mới, từ chối ghi trong/đè lên catalog, không theo symlink
 output và không ghi SQLite. Mở `readiness.json` trong output trước khi nạp. Tên file
 export ngắn và phẳng: `places.json`, `travel_times.json`, `routes_source.json`,
-`source_adapt_checks.json`, evidence, manifest và review; không chứa catalog MOCK.
+`source_adapt_checks.json`, `source_scenarios.json`, evidence, manifest và review; không chứa catalog MOCK.
 Audit exit0 chỉ nghĩa cấu trúc/kỳ vọng MOCK khớp. Tuyến nguồn báo riêng false; lịch có
 điều kiện tính VISIT/REST/chờ mở cửa, điểm đầu/cuối và buffer trước deadline.
 `conditional_earliest_finish` chưa gồm buffer; `conditional_finish_including_buffer` gồm

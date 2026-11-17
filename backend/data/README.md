@@ -1,6 +1,7 @@
 # Dữ liệu địa điểm và tuyến mẫu
 
-Phiên bản **bao04-mvp-2026-11-17-v1**, áp dụng chuẩn dữ liệu Leader chốt 09/11.
+Phiên bản **bao04-mvp-2026-11-17-v2**, áp dụng chuẩn dữ liệu Leader chốt 09/11.
+Đợt TASK17: [bàn giao mới](../../docs/TASK17-BAO04-HANDOFF.md).
 Đọc [hướng dẫn bàn giao](../../docs/DATASET-HANDOFF-BAO04.md) để biết bộ dùng cho từng ca,
 nguồn, cách reset và phần cần bổ sung. Hợp đồng HTTP F01 không đổi.
 [Xác minh nguồn/cấu hình17/11](../../docs/DATA-SOURCE-VERIFY-BAO04.md) có kết quả mới, mẫu hỏi
@@ -9,12 +10,13 @@ nguồn, cách reset và phần cần bổ sung. Hợp đồng HTTP F01 không �
 | File/thư mục | Nội dung |
 |---|---|
 | `places.json` | 16 hồ sơ có nguồn: P009 VERIFIED,15 UNVERIFIED;11 trải nghiệm,3 điểm nghỉ,H001 và L001 |
-| `travel_times.json` | 26 chặng có hướng:20 ước tính VERIFIED,6 UNVERIFIED (4 qua R003,2 nối L001) |
-| `place_coordinates.json` | 9 tọa độ/tham chiếu; R003 chưa khớp số nhà, L001 mượn tọa độ khu P009 |
+| `travel_times.json` | 42 chặng có hướng:28 ước tính VERIFIED,14 UNVERIFIED chạm R003/L001 |
+| `place_coordinates.json` | 10 tọa độ/tham chiếu; R003 chưa khớp số nhà, L001 mượn tọa độ khu P009 |
 | `travel_time_evidence.json` | Summary, checked_at UTC, query, phương thức/làm tròn và nhận xét rà soát |
 | `data_review.json`, `handoff/source_checks.json` | Trường thiếu, xung đột, ngày đọc thực tế và việc cần bổ sung |
 | `handoff/routes_source.json` | Tuyến nguồn 3/4 ngày; cả hai chưa đủ điều kiện lập lịch thật |
-| `handoff/source_adapt_checks.json` | Hai nhánh P010→P005→P008→P001→L001 và P011→P005→P001→L001; đủ chặng, venue vẫn thiếu thông tin |
+| `handoff/source_adapt_checks.json` | Nhánh mưa P006: L001→P006→P010→P005→L001 và P005→P006→P009→P011→L001; đủ chặng, giờ tuần P006 vẫn thiếu |
+| `handoff/source_scenarios.json` | Nghỉ thêm30 phút và RAIN × tuyến3/4ngày; audit ngày trước/sau, không tạo CURRENT hay đề xuất F05 |
 | `handoff/routes_mock.json` | RouteDay và mapping ID cho snapshot MOCK 3/4 ngày |
 | `fixtures/current_v1_3day.json`, `current_v1_4day.json` | CURRENT MOCK đủ ngày đi/về, nghỉ và chặng, version 1 |
 | `fixtures/mock/` | 11 điểm/20 chặng MOCK cho nghỉ thêm và đổi mưa thành công |
@@ -27,7 +29,7 @@ nguồn, cách reset và phần cần bổ sung. Hợp đồng HTTP F01 không �
 - Area chỉ có HCMC/DALAT/EN_ROUTE. Môi trường có INDOOR/OUTDOOR/MIXED.
   Hồ sơ UNVERIFIED chưa rõ môi trường giữ null, không đoán là trong nhà.
 - VERIFIED/MOCK/UNVERIFIED thay nhãn SOURCED cũ. Có URL chưa đủ gắn VERIFIED.
-  20 ước tính đã được rà query motorcycle, đầu/cuối, số giây/cách làm tròn; 4 chặng bổ sung ngày 15/11.
+  28 ước tính đã được rà query motorcycle, đầu/cuối, số giây/cách làm tròn; TASK17 thêm16 chặng,8 nâng nhãn cho ước tính sau rà,8 chạm L001/R003 giữ UNVERIFIED.
   Nhãn VERIFIED của chặng chỉ áp dụng ước tính, không xác minh venue hay quyền đi từng đoạn.
 - P009 đã đối chiếu đủ hồ sơ VISIT: lịch đơn vị 08:30–18:00 hằng ngày, MIXED và
   thời lượng ước tính 60 phút từ cổng tỉnh. Giữ nguồn/khác biệt cũ và lý do chọn giờ
@@ -38,6 +40,11 @@ nguồn, cách reset và phần cần bổ sung. Hợp đồng HTTP F01 không �
   buffer30 ngoài REST60 phút/ngày. Giờ khách lưu trú/cổng/đỗ xe/còn phòng chưa xác minh.
   L001 không có VISIT, interests rỗng, duration/weekly null; không điền giả1 phút.
   Hai chặng L001↔P001 truy vấn riêng từng chiều8 phút, vẫn UNVERIFIED.
+- P005120 phút là toàn khu **MIXED**, không dùng làm replacement INDOOR. P006 chỉ
+  khu ghế ngồi có trần theo cổng tỉnh; ngân sách VISIT60 phút cho case mẫu do trợ lý
+  chọn theo TASK17, không phải thời lượng quán hoặc phê duyệt riêng mới. Weekly vẫn null.
+- Tuyến nguồn có `stops` REST/VISIT đúng thứ tự audit để bàn giao F02; dùng chặng
+  trực tiếp R003↔L001232 phút thay waypoint ga không có hoạt động. Không đổi engine.
 - A→B và B→A độc lập; cùng ID hợp lệ là 0. Thiếu chặng không phải 0.
 - MOCK tách riêng; không dùng bù dữ liệu thực. `get_travel_time` cần opt-in cho MOCK.
 - T15 dùng catalog riêng: điểm INDOOR đóng cửa, quán còn lại MIXED. Không xóa điểm
@@ -59,11 +66,11 @@ backend/.venv/bin/python backend/scripts/prepare_source_bundle.py --output-dir /
 Audit exit 0 xác nhận cấu trúc/kỳ vọng của bộ kiểm khớp. Tuyến thật báo riêng
 `ready_for_real_plan: false` và từng gap. Không sửa số liệu để ép tuyến thành khả thi.
 
-Exporter tạo tập nhỏ9 điểm/26 chặng + cấu hình + provenance + readiness trong thư mục **mới**.
+Exporter tạo tập nhỏ10 điểm/42 chặng + cấu hình + provenance + readiness trong thư mục **mới**.
 Giữ nguyên nhãn, không ghi SQLite, không dùng thay catalog F01 đầy đủ. Hai tuyến vẫn BLOCKED.
 Audit tính VISIT, REST, chờ cửa mở, cả chặng cuối và quyền tiếp cận theo giờ của mốc; chưa biết
 đầu vào thì dừng lịch có điều kiện và báo gap. Buffer được cộng vào ngân sách trước
-deadline (cả sau WAIT), không tính REST; cận dưới17:55/17:57 chưa phải lịch hợp lệ.
+deadline (cả sau WAIT), không tính REST; cận dưới17:42/17:45 chưa phải lịch hợp lệ.
 Replay F05 kiểm8 lượt domain, không chứng minh
 API F05/F06, AI thật hoặc thiết bị.
 
@@ -95,10 +102,10 @@ quyết định nhãn. Không chép đè bộ cũ bằng output chỉ chứa m�
   backend định tuyến cho người dùng.
 
 VERIFIED của ước tính không bảo đảm traffic, giờ đến thực tế hay quyền/độ an toàn đi
-xe máy từng đoạn. Bốn chặng qua tọa độ ứng viên R003 và hai chặng tham chiếu L001 vẫn UNVERIFIED.
+xe máy từng đoạn. Mọi chặng chạm R003/L001 giữ UNVERIFIED, tổng14; không suy giờ tuần từ giờ chung.
 
 S01 đã kiểm trên Android Emulator/Expo Go ở main dbb46af; main dbb46af có lỗi clear-inflight; PR tiếp nối có bản sửa đã kiểm regression.
-Điện thoại thật vẫn NOT_RUN. Xem `s01_device_test` trong manifest và
+S01 trên điện thoại Android thật vẫn NOT_RUN trong bằng chứng của trợ lý. Xem `s01_device_test` trong manifest và
 [checklist/kết quả S01](../../docs/testing/s01-f01-handoff.md). Kiểm native là bằng chứng
 bản S01 trước đó; đợt17/11 này cập nhật dữ liệu/cấu hình và audit, không chạy lại native.
 Xem quyết định đã áp dụng trong `docs/testing/source-route-proposal.json`.

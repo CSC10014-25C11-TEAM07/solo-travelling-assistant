@@ -1,5 +1,5 @@
 {
-  "dataset_version": "bao04-mvp-2026-11-17-v1",
+  "dataset_version": "bao04-mvp-2026-11-17-v2",
   "standard_url": "https://docs.google.com/document/d/1aPJjNORsFIYY0XOlLE6LmhI6lv7sKjg6Up0Gcb-wvSY/edit",
   "standard_date": "2026-11-09",
   "source_routes": "handoff/routes_source.json",
@@ -20,22 +20,23 @@
     "latest_fix_regression_status": "PASS",
     "latest_evidence": "docs/testing/s01-android/clear-inflight-merged.json"
   },
-  "previous_dataset_version": "bao04-mvp-2026-11-16-v1",
-  "released_at": "2026-11-17T08:12:19.817068+00:00",
+  "previous_dataset_version": "bao04-mvp-2026-11-17-v1",
+  "released_at": "2026-11-17T08:51:30.611433+00:00",
   "source_adapt_checks": "handoff/source_adapt_checks.json",
   "mock_freeze_note": "MOCK giữ nguyên nội dung từ PR19; kiểm lại T06/T08/T13/T15 × snapshot3D/4D trên module F05 hiện đã merge.",
   "minimum_source_bundle": {
     "command": "python backend/scripts/prepare_source_bundle.py --output-dir <new-directory>",
     "mode": "REVIEW_ONLY",
     "sqlite_owner": "Bảo 06; công cụ này không ghi database",
-    "selection": "Hợp các place_sequence của tuyến3/4ngày và source_adapt_checks, cùng toàn bộ chặng giữa các điểm đó."
+    "selection": "Hợp place_sequence tuyến3/4ngày, nhánh mưa và ID của4source_scenarios; toàn bộ chặng giữa các điểm chọn."
   },
-  "source_review_note": "17/11: Bảo 04 đã chốt cấu hình; thêm L001 riêng với chặng hai chiều, VISIT Still/An60 phút, hạn đi/về18:00 nội vùng17:00, buffer30 phút. Catalog16 điểm(1VERIFIED/15UNVERIFIED),26 chặng(20/6). Venue/cổng/tiếp cận vẫn thiếu; hai tuyến chưa ready.",
+  "source_review_note": "TASK17: catalog16 điểm(1VERIFIED/15UNVERIFIED),42 chặng(28/14), tập nhỏ10 điểm. Thêm P006 trong nhà có phạm vi rõ, sửa P005 toàn khu MIXED; stops F02 và4 ca nguồn EXTEND_REST/RAIN×3D/4D. Giữ cấu hình đã chốt, không sửa engine/SQLite; tuyến thật vẫn blocked.",
   "verification_metadata_updated_at": "2026-11-16T14:50:10.931599+00:00",
   "configuration_decision": {
     "owner": "Bảo 04",
     "decided_at": "2026-11-17T08:12:19.817068+00:00",
     "basis": "Bảo 04 chấp thuận áp dụng toàn bộ cấu hình ngày 17/11/2026. Đây là lựa chọn lập lịch, không phải xác minh venue.",
     "record": "docs/testing/source-route-proposal.json"
-  }
+  },
+  "source_scenarios": "handoff/source_scenarios.json"
 }
