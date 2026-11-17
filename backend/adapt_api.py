@@ -109,12 +109,17 @@ def propose(
     provider = request.app.state.catalog_provider
     if provider is None:
         raise APIError(503, "AI_UNAVAILABLE", "Chưa cấu hình dữ liệu tuyến F05.")
-    try:
-        catalog = provider(itinerary)
-        result = AdaptEngine(catalog).generate(itinerary, payload.model_dump())
-        public, stored = prepare_proposal(result, itinerary, catalog)
-    except AdaptError as error:
-        raise APIError(error.status, error.code, error.message) from error
+    if request.app.state.gemini_adapt:
+        from f05_provider import create_proposal
+
+        public, stored = create_proposal(itinerary, payload.model_dump(), provider)
+    else:
+        try:
+            catalog = provider(itinerary)
+            result = AdaptEngine(catalog).generate(itinerary, payload.model_dump())
+            public, stored = prepare_proposal(result, itinerary, catalog)
+        except AdaptError as error:
+            raise APIError(error.status, error.code, error.message) from error
     save_proposal(stored, user_id)
     return public
 
