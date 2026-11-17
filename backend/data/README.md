@@ -90,7 +90,7 @@ quyết định nhãn. Không chép đè bộ cũ bằng output chỉ chứa m�
 VERIFIED của ước tính không bảo đảm traffic, giờ đến thực tế hay quyền/độ an toàn đi
 xe máy từng đoạn. Bốn chặng qua tọa độ ứng viên R003 vẫn UNVERIFIED.
 
-S01 đã kiểm trên Android Emulator/Expo Go ở main dbb46af; còn lỗi clear-inflight.
+S01 đã kiểm trên Android Emulator/Expo Go ở main dbb46af; main dbb46af có lỗi clear-inflight; PR tiếp nối có bản sửa đã kiểm regression.
 Điện thoại thật vẫn NOT_RUN. Xem `s01_device_test` trong manifest và
 [checklist/kết quả S01](../../docs/testing/s01-f01-handoff.md). Chỉ metadata kiểm
 chứng được cập nhật; catalog, chặng và cấu hình tuyến bao04-mvp-2026-11-16-v1 giữ nguyên.

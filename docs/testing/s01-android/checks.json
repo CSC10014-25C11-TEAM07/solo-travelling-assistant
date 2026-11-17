@@ -2,7 +2,7 @@
   "base_commit": "dbb46affa6ad371f98ec133b61f8b2ec3d41528f",
   "dataset_version": "bao04-mvp-2026-11-16-v1",
   "main_ui_status": "PARTIAL_FAIL",
-  "local_fix_status": "REGRESSION_PASS_NOT_PUBLISHED",
+  "local_fix_status": "REGRESSION_PASS_INCLUDED_IN_THIS_PR",
   "physical_phone_status": "NOT_RUN",
   "backend_tests": {
     "command": "python -m unittest discover -s backend/tests -q",
@@ -79,5 +79,7 @@
   "before_sha256": "fb691ec9412efa9442d28a70b2c8b71ff49eb48b0d1fa47b3f97900aed79952e",
   "after_sha256": "acba168d59abdc5838a829deb6baf3b2738e2a9326c0b506fa4c5cca11b8c994",
   "before_regression": "clear-inflight-before.json",
-  "after_regression": "clear-inflight-after.json"
+  "after_regression": "clear-inflight-after.json",
+  "fix_publication_authorized_by": "Bảo 04,2026-11-17",
+  "implementation_file": "mobile/src/app/plan.tsx"
 }

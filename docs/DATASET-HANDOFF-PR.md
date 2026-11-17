@@ -1,23 +1,14 @@
-Refs #8. Tiếp tục phần chưa nghiệm thu sau PR #24 đã merge.
+Refs #8. Tiếp tục phần kiểm chứng còn thiếu sau PR #24 đã merge.
 
-Bổ sung kiểm chứng S01 trên Android Emulator/Expo Go58 với main `dbb46af` và dataset `bao04-mvp-2026-11-16-v1`. S01 gọi API/session SQLite thật, hiển thị đúng khi đổi coffee→nature và chọn nhiều sở thích. Ca bỏ hết sở thích lúc request đang tải bị kẹt loading; có ảnh/XML, query/status/ID không chứa token, và regression thất bại trước sửa.
+Khi bỏ hết sở thích trong lúc F01 còn tải, S01 xóa thẻ nhưng giữ “Đang tải gợi ý…” vì effect cũ đã bị vô hiệu và nhánh rỗng không reset loading. Thêm `L(false)` vào nhánh đó; request cũ vẫn không được ghi đè lựa chọn mới. Bảo 04 đã chốt nhận sửa S01 trong PR này; PR #26 của Hân đang chỉnh cùng file, cần giữ thay đổi khi ghép.
 
-Bản vá thêm `L(false)` trong nhánh sở thích rỗng đã có regression PASS cục bộ, được bàn giao dưới dạng patch trong `docs/testing/s01-android/`. Việc đưa thay đổi vào file S01 của Hân đang chờ Bảo 04 quyết định; PR #26 của Hân đang mở ở cùng file. Manifest/checklist ghi **PARTIAL_EMULATOR_FAIL** cho main và **NOT_RUN** cho điện thoại thật.
+Có bằng chứng native Expo Go 58/Android Emulator trên main `dbb46af`, API/session SQLite thật: 7 ca PASS,1 ca FAIL; cùng regression clear-inflight thất bại trước sửa (exit 1) và đạt sau sửa (exit 0). Chỉ ca đó được chạy lại trên patch. Ảnh/XML, query/status/ID và hash file S01 có trong `docs/testing/s01-android/`; không lưu token. Điện thoại thật vẫn NOT_RUN.
 
-Cập nhật người chốt tuyến là Bảo 04 theo xác nhận của người dùng. Có phương án cụ thể chờ chọn: Crazy House, ngân sách VISIT Still/An60phút, hạn ngày đi/về18:00 và buffer30phút. Bổ sung evidence riêng cho chặng P001→P009 (452.109giây→8phút,3.055km, vẫn UNVERIFIED). Đề xuất chưa áp dụng vào catalog/tuyến; cổng/giờ lưu trú và các venue còn thiếu nguồn. Hai tuyến hiện hành vẫn ready=false với34/44gaps.
+Kiểm tra: **123 backend tests PASS**, **9 mobile F01 transport tests PASS**, **typecheck PASS**. Lint vẫn FAIL với cùng 4 errors/31 warnings trước/sau; rule/vị trí được ghi trong checks.json. Review độc lập không có phát hiện critical/important. Không coi toàn bộ bản ghép đã qua quality checks hoặc nghiệm thu app.
 
-Kiểm tra đã chạy:
+Phần dữ liệu: cập nhật Bảo 04 là người chốt tuyến, có đề xuất riêng đang PENDING_USER_DECISION: Crazy House, VISIT Still/An 60 phút, hạn ngày đi/về 18:00 và buffer 30 phút. Có evidence mới P001→P009: 452.109 giây→8 phút, 3.055 km, vẫn UNVERIFIED. Đề xuất chưa áp dụng vào catalog/tuyến; còn venue/cổng/giờ lưu trú cần xác nhận. Hai tuyến thật hiện hành vẫn ready=false, 34/44 gaps; không đóng #8 từ các kết quả MOCK/API riêng lẻ.
 
-- Backend: **123 tests PASS**; mobile F01 transport: **9 PASS**; typecheck: **PASS**.
-- Native main: **7 ca PASS,1 FAIL**; native regression của patch cục bộ: **PASS**. Chỉ regression đó được chạy lại trên patch.
-- Lint: **FAIL**, cùng4errors/31warnings trước và sau patch; vị trí/rule được ghi trong `checks.json`.
-- Review độc lập không có phát hiện critical/important; cập nhật trạng thái S01 cũ theo góp ý nhỏ.
-
-Tài liệu/bằng chứng:
-
-- [Checklist và kết quả S01](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/testing/s01-f01-handoff.md)
-- [Kết quả máy đọc được và lint](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/testing/s01-android/checks.json)
-- [Nguồn còn thiếu và lựa chọn Bảo04 cần chốt](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/DATA-SOURCE-VERIFY-BAO04.md)
-- [Đầu vào/bằng chứng phương án tuyến](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/testing/source-route-proposal.json)
-
-Chưa nghiệm thu điện thoại thật, tuyến thật, AI hoặc toàn luồng PLAN/ADAPT bằng những kiểm tra này. Issue #8 còn phần dữ liệu/kiểm tích hợp cần hoàn thiện; không đóng issue từ bằng chứng MOCK hoặc API riêng lẻ.
+- [Kết quả và cách tái hiện S01](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/testing/s01-f01-handoff.md)
+- [Checks, lint và hash](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/testing/s01-android/checks.json)
+- [Nguồn còn thiếu/lựa chọn Bảo 04 chốt](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/DATA-SOURCE-VERIFY-BAO04.md)
+- [Đầu vào/evidence phương án tuyến](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/testing/source-route-proposal.json)

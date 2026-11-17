@@ -8,12 +8,14 @@
   "source_mode": "UNVERIFIED routes; individually reviewed estimates retain their own labels",
   "mock_mode": "Fully synthetic travel/hours, never substitute into the source catalog",
   "s01_device_test": {
-    "status": "PARTIAL_EMULATOR_FAIL",
-    "depends_on": "Đã kiểm Expo Go SDK58 trên Android Emulator ở main dbb46af; ca clear-inflight FAIL. Patch cục bộ có regression PASS, chưa đưa lên main. Điện thoại thật/Đăng nghiệm thu vẫn NOT_RUN.",
+    "status": "PARTIAL_EMULATOR",
+    "depends_on": "Bản main dbb46af có ca clear-inflight FAIL; bản sửa S01 đi cùng PR tiếp nối đã có regression PASS trên Android Emulator/Expo Go58. Cần kiểm đầy đủ bản ghép sau merge và điện thoại thật/Đăng nghiệm thu.",
     "checklist": "docs/testing/s01-f01-handoff.md",
     "checked_commit": "dbb46affa6ad371f98ec133b61f8b2ec3d41528f",
     "evidence": "docs/testing/s01-android/checks.json",
-    "physical_phone_status": "NOT_RUN"
+    "physical_phone_status": "NOT_RUN",
+    "baseline_status": "PARTIAL_EMULATOR_FAIL",
+    "fix_regression_status": "PASS"
   },
   "previous_dataset_version": "bao04-mvp-2026-11-15-v1",
   "released_at": "2026-11-16T08:15:27.542403+00:00",

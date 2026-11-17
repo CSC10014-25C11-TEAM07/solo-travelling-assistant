@@ -30,18 +30,18 @@ Chi tiết máy đọc được: [ui-results.json](s01-android/ui-results.json) 
 local, được tách khỏi mục “Dành cho bạn” khi đánh giá F01; không lấy danh sách local
 làm bằng chứng rằng API đã trả đúng.
 
-## Lỗi và bản sửa đã chuẩn bị cục bộ
+## Lỗi và bản sửa đi cùng PR tiếp nối
 
 Tại `mobile/src/app/plan.tsx:17`, khi interests rỗng, effect gọi `SP([])` rồi return
 trước khi reset loading. Effect cũ đã cleanup `active=false`, nên `.finally()` của
-request cũ cũng không tắt được loading. Bản sửa đề xuất thêm `L(false)` trong nhánh
+request cũ cũng không tắt được loading. Bản sửa thêm `L(false)` trong nhánh
 rỗng, giữ nguyên cơ chế bỏ qua response cũ và hợp đồng HTTP.
 
 - Chạy regression trên main: **FAIL, exit 1**, có request coffee delay 5 giây và ảnh/XML.
 - Cùng regression trên bản sửa cục bộ: **PASS, exit 0**, hiện trạng thái rỗng và hết loading.
-- [Patch đề xuất](s01-android/proposed-clear-loading.patch), [ảnh sau sửa](s01-android/clear-inflight-after.png), [kết quả](s01-android/clear-inflight-after.json).
-- Hai JSON regression ghi SHA256 file S01 tương ứng. Bản sửa chưa được đưa lên main;
-  phần S01 thuộc Hân theo mục 4.3 bản phân công, Bảo 04 quyết định việc nhận sửa.
+- [Patch đã kiểm](s01-android/proposed-clear-loading.patch), [ảnh sau sửa](s01-android/clear-inflight-after.png), [kết quả](s01-android/clear-inflight-after.json).
+- Hai JSON regression ghi SHA256 file S01 tương ứng. Bản sửa được đưa vào file S01 trong PR tiếp nối theo phê duyệt của Bảo 04 ngày 17/11;
+  kết quả main ở trên gắn với commit dbb46af trước sửa. Chưa xác nhận merge/nghiệm thu.
   PR #26 của Hân (`9432974`) đang chỉnh cùng file; diff kiểm tra còn giữ effect gợi ý
   cũ. Đợt này chưa chạy UI trên PR #26 hoặc kết luận về toàn bộ PR đó.
 

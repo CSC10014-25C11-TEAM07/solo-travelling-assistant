@@ -133,7 +133,7 @@ Audit exit0 chỉ nghĩa cấu trúc/kỳ vọng MOCK khớp. Tuyến nguồn b�
 - **Hân/Bảo 04/Đăng:** PR #18 đã merge; chạy checklist
   `docs/testing/s01-f01-handoff.md` trên bản ghép/Expo Go. API đã kiểm bốn nhóm sở
   thích qua phiên SQLite thật, đã kiểm S01 trên Android Emulator: các ca chính đạt, ca bỏ hết khi đang tải FAIL.
-  Patch cục bộ đã có regression PASS; điện thoại thật vẫn **NOT_RUN**. Xem checklist mới.
+  Bản sửa S01 đi cùng PR tiếp nối đã có regression PASS; điện thoại thật vẫn **NOT_RUN**. Xem checklist mới.
 
 Xem kết quả và giới hạn trong `docs/testing/dataset-handoff-results.md`. Chưa đóng
 issue #8: nguồn thực và kiểm tích hợp/thiết bị còn thiếu. Theo mốc mới: 16/11 bổ sung
