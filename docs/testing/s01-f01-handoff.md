@@ -1,6 +1,6 @@
 # Kiểm chứng đổi sở thích trên S01
 
-**Main: PARTIAL_FAIL trên Android Emulator/Expo Go. Điện thoại thật: NOT_RUN.**
+**Baseline dbb46af: PARTIAL_FAIL trên Android Emulator/Expo Go. Bản sửa đã kiểm lại sau ghép main ac35605: regression PASS. Điện thoại thật: NOT_RUN.**
 Đã kiểm bản ghép `dbb46affa6ad371f98ec133b61f8b2ec3d41528f`, dataset
 `bao04-mvp-2026-11-16-v1`, ngày 16/11/2026. PR #24 đã merge; kết quả này tiếp tục
 phần kiểm chứng S01 mà nhóm trưởng nhắc. Không suy từ test API thành PASS giao diện.
@@ -30,6 +30,22 @@ Chi tiết máy đọc được: [ui-results.json](s01-android/ui-results.json) 
 local, được tách khỏi mục “Dành cho bạn” khi đánh giá F01; không lấy danh sách local
 làm bằng chứng rằng API đã trả đúng.
 
+## Kiểm lại sau khi main cập nhật
+
+Ngày 17/11 đã ghép main `ac35605` gồm PR #25/#26 để giải quyết xung đột ở S01.
+Giữ nguyên setDraftId/result.itinerary và các module tích hợp của Hân/Bảo 06; phần
+code khác main của PR này chỉ là thêm `L(false)` trong nhánh sở thích rỗng.
+
+- Regression native cùng kịch bản delay 5 giây trên bản ghép: **PASS, exit 0**.
+  [Ảnh hiện tại](s01-android/clear-inflight-merged.png), [kết quả/hash](s01-android/clear-inflight-merged.json).
+- Backend 123 tests, mobile 9 tests và typecheck: **PASS** sau ghép.
+- Lint sau ghép: **FAIL, 3 errors/28 warnings** (S01:17 set-state-in-effect và
+  adapt/context:25 refs,:62 set-state-in-effect). Lỗi plan/state cũ đã được main xử
+  lý. So sánh Plan với nguyên bản ac35605 cho cùng rule/line/count; các file mobile
+  khác khớp main. Không tự sửa lint của phần khác trong đợt này.
+- [Patch theo main hiện tại](s01-android/current-main-clear-loading.patch).
+  `checks.json.post_merge` tách riêng kết quả/hash mới khỏi bằng chứng dbb46af cũ.
+
 ## Lỗi và bản sửa đi cùng PR tiếp nối
 
 Tại `mobile/src/app/plan.tsx:17`, khi interests rỗng, effect gọi `SP([])` rồi return
@@ -42,13 +58,13 @@ rỗng, giữ nguyên cơ chế bỏ qua response cũ và hợp đồng HTTP.
 - [Patch đã kiểm](s01-android/proposed-clear-loading.patch), [ảnh sau sửa](s01-android/clear-inflight-after.png), [kết quả](s01-android/clear-inflight-after.json).
 - Hai JSON regression ghi SHA256 file S01 tương ứng. Bản sửa được đưa vào file S01 trong PR tiếp nối theo phê duyệt của Bảo 04 ngày 17/11;
   kết quả main ở trên gắn với commit dbb46af trước sửa. Chưa xác nhận merge/nghiệm thu.
-  PR #26 của Hân (`9432974`) đang chỉnh cùng file; diff kiểm tra còn giữ effect gợi ý
-  cũ. Đợt này chưa chạy UI trên PR #26 hoặc kết luận về toàn bộ PR đó.
+  PR #26 của Hân đã merge qua main ac35605; đã giữ phần tích hợp đó và kiểm lại
+  regression ở bản ghép. Không kết luận về toàn bộ luồng PLAN từ ca F01 này.
 
 Chỉ ca regression đã được chạy lại trên patch; các ca trong bảng là kết quả của main
 trước patch. Đợt này không ghi toàn bộ giao diện là PASS sau sửa.
 
-## Kiểm tra mã nguồn cùng đợt
+## Kiểm tra mã nguồn trước khi ghép ac35605
 
 - Backend: `python -m unittest discover -s backend/tests -q`: **123 PASS**.
 - Mobile transport: `npm run test:f01`: **9 PASS**; có cảnh báo Node
@@ -103,4 +119,4 @@ if __name__ == "__main__":
 
 Điện thoại Android thật và nghiệm thu Expo Go của Đăng; empty response bằng catalog
 riêng; các lỗi mạng khác/timeout/AI/lưu; F02/F05/F06; tính khả thi tuyến thật. Các
-mục chưa chạy giữ NOT_RUN. Lint còn lỗi và ca clear-inflight của main cần sửa/kiểm lại.
+mục chưa chạy giữ NOT_RUN. Lint còn lỗi; ca clear-inflight đã được sửa và kiểm trên nhánh PR, cần nghiệm thu bản ghép/điện thoại thật.

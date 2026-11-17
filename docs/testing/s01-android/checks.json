@@ -81,5 +81,46 @@
   "before_regression": "clear-inflight-before.json",
   "after_regression": "clear-inflight-after.json",
   "fix_publication_authorized_by": "Bảo 04,2026-11-17",
-  "implementation_file": "mobile/src/app/plan.tsx"
+  "implementation_file": "mobile/src/app/plan.tsx",
+  "post_merge": {
+    "upstream_main": "ac35605cff7e35d491c2950b89358ce5cf1e92bb",
+    "plan_source_sha256": "aeb1ada3748c38e20b345657be27d87106c054b0ebeae063f92534c0ba82c6cf",
+    "backend_tests": {
+      "count": 123,
+      "exit_code": 0
+    },
+    "mobile_transport_tests": {
+      "count": 9,
+      "exit_code": 0
+    },
+    "typecheck_exit_code": 0,
+    "lint": {
+      "error_count": 3,
+      "warning_count": 28,
+      "errors": [
+        {
+          "file": "mobile/src/app/plan.tsx",
+          "line": 17,
+          "rule": "react-hooks/set-state-in-effect"
+        },
+        {
+          "file": "mobile/src/features/adapt/context.tsx",
+          "line": 25,
+          "rule": "react-hooks/refs"
+        },
+        {
+          "file": "mobile/src/features/adapt/context.tsx",
+          "line": 62,
+          "rule": "react-hooks/set-state-in-effect"
+        }
+      ]
+    },
+    "native_regression_status": "PASS",
+    "native_regression_exit_code": 0,
+    "native_regression": "clear-inflight-merged.json",
+    "checked_at": "2026-11-17T07:51:31.760570+00:00",
+    "lint_main_relative_unchanged": true
+  },
+  "current_implementation_sha256": "aeb1ada3748c38e20b345657be27d87106c054b0ebeae063f92534c0ba82c6cf",
+  "current_regression": "clear-inflight-merged.json"
 }
