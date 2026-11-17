@@ -7,7 +7,7 @@ import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from data_handoff import source_route
 from place_catalog import PlaceCatalog
-from place_models import DAYS, Place, TravelTime
+from place_models import DAYS, Place, TimeWindow, TravelTime
 
 
 def inputs():
@@ -57,6 +57,44 @@ class SourceReadinessTests(unittest.TestCase):
         result = source_route(route, catalog)
         self.assertFalse(result["ready_for_real_plan"], result)
         self.assertIn("LOWER_BOUND_LATE", self.codes(result))
+
+    def test_buffer_reserves_time_before_the_deadline(self):
+        route, catalog = inputs()
+        route["buffer_minutes"] = 30
+        route["days"][1]["end_deadline"] = "10:45"
+        result = source_route(route, catalog)
+        self.assertFalse(result["ready_for_real_plan"], result)
+        self.assertIn("LOWER_BOUND_LATE", self.codes(result))
+        day = result["days"][1]
+        self.assertEqual(day["conditional_earliest_finish"], "10:30")
+        self.assertEqual(day["conditional_finish_including_buffer"], "11:00")
+        self.assertEqual(day["activity_lower_bound_minutes"], 150)
+        self.assertEqual(day["required_lower_bound_minutes"], 180)
+
+    def test_buffer_also_counts_after_waiting_for_opening_hours(self):
+        route, catalog = inputs()
+        route["buffer_minutes"] = 30
+        catalog.places["B"].opening_hours.weekly["tue"] = [
+            TimeWindow(start="13:00", end="17:00")]
+        route["days"][1]["end_deadline"] = "14:30"
+        result = source_route(route, catalog)
+        self.assertFalse(result["ready_for_real_plan"], result)
+        self.assertIn("SCHEDULE_LATE", self.codes(result))
+        self.assertEqual(result["days"][1]["conditional_finish_including_buffer"], "14:45")
+
+    def test_buffer_never_satisfies_the_rest_requirement(self):
+        route, catalog = inputs()
+        route["buffer_minutes"] = 30
+        route["days"][1]["rest_stops"][0]["duration_minutes"] = 30
+        with self.assertRaisesRegex(ValueError, "REST_SHORTFALL"):
+            source_route(route, catalog)
+
+    def test_invalid_buffer_is_rejected(self):
+        for invalid in (-1, True, 1.5, "30", None):
+            route, catalog = inputs()
+            route["buffer_minutes"] = invalid
+            with self.subTest(buffer=invalid), self.assertRaisesRegex(ValueError, "BUFFER_REQUIREMENT"):
+                source_route(route, catalog)
 
     def test_waits_for_next_window_without_counting_wait_as_rest(self):
         route, catalog = inputs()

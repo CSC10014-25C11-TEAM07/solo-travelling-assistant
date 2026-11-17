@@ -277,7 +277,7 @@
       "coffee"
     ],
     "environment": null,
-    "visit_duration_minutes": null,
+    "visit_duration_minutes": 60,
     "opening_hours": {
       "timezone": "Asia/Ho_Chi_Minh",
       "weekly": {
@@ -338,7 +338,7 @@
       "coffee"
     ],
     "environment": null,
-    "visit_duration_minutes": null,
+    "visit_duration_minutes": 60,
     "opening_hours": {
       "timezone": "Asia/Ho_Chi_Minh",
       "weekly": {
@@ -465,7 +465,7 @@
   },
   {
     "place_id": "H001",
-    "name": "Bưu điện Trung tâm Sài Gòn — mốc tập kết đề xuất",
+    "name": "Bưu điện Trung tâm Sài Gòn — mốc tập kết",
     "area": "HCMC",
     "interests": [],
     "environment": null,
@@ -485,6 +485,30 @@
     "image_url": null,
     "source_url": "https://www.openstreetmap.org/way/39514793",
     "checked_at": "2026-11-10T06:29:21.568605+00:00",
+    "data_status": "UNVERIFIED"
+  },
+  {
+    "place_id": "L001",
+    "name": "Crazy House — mốc lưu trú mẫu",
+    "area": "DALAT",
+    "interests": [],
+    "environment": null,
+    "visit_duration_minutes": null,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": null,
+        "tue": null,
+        "wed": null,
+        "thu": null,
+        "fri": null,
+        "sat": null,
+        "sun": null
+      }
+    },
+    "image_url": null,
+    "source_url": "https://crazyhouse.vn/chinh-sach",
+    "checked_at": "2026-11-17T08:12:19.817068+00:00",
     "data_status": "UNVERIFIED"
   }
 ]

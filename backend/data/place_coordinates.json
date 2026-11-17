@@ -90,5 +90,19 @@
     "geocoder_source_url": "https://photon.komoot.io/api/",
     "coordinate_match_status": "CANDIDATE",
     "match_note": "OSM có tên Nhà hàng Tâm Châu trên Trần Phú nhưng chưa có số nhà 294A; không coi tọa độ đúng chi nhánh đã xác minh."
+  },
+  {
+    "place_id": "L001",
+    "latitude": 11.9345615,
+    "longitude": 108.4306807,
+    "source_url": "https://www.openstreetmap.org/relation/20657435",
+    "source_name": "Crazy House — lodging reference only",
+    "reported_opening_hours": null,
+    "checked_at": "2026-11-07T11:09:37.849269+00:00",
+    "data_timestamp": "2026-11-07T11:01:08Z",
+    "license": "ODbL-1.0",
+    "coordinate_match_status": "VISIT_REFERENCE_ONLY",
+    "reference_place_id": "P009",
+    "match_note": "Tọa độ tham chiếu khu Crazy House từ P009; chưa phải pin cổng khách lưu trú. Không xác nhận giờ ra/vào, bãi xe hoặc khả năng còn phòng."
   }
 ]

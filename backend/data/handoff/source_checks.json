@@ -11,7 +11,7 @@
       },
       "unresolved": [
         "lịch theo từng thứ/ngày lễ",
-        "tiếp cận mốc tập kết và chặng tới nơi lưu trú"
+        "quyền tiếp cận mốc06:00/cận18:00; hai chặng nối L001 có ước tính nhưng cổng khách lưu trú chưa xác minh"
       ],
       "last_checked_at": "2026-11-16T08:11:07.297433+00:00",
       "evidence": [
@@ -157,7 +157,6 @@
         "address": "59 Nguyễn Trãi"
       },
       "unresolved": [
-        "thời lượng chuẩn",
         "khu có mái",
         "ngoại lệ/ngày lễ"
       ],
@@ -174,7 +173,15 @@
             "general_hours"
           ]
         }
-      ]
+      ],
+      "planning_decision": {
+        "owner": "Bảo 04",
+        "decided_at": "2026-11-17T08:12:19.817068+00:00",
+        "basis": "Bảo 04 chấp thuận áp dụng toàn bộ cấu hình ngày 17/11/2026. Đây là lựa chọn lập lịch, không phải xác minh venue.",
+        "record": "docs/testing/source-route-proposal.json",
+        "visit_duration_minutes": 60,
+        "duration_basis": "Ngân sách VISIT do người quyết định chọn; không phải dữ kiện nguồn; REST riêng."
+      }
     },
     {
       "place_id": "P011",
@@ -186,7 +193,6 @@
       },
       "unresolved": [
         "website đơn vị không ghi giờ tuần bằng chữ",
-        "thời lượng",
         "môi trường/khu có mái và ngoại lệ"
       ],
       "last_checked_at": "2026-11-16T08:15:27.542403+00:00",
@@ -200,7 +206,15 @@
             "63Bis Ba Tháng Hai address"
           ]
         }
-      ]
+      ],
+      "planning_decision": {
+        "owner": "Bảo 04",
+        "decided_at": "2026-11-17T08:12:19.817068+00:00",
+        "basis": "Bảo 04 chấp thuận áp dụng toàn bộ cấu hình ngày 17/11/2026. Đây là lựa chọn lập lịch, không phải xác minh venue.",
+        "record": "docs/testing/source-route-proposal.json",
+        "visit_duration_minutes": 60,
+        "duration_basis": "Ngân sách VISIT do người quyết định chọn; không phải dữ kiện nguồn; REST riêng."
+      }
     },
     {
       "place_id": "R003",
@@ -257,6 +271,49 @@
         "thời lượng trải nghiệm",
         "lịch theo từng thứ/ngày lễ"
       ]
+    },
+    {
+      "place_id": "L001",
+      "source_url": "https://crazyhouse.vn/chinh-sach",
+      "found": {
+        "address_from_operator": "03 Huỳnh Thúc Kháng, Đà Lạt",
+        "published_check_in_from": "14:00",
+        "published_check_out_no_later_than": "12:00"
+      },
+      "last_checked_at": "2026-11-17T08:12:19.817068+00:00",
+      "planning_decision": {
+        "owner": "Bảo 04",
+        "decided_at": "2026-11-17T08:12:19.817068+00:00",
+        "basis": "Bảo 04 chấp thuận áp dụng toàn bộ cấu hình ngày 17/11/2026. Đây là lựa chọn lập lịch, không phải xác minh venue.",
+        "record": "docs/testing/source-route-proposal.json"
+      },
+      "reference_coordinate_place_id": "P009",
+      "unresolved": [
+        "pin cổng khách lưu trú chưa xác nhận; tọa độ P009 chỉ là tham chiếu",
+        "giờ khách lưu trú ra/vào06:00/cuối ngày và đỗ xe",
+        "khả năng còn phòng/đặt phòng chưa xác nhận"
+      ],
+      "evidence": [
+        {
+          "source_url": "https://crazyhouse.vn/contact",
+          "checked_at": "2026-11-17T08:12:19.817068+00:00",
+          "transport": "web reader",
+          "reviewed_fields": [
+            "03 Huỳnh Thúc Kháng address",
+            "official hotel contact"
+          ]
+        },
+        {
+          "source_url": "https://crazyhouse.vn/chinh-sach",
+          "checked_at": "2026-11-17T08:12:19.817068+00:00",
+          "transport": "web reader",
+          "reviewed_fields": [
+            "check-in from14:00",
+            "check-out no later than12:00"
+          ]
+        }
+      ],
+      "scope_note": "L001 chỉ là anchor lưu trú mẫu trong cấu hình; không đổi schema Place, không lập VISIT, không đặt phòng và không kế thừa giờ P009."
     }
   ],
   "network_limitations": [
@@ -266,33 +323,25 @@
   ],
   "routing_batch": {
     "profile": "motorcycle",
-    "count": 24,
+    "count": 26,
     "verified_estimates": 20,
-    "unverified_endpoint_estimates": 4,
+    "unverified_endpoint_estimates": 6,
     "raw_evidence": "travel_time_evidence.json",
     "rounding": "ceil(seconds/60)",
     "limitations": "Không có traffic trực tiếp, thời gian nghỉ, buffer hay xác minh quyền đi xe máy từng đoạn đường.",
-    "previous_batch_date": "2026-11-10",
+    "previous_batch_date": "2026-11-15",
     "latest_added_pairs": [
       {
-        "from_place_id": "P008",
-        "to_place_id": "P001"
+        "from_place_id": "P001",
+        "to_place_id": "L001"
       },
       {
-        "from_place_id": "P011",
-        "to_place_id": "P005"
-      },
-      {
-        "from_place_id": "P005",
-        "to_place_id": "P009"
-      },
-      {
-        "from_place_id": "P009",
+        "from_place_id": "L001",
         "to_place_id": "P001"
       }
     ],
-    "latest_reviewed_at": "2026-11-15T09:40:27.512363+00:00"
+    "latest_reviewed_at": "2026-11-17T08:12:19.817068+00:00"
   },
-  "latest_review_at": "2026-11-16T08:15:27.542403+00:00",
-  "latest_review_scope": "16/11 chỉ cập nhật mục có last_checked_at tương ứng. Đọc nguồn web và đối chiếu trường; không gọi điện, không onsite, không gửi biểu mẫu. Thời điểm đọc không phải ngày nguồn xuất bản."
+  "latest_review_at": "2026-11-17T08:12:19.817068+00:00",
+  "latest_review_scope": "17/11: Bảo 04 chốt cấu hình, VISIT P010/P01160 phút và buffer30; đọc chính sách/địa chỉ Crazy House, thêm L001 và hai ước tính có hướng giữ UNVERIFIED. Không đọc lại hay đổi ngày nguồn16/11 của các venue khác; không gọi điện/đặt phòng."
 }

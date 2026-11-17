@@ -5,6 +5,10 @@
 `bao04-mvp-2026-11-16-v1`, ngày 16/11/2026. PR #24 đã merge; kết quả này tiếp tục
 phần kiểm chứng S01 mà nhóm trưởng nhắc. Không suy từ test API thành PASS giao diện.
 
+Dataset mới `bao04-mvp-2026-11-17-v1` áp dụng cấu hình nguồn sau đợt kiểm S01 này;
+xem [kết quả dữ liệu](dataset-handoff-results.md). Không chạy lại native trong đợt
+cập nhật cấu hình, nên giữ nguyên version và hash của bằng chứng S01 bên dưới.
+
 Môi trường: Medium_Phone_API_37.0, arm64, 1080×2400, Expo Go SDK58; Metro 18082,
 main.app/backend 18001, SQLite mới trong thư mục thử. Dữ liệu F01 là catalog nguồn.
 Một lớp quan sát chuyển tiếp main.app ghi query/status/ID và việc có Bearer, không

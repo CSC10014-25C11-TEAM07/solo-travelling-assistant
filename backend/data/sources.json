@@ -71,11 +71,12 @@
     "interests": "Phân loại đề xuất của nhóm dựa trên loại hình/mô tả.",
     "area": "HCMC, DALAT, EN_ROUTE theo chuẩn Leader chốt 09/11/2026; không phải mã hành chính.",
     "environment": "INDOOR/OUTDOOR/MIXED theo chuẩn chung. null chỉ dùng ở hồ sơ UNVERIFIED chưa biết; hồ sơ này không dùng lập lịch thực.",
-    "visit_duration_minutes": "Giá trị từ cổng du lịch khi có; null khi chưa có nguồn/chưa chốt.",
-    "opening_hours": "P009: 08:30–18:00 hằng ngày theo trang dịch vụ tham quan của đơn vị; giữ lịch portal/OSM khác biệt và lý do chọn nguồn trong handoff/source_checks.json. P010/P011 còn tag OSM cũ; các điểm khác giữ null khi thiếu lịch tuần/xung đột.",
+    "visit_duration_minutes": "Giá trị từ cổng du lịch khi có; P010/P01160 phút là ngân sách VISIT do Bảo 04 chốt17/11 (source_checks.planning_decision), không phải dữ kiện quán. L001 không có VISIT nên null; REST tách riêng.",
+    "opening_hours": "P009: 08:30–18:00 hằng ngày theo trang dịch vụ tham quan của đơn vị; giữ lịch portal/OSM khác biệt và lý do chọn nguồn trong handoff/source_checks.json. P010/P011 còn tag OSM cũ; các điểm khác giữ null khi thiếu lịch tuần/xung đột. L001 giữ toàn bộ null: chính sách14:00 nhận/12:00 trả phòng không phải lịch ra vào khách lưu trú.",
     "image_url": "Null; frontend dùng ảnh mặc định, chưa sao chép ảnh bên thứ ba.",
-    "travel_times": "24 truy vấn motorcycle đã rà endpoint/query/số giây/làm tròn:20 ước tính VERIFIED (16 lượt10/11 và4 lượt15/11),4 chặng R003 UNVERIFIED do chưa khớp cổng/số nhà. Không thu thêm/đổi chặng ngày16/11; không bảo đảm traffic hay quyền đi thực tế."
+    "travel_times": "26 truy vấn motorcycle có hướng:20 ước tính VERIFIED đã rà10/11 và15/11;4 qua R003 và2 nốiL001 UNVERIFIED do cổng/endpoint chưa khớp. Hai chặng L001 thu17/11 riêng từng chiều; tọa độ khu P009 chỉ tham chiếu, không phải pin cổng lưu trú. Không bảo đảm traffic/quyền đi.",
+    "lodging_anchor": "L001 lưu trú mẫu Crazy House do Bảo 04 chọn, tách P009 VISIT. Địa chỉ/chính sách từ website đơn vị; tọa độ tham chiếu OSM của P009 giữ ngày nguồn07/11. Còn phòng/cổng/ra vào/đỗ xe chưa xác minh."
   },
   "schema_version": "shared-data-v1-2026-11-09",
-  "latest_review_at": "2026-11-16T08:15:27.542403+00:00"
+  "latest_review_at": "2026-11-17T08:12:19.817068+00:00"
 }

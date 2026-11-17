@@ -103,6 +103,8 @@ def schedule_day(day, catalog):
 def source_route(route, catalog):
     days, gaps = [], []
     source_days = route["days"]
+    buffer = route.get("buffer_minutes", 0)
+    require(type(buffer) is int and buffer >= 0, "BUFFER_REQUIREMENT")
     require(len(source_days) in (3, 4), "SOURCE_DAY_COUNT")
     require(type(route["min_rest_minutes"]) is int and route["min_rest_minutes"] > 0, "REST_REQUIREMENT")
     departure = date.fromisoformat(route["departure_date"])
@@ -136,11 +138,15 @@ def source_route(route, catalog):
         travel_rest = sum(leg["duration_minutes"] for leg in legs) + rest if complete_legs else None
         known_visits = sum(catalog.places[pid].visit_duration_minutes or 0 for pid in day["visit_place_ids"])
         lower = travel_rest + known_visits if travel_rest is not None else None
-        if lower is not None and minutes(day["start_time"]) + lower > minutes(day["end_deadline"]):
+        required = lower + buffer if lower is not None else None
+        lower_finish = minutes(day["start_time"]) + required if required is not None else None
+        if lower_finish is not None and lower_finish > minutes(day["end_deadline"]):
             gaps.append({"code": "LOWER_BOUND_LATE", **common,
                          "conditional_earliest_finish": clock(minutes(day["start_time"]) + lower),
+                         "conditional_finish_including_buffer": clock(lower_finish),
                          "end_deadline": day["end_deadline"]})
         finish, schedule, slot_gaps = schedule_day(day, catalog)
+        finish_with_buffer = finish + buffer if finish is not None else None
         gaps.extend(slot_gaps)
         weekday = DAYS[date.fromisoformat(day["date"]).weekday()]
         for label, pid, when in (("START", day["start_place_id"], minutes(day["start_time"])),
@@ -151,14 +157,18 @@ def source_route(route, catalog):
                 gaps.append({"code": f"UNKNOWN_{label}_ACCESS", **anchor})
             elif not windows or (when is not None and not any(minutes(w.start) <= when <= minutes(w.end) for w in windows)):
                 gaps.append({"code": f"{label}_CLOSED", **anchor})
-        if finish is not None and finish > minutes(day["end_deadline"]):
+        if finish_with_buffer is not None and finish_with_buffer > minutes(day["end_deadline"]):
             gaps.append({"code": "SCHEDULE_LATE", **common, "conditional_earliest_finish": clock(finish),
+                         "conditional_finish_including_buffer": clock(finish_with_buffer),
                          "end_deadline": day["end_deadline"]})
         days.append({**common, "legs": legs, "travel_rest_lower_bound_minutes": travel_rest,
                      "known_visit_minutes": known_visits, "activity_lower_bound_minutes": lower,
+                     "buffer_minutes": buffer, "required_lower_bound_minutes": required,
+                     "conditional_lower_bound_finish_including_buffer": clock(lower_finish) if lower_finish is not None else None,
                      "conditional_earliest_finish": clock(finish) if finish is not None else None,
+                     "conditional_finish_including_buffer": clock(finish_with_buffer) if finish_with_buffer is not None else None,
                      "earliest_schedule": schedule,
-                     "note": "Ước tính có điều kiện; thiếu giờ/thời lượng thì lịch dừng tại đó. WAIT không tính REST. Chưa cộng buffer."})
+                     "note": "Ước tính có điều kiện; thiếu giờ/thời lượng thì lịch dừng tại đó. Buffer dự phòng riêng trước deadline; WAIT/buffer không tính REST. Cận dưới không phải lịch hợp lệ."})
         previous_end = day["end_place_id"]
     require(catalog.places[source_days[0]["start_place_id"]].area == "HCMC", "SOURCE_FIRST_DAY_NOT_HCMC")
     require(catalog.places[previous_end].area == "HCMC", "SOURCE_FINAL_DAY_NOT_HCMC")

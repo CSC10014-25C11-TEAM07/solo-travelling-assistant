@@ -1,14 +1,19 @@
-Refs #8. Tiếp tục phần kiểm chứng còn thiếu sau PR #24 đã merge.
+Refs #8. Khi bỏ hết sở thích trong lúc F01 đang tải, S01 xóa thẻ nhưng giữ spinner vì nhánh rỗng chưa reset loading. Thêm `L(false)`; phản hồi cũ vẫn không ghi đè lựa chọn mới. Giữ nguyên phần tích hợp PLAN từ main `ac35605` (PR #25/#26).
 
-Khi bỏ hết sở thích trong lúc F01 còn tải, S01 xóa thẻ nhưng giữ “Đang tải gợi ý…” vì effect cũ đã bị vô hiệu và nhánh rỗng không reset loading. Thêm `L(false)` vào nhánh đó; request cũ vẫn không được ghi đè lựa chọn mới. Bảo 04 đã chốt nhận sửa S01 trong PR này; Đã ghép main `ac35605` gồm PR #25/#26, giữ phần tích hợp PLAN và xử lý xung đột S01.
+Tuyến nguồn 3/4 ngày trước đây thiếu nơi ngủ/chặng nối và còn chờ chốt ngân sách giờ. Dataset **bao04-mvp-2026-11-17-v1** áp dụng cấu hình Bảo 04 đã duyệt:
 
-Có bằng chứng native Expo Go 58/Android Emulator trên main `dbb46af`, API/session SQLite thật: 7 ca PASS,1 ca FAIL; cùng regression clear-inflight thất bại trước sửa (exit 1) và đạt sau sửa (exit 0). Ca đó cũng được chạy lại và PASS sau khi ghép ac35605; có ảnh/XML/hash riêng cho bản ghép. Ảnh/XML, query/status/ID và hash file S01 có trong `docs/testing/s01-android/`; không lưu token. Điện thoại thật vẫn NOT_RUN.
+- Tách **L001 Crazy House** làm mốc lưu trú mẫu, không dùng lịch VISIT của P009 cho khách lưu trú. Thêm P001↔L001, truy vấn độc lập từng chiều, mỗi chiều 8 phút/UNVERIFIED; mọi đêm và nhánh mưa nối đủ về L001.
+- VISIT Still/An **60 phút** mỗi điểm là ngân sách do Bảo 04 chọn, REST tính riêng. Hạn ngày đi/về **18:00**, nội vùng **17:00**, buffer **30 phút** ngoài REST tối thiểu **60 phút/ngày**. Audit tính buffer trước deadline, kể cả sau WAIT, và từ chối buffer sai kiểu/âm.
+- Catalog 16 điểm/26 chặng; tập nguồn nhỏ 9 điểm/26 chặng, REVIEW_ONLY. Giữ nguyên MOCK, schema/API, engine và SQLite. Không nâng nhãn VERIFIED từ quyết định cấu hình.
 
-Kiểm tra: **123 backend tests PASS**, **9 mobile F01 transport tests PASS**, **typecheck PASS**. Đã kiểm lại sau ghép ac35605: backend 123 tests, mobile 9 tests, typecheck và regression native đều PASS. Lint mới vẫn FAIL với 3 errors/28 warnings sẵn từ main; bảng 4 errors/31 warnings trước ghép được giữ riêng. Rule/vị trí/hash nằm trong checks.json.post_merge. Review độc lập không có phát hiện critical/important. Không coi toàn bộ bản ghép đã qua quality checks hoặc nghiệm thu app.
+Cả hai tuyến và nhánh mưa không còn MISSING_LEG. Cận dưới có chặng nơi ngủ/REST/buffer là **17:55/17:57**; đây chưa phải lịch khả thi. Hai tuyến vẫn **ready=false**, 42/55 gaps lặp theo ngày: còn pin/giờ/tiếp cận R003/L001/H001/P001, còn phòng và giờ/môi trường venue. L001 chỉ dùng tọa độ khu P009 làm tham chiếu, không phải cổng khách lưu trú đã xác minh. Không đóng #8 từ kết quả offline.
 
-Phần dữ liệu: cập nhật Bảo 04 là người chốt tuyến, có đề xuất riêng đang PENDING_USER_DECISION: Crazy House, VISIT Still/An 60 phút, hạn ngày đi/về 18:00 và buffer 30 phút. Có evidence mới P001→P009: 452.109 giây→8 phút, 3.055 km, vẫn UNVERIFIED. Đề xuất chưa áp dụng vào catalog/tuyến; còn venue/cổng/giờ lưu trú cần xác nhận. Hai tuyến thật hiện hành vẫn ready=false, 34/44 gaps; không đóng #8 từ các kết quả MOCK/API riêng lẻ.
+Kiểm mới trên dataset này: **127 backend tests PASS**, ba validators PASS, audit cấu trúc/MOCK PASS, **8 lượt F05 replay PASS**, export 9 điểm/26 chặng PASS. Test buffer có RED trước implementation và GREEN sau sửa. Hash đầu vào và lệnh ở báo cáo bên dưới.
 
-- [Kết quả và cách tái hiện S01](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/testing/s01-f01-handoff.md)
-- [Checks, lint và hash](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/testing/s01-android/checks.json)
-- [Nguồn còn thiếu/lựa chọn Bảo 04 chốt](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/DATA-SOURCE-VERIFY-BAO04.md)
-- [Đầu vào/evidence phương án tuyến](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/testing/source-route-proposal.json)
+Bằng chứng S01 giữ nguyên: Expo Go 58/Android Emulator với API/session SQLite thật, baseline 7 PASS/1 FAIL; ca clear-inflight FAIL trước sửa và PASS sau sửa, rồi PASS lại sau khi ghép ac35605. Lần kiểm S01 đó có 9 transport tests và typecheck PASS; lint còn 3 errors/28 warnings sẵn từ main. Đợt dữ liệu này không chạy lại native; điện thoại thật vẫn NOT_RUN, chưa xác nhận toàn bộ AI/API/lưu thật.
+
+- [Checks/hash cấu hình và dữ liệu](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/testing/source-route-configuration-checks.json)
+- [Kết quả bàn giao mới và giới hạn](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/testing/dataset-handoff-results.md)
+- [Quyết định đã áp dụng và evidence chặng](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/testing/source-route-proposal.json)
+- [Dữ kiện nguồn còn cần xác minh](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/DATA-SOURCE-VERIFY-BAO04.md)
+- [Kết quả/cách tái hiện S01](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/testing/s01-f01-handoff.md)

@@ -1,9 +1,9 @@
 {
-  "status": "PENDING_USER_DECISION",
+  "status": "APPLIED",
   "prepared_at": "2026-11-16T14:41:03.557389+00:00",
-  "current_dataset_version": "bao04-mvp-2026-11-16-v1",
+  "current_dataset_version": "bao04-mvp-2026-11-17-v1",
   "decision_owner": "Bảo 04 (user clarified sole decision authority)",
-  "applied_to_catalog_or_routes": false,
+  "applied_to_catalog_or_routes": true,
   "proposal": {
     "lodging_candidate": {
       "name": "Crazy House",
@@ -12,15 +12,16 @@
       "policy_source_url": "https://crazyhouse.vn/chinh-sach",
       "published_check_in_from": "14:00",
       "published_check_out_no_later_than": "12:00",
-      "chosen": false,
+      "chosen": true,
       "gate_and_early_access_verified": false,
-      "room_availability_verified": false
+      "room_availability_verified": false,
+      "place_id": "L001"
     },
     "cafe_visit_minutes": {
       "P010": 60,
       "P011": 60
     },
-    "duration_basis": "Proposed planning budget selected by Bảo04 if accepted; not duration confirmed by venue; REST additional and separate.",
+    "duration_basis": "Ngân sách lập lịch do Bảo 04 đã chốt17/11; không phải thời lượng do venue xác nhận. REST tách riêng.",
     "end_deadlines": {
       "outbound": "18:00",
       "local_days": "17:00",
@@ -51,7 +52,8 @@
     "duration_minutes": 8,
     "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A11.9415603%2C%22lon%22%3A108.4542354%7D%2C%7B%22lat%22%3A11.9345615%2C%22lon%22%3A108.4306807%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
     "checked_at": "2026-11-16T14:04:31.395937+00:00",
-    "data_status": "UNVERIFIED"
+    "data_status": "UNVERIFIED",
+    "scope": "Historical proposal-only P001→P009; not imported. Applied lodging connectors use separate L001 and independent17/11 queries."
   },
   "raw_routing_summary": {
     "from_place_id": "P001",
@@ -76,10 +78,33 @@
     "docs_url": "https://valhalla.github.io/valhalla/api/route/api-reference/"
   },
   "limits": [
-    "Times conditional on R003 candidate coordinates, not verified gate/access or actual traffic.",
-    "P009 VISIT coordinates and opening hours do not confirm lodging entrance or guest access.",
-    "30min buffer is a proposal, not a safety or on-time guarantee; buffer is not REST.",
-    "No source records, normal route deadlines or VERIFIED labels changed by this proposal.",
-    "Both existing real routes remain blocked pending venue fields, gate/access and lodging connectors."
+    "R003 vẫn là tọa độ ứng viên; thời gian chỉ là ước tính mô hình, không xác nhận gate/access/traffic.",
+    "L001 chỉ dùng tọa độ khu P009 làm tham chiếu; không kế thừa lịch tham quan. Cổng/ra vào06:00/đỗ xe/còn phòng chưa xác minh.",
+    "Buffer30 phút là ngân sách dự phòng riêng trước deadline, không phải REST hoặc bảo đảm giờ đến/an toàn.",
+    "Đã áp dụng lựa chọn lập lịch; các nhãn nguồn và dữ liệu MOCK giữ nguyên, hai chặng L001 mới UNVERIFIED.",
+    "Hai tuyến vẫn blocked vì dữ kiện venue/gate/access chưa đủ, không còn chờ Bảo 04 chốt các giá trị cấu hình."
+  ],
+  "accepted_at": "2026-11-17T08:12:19.817068+00:00",
+  "applied_at": "2026-11-17T08:12:19.817068+00:00",
+  "previous_dataset_version": "bao04-mvp-2026-11-16-v1",
+  "applied_directed_legs": [
+    {
+      "travel_time_id": null,
+      "from_place_id": "P001",
+      "to_place_id": "L001",
+      "duration_minutes": 8,
+      "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A11.9415603%2C%22lon%22%3A108.4542354%7D%2C%7B%22lat%22%3A11.9345615%2C%22lon%22%3A108.4306807%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
+      "checked_at": "2026-11-17T08:10:17.058705+00:00",
+      "data_status": "UNVERIFIED"
+    },
+    {
+      "travel_time_id": null,
+      "from_place_id": "L001",
+      "to_place_id": "P001",
+      "duration_minutes": 8,
+      "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A11.9345615%2C%22lon%22%3A108.4306807%7D%2C%7B%22lat%22%3A11.9415603%2C%22lon%22%3A108.4542354%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
+      "checked_at": "2026-11-17T08:10:18.440909+00:00",
+      "data_status": "UNVERIFIED"
+    }
   ]
 }

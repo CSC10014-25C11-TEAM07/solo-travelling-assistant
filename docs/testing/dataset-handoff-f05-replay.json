@@ -1,7 +1,7 @@
 {
-  "dataset_version": "bao04-mvp-2026-11-16-v1",
+  "dataset_version": "bao04-mvp-2026-11-17-v1",
   "mode": "MOCK_DATA_RULE_RANKER",
-  "checked_at": "2026-11-16T08:20:09.828549+00:00",
+  "checked_at": "2026-11-17T08:16:11.762212+00:00",
   "checks_passed": true,
   "implementation_sha256": {
     "__init__.py": "6f3e404ac8436c76ead8a048d80f7e94a47f9c7b8c06196a3b8a3c624895d2a9",
