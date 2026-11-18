@@ -78,7 +78,7 @@ class AdaptTests(unittest.TestCase):
         day["end_deadline"] = "19:00"
         route = self.catalog.routes[day["day_id"]]
         self.catalog.routes[day["day_id"]] = replace(route, end_deadline="19:00")
-        for pid in ("MOCK-A03", "MOCK-A04"):
+        for pid in ("MOCK-A03", "MOCK-A04", "MOCK-END"):
             self.catalog.places[pid]["opening_hours"]["weekly"]["fri"] = [{"start": "08:00", "end": "19:00"}]
         self.catalog.travel_times[("MOCK-A04", "MOCK-A03")] = {
             **self.catalog.travel_times[("MOCK-A03", "MOCK-A04")],

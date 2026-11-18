@@ -43,7 +43,7 @@ class RouteDay:
 
 class Catalog:
     def __init__(self, places: list[dict], travel_times: list[dict], routes: list[RouteDay],
-                 *, mode: str = "VERIFIED"):
+                 *, mode: str = "VERIFIED", buffer_minutes_by_day=None):
         if mode not in ("VERIFIED", "MOCK"):
             raise ValueError("mode must explicitly be VERIFIED or MOCK")
         self.mode = mode
@@ -51,6 +51,11 @@ class Catalog:
         self.travel_times = self._unique(deepcopy(travel_times),
                                         lambda p: (p["from_place_id"], p["to_place_id"]), "chặng")
         self.routes = self._unique(list(routes), lambda r: r.day_id, "day_id cấu hình tuyến")
+        supplied_buffers = dict(buffer_minutes_by_day or {})
+        if supplied_buffers.keys() - self.routes.keys():
+            raise AdaptError("DATA_INCOMPLETE", "Buffer tham chiếu ngày không có trong cấu hình tuyến.")
+        self.buffer_minutes_by_day = {
+            key: checked_buffer(supplied_buffers.get(key, 0)) for key in self.routes}
         for r in self.routes.values():
             if minutes(r.start_time) >= minutes(r.end_deadline):
                 raise AdaptError("DATA_INCOMPLETE", f"Cấu hình giờ tuyến sai: {r.day_id}.")
@@ -59,7 +64,8 @@ class Catalog:
         # Recompute even if an integration test or loader changes an in-memory record.
         return fingerprint({"places": sorted(self.places.values(), key=lambda p: p["place_id"]),
                             "travel_times": sorted(self.travel_times.values(), key=lambda t: (t["from_place_id"], t["to_place_id"])),
-                            "routes": [asdict(self.routes[k]) for k in sorted(self.routes)], "mode": self.mode})
+                            "routes": [asdict(self.routes[k]) for k in sorted(self.routes)],
+                            "buffer_minutes_by_day": self.buffer_minutes_by_day, "mode": self.mode})
 
     @staticmethod
     def _unique(items, key, label):
@@ -72,10 +78,10 @@ class Catalog:
         return result
 
     @classmethod
-    def load(cls, directory: Path, routes: list[RouteDay], *, mode="VERIFIED"):
+    def load(cls, directory: Path, routes: list[RouteDay], *, mode="VERIFIED", buffer_minutes_by_day=None):
         return cls(json.loads((directory / "places.json").read_text(encoding="utf-8-sig")),
                    json.loads((directory / "travel_times.json").read_text(encoding="utf-8-sig")),
-                   routes, mode=mode)
+                   routes, mode=mode, buffer_minutes_by_day=buffer_minutes_by_day)
 
     def _usable(self, record, label):
         if record.get("data_status") != self.mode:
@@ -112,28 +118,59 @@ class Catalog:
             raise AdaptError("DATA_INCOMPLETE", f"Thời lượng chặng {origin} -> {destination} không hợp lệ.")
         return duration
 
-    def visit_slot(self, place_id, day_date, earliest):
+    def opening_windows(self, place_id, day_date):
+        """Weekly access windows for this exact venue/anchor record; [] means closed."""
         place = self.place(place_id)
-        duration = place.get("visit_duration_minutes")
-        if type(duration) is not int or duration <= 0:
-            raise AdaptError("DATA_INCOMPLETE", f"Thiếu thời lượng chuẩn của {place_id}.")
         hours = place.get("opening_hours") or {}
-        if hours.get("timezone") != "Asia/Ho_Chi_Minh":
+        if not isinstance(hours, dict) or hours.get("timezone") != "Asia/Ho_Chi_Minh":
             raise AdaptError("DATA_INCOMPLETE", f"Giờ mở cửa {place_id} thiếu múi giờ Việt Nam.")
         weekday = ("mon", "tue", "wed", "thu", "fri", "sat", "sun")[date.fromisoformat(day_date).weekday()]
-        intervals = (hours.get("weekly") or {}).get(weekday)
+        weekly = hours.get("weekly")
+        if weekly is not None and not isinstance(weekly, dict):
+            raise AdaptError("DATA_INCOMPLETE", f"Giờ tuần {place_id} sai định dạng.")
+        intervals = (weekly or {}).get(weekday)
         if intervals is None:
             raise AdaptError("DATA_INCOMPLETE", f"Chưa biết giờ mở cửa {place_id} vào {weekday}.")
+        if not isinstance(intervals, list):
+            raise AdaptError("DATA_INCOMPLETE", f"Khoảng mở cửa {place_id} phải là danh sách.")
         previous = -1
         windows = []
         for interval in intervals:
-            start, end = minutes(interval["start"]), minutes(interval["end"])
+            try:
+                start, end = minutes(interval["start"]), minutes(interval["end"])
+            except (KeyError, TypeError, AdaptError):
+                raise AdaptError("DATA_INCOMPLETE", f"Khoảng mở cửa {place_id} sai định dạng.") from None
             if start >= end or start < previous:
                 raise AdaptError("DATA_INCOMPLETE", f"Khoảng mở cửa {place_id} sai hoặc chồng lấn.")
             previous = end
             windows.append((start, end))
-        for start, end in windows:
+        return windows
+
+    def access_time(self, place_id, day_date, earliest, *, allow_wait=False):
+        """Point access uses [open, close); a departure may wait, an arrival must fit."""
+        for start, end in self.opening_windows(place_id, day_date):
+            proposed = max(earliest, start) if allow_wait else earliest
+            if start <= proposed < end:
+                return proposed
+        raise AdaptError("NO_FEASIBLE_ITINERARY", f"Không thể tiếp cận {place_id} lúc {clock(earliest)}.")
+
+    def activity_slot(self, place_id, day_date, earliest, duration):
+        """Schedule one uninterrupted VISIT/REST; waiting is not counted as rest."""
+        if type(duration) is not int or duration <= 0:
+            raise AdaptError("DATA_INCOMPLETE", f"Thiếu thời lượng hợp lệ của {place_id}.")
+        for start, end in self.opening_windows(place_id, day_date):
             proposed_start = max(earliest, start)
             if proposed_start + duration <= end:
                 return proposed_start, proposed_start + duration
-        raise AdaptError("NO_FEASIBLE_ITINERARY", f"{place_id} đóng cửa hoặc không đủ {duration} phút tham quan.")
+        raise AdaptError("NO_FEASIBLE_ITINERARY", f"{place_id} đóng cửa hoặc không đủ {duration} phút hoạt động.")
+
+    def visit_slot(self, place_id, day_date, earliest):
+        return self.activity_slot(place_id, day_date, earliest,
+                                  self.place(place_id).get("visit_duration_minutes"))
+
+
+def checked_buffer(value):
+    """Minutes reserved before the day deadline, separate from mandatory REST."""
+    if type(value) is not int or not 0 <= value < 1440:
+        raise AdaptError("DATA_INCOMPLETE", "buffer_minutes phải là số nguyên từ 0 đến 1439.")
+    return value

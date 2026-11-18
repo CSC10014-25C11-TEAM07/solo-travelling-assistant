@@ -8,7 +8,7 @@ import time
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
-PROMPT_VERSION = "adapt-rank-v1"
+PROMPT_VERSION = "adapt-rank-v2"
 
 
 class RankingError(Exception):
@@ -27,7 +27,7 @@ def checked_ranking(output, context):
             raise ValueError
         seen = set()
         for row in rows:
-            if set(row) != {"candidate_id", "reason_codes", "tradeoff_code"}:
+            if not isinstance(row, dict) or set(row) != {"candidate_id", "reason_codes", "tradeoff_code"}:
                 raise ValueError
             cid = row["candidate_id"]
             if cid not in allowed or cid in seen or row["tradeoff_code"] != "TRADEOFF":
@@ -80,10 +80,24 @@ class GeminiRanker:
         self.audit = {}
 
     def rank(self, context):
+        # A reused provider must never report a previous call's tokens/success.
+        # Only allowlisted metadata goes into evidence; never response/error text.
+        started = time.monotonic()
+        self.audit = {"model": self.model, "prompt_version": PROMPT_VERSION,
+                      "outcome": "ERROR", "failure_code": "AI_INVALID_OUTPUT", "usage": {}}
+
+        def failure(code, message, status):
+            self.audit["failure_code"] = code
+            return RankingError(code, message, status)
+
+        candidates = context["candidates"]
+        allowed_ids = [candidate["candidate_id"] for candidate in candidates]
+        allowed_reasons = sorted({code for candidate in candidates for code in candidate["facts"] if code != "TRADEOFF"})
         schema = {"type": "object", "properties": {"rankings": {"type": "array", "items": {
-            "type": "object", "properties": {"candidate_id": {"type": "string"},
-                "reason_codes": {"type": "array", "items": {"type": "string"}},
-                "tradeoff_code": {"type": "string"}},
+            "type": "object", "properties": {"candidate_id": {"type": "string", "enum": allowed_ids},
+                "reason_codes": {"type": "array", "items": {"type": "string", "enum": allowed_reasons},
+                                 "minItems": 1, "maxItems": 3},
+                "tradeoff_code": {"type": "string", "enum": ["TRADEOFF"]}},
             "required": ["candidate_id", "reason_codes", "tradeoff_code"], "additionalProperties": False}}},
             "required": ["rankings"], "additionalProperties": False}
         body = {"systemInstruction": {"parts": [{"text": (
@@ -97,13 +111,19 @@ class GeminiRanker:
         request = Request(f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}:generateContent",
                           data=json.dumps(body).encode("utf-8"), method="POST",
                           headers={"Content-Type": "application/json", "x-goog-api-key": self.api_key})
-        started = time.monotonic()
         try:
             with self.opener(request, timeout=self.timeout) as response:
                 raw = response.read(262145)
             if len(raw) > 262144:
                 raise RankingError()
             envelope = json.loads(raw)
+            if not isinstance(envelope, dict):
+                raise RankingError()
+            usage = envelope.get("usageMetadata")
+            if isinstance(usage, dict):
+                self.audit["usage"] = {k: usage[k] for k in (
+                    "promptTokenCount", "candidatesTokenCount", "totalTokenCount")
+                    if type(usage.get(k)) is int and usage[k] >= 0}
             selected = envelope["candidates"][0]
             if selected.get("finishReason") != "STOP":
                 raise RankingError()
@@ -111,18 +131,23 @@ class GeminiRanker:
             text = "".join(p.get("text", "") for p in parts if not p.get("thought"))
             output = json.loads(text)
             checked_ranking(output, context)
-            usage = envelope.get("usageMetadata", {})
-            self.audit = {"model": self.model, "prompt_version": PROMPT_VERSION,
-                          "latency_ms": round((time.monotonic() - started) * 1000),
-                          "usage": {k: usage[k] for k in ("promptTokenCount", "candidatesTokenCount", "totalTokenCount")
-                                    if type(usage.get(k)) is int and usage[k] >= 0}}
+            self.audit["outcome"] = "SUCCESS"
+            self.audit.pop("failure_code", None)
             return output
         except HTTPError as error:
             # Do not reflect provider messages, request headers or the API key.
-            raise RankingError("AI_UNAVAILABLE", f"Nhà cung cấp AI trả HTTP {error.code}; không sửa lịch.", 503) from None
+            self.audit["http_status"] = error.code
+            raise failure("AI_UNAVAILABLE", f"Nhà cung cấp AI trả HTTP {error.code}; không sửa lịch.", 503) from None
         except (TimeoutError, socket.timeout):
-            raise RankingError("AI_TIMEOUT", "AI quá thời gian cho phép; không sửa lịch.", 504) from None
-        except (URLError, OSError):
-            raise RankingError("AI_UNAVAILABLE", "Chưa kết nối được nhà cung cấp AI.", 503) from None
+            raise failure("AI_TIMEOUT", "AI quá thời gian cho phép; không sửa lịch.", 504) from None
+        except URLError as error:
+            # urllib wraps connection timeouts in URLError; preserve that cause.
+            if isinstance(error.reason, (TimeoutError, socket.timeout)):
+                raise failure("AI_TIMEOUT", "AI quá thời gian cho phép; không sửa lịch.", 504) from None
+            raise failure("AI_UNAVAILABLE", "Chưa kết nối được nhà cung cấp AI.", 503) from None
+        except OSError:
+            raise failure("AI_UNAVAILABLE", "Chưa kết nối được nhà cung cấp AI.", 503) from None
         except (KeyError, IndexError, TypeError, ValueError, UnicodeError, AttributeError):
             raise RankingError() from None
+        finally:
+            self.audit["latency_ms"] = round((time.monotonic() - started) * 1000)

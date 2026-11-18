@@ -4,7 +4,7 @@ from copy import deepcopy
 from datetime import timedelta
 from itertools import islice, permutations, product
 
-from adapt_f05.catalog import clock, minutes
+from adapt_f05.catalog import checked_buffer, clock, minutes
 from adapt_f05.models import AdaptError
 from adapt_f05.ranking import GeminiRanker, RankingError, checked_ranking
 from itinerary_api import APIError
@@ -39,6 +39,7 @@ class PlanProvider:
             raise AdaptError("DATA_INCOMPLETE", f"Tuyến {route.get('route_id')} là {route['data_status']}, cần {self.catalog.mode}.")
         if route["days"][0]["start_place_id"] != route["days"][-1]["end_place_id"]:
             raise AdaptError("DATA_INCOMPLETE", "Tuyến đi/về phải kết thúc tại điểm xuất phát.")
+        checked_buffer(route.get("buffer_minutes", 0))
 
         alternatives = []
         diagnostics = []
@@ -107,7 +108,9 @@ class PlanProvider:
         deadline = minutes(config["end_deadline"])
         date = (request.departure_date + timedelta(days=number)).isoformat()
         previous = config["start_place_id"]
-        self.catalog.place(previous)
+        cursor = self.catalog.access_time(previous, date, cursor, allow_wait=True)
+        route = self.templates[(request.return_date - request.departure_date).days + 1]
+        buffer = checked_buffer(route.get("buffer_minutes", 0))
         activities, rest = [], 0
 
         def travel(destination):
@@ -131,16 +134,20 @@ class PlanProvider:
                 duration = stop.get("duration_minutes")
                 if type(duration) is not int or duration <= 0:
                     raise AdaptError("DATA_INCOMPLETE", f"Thiếu thời lượng nghỉ tại {stop['place_id']}.")
-                begin, end, optional = cursor, cursor + duration, False
+                begin, end = self.catalog.activity_slot(stop["place_id"], date, cursor, duration)
+                optional = False
                 rest += duration
             activities.append({"type": stop["type"], "name": place["name"], "place_id": stop["place_id"],
                                "start_time": clock(begin), "end_time": clock(end), "is_optional": optional})
             cursor = end
+        arrives_at_end = previous != config["end_place_id"]
         travel(config["end_place_id"])
+        if arrives_at_end:
+            self.catalog.access_time(config["end_place_id"], date, cursor)
         if rest < request.min_rest_minutes:
             raise AdaptError("NO_FEASIBLE_ITINERARY", f"Ngày {number + 1} chỉ có {rest} phút nghỉ.")
-        if cursor > deadline:
-            raise AdaptError("NO_FEASIBLE_ITINERARY", f"Ngày {number + 1} về {clock(cursor)}, vượt {config['end_deadline']}.")
+        if cursor + buffer > deadline:
+            raise AdaptError("NO_FEASIBLE_ITINERARY", f"Ngày {number + 1} về {clock(cursor)}, không còn {buffer} phút dự phòng trước {config['end_deadline']}.")
         return {"date": date, "end_deadline": config["end_deadline"], "activities": activities}
 
 
@@ -162,5 +169,6 @@ def mock_templates(routes, snapshots):
                         stop["duration_minutes"] = minutes(activity["end_time"]) - minutes(activity["start_time"])
                     stops.append(stop)
             days.append({**config, "stops": stops})
-        result[len(days)] = {"route_id": route["route_id"], "data_status": "MOCK", "days": days}
+        result[len(days)] = {"route_id": route["route_id"], "data_status": "MOCK", "days": days,
+                             "buffer_minutes": checked_buffer(route.get("buffer_minutes", 0))}
     return result

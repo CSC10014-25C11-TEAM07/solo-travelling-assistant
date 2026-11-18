@@ -8,7 +8,7 @@ from uuid import UUID, uuid4, uuid5
 
 from pydantic import ValidationError
 
-from .catalog import Catalog, clock, fingerprint, minutes
+from .catalog import Catalog, checked_buffer, clock, fingerprint, minutes
 from .models import REQUEST, AdaptError, AdaptResult, Candidate, RainRequest, RestRequest
 from .ranking import RankingError, RuleRanker, checked_ranking
 
@@ -265,13 +265,34 @@ class AdaptEngine:
                 start, finish = self.catalog.visit_slot(row["place_id"], day["date"], earliest)
             else:
                 duration = minutes(original["end_time"]) - minutes(original["start_time"])
-                start, finish = earliest, earliest + duration
+                start, finish = self.catalog.activity_slot(row["place_id"], day["date"], earliest, duration)
             row.update(start_time=clock(start), end_time=clock(finish))
             rebuilt.append(row)
             cursor = finish
+        arrives_at_end = previous_place != route.end_place_id
         travel_to(route.end_place_id)
-        if cursor > minutes(route.end_deadline):
-            raise AdaptError("NO_FEASIBLE_ITINERARY", f"Đến điểm kết thúc lúc {clock(cursor)}, vượt hạn {route.end_deadline}.")
+        if arrives_at_end:
+            self.catalog.access_time(route.end_place_id, day["date"], cursor)
+        buffer = checked_buffer(self.catalog.buffer_minutes_by_day[route.day_id])
+        if cursor + buffer > minutes(route.end_deadline):
+            raise AdaptError("NO_FEASIBLE_ITINERARY", f"Đến điểm kết thúc lúc {clock(cursor)}, không còn {buffer} phút dự phòng trước {route.end_deadline}.")
+        # Recheck every future row, including the unchanged prefix and extended
+        # REST. DONE rows describe the past and must remain byte-for-byte intact.
+        if rebuilt and rebuilt[0]["status"] == "PENDING":
+            self.catalog.access_time(route.start_place_id, day["date"], minutes(rebuilt[0]["start_time"]))
+        pending_edges = self._travel_edges(rebuilt, route)
+        for row in rebuilt:
+            if row["status"] != "PENDING":
+                continue
+            begin, end = minutes(row["start_time"]), minutes(row["end_time"])
+            if row["type"] == "TRAVEL":
+                if end - begin != self.catalog.travel(*pending_edges[row["activity_id"]]):
+                    raise AdaptError("DATA_INCOMPLETE", "Chặng PENDING không khớp thời lượng trong catalog.")
+                continue
+            duration = (self.catalog.place(row["place_id"]).get("visit_duration_minutes")
+                        if row["type"] == "VISIT" else end - begin)
+            if self.catalog.activity_slot(row["place_id"], day["date"], begin, duration) != (begin, end):
+                raise AdaptError("NO_FEASIBLE_ITINERARY", f"Hoạt động {row['activity_id']} không nằm trọn trong giờ mở cửa.")
         # Retired legs retain their original ID, times and metadata in history.
         for aid, row in suffix_travel.items():
             if aid not in new_edges:
