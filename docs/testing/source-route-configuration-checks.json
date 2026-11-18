@@ -1,0 +1,127 @@
+{
+  "dataset_version": "bao04-mvp-2026-11-17-v1",
+  "checked_at": "2026-11-17T08:17:36.697565+00:00",
+  "base_commit": "d8d2f23624b355df5c159f5ed5a4297486747651",
+  "mode": "OFFLINE_DATA_HANDOFF",
+  "commands": [
+    {
+      "command": "python -m unittest discover -s backend/tests",
+      "exit_code": 0,
+      "test_count": 127
+    },
+    {
+      "command": "python backend/scripts/validate_places.py",
+      "exit_code": 0,
+      "places": 16,
+      "directed_legs": 26,
+      "place_status": {
+        "VERIFIED": 1,
+        "UNVERIFIED": 15
+      },
+      "leg_status": {
+        "VERIFIED": 20,
+        "UNVERIFIED": 6
+      }
+    },
+    {
+      "command": "python backend/scripts/validate_places.py --data-dir backend/data/fixtures/mock",
+      "exit_code": 0,
+      "places": 11,
+      "directed_legs": 20
+    },
+    {
+      "command": "python backend/scripts/validate_places.py --data-dir backend/data/fixtures/mock-no-replacement",
+      "exit_code": 0,
+      "places": 11,
+      "directed_legs": 20
+    },
+    {
+      "command": "python backend/scripts/audit_data_handoff.py --output docs/testing/dataset-handoff-report.json",
+      "exit_code": 0
+    },
+    {
+      "command": "python backend/scripts/replay_handoff_f05.py --output docs/testing/dataset-handoff-f05-replay.json",
+      "exit_code": 0,
+      "run_count": 8
+    },
+    {
+      "command": "python backend/scripts/prepare_source_bundle.py --output-dir <new-directory>",
+      "exit_code": 0,
+      "bundle": {
+        "dataset_version": "bao04-mvp-2026-11-17-v1",
+        "mode": "REVIEW_ONLY",
+        "place_count": 9,
+        "directed_leg_count": 26,
+        "ready_for_real_plan": false,
+        "source_adapt_ready": false,
+        "note": "JSON review/import input only; không ghi SQLite, không đổi nhãn. Đọc readiness.json trước khi dùng."
+      }
+    },
+    {
+      "command": "git diff --quiet d8d2f23 -- backend/data/fixtures backend/data/handoff/routes_mock.json mobile",
+      "exit_code": 0
+    }
+  ],
+  "buffer_regression": {
+    "command": "python -m unittest discover -s backend/tests -p test_source_readiness.py -v",
+    "before_implementation_exit": 1,
+    "after_implementation_exit": 0,
+    "after_test_count": 15,
+    "note": "Two budget tests and five invalid-buffer subcases failed before implementation; REST-shortfall test already passed and remains a regression guard."
+  },
+  "source_routes": [
+    {
+      "route_id": "SOURCE-3D",
+      "ready_for_real_plan": false,
+      "gap_count": 42,
+      "gap_codes": {
+        "ROUTE_NOT_VERIFIED": 1,
+        "UNRESOLVED_ROUTE_LIMITATION": 3,
+        "UNVERIFIED_PLACE": 12,
+        "UNKNOWN_ENVIRONMENT": 8,
+        "UNVERIFIED_LEG": 8,
+        "UNKNOWN_REST_ACCESS": 2,
+        "UNKNOWN_START_ACCESS": 3,
+        "UNKNOWN_END_ACCESS": 3,
+        "UNKNOWN_OPENING_HOURS": 2
+      },
+      "missing_directed_legs": []
+    },
+    {
+      "route_id": "SOURCE-4D",
+      "ready_for_real_plan": false,
+      "gap_count": 55,
+      "gap_codes": {
+        "ROUTE_NOT_VERIFIED": 1,
+        "UNRESOLVED_ROUTE_LIMITATION": 3,
+        "UNVERIFIED_PLACE": 17,
+        "UNKNOWN_ENVIRONMENT": 10,
+        "UNVERIFIED_LEG": 10,
+        "UNKNOWN_REST_ACCESS": 3,
+        "UNKNOWN_START_ACCESS": 4,
+        "UNKNOWN_END_ACCESS": 4,
+        "UNKNOWN_OPENING_HOURS": 3
+      },
+      "missing_directed_legs": []
+    }
+  ],
+  "not_verified": [
+    "Real route feasibility, live traffic, road permission/safety",
+    "Venue hours, exact R003/L001 gates, guest access/parking, room availability",
+    "New physical-phone or whole native app acceptance",
+    "Live AI, full PLAN/ADAPT/F06 HTTP and SQLite acceptance",
+    "Applying this review-only route configuration inside teammates business engines or SQLite import"
+  ],
+  "input_sha256": {
+    "backend/source_readiness.py": "0876cee5325f0fb3d0d8b0f5a94cdd1573952a0443dcd4740c11f7c1fa84bce9",
+    "backend/place_models.py": "e94f324e5df851f42a1bdaff6acfed2dc8106e8c068f9cbe1687fb247149c93a",
+    "backend/data/places.json": "4a214985aa46382af04ae9800c0a991bcd3acbcc2e1e04ba06a22f46a146e0d9",
+    "backend/data/travel_times.json": "507d9c82318406ffafc907e8c7d7cb263af9e891d5ba7a8cad63f0d14a0a7e78",
+    "backend/data/place_coordinates.json": "6046bab572c6b62a17c389ebf78ce4cc21d23716fca847bc7e1251d2a6d3a4b3",
+    "backend/data/travel_time_evidence.json": "5e5e09992ba93e26b796e513d13008f0dcb1ba4f7d34b96844f57e517d02e164",
+    "backend/data/handoff/routes_source.json": "34054ec2b6370cf73e68569fe2ea8b2c7a127163ecf704eab5a96998b0ebb8bf",
+    "backend/data/handoff/source_adapt_checks.json": "025790248d104a96b14c2e049d8f54614d7f480bd9e037cc9bce9452df8bd1d3",
+    "backend/data/handoff/source_checks.json": "ce9663f23167ac7277f59b476f9e2244df03813d3e23d82f7127bf88539d0fe0",
+    "backend/data/handoff/manifest.json": "d950664e562b52a3ef32f28831c573ae1c43855ad32b01167c26f83bbe9c9162"
+  }
+}

@@ -1,22 +1,19 @@
-Refs #8
+Refs #8. Khi bỏ hết sở thích trong lúc F01 đang tải, S01 xóa thẻ nhưng giữ spinner vì nhánh rỗng chưa reset loading. Thêm `L(false)`; phản hồi cũ vẫn không ghi đè lựa chọn mới. Giữ nguyên phần tích hợp PLAN từ main `ac35605` (PR #25/#26).
 
-Bàn giao dữ liệu/F01 của Bảo 04 theo phân công MVP 14/11. Phiên bản hiện tại:
-`bao04-mvp-2026-11-16-v1`, tiếp tục mốc 15/11 và bộ đã merge ở PR #19.
+Tuyến nguồn 3/4 ngày trước đây thiếu nơi ngủ/chặng nối và còn chờ chốt ngân sách giờ. Dataset **bao04-mvp-2026-11-17-v1** áp dụng cấu hình Bảo 04 đã duyệt:
 
-- Giữ bốn ca MOCK T06/T08/T13/T15; CLI replay tám lượt trên snapshot 3/4 ngày qua F05 đã merge, kiểm DONE/ngày khác, bản lưu JSON và snapshot đề xuất độc lập.
-- Audit nguồn tính VISIT, REST, chờ mở cửa, ngày/điểm nghỉ, chặng đúng hướng/điểm cuối và giờ tiếp cận mốc. Thiếu dữ liệu hoặc trễ không báo ready.
-- Nguồn ngày 16/11: P009 Crazy House đối chiếu đủ trường hồ sơ VISIT, dùng lịch đơn vị 08:30–18:00 hằng ngày, MIXED và thời lượng ước tính 60 phút của cổng tỉnh. Giữ đối chiếu với giờ portal/OSM và lý do chọn nguồn; không lấy VERIFIED của một điểm làm nghiệm thu tuyến.
-- Catalog: 15 điểm (1 VERIFIED, 14 UNVERIFIED), 24 chặng (20 ước tính VERIFIED, 4 qua R003 UNVERIFIED). Đọc được Tâm Châu Center và An CaFe; giữ xung đột hai giờ mở Tâm Châu và lịch khác nhau trên trang vé/header bảo tàng. Không đoán cổng, thời lượng café hoặc phạm vi INDOOR.
-- Xuất tập nguồn nhỏ 8 điểm/24 chặng + cấu hình/provenance/readiness sang thư mục mới. Không ghi SQLite/đổi hợp đồng hoặc sửa phần tích hợp, AI, mobile của các bạn khác.
-- Có `docs/DATA-SOURCE-VERIFY-BAO04.md`: phần trợ lý đã tra cứu, mẫu hỏi có nguồn liên hệ, mẫu ghi kết quả và ứng viên nơi ngủ để nhóm chốt. Chưa gửi tin, gọi điện, đặt phòng hoặc thay cấu hình tuyến.
+- Tách **L001 Crazy House** làm mốc lưu trú mẫu, không dùng lịch VISIT của P009 cho khách lưu trú. Thêm P001↔L001, truy vấn độc lập từng chiều, mỗi chiều 8 phút/UNVERIFIED; mọi đêm và nhánh mưa nối đủ về L001.
+- VISIT Still/An **60 phút** mỗi điểm là ngân sách do Bảo 04 chọn, REST tính riêng. Hạn ngày đi/về **18:00**, nội vùng **17:00**, buffer **30 phút** ngoài REST tối thiểu **60 phút/ngày**. Audit tính buffer trước deadline, kể cả sau WAIT, và từ chối buffer sai kiểu/âm.
+- Catalog 16 điểm/26 chặng; tập nguồn nhỏ 9 điểm/26 chặng, REVIEW_ONLY. Giữ nguyên MOCK, schema/API, engine và SQLite. Không nâng nhãn VERIFIED từ quyết định cấu hình.
 
-Kiểm tra lại ngày 16/11:
+Cả hai tuyến và nhánh mưa không còn MISSING_LEG. Cận dưới có chặng nơi ngủ/REST/buffer là **17:55/17:57**; đây chưa phải lịch khả thi. Hai tuyến vẫn **ready=false**, 42/55 gaps lặp theo ngày: còn pin/giờ/tiếp cận R003/L001/H001/P001, còn phòng và giờ/môi trường venue. L001 chỉ dùng tọa độ khu P009 làm tham chiếu, không phải cổng khách lưu trú đã xác minh. Không đóng #8 từ kết quả offline.
 
-- `python -m unittest discover -s backend/tests -q`: **103 tests PASS**.
-- Ba catalog validators, `audit_data_handoff.py`, `replay_handoff_f05.py` (**8 lượt PASS**, counts 2/0/1/0) và `prepare_source_bundle.py --output-dir <new-dir>`: exit0.
-- F01 qua main.app TestClient + SQLite auth tạm: **7 ca PASS**, gồm đổi sở thích, input thiếu/sai và token đã logout. JSON report có hash catalog/chặng, không có token.
-- Chi tiết/tái hiện ở `docs/testing/dataset-handoff-results.md`; hai tuyến nguồn vẫn ready=false, với 34/44 gaps (gồm mục lặp theo ngày).
+Kiểm mới trên dataset này: **127 backend tests PASS**, ba validators PASS, audit cấu trúc/MOCK PASS, **8 lượt F05 replay PASS**, export 9 điểm/26 chặng PASS. Test buffer có RED trước implementation và GREEN sau sửa. Hash đầu vào và lệnh ở báo cáo bên dưới.
 
-Tuyến thật 3/4 ngày vẫn BLOCKED: giờ/thời lượng/tiếp cận venue, pin cổng R003, nơi ngủ/chặng nối và ngày đi có cận dưới 17:17 vượt hạn đề xuất 17:00 trước buffer. Hai nhánh mưa đủ chặng nhưng venue còn thiếu dữ liệu. Chưa xác nhận S01/Expo Go, F02/F05 AI thật hoặc F06/SQLite qua app. Không đóng #8 và không tự merge.
+Bằng chứng S01 giữ nguyên: Expo Go 58/Android Emulator với API/session SQLite thật, baseline 7 PASS/1 FAIL; ca clear-inflight FAIL trước sửa và PASS sau sửa, rồi PASS lại sau khi ghép ac35605. Lần kiểm S01 đó có 9 transport tests và typecheck PASS; lint còn 3 errors/28 warnings sẵn từ main. Đợt dữ liệu này không chạy lại native; điện thoại thật vẫn NOT_RUN, chưa xác nhận toàn bộ AI/API/lưu thật.
 
-Nhật nhận fixture/RouteDay và dữ liệu có nhãn; Bảo 06 nhận source pack để rà/import; Tân dùng đúng catalog và ghi mode/version; Hân/Bảo 04 chạy S01 trên bản ghép. Hướng dẫn ở `docs/DATASET-HANDOFF-BAO04.md` và `docs/DATA-SOURCE-VERIFY-BAO04.md`.
+- [Checks/hash cấu hình và dữ liệu](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/testing/source-route-configuration-checks.json)
+- [Kết quả bàn giao mới và giới hạn](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/testing/dataset-handoff-results.md)
+- [Quyết định đã áp dụng và evidence chặng](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/testing/source-route-proposal.json)
+- [Dữ kiện nguồn còn cần xác minh](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/DATA-SOURCE-VERIFY-BAO04.md)
+- [Kết quả/cách tái hiện S01](https://github.com/CSC10014-25C11-TEAM07/solo-travelling-assistant/blob/feat/8-s01-source-followup/docs/testing/s01-f01-handoff.md)

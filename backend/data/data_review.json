@@ -1,6 +1,6 @@
 {
   "schema_version": "shared-data-v1-2026-11-09",
-  "checked_at": "2026-11-16T08:15:27.542403+00:00",
+  "checked_at": "2026-11-17T08:12:19.817068+00:00",
   "meaning": "Thông tin còn thiếu/mâu thuẫn giữ UNVERIFIED. Nhãn SOURCED cũ đã bỏ; VERIFIED chỉ sau đối chiếu các trường cần dùng. Thời điểm đọc nguồn không phải khảo sát tại chỗ.",
   "places": [
     {
@@ -17,7 +17,7 @@
         "opening_hours.weekly"
       ],
       "selected_for_source_route": true,
-      "next_action": "Cổng tỉnh đọc lại 15/11 nêu 90 phút và 07:00–17:30; cần xác nhận lịch tuần, tiếp cận mốc ngoài giờ và chặng nơi lưu trú."
+      "next_action": "Xác nhận giờ tuần và quyền đi qua mốc06:00/cận18:00; chặng hai chiều với L001 đã có ước tính tham chiếu nhưng cổng L001 chưa xác minh."
     },
     {
       "place_id": "P002",
@@ -166,16 +166,22 @@
       "checked_at": "2026-11-16T08:11:04.035672+00:00",
       "reported_hours": "Mo-Su 07:00-22:00",
       "hours_source_url": "https://www.openstreetmap.org/node/6152524285",
-      "pending": "Lịch tuần lấy từ tag OSM, chưa xác nhận ngoại lệ/ngày lễ với đơn vị. Chưa xác nhận khu ngồi có mái và thời lượng; không tự dùng làm điểm thay thế vì mưa.",
-      "duration_note": "Chưa có thời lượng trải nghiệm được nhóm chốt; giữ null.",
+      "pending": "Lịch tuần lấy từ tag OSM, chưa xác nhận ngoại lệ/ngày lễ với đơn vị. Chưa xác nhận khu ngồi có mái ; không tự dùng làm điểm thay thế vì mưa.",
+      "duration_note": "VISIT60 phút do Bảo 04 chốt17/11 làm ngân sách lập lịch; không phải thời lượng do quán xác nhận. REST cộng riêng.",
       "classification_note": "area dùng HCMC/DALAT/EN_ROUTE đã chốt 09/11; environment null chỉ ở hồ sơ UNVERIFIED còn thiếu, không phải mã môi trường thứ tư.",
       "ready_for_real_plan": false,
       "missing_fields": [
-        "environment",
-        "visit_duration_minutes"
+        "environment"
       ],
       "selected_for_source_route": true,
-      "next_action": "Cổng tỉnh đọc lại 15/11 xác nhận tên/59 Nguyễn Trãi/giờ chung, không có thời lượng. Hỏi 0368 151 215 về thời lượng, khu có mái và lịch tuần/ngày lễ; không tự điền 45/60 phút."
+      "next_action": "Xác minh môi trường/phạm vi có mái, giờ tuần/ngày lễ và quyền tiếp cận đúng chi nhánh; không cần chờ chốt thời lượng nữa. Giữ UNVERIFIED.",
+      "planning_decision": {
+        "owner": "Bảo 04",
+        "decided_at": "2026-11-17T08:12:19.817068+00:00",
+        "basis": "Bảo 04 chấp thuận áp dụng toàn bộ cấu hình ngày 17/11/2026. Đây là lựa chọn lập lịch, không phải xác minh venue.",
+        "record": "docs/testing/source-route-proposal.json",
+        "visit_duration_minutes": 60
+      }
     },
     {
       "place_id": "P011",
@@ -184,16 +190,22 @@
       "checked_at": "2026-11-16T08:15:27.542403+00:00",
       "reported_hours": "07:00-22:00",
       "hours_source_url": "https://www.openstreetmap.org/node/4206500720",
-      "pending": "Website An CaFe xác nhận 63Bis Ba Tháng Hai. Nội dung chữ không nêu giờ tuần hoặc thời lượng; lịch 07:00–22:00 vẫn chỉ từ OSM cũ. Chưa xác minh phạm vi có mái.",
-      "duration_note": "Chưa có thời lượng trải nghiệm được nhóm chốt; giữ null.",
+      "pending": "Website An CaFe xác nhận 63Bis Ba Tháng Hai. Nội dung chữ không nêu giờ tuần ; lịch 07:00–22:00 vẫn chỉ từ OSM cũ. Chưa xác minh phạm vi có mái.",
+      "duration_note": "VISIT60 phút do Bảo 04 chốt17/11 làm ngân sách lập lịch; không phải thời lượng do quán xác nhận. REST cộng riêng.",
       "classification_note": "area dùng HCMC/DALAT/EN_ROUTE đã chốt 09/11; environment null chỉ ở hồ sơ UNVERIFIED còn thiếu, không phải mã môi trường thứ tư.",
       "ready_for_real_plan": false,
       "missing_fields": [
-        "environment",
-        "visit_duration_minutes"
+        "environment"
       ],
       "selected_for_source_route": true,
-      "next_action": "Dùng kênh liên hệ công khai trên ancafeglobal.com để hỏi giờ/thời lượng/phạm vi có mái; không nhầm An Coffee tại 30 Hoàng Diệu và không gắn INDOOR chỉ theo ảnh/thiết kế."
+      "next_action": "Xác minh môi trường/phạm vi có mái, giờ tuần/ngày lễ và quyền tiếp cận đúng chi nhánh; không cần chờ chốt thời lượng nữa. Giữ UNVERIFIED.",
+      "planning_decision": {
+        "owner": "Bảo 04",
+        "decided_at": "2026-11-17T08:12:19.817068+00:00",
+        "basis": "Bảo 04 chấp thuận áp dụng toàn bộ cấu hình ngày 17/11/2026. Đây là lựa chọn lập lịch, không phải xác minh venue.",
+        "record": "docs/testing/source-route-proposal.json",
+        "visit_duration_minutes": 60
+      }
     },
     {
       "place_id": "R001",
@@ -252,11 +264,11 @@
     },
     {
       "place_id": "H001",
-      "name": "Bưu điện Trung tâm Sài Gòn — mốc tập kết đề xuất",
+      "name": "Bưu điện Trung tâm Sài Gòn — mốc tập kết",
       "source_url": "https://www.openstreetmap.org/way/39514793",
       "checked_at": "2026-11-10T06:43:02.344762+00:00",
       "reported_hours": null,
-      "pending": "Mốc TP.HCM đề xuất từ Photon/OSM tại số 2 Công trường Công xã Paris. Chưa xác minh vị trí tập kết/đỗ xe, giờ tiếp cận và phương án điểm cuối. Không phải một hoạt động tham quan.",
+      "pending": "Mốc TP.HCM tại số2 Công trường Công xã Paris đã chọn cho cấu hình. Chưa xác minh vị trí đỗ xe/tập kết và tiếp cận06:00/chiều về; không lập VISIT.",
       "duration_note": "Không lập VISIT tại mốc này.",
       "classification_note": "area dùng HCMC/DALAT/EN_ROUTE đã chốt 09/11; environment null chỉ ở hồ sơ UNVERIFIED còn thiếu, không phải mã môi trường thứ tư.",
       "ready_for_real_plan": false,
@@ -266,7 +278,39 @@
         "opening_hours.weekly"
       ],
       "selected_for_source_route": true,
-      "next_action": "Bảo 04 tiếp tục đối chiếu các trường thiếu của điểm được chọn; Nhật kiểm lịch sau khi nhận dữ liệu. Giữ UNVERIFIED nếu thiếu bằng chứng."
+      "next_action": "Bảo 04 tiếp tục đối chiếu các trường thiếu của điểm được chọn; Nhật kiểm lịch sau khi nhận dữ liệu. Giữ UNVERIFIED nếu thiếu bằng chứng.",
+      "planning_decision": {
+        "owner": "Bảo 04",
+        "decided_at": "2026-11-17T08:12:19.817068+00:00",
+        "basis": "Bảo 04 chấp thuận áp dụng toàn bộ cấu hình ngày 17/11/2026. Đây là lựa chọn lập lịch, không phải xác minh venue.",
+        "record": "docs/testing/source-route-proposal.json",
+        "role": "Mốc tập kết/điểm cuối cấu hình nguồn đang dùng"
+      }
+    },
+    {
+      "place_id": "L001",
+      "name": "Crazy House — mốc lưu trú mẫu",
+      "source_url": "https://crazyhouse.vn/chinh-sach",
+      "checked_at": "2026-11-17T08:12:19.817068+00:00",
+      "reported_hours": null,
+      "pending": "Chưa xác nhận pin cổng khách lưu trú, giờ ra/vào/đỗ xe và còn phòng; không lấy lịch tham quan08:30–18:00 của P009 cho L001.",
+      "duration_note": "Anchor không lập VISIT; giữ null, không tạo thời lượng1 phút.",
+      "ready_for_real_plan": false,
+      "missing_fields": [
+        "opening_hours.weekly",
+        "guest_gate_coordinate",
+        "guest_access_and_parking",
+        "room_availability"
+      ],
+      "selected_for_source_route": true,
+      "planning_decision": {
+        "owner": "Bảo 04",
+        "decided_at": "2026-11-17T08:12:19.817068+00:00",
+        "basis": "Bảo 04 chấp thuận áp dụng toàn bộ cấu hình ngày 17/11/2026. Đây là lựa chọn lập lịch, không phải xác minh venue.",
+        "record": "docs/testing/source-route-proposal.json",
+        "address": "03 Huỳnh Thúc Kháng, Đà Lạt"
+      },
+      "next_action": "Đối chiếu cổng khách lưu trú, tiếp cận06:00 và cuối ngày/đỗ xe, khả năng lưu trú vào ngày mẫu. Sau pin đúng cổng, thu lại cả hai chiều L001↔P001."
     }
   ]
 }

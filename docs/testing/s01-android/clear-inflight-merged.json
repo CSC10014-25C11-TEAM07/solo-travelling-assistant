@@ -1,0 +1,17 @@
+{
+  "case": "clear-inflight-merged",
+  "status": "PASS",
+  "expected_place_ids": [],
+  "actual_place_ids": [],
+  "screenshot": "s01-android/clear-inflight-merged.png",
+  "ui_tree": "s01-android/clear-inflight-merged.xml",
+  "controlled_delay_seconds": 5,
+  "observed_text": [
+    "Chưa có gợi ý phù hợp."
+  ],
+  "stage": "POST_MERGE_FIX",
+  "upstream_main": "ac35605cff7e35d491c2950b89358ce5cf1e92bb",
+  "plan_source_sha256": "aeb1ada3748c38e20b345657be27d87106c054b0ebeae063f92534c0ba82c6cf",
+  "captured_at": "2026-11-17T07:49:06.546172+00:00",
+  "test_exit_code": 0
+}

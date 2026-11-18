@@ -6,9 +6,10 @@
       "P010",
       "P005",
       "P008",
-      "P001"
+      "P001",
+      "L001"
     ],
-    "purpose": "Điểm trước → điểm thay vì mưa → điểm tiếp theo → điểm cuối Đà Lạt; chỉ rà độ phủ, chưa có lịch thật hợp lệ."
+    "purpose": "Điểm trước → điểm thay vì mưa → điểm tiếp theo → P001 → nơi ngủ L001; chỉ rà độ phủ, chưa có lịch thật hợp lệ."
   },
   {
     "check_id": "RAIN-LAST-P005",
@@ -16,8 +17,9 @@
     "place_sequence": [
       "P011",
       "P005",
-      "P001"
+      "P001",
+      "L001"
     ],
-    "purpose": "Thay VISIT cuối buổi: phải đủ chặng tới P005 và về P001."
+    "purpose": "Thay VISIT cuối buổi: phải đủ chặng tới P005 và qua P001 về L001."
   }
 ]

@@ -1,5 +1,5 @@
 {
-  "dataset_version": "bao04-mvp-2026-11-16-v1",
+  "dataset_version": "bao04-mvp-2026-11-17-v1",
   "standard_url": "https://docs.google.com/document/d/1aPJjNORsFIYY0XOlLE6LmhI6lv7sKjg6Up0Gcb-wvSY/edit",
   "standard_date": "2026-11-09",
   "source_routes": "handoff/routes_source.json",
@@ -8,12 +8,20 @@
   "source_mode": "UNVERIFIED routes; individually reviewed estimates retain their own labels",
   "mock_mode": "Fully synthetic travel/hours, never substitute into the source catalog",
   "s01_device_test": {
-    "status": "NOT_RUN",
-    "depends_on": "PR18 đã merge; cần bản ghép hiện tại và kiểm tra Expo Go theo checklist, chưa có bằng chứng thiết bị.",
-    "checklist": "docs/testing/s01-f01-handoff.md"
+    "status": "PARTIAL_EMULATOR",
+    "depends_on": "Sau khi ghép main ac35605 (PR25/26), regression clear-inflight PASS trên Android Emulator/Expo Go58. Cần kiểm đầy đủ bản ghép và điện thoại thật/Đăng nghiệm thu; baseline dbb46af có ca FAIL được giữ làm bằng chứng.",
+    "checklist": "docs/testing/s01-f01-handoff.md",
+    "checked_commit": "dbb46affa6ad371f98ec133b61f8b2ec3d41528f",
+    "evidence": "docs/testing/s01-android/checks.json",
+    "physical_phone_status": "NOT_RUN",
+    "baseline_status": "PARTIAL_EMULATOR_FAIL",
+    "fix_regression_status": "PASS",
+    "latest_checked_main_commit": "ac35605cff7e35d491c2950b89358ce5cf1e92bb",
+    "latest_fix_regression_status": "PASS",
+    "latest_evidence": "docs/testing/s01-android/clear-inflight-merged.json"
   },
-  "previous_dataset_version": "bao04-mvp-2026-11-15-v1",
-  "released_at": "2026-11-16T08:15:27.542403+00:00",
+  "previous_dataset_version": "bao04-mvp-2026-11-16-v1",
+  "released_at": "2026-11-17T08:12:19.817068+00:00",
   "source_adapt_checks": "handoff/source_adapt_checks.json",
   "mock_freeze_note": "MOCK giữ nguyên nội dung từ PR19; kiểm lại T06/T08/T13/T15 × snapshot3D/4D trên module F05 hiện đã merge.",
   "minimum_source_bundle": {
@@ -22,5 +30,12 @@
     "sqlite_owner": "Bảo 06; công cụ này không ghi database",
     "selection": "Hợp các place_sequence của tuyến3/4ngày và source_adapt_checks, cùng toàn bộ chặng giữa các điểm đó."
   },
-  "source_review_note": "16/11: P009 đối chiếu đủ trường hồ sơ VISIT;14 điểm khác còn UNVERIFIED. Hai tuyến nguồn vẫn BLOCKED; không đổi cấu hình tuyến/chặng/MOCK. Hướng dẫn phần cần xác nhận: docs/DATA-SOURCE-VERIFY-BAO04.md."
+  "source_review_note": "17/11: Bảo 04 đã chốt cấu hình; thêm L001 riêng với chặng hai chiều, VISIT Still/An60 phút, hạn đi/về18:00 nội vùng17:00, buffer30 phút. Catalog16 điểm(1VERIFIED/15UNVERIFIED),26 chặng(20/6). Venue/cổng/tiếp cận vẫn thiếu; hai tuyến chưa ready.",
+  "verification_metadata_updated_at": "2026-11-16T14:50:10.931599+00:00",
+  "configuration_decision": {
+    "owner": "Bảo 04",
+    "decided_at": "2026-11-17T08:12:19.817068+00:00",
+    "basis": "Bảo 04 chấp thuận áp dụng toàn bộ cấu hình ngày 17/11/2026. Đây là lựa chọn lập lịch, không phải xác minh venue.",
+    "record": "docs/testing/source-route-proposal.json"
+  }
 }

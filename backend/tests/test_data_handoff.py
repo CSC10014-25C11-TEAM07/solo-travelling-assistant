@@ -101,9 +101,12 @@ class HandoffCommandTests(unittest.TestCase):
         self.assertEqual([r["day_count"] for r in report["source_routes"]], [3, 4])
         self.assertTrue(all(not r["ready_for_real_plan"] for r in report["source_routes"]))
         issues = [g for r in report["source_routes"] for g in r["gaps"]]
-        self.assertTrue(any(g["code"] == "UNKNOWN_VISIT_DURATION" and g["place_id"] == "P010" for g in issues))
+        self.assertTrue(any(g["code"] == "UNKNOWN_OPENING_HOURS" and g["place_id"] == "P005" for g in issues))
         self.assertTrue(any(g["code"] == "UNVERIFIED_LEG" and g["from_place_id"] == "H001" for g in issues))
-        self.assertTrue(any(g["code"] == "LOWER_BOUND_LATE" for g in issues))
+        self.assertTrue(any(g["code"] == "UNKNOWN_START_ACCESS" and g["place_id"] == "L001" for g in issues))
+        # A lower bound within the chosen budget does not resolve unknown access.
+        self.assertTrue(all(day["conditional_finish_including_buffer"] is None
+                            for route in report["source_routes"] for day in route["days"]))
 
     def test_missing_either_rain_leg_fails_the_handoff(self):
         for pair in [("MOCK-REST", "MOCK-INDOOR"), ("MOCK-INDOOR", "MOCK-A04")]:

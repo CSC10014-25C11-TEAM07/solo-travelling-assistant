@@ -1,10 +1,10 @@
-# Xác minh nguồn — Bảo 04, cập nhật 16/11/2026
+# Xác minh nguồn — Bảo 04, cập nhật 17/11/2026
 
 Trợ lý đã tra cứu, đối chiếu và cập nhật dữ liệu ở PR #24. Bảo 04 không phải tự
-thu thập lại từ đầu. Các mục dưới đây là phần còn cần phản hồi thực tế hoặc quyết
-định của nhóm; mẫu hỏi đã soạn sẵn. Chưa gọi điện hoặc gửi tin nhắn cho đơn vị/nhóm.
+thu thập lại từ đầu. Bảo 04 đã chốt toàn bộ lựa chọn cấu hình ngày17/11. Các mục còn thiếu
+là dữ kiện thực tế của đơn vị; mẫu hỏi đã soạn sẵn. Chưa gọi điện hoặc gửi tin nhắn cho đơn vị/nhóm.
 
-Dataset: **bao04-mvp-2026-11-16-v1**. Bằng chứng theo từng điểm nằm trong
+Dataset: **bao04-mvp-2026-11-17-v1**. Bằng chứng theo từng điểm nằm trong
 `backend/data/handoff/source_checks.json`; trạng thái/trường thiếu ở
 `backend/data/data_review.json`. Thời điểm đọc nguồn không phải ngày nguồn xuất bản.
 
@@ -16,7 +16,7 @@ Dataset: **bao04-mvp-2026-11-16-v1**. Bằng chứng theo từng điểm nằm t
 | R003 Tâm Châu | [Trang liên hệ đơn vị](https://www.tamchaucenter.com/lien-he) xác nhận 294A Trần Phú; phần liên hệ ghi thứ 2–CN 07:00–22:00, footer lại 06:30–22:00 | Ghi nhận cả hai; giữ weekly null/UNVERIFIED và bốn chặng liên quan UNVERIFIED. Tọa độ tâm khung nhìn bản đồ nhúng không phải pin cổng |
 | P005 Bảo tàng | [Liên hệ](https://baotanglamdong.com.vn/contact) và header ghi 07:30–17:30; mục thông tin trên [trang vé](https://baotanglamdong.com.vn/tickets) ghi hằng ngày 08:00–17:00 | Bổ sung xung đột ngay trong website đơn vị; không tự chọn một khung hoặc lấy giao hai khung làm giờ được xác nhận. Giữ weekly null/UNVERIFIED |
 | P001 Ga Đà Lạt | [Cổng tỉnh](https://visitlamdong.vn/vi/nhagadalat): 01 Quang Trung, 07:00–17:30, 90 phút | Đọc lại và giữ 90 phút; giờ chung chưa xác nhận lịch từng thứ/tiếp cận 06:00. Ga là mốc tập kết, không phải nơi ngủ |
-| P010 Still Cafe | [Cổng tỉnh](https://visitlamdong.vn/vi/stillcafe): 59 Nguyễn Trãi, 07:00–22:00; không có thời lượng trải nghiệm | Giữ lịch OSM đã lưu và nguồn đối chiếu; không tự điền 45/60 phút hoặc gắn INDOOR |
+| P010 Still Cafe | [Cổng tỉnh](https://visitlamdong.vn/vi/stillcafe): 59 Nguyễn Trãi, 07:00–22:00; không có thời lượng trải nghiệm | Giữ lịch OSM và nguồn đối chiếu; ngày17/11 Bảo04 chọn VISIT60 phút làm ngân sách, không phải quán xác nhận. Môi trường vẫn null/UNVERIFIED |
 | P011 An CaFe | [Website đơn vị](https://www.ancafeglobal.com/) xác nhận 63Bis Ba Tháng Hai; nội dung chữ không nêu lịch tuần/thời lượng | Cập nhật nguồn định danh; giữ nhãn UNVERIFIED và ngày đọc cũ của riêng tag giờ OSM. Không nhầm với An Coffee ở 30 Hoàng Diệu |
 
 Giờ P009 khác portal (07:30–19:00) và OSM cũ (08:30–19:00). Quyết định có căn cứ:
@@ -58,9 +58,11 @@ mái như Still. Không chép một số điện thoại có định dạng bấ
 liên hệ đã xác nhận. Dinh III cần xác nhận lịch nghỉ trưa qua kênh chính thức; chưa
 chọn giờ portal thay cho lịch OSM đang khác nhau.
 
-Nếu quán không có thời lượng cố định, nhóm có thể chốt thời gian dự kiến cho lịch.
-Ghi đó là **tham số lập lịch do nhóm chọn**, không ghi “quán xác nhận thời lượng”.
-Hiện tại chưa có quyết định này, nên `visit_duration_minutes` của P010/P011 vẫn null.
+Nếu quán không có thời lượng cố định, Bảo 04 có thể chốt thời gian dự kiến cho lịch.
+Ghi đó là **tham số lập lịch do Bảo 04 chọn**, không ghi “quán xác nhận thời lượng”.
+Ngày17/11 Bảo04 đã chốt60 phút cho P010/P011; catalog đã điền, provenance
+ở `planning_decision` trong source_checks/data_review. Hai điểm vẫn UNVERIFIED
+vì thiếu môi trường/xác nhận giờ; REST tính thêm riêng.
 
 Ghi kết quả theo mẫu dưới, chỉ điền sau khi nhận phản hồi:
 
@@ -79,41 +81,53 @@ Trợ lý có thể chuyển kết quả này vào JSON, kiểm nhãn, thu đún
 validator/audit. Chỉ giữ thông tin nghiệp vụ cần thiết; không lưu số riêng hoặc
 thông tin cá nhân của người trả lời.
 
-## Hai quyết định cần nhóm chốt
+## Cấu hình Bảo 04 đã chốt và áp dụng 17/11
 
-**Nơi ngủ và điểm đầu/cuối.** Đã tìm được một ứng viên có nguồn ngay trong khu vực
-dữ liệu hiện có: [Crazy House có lưu trú](https://crazyhouse.vn/), 03 Huỳnh Thúc
-Kháng. [Chính sách](https://crazyhouse.vn/chinh-sach) nêu nhận phòng từ 14:00, trả
-phòng không muộn hơn 12:00. Đây chỉ là **ứng viên**, chưa chọn/đặt phòng, chưa xác
-nhận còn phòng hoặc cổng vào sớm/muộn. Nhóm có thể chọn nơi khác.
+[Quyết định và evidence](testing/source-route-proposal.json) có trạng thái **APPLIED**,
+`applied_to_catalog_or_routes:true`. Không còn chờ nhóm hoặc Bảo04 chốt các tham số này.
 
-Sau khi chọn, cần xác nhận địa chỉ/cổng, giờ ra/vào, đỗ xe, tọa độ và chặng tới/từ
-điểm đầu/cuối mỗi ngày. Không lấy giờ tham quan P009 làm giờ khách lưu trú; không
-đổi ga thành homestay hoặc tự dùng chung ID khi hai loại quyền tiếp cận khác nhau.
-H001 cũng cần chốt vị trí tập kết/đỗ xe và quyền tiếp cận lúc 06:00.
+| Mục | Giá trị đã áp dụng |
+|---|---|
+| Nơi ngủ mẫu | L001 Crazy House, 03 Huỳnh Thúc Kháng; tách P009 VISIT, không lập VISIT tại L001 |
+| Thời lượng Still/An | VISIT 60 phút mỗi điểm do Bảo04 chọn; REST cộng riêng, không phải quán xác nhận |
+| Hạn ngày đi/về | 18:00; ngày nội vùng 17:00 |
+| Dự phòng | 30 phút/ngày ngoài REST tối thiểu 60 phút/ngày; audit dành khoản này trước deadline |
+| Chặng lưu trú | P001→L001:452.109 giây→8 phút,3.055 km; L001→P001:433.679 giây→8 phút,3.054 km. Thu17/11 độc lập từng chiều, đều UNVERIFIED |
+| Tuyến3/4ngày và nhánh mưa | Đủ chặng có hướng đến/về L001 qua P001; không còn MISSING_LEG |
 
-**Ngân sách thời gian tuyến.** Cấu hình hiện tại có cận dưới ngày đi:
+[Địa chỉ](https://crazyhouse.vn/contact) và [chính sách](https://crazyhouse.vn/chinh-sach)
+đã đọc lại17/11: nhận phòng từ14:00, trả phòng không muộn hơn12:00. Các thông tin này
+**không xác nhận** pin cổng khách lưu trú, ra/vào06:00, đỗ xe hoặc còn phòng ngày mẫu.
+Không đặt phòng/gửi liên hệ. Cổng/weekly của L001 giữ null, nguồn tọa độ chỉ là tham
+chiếu khu tham quan P009 từ OSM. Không lấy giờ VISIT08:30–18:00 làm giờ khách lưu trú.
+Chặng đề xuất P001→P009 thu16/11 được giữ riêng làm lịch sử, không nhập thành chặng L001.
+Hai chặng L001 dùng query/evidence17/11 đúng ID, không suy chiều ngược hoặc tạo travel0.
+
+Các đêm đều kết thúc/bắt đầu tại L001. Ngày nội vùng bắt đầu08:00, ngày đi/về06:00;
+H001 vẫn là mốc tập kết/điểm cuối TP.HCM của cấu hình, chưa xác nhận chỗ dừng/tiếp cận.
+P001 là mốc đi qua/tham quan, không phải nơi ngủ; cần quyền tiếp cận sớm/cận cuối ngày.
+
+Ngân sách cận dưới đã tính chặng nơi ngủ và dự phòng:
 
 ```text
-06:00 + H001→R003 380 phút + REST 60 phút + R003→P001 237 phút = 17:17
+Ngày đi: 06:00 + 380 + REST60 + 237 + 8 + buffer30 = 17:55 (hạn18:00)
+Ngày về: 06:00 + 8 + 236 + REST60 + 383 + buffer30 = 17:57 (hạn18:00)
 ```
 
-Đã vượt hạn đề xuất 17:00 ít nhất 17 phút, chưa tính chặng tới chỗ ngủ/buffer. Đây
-là phép tính có điều kiện vì tọa độ cổng R003 còn thiếu; không phải giờ đến được
-bảo đảm. Ngày về tương ứng cận dưới 17:19 so với hạn 18:00. Cần chốt lại tuyến/điểm
-nghỉ và ngân sách giờ có buffer; không rút ngắn chặng hoặc nới hạn trong dữ liệu để
-báo PASS. Giữ cấu hình đang có cho tới khi nhóm quyết định.
+Còn5/3 phút ngoài khoản dự phòng30 phút. Phép tính này phụ thuộc tọa độ tham chiếu
+R003/L001 và chưa tính WAIT khi giờ/quyền tiếp cận còn thiếu. Buffer không bảo đảm
+traffic/an toàn hoặc giờ đến. Không rút ngắn chặng hoặc REST để báo PASS.
 
-Tin nhắn đề xuất để Bảo 04 chuyển cho nhóm (chưa gửi):
+Audit vẫn báo **ready=false**,42/55 gaps của tuyến3/4ngày (có lặp theo ngày).
+`conditional_lower_bound_finish_including_buffer` là cận dưới, không phải lịch đầy đủ;
+`conditional_finish_including_buffer` vẫn null do giờ nghỉ/tham quan chưa rõ.
+Audit tính buffer cho deadline nhưng không tạo loại activity mới trong F02/F05;
+không sửa engine, HTTP hoặc SQLite của các bạn khác.
 
-> Mình đã cập nhật nguồn ngày 16/11 ở PR #24. Crazy House đã đối chiếu đủ hồ sơ VISIT;
-> các điểm còn thiếu/xung đột đều có nguồn và câu hỏi sẵn. Nhờ nhóm chốt nơi lưu trú,
-> vị trí tập kết H001 và cách xử lý ngày đi có cận dưới 17:17 vượt hạn đề xuất 17:00
-> trước buffer/chặng tới nơi ngủ. Xin chốt thêm ngân sách thời gian trải nghiệm
-> Still/An nếu quán không quy định. Khi có quyết định, mình bổ sung dữ liệu/chặng và
-> chạy lại audit; hiện hai tuyến nguồn vẫn BLOCKED.
+Việc còn cần phản hồi thực tế: pin/giờ/tiếp cận R003; cổng/ra vào/đỗ xe/còn phòng L001;
+H001/P001 ngoài giờ; lịch mâu thuẫn P005/P008 và môi trường/giờ Still/An. Thời lượng
+Still/An và lựa chọn nơi ngủ/hạn/buffer đã xong, không yêu cầu chốt lại.
 
-Điểm nghỉ/mốc đầu-cuối không có VISIT không được điền giả thời lượng 1 phút để qua
-schema. `Place` hiện yêu cầu thời lượng tham quan khi gắn VERIFIED
-(`backend/place_models.py`); nếu cần biểu diễn một anchor chỉ dùng để REST/tập kết,
-ghi rõ vấn đề để nhóm thống nhất với chủ schema, không tự đổi hợp đồng.
+Điểm nghỉ/mốc không có VISIT giữ duration null, không điền giả1 phút để gắn VERIFIED.
+`Place` hiện đòi duration/weekly đủ cho VERIFIED (`backend/place_models.py`); L001
+hợp lệ dưới nhãn UNVERIFIED với interests rỗng nên không lọt vào gợi ý F01.

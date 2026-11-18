@@ -5,11 +5,11 @@
     "departure_date": "2026-12-14",
     "return_date": "2026-12-16",
     "min_rest_minutes": 60,
-    "deadline_basis": "Đề xuất cấu hình tuyến để Nhật kiểm: ngày nội vùng 17:00, ngày về 18:00; không lấy 16:30 của MOCK làm quy tắc thật.",
+    "deadline_basis": "Bảo 04 chốt 17/11: ngày đi/về18:00, ngày nội vùng17:00; dự phòng30 phút ngoài REST60 phút/ngày. Đây là cấu hình lập lịch, không bảo đảm giờ đến thực tế.",
     "limitations": [
-      "P001 là mốc tập kết Đà Lạt, không phải nơi lưu trú; chưa có chặng đến/về chỗ ngủ.",
-      "Tọa độ R003 còn thiếu xác nhận đúng số nhà 294A; ước tính chặng liên quan chưa được dùng tự động.",
-      "Chưa xác nhận giờ tuần, thời lượng và quyền tiếp cận của các điểm cần dùng; chưa chứng minh lịch khả thi."
+      "L001 là nơi ngủ mẫu đã chọn, chưa đặt phòng/xác nhận còn phòng, pin cổng, đỗ xe hoặc quyền ra/vào khách lưu trú lúc06:00; giờ VISIT P009 không áp dụng cho L001.",
+      "Tọa độ R003 còn thiếu xác nhận đúng số nhà294A; bốn chặng liên quan và hai chặng tham chiếu L001 chưa được dùng tự động.",
+      "Chưa xác nhận giờ tuần, phạm vi có mái và quyền tiếp cận các điểm/mốc cần dùng, kể cả H001/P001; cận dưới có buffer không chứng minh lịch khả thi."
     ],
     "days": [
       {
@@ -17,13 +17,14 @@
         "day_number": 1,
         "date": "2026-12-14",
         "start_place_id": "H001",
-        "end_place_id": "P001",
+        "end_place_id": "L001",
         "start_time": "06:00",
-        "end_deadline": "17:00",
+        "end_deadline": "18:00",
         "place_sequence": [
           "H001",
           "R003",
-          "P001"
+          "P001",
+          "L001"
         ],
         "visit_place_ids": [],
         "rest_stops": [
@@ -37,15 +38,17 @@
         "day_id": "SOURCE3D-DAY-2",
         "day_number": 2,
         "date": "2026-12-15",
-        "start_place_id": "P001",
-        "end_place_id": "P001",
+        "start_place_id": "L001",
+        "end_place_id": "L001",
         "start_time": "08:00",
         "end_deadline": "17:00",
         "place_sequence": [
+          "L001",
           "P001",
           "P010",
           "P005",
-          "P001"
+          "P001",
+          "L001"
         ],
         "visit_place_ids": [
           "P001",
@@ -63,11 +66,12 @@
         "day_id": "SOURCE3D-DAY-3",
         "day_number": 3,
         "date": "2026-12-16",
-        "start_place_id": "P001",
+        "start_place_id": "L001",
         "end_place_id": "H001",
         "start_time": "06:00",
         "end_deadline": "18:00",
         "place_sequence": [
+          "L001",
           "P001",
           "R003",
           "H001"
@@ -80,7 +84,15 @@
           }
         ]
       }
-    ]
+    ],
+    "lodging_place_id": "L001",
+    "buffer_minutes": 30,
+    "configuration_decision": {
+      "owner": "Bảo 04",
+      "decided_at": "2026-11-17T08:12:19.817068+00:00",
+      "basis": "Bảo 04 chấp thuận áp dụng toàn bộ cấu hình ngày 17/11/2026. Đây là lựa chọn lập lịch, không phải xác minh venue.",
+      "record": "docs/testing/source-route-proposal.json"
+    }
   },
   {
     "route_id": "SOURCE-4D",
@@ -88,11 +100,11 @@
     "departure_date": "2026-12-14",
     "return_date": "2026-12-17",
     "min_rest_minutes": 60,
-    "deadline_basis": "Đề xuất cấu hình tuyến để Nhật kiểm: ngày nội vùng 17:00, ngày về 18:00; không lấy 16:30 của MOCK làm quy tắc thật.",
+    "deadline_basis": "Bảo 04 chốt 17/11: ngày đi/về18:00, ngày nội vùng17:00; dự phòng30 phút ngoài REST60 phút/ngày. Đây là cấu hình lập lịch, không bảo đảm giờ đến thực tế.",
     "limitations": [
-      "P001 là mốc tập kết Đà Lạt, không phải nơi lưu trú; chưa có chặng đến/về chỗ ngủ.",
-      "Tọa độ R003 còn thiếu xác nhận đúng số nhà 294A; ước tính chặng liên quan chưa được dùng tự động.",
-      "Chưa xác nhận giờ tuần, thời lượng và quyền tiếp cận của các điểm cần dùng; chưa chứng minh lịch khả thi."
+      "L001 là nơi ngủ mẫu đã chọn, chưa đặt phòng/xác nhận còn phòng, pin cổng, đỗ xe hoặc quyền ra/vào khách lưu trú lúc06:00; giờ VISIT P009 không áp dụng cho L001.",
+      "Tọa độ R003 còn thiếu xác nhận đúng số nhà294A; bốn chặng liên quan và hai chặng tham chiếu L001 chưa được dùng tự động.",
+      "Chưa xác nhận giờ tuần, phạm vi có mái và quyền tiếp cận các điểm/mốc cần dùng, kể cả H001/P001; cận dưới có buffer không chứng minh lịch khả thi."
     ],
     "days": [
       {
@@ -100,13 +112,14 @@
         "day_number": 1,
         "date": "2026-12-14",
         "start_place_id": "H001",
-        "end_place_id": "P001",
+        "end_place_id": "L001",
         "start_time": "06:00",
-        "end_deadline": "17:00",
+        "end_deadline": "18:00",
         "place_sequence": [
           "H001",
           "R003",
-          "P001"
+          "P001",
+          "L001"
         ],
         "visit_place_ids": [],
         "rest_stops": [
@@ -120,15 +133,17 @@
         "day_id": "SOURCE4D-DAY-2",
         "day_number": 2,
         "date": "2026-12-15",
-        "start_place_id": "P001",
-        "end_place_id": "P001",
+        "start_place_id": "L001",
+        "end_place_id": "L001",
         "start_time": "08:00",
         "end_deadline": "17:00",
         "place_sequence": [
+          "L001",
           "P001",
           "P010",
           "P005",
-          "P001"
+          "P001",
+          "L001"
         ],
         "visit_place_ids": [
           "P001",
@@ -146,17 +161,19 @@
         "day_id": "SOURCE4D-DAY-3",
         "day_number": 3,
         "date": "2026-12-16",
-        "start_place_id": "P001",
-        "end_place_id": "P001",
+        "start_place_id": "L001",
+        "end_place_id": "L001",
         "start_time": "08:00",
         "end_deadline": "17:00",
         "place_sequence": [
+          "L001",
           "P001",
           "P005",
           "P008",
           "P009",
           "P011",
-          "P001"
+          "P001",
+          "L001"
         ],
         "visit_place_ids": [
           "P008",
@@ -178,11 +195,12 @@
         "day_id": "SOURCE4D-DAY-4",
         "day_number": 4,
         "date": "2026-12-17",
-        "start_place_id": "P001",
+        "start_place_id": "L001",
         "end_place_id": "H001",
         "start_time": "06:00",
         "end_deadline": "18:00",
         "place_sequence": [
+          "L001",
           "P001",
           "R003",
           "H001"
@@ -195,6 +213,14 @@
           }
         ]
       }
-    ]
+    ],
+    "lodging_place_id": "L001",
+    "buffer_minutes": 30,
+    "configuration_decision": {
+      "owner": "Bảo 04",
+      "decided_at": "2026-11-17T08:12:19.817068+00:00",
+      "basis": "Bảo 04 chấp thuận áp dụng toàn bộ cấu hình ngày 17/11/2026. Đây là lựa chọn lập lịch, không phải xác minh venue.",
+      "record": "docs/testing/source-route-proposal.json"
+    }
   }
 ]

@@ -1,5 +1,5 @@
 {
-  "dataset_version": "bao04-mvp-2026-11-16-v1",
+  "dataset_version": "bao04-mvp-2026-11-17-v1",
   "checks_passed": true,
   "mock_routes": [
     {
@@ -97,15 +97,15 @@
         },
         {
           "code": "UNRESOLVED_ROUTE_LIMITATION",
-          "detail": "P001 là mốc tập kết Đà Lạt, không phải nơi lưu trú; chưa có chặng đến/về chỗ ngủ."
+          "detail": "L001 là nơi ngủ mẫu đã chọn, chưa đặt phòng/xác nhận còn phòng, pin cổng, đỗ xe hoặc quyền ra/vào khách lưu trú lúc06:00; giờ VISIT P009 không áp dụng cho L001."
         },
         {
           "code": "UNRESOLVED_ROUTE_LIMITATION",
-          "detail": "Tọa độ R003 còn thiếu xác nhận đúng số nhà 294A; ước tính chặng liên quan chưa được dùng tự động."
+          "detail": "Tọa độ R003 còn thiếu xác nhận đúng số nhà294A; bốn chặng liên quan và hai chặng tham chiếu L001 chưa được dùng tự động."
         },
         {
           "code": "UNRESOLVED_ROUTE_LIMITATION",
-          "detail": "Chưa xác nhận giờ tuần, thời lượng và quyền tiếp cận của các điểm cần dùng; chưa chứng minh lịch khả thi."
+          "detail": "Chưa xác nhận giờ tuần, phạm vi có mái và quyền tiếp cận các điểm/mốc cần dùng, kể cả H001/P001; cận dưới có buffer không chứng minh lịch khả thi."
         },
         {
           "code": "UNVERIFIED_PLACE",
@@ -133,6 +133,16 @@
           "place_id": "P001"
         },
         {
+          "code": "UNVERIFIED_PLACE",
+          "day_id": "SOURCE3D-DAY-1",
+          "place_id": "L001"
+        },
+        {
+          "code": "UNKNOWN_ENVIRONMENT",
+          "day_id": "SOURCE3D-DAY-1",
+          "place_id": "L001"
+        },
+        {
           "code": "UNVERIFIED_LEG",
           "day_id": "SOURCE3D-DAY-1",
           "from_place_id": "H001",
@@ -145,10 +155,10 @@
           "to_place_id": "P001"
         },
         {
-          "code": "LOWER_BOUND_LATE",
+          "code": "UNVERIFIED_LEG",
           "day_id": "SOURCE3D-DAY-1",
-          "conditional_earliest_finish": "17:17",
-          "end_deadline": "17:00"
+          "from_place_id": "P001",
+          "to_place_id": "L001"
         },
         {
           "code": "UNKNOWN_REST_ACCESS",
@@ -165,8 +175,18 @@
         {
           "code": "UNKNOWN_END_ACCESS",
           "day_id": "SOURCE3D-DAY-1",
-          "place_id": "P001",
+          "place_id": "L001",
           "weekday": "mon"
+        },
+        {
+          "code": "UNVERIFIED_PLACE",
+          "day_id": "SOURCE3D-DAY-2",
+          "place_id": "L001"
+        },
+        {
+          "code": "UNKNOWN_ENVIRONMENT",
+          "day_id": "SOURCE3D-DAY-2",
+          "place_id": "L001"
         },
         {
           "code": "UNVERIFIED_PLACE",
@@ -189,15 +209,22 @@
           "place_id": "P005"
         },
         {
+          "code": "UNVERIFIED_LEG",
+          "day_id": "SOURCE3D-DAY-2",
+          "from_place_id": "L001",
+          "to_place_id": "P001"
+        },
+        {
+          "code": "UNVERIFIED_LEG",
+          "day_id": "SOURCE3D-DAY-2",
+          "from_place_id": "P001",
+          "to_place_id": "L001"
+        },
+        {
           "code": "UNKNOWN_OPENING_HOURS",
           "weekday": "tue",
           "day_id": "SOURCE3D-DAY-2",
           "place_id": "P001"
-        },
-        {
-          "code": "UNKNOWN_VISIT_DURATION",
-          "day_id": "SOURCE3D-DAY-2",
-          "place_id": "P010"
         },
         {
           "code": "UNKNOWN_OPENING_HOURS",
@@ -208,14 +235,24 @@
         {
           "code": "UNKNOWN_START_ACCESS",
           "day_id": "SOURCE3D-DAY-2",
-          "place_id": "P001",
+          "place_id": "L001",
           "weekday": "tue"
         },
         {
           "code": "UNKNOWN_END_ACCESS",
           "day_id": "SOURCE3D-DAY-2",
-          "place_id": "P001",
+          "place_id": "L001",
           "weekday": "tue"
+        },
+        {
+          "code": "UNVERIFIED_PLACE",
+          "day_id": "SOURCE3D-DAY-3",
+          "place_id": "L001"
+        },
+        {
+          "code": "UNKNOWN_ENVIRONMENT",
+          "day_id": "SOURCE3D-DAY-3",
+          "place_id": "L001"
         },
         {
           "code": "UNVERIFIED_PLACE",
@@ -241,6 +278,12 @@
           "code": "UNKNOWN_ENVIRONMENT",
           "day_id": "SOURCE3D-DAY-3",
           "place_id": "H001"
+        },
+        {
+          "code": "UNVERIFIED_LEG",
+          "day_id": "SOURCE3D-DAY-3",
+          "from_place_id": "L001",
+          "to_place_id": "P001"
         },
         {
           "code": "UNVERIFIED_LEG",
@@ -263,7 +306,7 @@
         {
           "code": "UNKNOWN_START_ACCESS",
           "day_id": "SOURCE3D-DAY-3",
-          "place_id": "P001",
+          "place_id": "L001",
           "weekday": "wed"
         },
         {
@@ -288,12 +331,22 @@
               "to_place_id": "P001",
               "duration_minutes": 237,
               "data_status": "UNVERIFIED"
+            },
+            {
+              "from_place_id": "P001",
+              "to_place_id": "L001",
+              "duration_minutes": 8,
+              "data_status": "UNVERIFIED"
             }
           ],
-          "travel_rest_lower_bound_minutes": 677,
+          "travel_rest_lower_bound_minutes": 685,
           "known_visit_minutes": 0,
-          "activity_lower_bound_minutes": 677,
+          "activity_lower_bound_minutes": 685,
+          "buffer_minutes": 30,
+          "required_lower_bound_minutes": 715,
+          "conditional_lower_bound_finish_including_buffer": "17:55",
           "conditional_earliest_finish": null,
+          "conditional_finish_including_buffer": null,
           "earliest_schedule": [
             {
               "type": "TRAVEL",
@@ -303,11 +356,17 @@
               "end_time": "12:20"
             }
           ],
-          "note": "Ước tính có điều kiện; thiếu giờ/thời lượng thì lịch dừng tại đó. WAIT không tính REST. Chưa cộng buffer."
+          "note": "Ước tính có điều kiện; thiếu giờ/thời lượng thì lịch dừng tại đó. Buffer dự phòng riêng trước deadline; WAIT/buffer không tính REST. Cận dưới không phải lịch hợp lệ."
         },
         {
           "day_id": "SOURCE3D-DAY-2",
           "legs": [
+            {
+              "from_place_id": "L001",
+              "to_place_id": "P001",
+              "duration_minutes": 8,
+              "data_status": "UNVERIFIED"
+            },
             {
               "from_place_id": "P001",
               "to_place_id": "P010",
@@ -325,18 +384,42 @@
               "to_place_id": "P001",
               "duration_minutes": 5,
               "data_status": "VERIFIED"
+            },
+            {
+              "from_place_id": "P001",
+              "to_place_id": "L001",
+              "duration_minutes": 8,
+              "data_status": "UNVERIFIED"
             }
           ],
-          "travel_rest_lower_bound_minutes": 73,
-          "known_visit_minutes": 210,
-          "activity_lower_bound_minutes": 283,
+          "travel_rest_lower_bound_minutes": 89,
+          "known_visit_minutes": 270,
+          "activity_lower_bound_minutes": 359,
+          "buffer_minutes": 30,
+          "required_lower_bound_minutes": 389,
+          "conditional_lower_bound_finish_including_buffer": "14:29",
           "conditional_earliest_finish": null,
-          "earliest_schedule": [],
-          "note": "Ước tính có điều kiện; thiếu giờ/thời lượng thì lịch dừng tại đó. WAIT không tính REST. Chưa cộng buffer."
+          "conditional_finish_including_buffer": null,
+          "earliest_schedule": [
+            {
+              "type": "TRAVEL",
+              "from_place_id": "L001",
+              "to_place_id": "P001",
+              "start_time": "08:00",
+              "end_time": "08:08"
+            }
+          ],
+          "note": "Ước tính có điều kiện; thiếu giờ/thời lượng thì lịch dừng tại đó. Buffer dự phòng riêng trước deadline; WAIT/buffer không tính REST. Cận dưới không phải lịch hợp lệ."
         },
         {
           "day_id": "SOURCE3D-DAY-3",
           "legs": [
+            {
+              "from_place_id": "L001",
+              "to_place_id": "P001",
+              "duration_minutes": 8,
+              "data_status": "UNVERIFIED"
+            },
             {
               "from_place_id": "P001",
               "to_place_id": "R003",
@@ -350,26 +433,37 @@
               "data_status": "UNVERIFIED"
             }
           ],
-          "travel_rest_lower_bound_minutes": 679,
+          "travel_rest_lower_bound_minutes": 687,
           "known_visit_minutes": 0,
-          "activity_lower_bound_minutes": 679,
+          "activity_lower_bound_minutes": 687,
+          "buffer_minutes": 30,
+          "required_lower_bound_minutes": 717,
+          "conditional_lower_bound_finish_including_buffer": "17:57",
           "conditional_earliest_finish": null,
+          "conditional_finish_including_buffer": null,
           "earliest_schedule": [
+            {
+              "type": "TRAVEL",
+              "from_place_id": "L001",
+              "to_place_id": "P001",
+              "start_time": "06:00",
+              "end_time": "06:08"
+            },
             {
               "type": "TRAVEL",
               "from_place_id": "P001",
               "to_place_id": "R003",
-              "start_time": "06:00",
-              "end_time": "09:56"
+              "start_time": "06:08",
+              "end_time": "10:04"
             }
           ],
-          "note": "Ước tính có điều kiện; thiếu giờ/thời lượng thì lịch dừng tại đó. WAIT không tính REST. Chưa cộng buffer."
+          "note": "Ước tính có điều kiện; thiếu giờ/thời lượng thì lịch dừng tại đó. Buffer dự phòng riêng trước deadline; WAIT/buffer không tính REST. Cận dưới không phải lịch hợp lệ."
         }
       ],
       "limitations": [
-        "P001 là mốc tập kết Đà Lạt, không phải nơi lưu trú; chưa có chặng đến/về chỗ ngủ.",
-        "Tọa độ R003 còn thiếu xác nhận đúng số nhà 294A; ước tính chặng liên quan chưa được dùng tự động.",
-        "Chưa xác nhận giờ tuần, thời lượng và quyền tiếp cận của các điểm cần dùng; chưa chứng minh lịch khả thi."
+        "L001 là nơi ngủ mẫu đã chọn, chưa đặt phòng/xác nhận còn phòng, pin cổng, đỗ xe hoặc quyền ra/vào khách lưu trú lúc06:00; giờ VISIT P009 không áp dụng cho L001.",
+        "Tọa độ R003 còn thiếu xác nhận đúng số nhà294A; bốn chặng liên quan và hai chặng tham chiếu L001 chưa được dùng tự động.",
+        "Chưa xác nhận giờ tuần, phạm vi có mái và quyền tiếp cận các điểm/mốc cần dùng, kể cả H001/P001; cận dưới có buffer không chứng minh lịch khả thi."
       ]
     },
     {
@@ -382,15 +476,15 @@
         },
         {
           "code": "UNRESOLVED_ROUTE_LIMITATION",
-          "detail": "P001 là mốc tập kết Đà Lạt, không phải nơi lưu trú; chưa có chặng đến/về chỗ ngủ."
+          "detail": "L001 là nơi ngủ mẫu đã chọn, chưa đặt phòng/xác nhận còn phòng, pin cổng, đỗ xe hoặc quyền ra/vào khách lưu trú lúc06:00; giờ VISIT P009 không áp dụng cho L001."
         },
         {
           "code": "UNRESOLVED_ROUTE_LIMITATION",
-          "detail": "Tọa độ R003 còn thiếu xác nhận đúng số nhà 294A; ước tính chặng liên quan chưa được dùng tự động."
+          "detail": "Tọa độ R003 còn thiếu xác nhận đúng số nhà294A; bốn chặng liên quan và hai chặng tham chiếu L001 chưa được dùng tự động."
         },
         {
           "code": "UNRESOLVED_ROUTE_LIMITATION",
-          "detail": "Chưa xác nhận giờ tuần, thời lượng và quyền tiếp cận của các điểm cần dùng; chưa chứng minh lịch khả thi."
+          "detail": "Chưa xác nhận giờ tuần, phạm vi có mái và quyền tiếp cận các điểm/mốc cần dùng, kể cả H001/P001; cận dưới có buffer không chứng minh lịch khả thi."
         },
         {
           "code": "UNVERIFIED_PLACE",
@@ -418,6 +512,16 @@
           "place_id": "P001"
         },
         {
+          "code": "UNVERIFIED_PLACE",
+          "day_id": "SOURCE4D-DAY-1",
+          "place_id": "L001"
+        },
+        {
+          "code": "UNKNOWN_ENVIRONMENT",
+          "day_id": "SOURCE4D-DAY-1",
+          "place_id": "L001"
+        },
+        {
           "code": "UNVERIFIED_LEG",
           "day_id": "SOURCE4D-DAY-1",
           "from_place_id": "H001",
@@ -430,10 +534,10 @@
           "to_place_id": "P001"
         },
         {
-          "code": "LOWER_BOUND_LATE",
+          "code": "UNVERIFIED_LEG",
           "day_id": "SOURCE4D-DAY-1",
-          "conditional_earliest_finish": "17:17",
-          "end_deadline": "17:00"
+          "from_place_id": "P001",
+          "to_place_id": "L001"
         },
         {
           "code": "UNKNOWN_REST_ACCESS",
@@ -450,8 +554,18 @@
         {
           "code": "UNKNOWN_END_ACCESS",
           "day_id": "SOURCE4D-DAY-1",
-          "place_id": "P001",
+          "place_id": "L001",
           "weekday": "mon"
+        },
+        {
+          "code": "UNVERIFIED_PLACE",
+          "day_id": "SOURCE4D-DAY-2",
+          "place_id": "L001"
+        },
+        {
+          "code": "UNKNOWN_ENVIRONMENT",
+          "day_id": "SOURCE4D-DAY-2",
+          "place_id": "L001"
         },
         {
           "code": "UNVERIFIED_PLACE",
@@ -474,15 +588,22 @@
           "place_id": "P005"
         },
         {
+          "code": "UNVERIFIED_LEG",
+          "day_id": "SOURCE4D-DAY-2",
+          "from_place_id": "L001",
+          "to_place_id": "P001"
+        },
+        {
+          "code": "UNVERIFIED_LEG",
+          "day_id": "SOURCE4D-DAY-2",
+          "from_place_id": "P001",
+          "to_place_id": "L001"
+        },
+        {
           "code": "UNKNOWN_OPENING_HOURS",
           "weekday": "tue",
           "day_id": "SOURCE4D-DAY-2",
           "place_id": "P001"
-        },
-        {
-          "code": "UNKNOWN_VISIT_DURATION",
-          "day_id": "SOURCE4D-DAY-2",
-          "place_id": "P010"
         },
         {
           "code": "UNKNOWN_OPENING_HOURS",
@@ -493,14 +614,24 @@
         {
           "code": "UNKNOWN_START_ACCESS",
           "day_id": "SOURCE4D-DAY-2",
-          "place_id": "P001",
+          "place_id": "L001",
           "weekday": "tue"
         },
         {
           "code": "UNKNOWN_END_ACCESS",
           "day_id": "SOURCE4D-DAY-2",
-          "place_id": "P001",
+          "place_id": "L001",
           "weekday": "tue"
+        },
+        {
+          "code": "UNVERIFIED_PLACE",
+          "day_id": "SOURCE4D-DAY-3",
+          "place_id": "L001"
+        },
+        {
+          "code": "UNKNOWN_ENVIRONMENT",
+          "day_id": "SOURCE4D-DAY-3",
+          "place_id": "L001"
         },
         {
           "code": "UNVERIFIED_PLACE",
@@ -526,6 +657,18 @@
           "code": "UNKNOWN_ENVIRONMENT",
           "day_id": "SOURCE4D-DAY-3",
           "place_id": "P011"
+        },
+        {
+          "code": "UNVERIFIED_LEG",
+          "day_id": "SOURCE4D-DAY-3",
+          "from_place_id": "L001",
+          "to_place_id": "P001"
+        },
+        {
+          "code": "UNVERIFIED_LEG",
+          "day_id": "SOURCE4D-DAY-3",
+          "from_place_id": "P001",
+          "to_place_id": "L001"
         },
         {
           "code": "UNKNOWN_REST_ACCESS",
@@ -540,21 +683,26 @@
           "place_id": "P008"
         },
         {
-          "code": "UNKNOWN_VISIT_DURATION",
-          "day_id": "SOURCE4D-DAY-3",
-          "place_id": "P011"
-        },
-        {
           "code": "UNKNOWN_START_ACCESS",
           "day_id": "SOURCE4D-DAY-3",
-          "place_id": "P001",
+          "place_id": "L001",
           "weekday": "wed"
         },
         {
           "code": "UNKNOWN_END_ACCESS",
           "day_id": "SOURCE4D-DAY-3",
-          "place_id": "P001",
+          "place_id": "L001",
           "weekday": "wed"
+        },
+        {
+          "code": "UNVERIFIED_PLACE",
+          "day_id": "SOURCE4D-DAY-4",
+          "place_id": "L001"
+        },
+        {
+          "code": "UNKNOWN_ENVIRONMENT",
+          "day_id": "SOURCE4D-DAY-4",
+          "place_id": "L001"
         },
         {
           "code": "UNVERIFIED_PLACE",
@@ -580,6 +728,12 @@
           "code": "UNKNOWN_ENVIRONMENT",
           "day_id": "SOURCE4D-DAY-4",
           "place_id": "H001"
+        },
+        {
+          "code": "UNVERIFIED_LEG",
+          "day_id": "SOURCE4D-DAY-4",
+          "from_place_id": "L001",
+          "to_place_id": "P001"
         },
         {
           "code": "UNVERIFIED_LEG",
@@ -602,7 +756,7 @@
         {
           "code": "UNKNOWN_START_ACCESS",
           "day_id": "SOURCE4D-DAY-4",
-          "place_id": "P001",
+          "place_id": "L001",
           "weekday": "thu"
         },
         {
@@ -627,12 +781,22 @@
               "to_place_id": "P001",
               "duration_minutes": 237,
               "data_status": "UNVERIFIED"
+            },
+            {
+              "from_place_id": "P001",
+              "to_place_id": "L001",
+              "duration_minutes": 8,
+              "data_status": "UNVERIFIED"
             }
           ],
-          "travel_rest_lower_bound_minutes": 677,
+          "travel_rest_lower_bound_minutes": 685,
           "known_visit_minutes": 0,
-          "activity_lower_bound_minutes": 677,
+          "activity_lower_bound_minutes": 685,
+          "buffer_minutes": 30,
+          "required_lower_bound_minutes": 715,
+          "conditional_lower_bound_finish_including_buffer": "17:55",
           "conditional_earliest_finish": null,
+          "conditional_finish_including_buffer": null,
           "earliest_schedule": [
             {
               "type": "TRAVEL",
@@ -642,11 +806,17 @@
               "end_time": "12:20"
             }
           ],
-          "note": "Ước tính có điều kiện; thiếu giờ/thời lượng thì lịch dừng tại đó. WAIT không tính REST. Chưa cộng buffer."
+          "note": "Ước tính có điều kiện; thiếu giờ/thời lượng thì lịch dừng tại đó. Buffer dự phòng riêng trước deadline; WAIT/buffer không tính REST. Cận dưới không phải lịch hợp lệ."
         },
         {
           "day_id": "SOURCE4D-DAY-2",
           "legs": [
+            {
+              "from_place_id": "L001",
+              "to_place_id": "P001",
+              "duration_minutes": 8,
+              "data_status": "UNVERIFIED"
+            },
             {
               "from_place_id": "P001",
               "to_place_id": "P010",
@@ -664,18 +834,42 @@
               "to_place_id": "P001",
               "duration_minutes": 5,
               "data_status": "VERIFIED"
+            },
+            {
+              "from_place_id": "P001",
+              "to_place_id": "L001",
+              "duration_minutes": 8,
+              "data_status": "UNVERIFIED"
             }
           ],
-          "travel_rest_lower_bound_minutes": 73,
-          "known_visit_minutes": 210,
-          "activity_lower_bound_minutes": 283,
+          "travel_rest_lower_bound_minutes": 89,
+          "known_visit_minutes": 270,
+          "activity_lower_bound_minutes": 359,
+          "buffer_minutes": 30,
+          "required_lower_bound_minutes": 389,
+          "conditional_lower_bound_finish_including_buffer": "14:29",
           "conditional_earliest_finish": null,
-          "earliest_schedule": [],
-          "note": "Ước tính có điều kiện; thiếu giờ/thời lượng thì lịch dừng tại đó. WAIT không tính REST. Chưa cộng buffer."
+          "conditional_finish_including_buffer": null,
+          "earliest_schedule": [
+            {
+              "type": "TRAVEL",
+              "from_place_id": "L001",
+              "to_place_id": "P001",
+              "start_time": "08:00",
+              "end_time": "08:08"
+            }
+          ],
+          "note": "Ước tính có điều kiện; thiếu giờ/thời lượng thì lịch dừng tại đó. Buffer dự phòng riêng trước deadline; WAIT/buffer không tính REST. Cận dưới không phải lịch hợp lệ."
         },
         {
           "day_id": "SOURCE4D-DAY-3",
           "legs": [
+            {
+              "from_place_id": "L001",
+              "to_place_id": "P001",
+              "duration_minutes": 8,
+              "data_status": "UNVERIFIED"
+            },
             {
               "from_place_id": "P001",
               "to_place_id": "P005",
@@ -705,26 +899,49 @@
               "to_place_id": "P001",
               "duration_minutes": 7,
               "data_status": "VERIFIED"
+            },
+            {
+              "from_place_id": "P001",
+              "to_place_id": "L001",
+              "duration_minutes": 8,
+              "data_status": "UNVERIFIED"
             }
           ],
-          "travel_rest_lower_bound_minutes": 94,
-          "known_visit_minutes": 120,
-          "activity_lower_bound_minutes": 214,
+          "travel_rest_lower_bound_minutes": 110,
+          "known_visit_minutes": 180,
+          "activity_lower_bound_minutes": 290,
+          "buffer_minutes": 30,
+          "required_lower_bound_minutes": 320,
+          "conditional_lower_bound_finish_including_buffer": "13:20",
           "conditional_earliest_finish": null,
+          "conditional_finish_including_buffer": null,
           "earliest_schedule": [
+            {
+              "type": "TRAVEL",
+              "from_place_id": "L001",
+              "to_place_id": "P001",
+              "start_time": "08:00",
+              "end_time": "08:08"
+            },
             {
               "type": "TRAVEL",
               "from_place_id": "P001",
               "to_place_id": "P005",
-              "start_time": "08:00",
-              "end_time": "08:05"
+              "start_time": "08:08",
+              "end_time": "08:13"
             }
           ],
-          "note": "Ước tính có điều kiện; thiếu giờ/thời lượng thì lịch dừng tại đó. WAIT không tính REST. Chưa cộng buffer."
+          "note": "Ước tính có điều kiện; thiếu giờ/thời lượng thì lịch dừng tại đó. Buffer dự phòng riêng trước deadline; WAIT/buffer không tính REST. Cận dưới không phải lịch hợp lệ."
         },
         {
           "day_id": "SOURCE4D-DAY-4",
           "legs": [
+            {
+              "from_place_id": "L001",
+              "to_place_id": "P001",
+              "duration_minutes": 8,
+              "data_status": "UNVERIFIED"
+            },
             {
               "from_place_id": "P001",
               "to_place_id": "R003",
@@ -738,26 +955,37 @@
               "data_status": "UNVERIFIED"
             }
           ],
-          "travel_rest_lower_bound_minutes": 679,
+          "travel_rest_lower_bound_minutes": 687,
           "known_visit_minutes": 0,
-          "activity_lower_bound_minutes": 679,
+          "activity_lower_bound_minutes": 687,
+          "buffer_minutes": 30,
+          "required_lower_bound_minutes": 717,
+          "conditional_lower_bound_finish_including_buffer": "17:57",
           "conditional_earliest_finish": null,
+          "conditional_finish_including_buffer": null,
           "earliest_schedule": [
+            {
+              "type": "TRAVEL",
+              "from_place_id": "L001",
+              "to_place_id": "P001",
+              "start_time": "06:00",
+              "end_time": "06:08"
+            },
             {
               "type": "TRAVEL",
               "from_place_id": "P001",
               "to_place_id": "R003",
-              "start_time": "06:00",
-              "end_time": "09:56"
+              "start_time": "06:08",
+              "end_time": "10:04"
             }
           ],
-          "note": "Ước tính có điều kiện; thiếu giờ/thời lượng thì lịch dừng tại đó. WAIT không tính REST. Chưa cộng buffer."
+          "note": "Ước tính có điều kiện; thiếu giờ/thời lượng thì lịch dừng tại đó. Buffer dự phòng riêng trước deadline; WAIT/buffer không tính REST. Cận dưới không phải lịch hợp lệ."
         }
       ],
       "limitations": [
-        "P001 là mốc tập kết Đà Lạt, không phải nơi lưu trú; chưa có chặng đến/về chỗ ngủ.",
-        "Tọa độ R003 còn thiếu xác nhận đúng số nhà 294A; ước tính chặng liên quan chưa được dùng tự động.",
-        "Chưa xác nhận giờ tuần, thời lượng và quyền tiếp cận của các điểm cần dùng; chưa chứng minh lịch khả thi."
+        "L001 là nơi ngủ mẫu đã chọn, chưa đặt phòng/xác nhận còn phòng, pin cổng, đỗ xe hoặc quyền ra/vào khách lưu trú lúc06:00; giờ VISIT P009 không áp dụng cho L001.",
+        "Tọa độ R003 còn thiếu xác nhận đúng số nhà294A; bốn chặng liên quan và hai chặng tham chiếu L001 chưa được dùng tự động.",
+        "Chưa xác nhận giờ tuần, phạm vi có mái và quyền tiếp cận các điểm/mốc cần dùng, kể cả H001/P001; cận dưới có buffer không chứng minh lịch khả thi."
       ]
     }
   ],
@@ -768,7 +996,8 @@
         "P010",
         "P005",
         "P008",
-        "P001"
+        "P001",
+        "L001"
       ],
       "replacement_place_id": "P005",
       "legs": [
@@ -789,9 +1018,20 @@
           "to_place_id": "P001",
           "duration_minutes": 12,
           "data_status": "VERIFIED"
+        },
+        {
+          "from_place_id": "P001",
+          "to_place_id": "L001",
+          "duration_minutes": 8,
+          "data_status": "UNVERIFIED"
         }
       ],
       "gaps": [
+        {
+          "code": "UNVERIFIED_LEG",
+          "from_place_id": "P001",
+          "to_place_id": "L001"
+        },
         {
           "code": "UNVERIFIED_PLACE",
           "place_id": "P010"
@@ -815,6 +1055,14 @@
         {
           "code": "UNVERIFIED_PLACE",
           "place_id": "P001"
+        },
+        {
+          "code": "UNVERIFIED_PLACE",
+          "place_id": "L001"
+        },
+        {
+          "code": "UNKNOWN_ENVIRONMENT",
+          "place_id": "L001"
         }
       ],
       "missing_pairs": [],
@@ -827,7 +1075,8 @@
       "place_sequence": [
         "P011",
         "P005",
-        "P001"
+        "P001",
+        "L001"
       ],
       "replacement_place_id": "P005",
       "legs": [
@@ -842,9 +1091,20 @@
           "to_place_id": "P001",
           "duration_minutes": 5,
           "data_status": "VERIFIED"
+        },
+        {
+          "from_place_id": "P001",
+          "to_place_id": "L001",
+          "duration_minutes": 8,
+          "data_status": "UNVERIFIED"
         }
       ],
       "gaps": [
+        {
+          "code": "UNVERIFIED_LEG",
+          "from_place_id": "P001",
+          "to_place_id": "L001"
+        },
         {
           "code": "UNVERIFIED_PLACE",
           "place_id": "P011"
@@ -864,6 +1124,14 @@
         {
           "code": "UNVERIFIED_PLACE",
           "place_id": "P001"
+        },
+        {
+          "code": "UNVERIFIED_PLACE",
+          "place_id": "L001"
+        },
+        {
+          "code": "UNKNOWN_ENVIRONMENT",
+          "place_id": "L001"
         }
       ],
       "missing_pairs": [],

@@ -1,4 +1,32 @@
-# Kết quả bàn giao dữ liệu — 16/11/2026
+# Kết quả dữ liệu và cấu hình — 17/11/2026
+
+Dataset **bao04-mvp-2026-11-17-v1**, tiếp tục main `ac35605` và bản sửa S01
+ở `d8d2f23`. Bảo04 đã chốt áp dụng cấu hình; không còn chờ quyết định từ nhóm.
+
+| Kiểm tra mới | Kết quả và giới hạn |
+|---|---|
+| Backend unittest | **127 tests PASS**, gồm4 test buffer/REST mới; hai ca trễ do buffer và input buffer sai đã FAIL trước sửa rồi PASS |
+| Ba validator | Nguồn16 điểm/26 chặng hợp lệ; mỗi MOCK vẫn11 điểm/20 chặng |
+| Nhãn nguồn | P009 VERIFIED,15 UNVERIFIED;20 ước tính VERIFIED,6 UNVERIFIED (4 R003,2 L001) |
+| Cấu hình đã áp dụng | L001 lưu trú Crazy House riêng; Still/An VISIT60 phút do Bảo04 chọn; đi/về18:00, nội vùng17:00; buffer30 ngoài REST60 phút/ngày |
+| Chặng và ngân sách | Cả hai tuyến và hai nhánh mưa không thiếu chặng; hai chiều L001↔P001 đều8 phút, truy vấn độc lập/UNVERIFIED |
+| Offline audit | MOCK/cấu trúc PASS; tuyến3/4ngày **ready=false**,42/55 gaps lặp theo ngày. Cận dưới gồm REST/chặng nơi ngủ/buffer17:55/17:57; lịch đầy đủ vẫn null vì thiếu giờ/tiếp cận |
+| F05 domain | **8 lượt PASS**, T06/T08/T13/T15 ×3D/4D, số phương án2/0/1/0, ca có phương án kết thúc16:15; fixture/engine không đổi |
+| Source export |9 điểm/26 chặng, REVIEW_ONLY, giữ provenance và nhãn; không ghi SQLite |
+| Mobile/native | Không đổi thêm mã mobile so với d8d2f23; bằng chứng S01 trước đó giữ nguyên. Đợt dữ liệu này không chạy lại native/điện thoại thật |
+
+[Checks/hash đầu vào](source-route-configuration-checks.json),
+[audit mới](dataset-handoff-report.json), [replay mới](dataset-handoff-f05-replay.json)
+và [quyết định đã áp dụng](source-route-proposal.json) là bằng chứng cho đợt17/11.
+Hai báo cáo audit/replay cùng tên được tạo lại theo dataset mới; các kết quả ngày16/11
+bên dưới chỉ là baseline lịch sử. Test buffer không biến WAIT hoặc dự phòng thành REST.
+
+L001 không kế thừa lịch tham quan P009. Cổng khách lưu trú/ra vào06:00/đỗ xe/còn phòng,
+pin/tiếp cận R003, H001/P001 ngoài giờ, giờ/môi trường venue vẫn cần bằng chứng thực tế.
+Không nâng VERIFIED từ việc người dùng chọn cấu hình, không đặt phòng/gửi liên hệ.
+Không đóng #8 hoặc coi app đã nghiệm thu từ các kiểm tra offline này.
+
+## Kết quả trước đó — 16/11/2026
 
 Dataset **bao04-mvp-2026-11-16-v1**, base main `0b446b1` (gồm F05 #20, SQLite/API
 #16, dataset #19 và giao diện #18). Các báo cáo JSON cùng thư mục là bằng chứng offline
@@ -14,7 +42,7 @@ và TestClient; không xác nhận đã nghiệm thu app.
 | Bản lưu F05 | JSON round trip + validate_stored_option PASS; snapshot đề xuất kiểm độc lập chặng/giờ/REST; giữ DONE/ngày khác |
 | Source bundle CLI | Xuất 8 điểm/24 chặng, cấu hình, tọa độ/evidence và blockers; giữ nguyên nhãn, không ghi DB |
 | F01 public routes trên main.app | TestClient + đăng ký/login/session SQLite thật: coffee/nature/multi/food đúng; anchors bị loại; input thiếu/sai422; token sau logout401 |
-| S01/Expo Go | **NOT_RUN** trên thiết bị; PR18 đã merge, dùng checklist s01-f01-handoff.md |
+| S01/Expo Go | Đợt nguồn ban đầu NOT_RUN; kiểm tiếp trên main dbb46af: Android Emulator **PARTIAL_FAIL**, điện thoại thật **NOT_RUN**. Xem [kết quả S01](s01-f01-handoff.md) |
 | AI thật, API F05/F06, SQLite ACCEPT/REJECT/restart | **Chưa xác nhận bởi đợt kiểm này** |
 
 ## Đối chiếu nguồn ngày 16/11
