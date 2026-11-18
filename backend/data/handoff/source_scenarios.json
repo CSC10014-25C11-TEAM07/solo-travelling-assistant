@@ -1,0 +1,40 @@
+[
+  {
+    "case_id": "SOURCE3D-REST-30",
+    "route_id": "SOURCE-3D",
+    "day_id": "SOURCE3D-DAY-2",
+    "type": "EXTEND_REST",
+    "rest_place_id": "P010",
+    "extra_rest_minutes": 30,
+    "purpose": "Rà ngân sách khi REST Still tăng60→90 phút; không giả rest_until/activity_id."
+  },
+  {
+    "case_id": "SOURCE3D-RAIN-P006",
+    "route_id": "SOURCE-3D",
+    "day_id": "SOURCE3D-DAY-2",
+    "type": "REPLACE_LOCATION",
+    "reason": "RAIN",
+    "visit_place_id": "P001",
+    "replacement_place_id": "P006",
+    "purpose": "Rà cả chặng L001→P006 và P006→P010; REST P010 giữ nguyên."
+  },
+  {
+    "case_id": "SOURCE4D-REST-30",
+    "route_id": "SOURCE-4D",
+    "day_id": "SOURCE4D-DAY-3",
+    "type": "EXTEND_REST",
+    "rest_place_id": "P005",
+    "extra_rest_minutes": 30,
+    "purpose": "Rà ngân sách khi REST P005 tăng30→60 phút; REST P01130 phút vẫn giữ."
+  },
+  {
+    "case_id": "SOURCE4D-RAIN-P006",
+    "route_id": "SOURCE-4D",
+    "day_id": "SOURCE4D-DAY-3",
+    "type": "REPLACE_LOCATION",
+    "reason": "RAIN",
+    "visit_place_id": "P008",
+    "replacement_place_id": "P006",
+    "purpose": "Rà P005→P006→P009 và mọi chặng còn lại tới L001; không tạo CURRENT giả."
+  }
+]

@@ -1,4 +1,27 @@
-# Kết quả dữ liệu và cấu hình — 17/11/2026
+# Kết quả TASK17 Bảo04 — dataset17-v2
+
+Dataset **bao04-mvp-2026-11-17-v2**, base PR30 `1404791`. [Bàn giao đầy đủ](../TASK17-BAO04-HANDOFF.md).
+Các báo cáo audit/replay cùng tên được tạo lại cho v2; kết quả v1/16-11 bên dưới là lịch sử.
+
+| Kiểm mới | Kết quả/giới hạn |
+|---|---|
+| Backend | **136 tests PASS**; thêm9 test bảo vệ source REST/RAIN, stops F02 và export |
+| Catalog |16 điểm,42 chặng;1/15 điểm VERIFIED/UNVERIFIED,28/14 ước tính VERIFIED/UNVERIFIED |
+| Thay đổi nguồn | P005 toàn khu MIXED; P006 khu ghế ngồi trong nhà, tọa độ/chặng và ngân sách mẫu60 phút. Weekly chưa rõ nên giữ UNVERIFIED |
+| Tuyến3/4ngày | Có stops REST/VISIT, chặng trực tiếp giữa stop; không MISSING_LEG. Vẫn ready=false38/50 gaps |
+| Ngân sách đi/về | Cận dưới gồm REST/buffer17:42/17:45; lịch đầy đủ null do dữ kiện thiếu |
+| Hai ca ADAPT nguồn |4ca nghỉ thêm/RAIN×3D/4D được rà ngày trước/sau, đều chưa source_data_complete/real-adapt-ready |
+| Độ phủ đồ thị |30 biến thể ngày F02,212 đường khi bỏ VISIT tùy chọn,0 cặp thiếu; không chứng minh giờ/nhãn/tính khả thi |
+| MOCK/F05 | Hai catalog11điểm/20chặng giữ nguyên;8 replay PASS với2/0/1/0 phương án, ca có phương án kết thúc16:15 |
+| Export |10 điểm/42 chặng, có source_scenarios và audit; REVIEW_ONLY, không ghi DB |
+| Shared provider | Nguồn UNVERIFIED bị từ chối DATA_INCOMPLETE. Probe kiểm soát phát hiện F02 chưa dùng buffer/chưa kiểm cửa REST; đã bàn giao file/hàm cho Nhật |
+
+[Checks và hash](task17-bao04-checks.json), [provider observations](task17-provider-observations.json),
+[audit](dataset-handoff-report.json), [replay](dataset-handoff-f05-replay.json).
+Không có Gemini/điện thoại/API ACCEPT/REJECT chạy mới trong đợt dữ liệu này. Thông tin
+iPhone MOCK do TASK17 báo cáo, giữ đúng phạm vi; không biến thành bằng chứng tự chạy.
+
+## Trước TASK17 — dataset17-v1
 
 Dataset **bao04-mvp-2026-11-17-v1**, tiếp tục main `ac35605` và bản sửa S01
 ở `d8d2f23`. Bảo04 đã chốt áp dụng cấu hình; không còn chờ quyết định từ nhóm.

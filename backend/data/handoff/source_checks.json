@@ -10,10 +10,9 @@
         "visit_duration_minutes": 90
       },
       "unresolved": [
-        "lịch theo từng thứ/ngày lễ",
-        "quyền tiếp cận mốc06:00/cận18:00; hai chặng nối L001 có ước tính nhưng cổng khách lưu trú chưa xác minh"
+        "lịch theo từng thứ/ngày lễ cho VISIT; tuyến mới không dùng ga làm waypoint ngày đi/về"
       ],
-      "last_checked_at": "2026-11-16T08:11:07.297433+00:00",
+      "last_checked_at": "2026-11-17T08:35:10.896392+00:00",
       "evidence": [
         {
           "source_url": "https://visitlamdong.vn/vi/nhagadalat",
@@ -26,6 +25,17 @@
             "general_hours",
             "visit_duration_minutes"
           ]
+        },
+        {
+          "source_url": "https://visitlamdong.vn/vi/nhagadalat",
+          "checked_at": "2026-11-17T08:35:10.896392+00:00",
+          "transport": "HTTPS GET, system certificate validation",
+          "response_sha256": "9ba78a4765272ad1da797a3c94951122117a32ff4708a8208e4de0aa366b5374",
+          "reviewed_fields": [
+            "identity",
+            "90min visit estimate",
+            "general hours07:00–17:30"
+          ]
         }
       ]
     },
@@ -35,13 +45,14 @@
       "found": {
         "general_hours": "07:30–17:30",
         "address": "04 Hùng Vương",
-        "visit_duration_minutes": 120
+        "visit_duration_minutes": 120,
+        "environment": "MIXED"
       },
       "unresolved": [
-        "lịch tuần/nghỉ trưa chưa thống nhất; trang tickets cũng mâu thuẫn với header/contact",
-        "120 phút của toàn điểm không xác nhận riêng khu có mái cho RAIN"
+        "lịch tuần/nghỉ trưa chưa thống nhất, kể cả header và body trên trang vé",
+        "điều kiện REST tại khu được phép nghỉ; toàn khu đã xác định MIXED, RAIN dùng P006"
       ],
-      "last_checked_at": "2026-11-16T08:15:27.542403+00:00",
+      "last_checked_at": "2026-11-17T08:35:07.968151+00:00",
       "duration_source_url": "https://visitlamdong.vn/vi/baotangld",
       "conflicting_hours": [
         {
@@ -82,8 +93,27 @@
             "04 Hùng Vương address",
             "public_phone"
           ]
+        },
+        {
+          "source_url": "https://baotanglamdong.com.vn/about/lam-dong-museum",
+          "checked_at": "2026-11-17T08:35:07.559752+00:00",
+          "transport": "HTTPS GET, system certificate validation",
+          "response_sha256": "a3bf2858ebff00affc0a67899255073f261282761eaad67a6575825275ed0902",
+          "reviewed_fields": [
+            "whole-complex visit scope and mixed environment"
+          ]
+        },
+        {
+          "source_url": "https://baotanglamdong.com.vn/tickets",
+          "checked_at": "2026-11-17T08:35:07.968151+00:00",
+          "transport": "HTTPS GET, system certificate validation",
+          "response_sha256": "b3bd85d3d3e4904f47258a92c108d5b3a7fe3ae8f9499f4909fd7d6608867a5a",
+          "reviewed_fields": [
+            "daily08:00–17:00 still conflicts with header07:30–17:30"
+          ]
         }
-      ]
+      ],
+      "verification_scope": "Toàn khu của hồ sơ120 phút gồm ngoài trời và phòng trưng bày; không phải visit chỉ trong nhà. Không dùng P005 làm replacement RAIN."
     },
     {
       "place_id": "P008",
@@ -94,6 +124,19 @@
       },
       "unresolved": [
         "OSM tách nghỉ trưa 11:00–13:00 và đóng 17:00"
+      ],
+      "last_checked_at": "2026-11-17T08:35:10.656694+00:00",
+      "evidence": [
+        {
+          "source_url": "https://visitlamdong.vn/vi/dinhiii",
+          "checked_at": "2026-11-17T08:35:10.656694+00:00",
+          "transport": "HTTPS GET, system certificate validation",
+          "response_sha256": "c0ed8ac8328016e0b58346deae4064463d6a1bc64984e149e3f1569653ba70ef",
+          "reviewed_fields": [
+            "60min visit estimate",
+            "general hours vs cached OSM lunch split"
+          ]
+        }
       ]
     },
     {
@@ -146,7 +189,7 @@
         }
       ],
       "verification_scope": "Đối chiếu tên/địa chỉ, loại trải nghiệm, MIXED, thời lượng ước tính và giờ tuần; không phải kiểm tra onsite, còn phòng hay bảo đảm giờ mở trong tương lai.",
-      "lodging_note": "Cơ sở có dịch vụ lưu trú và chính sách check-in từ14:00/check-out không muộn hơn12:00. Chỉ là ứng viên để nhóm chọn; chưa đặt phòng, chưa xác nhận cổng/đỗ xe, giờ vào ra sớm/muộn hoặc chặng nối nơi ngủ.",
+      "lodging_note": "L001 Crazy House đã được Bảo04 chọn làm nơi ngủ mẫu17/11 và tách khỏi VISIT P009. Chưa đặt phòng/còn phòng, pin cổng/đỗ xe hoặc giờ khách lưu trú; không kế thừa giờ VISIT.",
       "lodging_policy_source_url": "https://crazyhouse.vn/chinh-sach"
     },
     {
@@ -160,7 +203,7 @@
         "khu có mái",
         "ngoại lệ/ngày lễ"
       ],
-      "last_checked_at": "2026-11-16T08:11:04.035672+00:00",
+      "last_checked_at": "2026-11-17T08:35:08.436745+00:00",
       "evidence": [
         {
           "source_url": "https://visitlamdong.vn/vi/stillcafe",
@@ -171,6 +214,17 @@
             "identity",
             "address",
             "general_hours"
+          ]
+        },
+        {
+          "source_url": "https://visitlamdong.vn/vi/stillcafe",
+          "checked_at": "2026-11-17T08:35:08.436745+00:00",
+          "transport": "HTTPS GET, system certificate validation",
+          "response_sha256": "1fc43e15e2cdaaf149e6046ae46f4fc86060fb7f3f7a56ea3fe745d8255f632d",
+          "reviewed_fields": [
+            "59 Nguyễn Trãi identity",
+            "general hours",
+            "no explicit environment evidence"
           ]
         }
       ],
@@ -195,7 +249,7 @@
         "website đơn vị không ghi giờ tuần bằng chữ",
         "môi trường/khu có mái và ngoại lệ"
       ],
-      "last_checked_at": "2026-11-16T08:15:27.542403+00:00",
+      "last_checked_at": "2026-11-17T08:35:06.435835+00:00",
       "evidence": [
         {
           "source_url": "https://www.ancafeglobal.com/",
@@ -204,6 +258,16 @@
           "reviewed_fields": [
             "operator name",
             "63Bis Ba Tháng Hai address"
+          ]
+        },
+        {
+          "source_url": "https://www.ancafeglobal.com/",
+          "checked_at": "2026-11-17T08:35:06.435835+00:00",
+          "transport": "HTTPS GET, system certificate validation",
+          "response_sha256": "f7a27ba61b8db58efb09a9eda479faf93a6d3901c0a2e04f8c8a65efc24267da",
+          "reviewed_fields": [
+            "63Bis Ba Tháng Hai operator identity",
+            "no weekly schedule in text"
           ]
         }
       ],
@@ -262,15 +326,49 @@
     {
       "place_id": "P006",
       "source_url": "https://laviet.coffee/tu-chung-toi/",
-      "last_checked_at": "2026-11-15T09:36:27Z",
+      "last_checked_at": "2026-11-17T08:35:06.930889+00:00",
       "found": {
         "address": "200 Nguyễn Công Trứ",
-        "general_hours": "07:00–22:00"
+        "general_hours": "07:00–22:00",
+        "environment": "INDOOR",
+        "visitor_scope": "Khu ghế ngồi có trần nhà theo cổng tỉnh",
+        "reference_coordinate": {
+          "latitude": 11.956855,
+          "longitude": 108.435155
+        }
       },
       "unresolved": [
-        "thời lượng trải nghiệm",
-        "lịch theo từng thứ/ngày lễ"
-      ]
+        "không có bảng giờ tuần/nghỉ trưa/ngày lễ; không tự trải giờ chung ra7 ngày"
+      ],
+      "evidence": [
+        {
+          "source_url": "https://visitlamdong.vn/vi/lavietcoffeedl",
+          "checked_at": "2026-11-17T08:35:08.507958+00:00",
+          "transport": "HTTPS GET, system certificate validation",
+          "response_sha256": "6eca20abfd1da0e9efdf17fefc0c1451dbfb769cdbfbe8de86c24957a332eb78",
+          "reviewed_fields": [
+            "200 Nguyễn Công Trứ identity",
+            "covered seated visitor area",
+            "marker and directions destination",
+            "general hours"
+          ]
+        },
+        {
+          "source_url": "https://laviet.coffee/tu-chung-toi/",
+          "checked_at": "2026-11-17T08:35:06.930889+00:00",
+          "transport": "HTTPS GET, system certificate validation",
+          "response_sha256": "c9134065b0d1f3480e3a7556f922b78df9f31425df935c425d161967e010b1e1",
+          "reviewed_fields": [
+            "matching200 Nguyễn Công Trứ branch",
+            "general hours07:00–22:00"
+          ]
+        }
+      ],
+      "planning_budget": {
+        "duration_minutes": 60,
+        "basis": "Ngân sách mẫu để kiểm dữ liệu RAIN trong TASK17, dùng cùng mức cafe60 phút; không phải thời lượng đơn vị xác nhận hoặc quyết định mới được người dùng phê duyệt riêng.",
+        "recorded_at": "2026-11-17T08:51:30.611433+00:00"
+      }
     },
     {
       "place_id": "L001",
@@ -319,29 +417,86 @@
   "network_limitations": [
     "Hai truy vấn Overpass timeout; OSM API kết nối bị reset. Không tự điền thông tin không nhận được.",
     "15/11: tamchau.com/showroom và gioi-thieu vẫn HTTP403; crazyhouse.vn timeout. Không nâng nhãn từ kết quả tìm kiếm hoặc khi nguồn không đọc được.",
-    "16/11: một số trang portal timeout qua web reader nhưng đọc được HTTPS bằng curl với chứng chỉ hệ thống; không tắt kiểm tra TLS. An CaFe đọc qua web reader; dalat.vn có lỗi chứng chỉ qua curl. Chỉ cập nhật last_checked_at cho nội dung thật sự đọc được."
+    "16/11: một số trang portal timeout qua web reader nhưng đọc được HTTPS bằng curl với chứng chỉ hệ thống; không tắt kiểm tra TLS. An CaFe đọc qua web reader; dalat.vn có lỗi chứng chỉ qua curl. Chỉ cập nhật last_checked_at cho nội dung thật sự đọc được.",
+    "TASK17: web reader timeout ở một số trang visitlamdong; HTTPS curl đọc được và giữ hash/ngày. Overpass P006 trả406; không nhận được tag giờ tuần mới, không tự điền."
   ],
   "routing_batch": {
     "profile": "motorcycle",
-    "count": 26,
-    "verified_estimates": 20,
-    "unverified_endpoint_estimates": 6,
+    "count": 42,
+    "verified_estimates": 28,
+    "unverified_endpoint_estimates": 14,
     "raw_evidence": "travel_time_evidence.json",
     "rounding": "ceil(seconds/60)",
     "limitations": "Không có traffic trực tiếp, thời gian nghỉ, buffer hay xác minh quyền đi xe máy từng đoạn đường.",
-    "previous_batch_date": "2026-11-15",
+    "previous_batch_date": "2026-11-17 (v1)",
     "latest_added_pairs": [
       {
-        "from_place_id": "P001",
+        "from_place_id": "R003",
         "to_place_id": "L001"
       },
       {
         "from_place_id": "L001",
-        "to_place_id": "P001"
+        "to_place_id": "R003"
+      },
+      {
+        "from_place_id": "L001",
+        "to_place_id": "P005"
+      },
+      {
+        "from_place_id": "P005",
+        "to_place_id": "L001"
+      },
+      {
+        "from_place_id": "P011",
+        "to_place_id": "L001"
+      },
+      {
+        "from_place_id": "P010",
+        "to_place_id": "L001"
+      },
+      {
+        "from_place_id": "P005",
+        "to_place_id": "P011"
+      },
+      {
+        "from_place_id": "L001",
+        "to_place_id": "P006"
+      },
+      {
+        "from_place_id": "P006",
+        "to_place_id": "P010"
+      },
+      {
+        "from_place_id": "P010",
+        "to_place_id": "P006"
+      },
+      {
+        "from_place_id": "P005",
+        "to_place_id": "P006"
+      },
+      {
+        "from_place_id": "P006",
+        "to_place_id": "P009"
+      },
+      {
+        "from_place_id": "P009",
+        "to_place_id": "P006"
+      },
+      {
+        "from_place_id": "P006",
+        "to_place_id": "P011"
+      },
+      {
+        "from_place_id": "P011",
+        "to_place_id": "P006"
+      },
+      {
+        "from_place_id": "L001",
+        "to_place_id": "P010"
       }
     ],
-    "latest_reviewed_at": "2026-11-17T08:12:19.817068+00:00"
+    "latest_reviewed_at": "2026-11-17T08:51:30.611433+00:00"
   },
-  "latest_review_at": "2026-11-17T08:12:19.817068+00:00",
-  "latest_review_scope": "17/11: Bảo 04 chốt cấu hình, VISIT P010/P01160 phút và buffer30; đọc chính sách/địa chỉ Crazy House, thêm L001 và hai ước tính có hướng giữ UNVERIFIED. Không đọc lại hay đổi ngày nguồn16/11 của các venue khác; không gọi điện/đặt phòng."
+  "latest_review_at": "2026-11-17T08:51:30.611433+00:00",
+  "latest_review_scope": "TASK17: đọc lại8 trang nguồn, phân biệt P005 toàn khu MIXED với P006 khu ghế ngồi INDOOR; thêm tọa độ P006 và16 chặng có hướng đã rà. Hai ca ADAPT×3/4ngày có dữ liệu kiểm riêng. Không gọi điện, đặt phòng hoặc gắn nhãn từ quyết định cấu hình."
 }

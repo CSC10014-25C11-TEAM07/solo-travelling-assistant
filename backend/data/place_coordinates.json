@@ -104,5 +104,17 @@
     "coordinate_match_status": "VISIT_REFERENCE_ONLY",
     "reference_place_id": "P009",
     "match_note": "Tọa độ tham chiếu khu Crazy House từ P009; chưa phải pin cổng khách lưu trú. Không xác nhận giờ ra/vào, bãi xe hoặc khả năng còn phòng."
+  },
+  {
+    "place_id": "P006",
+    "latitude": 11.956855,
+    "longitude": 108.435155,
+    "source_url": "https://visitlamdong.vn/vi/lavietcoffeedl",
+    "source_name": "Là Việt Coffee — 200 Nguyễn Công Trứ",
+    "reported_opening_hours": "07:00–22:00 (general hours, no weekly table)",
+    "checked_at": "2026-11-17T08:35:08.507958+00:00",
+    "response_sha256": "6eca20abfd1da0e9efdf17fefc0c1451dbfb769cdbfbe8de86c24957a332eb78",
+    "coordinate_match_status": "PORTAL_MARKER_AND_DIRECTIONS_DESTINATION",
+    "match_note": "Cổng du lịch tỉnh đặt marker và đích dẫn đường tại cùng LatLng cho trang đúng200 Nguyễn Công Trứ; địa chỉ đối chiếu với website Là Việt. Điểm tham chiếu của venue, không đo GPS/cổng thực tế."
   }
 ]

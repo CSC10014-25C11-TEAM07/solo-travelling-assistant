@@ -1,0 +1,49 @@
+{
+  "checked_at": "2026-11-17T08:54:28.833704+00:00",
+  "dataset_version": "bao04-mvp-2026-11-17-v2",
+  "mode": "OFFLINE_GRAPH_AND_CONTROLLED_PROVIDER_PROBES_NO_GEMINI_NO_DB",
+  "graph": {
+    "variant_day_paths": 30,
+    "optional_drop_paths": 212,
+    "missing_pairs": [],
+    "note": "Counts repeated paths across base/scenario probes. This checks directed-edge existence, not VERIFIED status, hours or feasibility."
+  },
+  "source_provider_guard": [
+    {
+      "route_id": "SOURCE-3D",
+      "actual_code": "DATA_INCOMPLETE",
+      "message": "Tuyến SOURCE-3D là UNVERIFIED, cần VERIFIED."
+    },
+    {
+      "route_id": "SOURCE-4D",
+      "actual_code": "DATA_INCOMPLETE",
+      "message": "Tuyến SOURCE-4D là UNVERIFIED, cần VERIFIED."
+    }
+  ],
+  "shared_owner_observations": [
+    {
+      "fixture": "Synthetic VERIFIED test records in memory only",
+      "provider_finish": "10:30",
+      "deadline": "10:45",
+      "buffer_minutes": 30,
+      "offline_audit_ready": false,
+      "observation": "Current PlanProvider does not reserve buffer before the configured deadline."
+    },
+    {
+      "fixture": "Synthetic VERIFIED test records in memory only",
+      "closed_rest_place": "A",
+      "weekday": "tue",
+      "provider_finish": "10:30",
+      "offline_audit_ready": false,
+      "observation": "Current PlanProvider schedules REST without checking that venue window; start/end access also not checked in _schedule."
+    }
+  ],
+  "owner": "Nhật: backend/plan_f02.py._schedule; Bảo06 integration configuration",
+  "input_sha256": {
+    "backend/plan_f02.py": "564ebeae0fc216d1c445738349762a32653bdb00df53d2beb3b8040e2e40ab0e",
+    "backend/source_readiness.py": "c73ef7e591701869fe1508ab851904d85b46078aaef80cf76c0683eda6aa45ed",
+    "backend/data/handoff/routes_source.json": "8ab80fddecb24c46032971028f22df059458a3b477da5285107ae5e274a1ec99",
+    "backend/data/handoff/source_scenarios.json": "a8c74174cb4d4f83d697ba312c51baf74af93c81a6bcd5005d7e0830edc9d731",
+    "backend/data/travel_times.json": "c8ca2cefd4b123d4394f199052c38bb8458eb2baa29512a1a5c68e9059c57572"
+  }
+}

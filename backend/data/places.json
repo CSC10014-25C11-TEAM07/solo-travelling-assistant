@@ -22,7 +22,7 @@
     },
     "image_url": null,
     "source_url": "https://visitlamdong.vn/vi/nhagadalat",
-    "checked_at": "2026-11-16T08:11:07.297433+00:00",
+    "checked_at": "2026-11-17T08:35:10.896392+00:00",
     "data_status": "UNVERIFIED"
   },
   {
@@ -111,7 +111,7 @@
     "interests": [
       "culture"
     ],
-    "environment": "INDOOR",
+    "environment": "MIXED",
     "visit_duration_minutes": 120,
     "opening_hours": {
       "timezone": "Asia/Ho_Chi_Minh",
@@ -127,7 +127,7 @@
     },
     "image_url": null,
     "source_url": "https://baotanglamdong.com.vn/contact",
-    "checked_at": "2026-11-16T08:15:27.542403+00:00",
+    "checked_at": "2026-11-17T08:35:07.559752+00:00",
     "data_status": "UNVERIFIED"
   },
   {
@@ -138,7 +138,7 @@
       "coffee"
     ],
     "environment": "INDOOR",
-    "visit_duration_minutes": null,
+    "visit_duration_minutes": 60,
     "opening_hours": {
       "timezone": "Asia/Ho_Chi_Minh",
       "weekly": {
@@ -153,7 +153,7 @@
     },
     "image_url": null,
     "source_url": "https://laviet.coffee/tu-chung-toi/",
-    "checked_at": "2026-11-07T11:09:37.849269+00:00",
+    "checked_at": "2026-11-17T08:35:06.930889+00:00",
     "data_status": "UNVERIFIED"
   },
   {
@@ -205,7 +205,7 @@
     },
     "image_url": null,
     "source_url": "https://visitlamdong.vn/vi/dinhiii",
-    "checked_at": "2026-11-07T11:09:37.849269+00:00",
+    "checked_at": "2026-11-17T08:35:10.656694+00:00",
     "data_status": "UNVERIFIED"
   },
   {
@@ -327,7 +327,7 @@
     },
     "image_url": null,
     "source_url": "https://visitlamdong.vn/vi/stillcafe",
-    "checked_at": "2026-11-16T08:11:04.035672+00:00",
+    "checked_at": "2026-11-17T08:35:08.436745+00:00",
     "data_status": "UNVERIFIED"
   },
   {
@@ -388,7 +388,7 @@
     },
     "image_url": null,
     "source_url": "https://www.ancafeglobal.com/",
-    "checked_at": "2026-11-16T08:15:27.542403+00:00",
+    "checked_at": "2026-11-17T08:35:06.435835+00:00",
     "data_status": "UNVERIFIED"
   },
   {

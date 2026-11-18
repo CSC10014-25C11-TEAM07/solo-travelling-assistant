@@ -25,7 +25,7 @@ class SourceBundleTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr)
             catalog = PlaceCatalog.load(target)
             original = PlaceCatalog.load()
-            self.assertEqual(set(catalog.places), {"H001", "R003", "L001", "P001", "P005", "P008", "P009", "P010", "P011"})
+            self.assertEqual(set(catalog.places), {"H001", "R003", "L001", "P001", "P005", "P006", "P008", "P009", "P010", "P011"})
             for pid, place in catalog.places.items():
                 self.assertEqual(place, original.places[pid])
                 self.assertNotEqual(place.data_status, "MOCK")

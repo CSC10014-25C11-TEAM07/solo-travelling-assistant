@@ -1,25 +1,32 @@
 [
   {
-    "check_id": "RAIN-MIDDLE-P005",
-    "replacement_place_id": "P005",
+    "check_id": "RAIN-SOURCE3D-P006",
+    "route_id": "SOURCE-3D",
+    "day_id": "SOURCE3D-DAY-2",
+    "visit_place_id": "P001",
+    "replacement_place_id": "P006",
     "place_sequence": [
+      "L001",
+      "P006",
       "P010",
       "P005",
-      "P008",
-      "P001",
       "L001"
     ],
-    "purpose": "Điểm trước → điểm thay vì mưa → điểm tiếp theo → P001 → nơi ngủ L001; chỉ rà độ phủ, chưa có lịch thật hợp lệ."
+    "purpose": "Thay VISIT P001 bằng khu ngồi trong nhà P006; giữ VISIT/REST P010, VISIT P005 và chặng về L001. Đây là kiểm độ phủ, không phải đề xuất F05."
   },
   {
-    "check_id": "RAIN-LAST-P005",
-    "replacement_place_id": "P005",
+    "check_id": "RAIN-SOURCE4D-P006",
+    "route_id": "SOURCE-4D",
+    "day_id": "SOURCE4D-DAY-3",
+    "visit_place_id": "P008",
+    "replacement_place_id": "P006",
     "place_sequence": [
-      "P011",
       "P005",
-      "P001",
+      "P006",
+      "P009",
+      "P011",
       "L001"
     ],
-    "purpose": "Thay VISIT cuối buổi: phải đủ chặng tới P005 và qua P001 về L001."
+    "purpose": "Sau REST P005, thay VISIT P008 bằng P006 rồi đi tiếp P009/P011 và về L001; giữ REST P011. Không coi P005 toàn khu là INDOOR."
   }
 ]

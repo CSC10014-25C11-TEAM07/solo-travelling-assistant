@@ -8,8 +8,8 @@
     "deadline_basis": "Bảo 04 chốt 17/11: ngày đi/về18:00, ngày nội vùng17:00; dự phòng30 phút ngoài REST60 phút/ngày. Đây là cấu hình lập lịch, không bảo đảm giờ đến thực tế.",
     "limitations": [
       "L001 là nơi ngủ mẫu đã chọn, chưa đặt phòng/xác nhận còn phòng, pin cổng, đỗ xe hoặc quyền ra/vào khách lưu trú lúc06:00; giờ VISIT P009 không áp dụng cho L001.",
-      "Tọa độ R003 còn thiếu xác nhận đúng số nhà294A; bốn chặng liên quan và hai chặng tham chiếu L001 chưa được dùng tự động.",
-      "Chưa xác nhận giờ tuần, phạm vi có mái và quyền tiếp cận các điểm/mốc cần dùng, kể cả H001/P001; cận dưới có buffer không chứng minh lịch khả thi."
+      "R003 chưa khớp cổng/số nhà294A; L001 dùng tọa độ khu P009 tham chiếu. Mọi chặng chạm R003/L001 giữ UNVERIFIED, cần rà lại theo pin đúng.",
+      "Chưa xác nhận lịch tuần/phạm vi tiếp cận của venue và H001/L001; cấu hình có đủ chặng và buffer không chứng minh lịch khả thi."
     ],
     "days": [
       {
@@ -23,12 +23,18 @@
         "place_sequence": [
           "H001",
           "R003",
-          "P001",
           "L001"
         ],
         "visit_place_ids": [],
         "rest_stops": [
           {
+            "place_id": "R003",
+            "duration_minutes": 60
+          }
+        ],
+        "stops": [
+          {
+            "type": "REST",
             "place_id": "R003",
             "duration_minutes": 60
           }
@@ -47,7 +53,6 @@
           "P001",
           "P010",
           "P005",
-          "P001",
           "L001"
         ],
         "visit_place_ids": [
@@ -59,6 +64,28 @@
           {
             "place_id": "P010",
             "duration_minutes": 60
+          }
+        ],
+        "stops": [
+          {
+            "type": "VISIT",
+            "place_id": "P001",
+            "is_optional": true
+          },
+          {
+            "type": "VISIT",
+            "place_id": "P010",
+            "is_optional": true
+          },
+          {
+            "type": "REST",
+            "place_id": "P010",
+            "duration_minutes": 60
+          },
+          {
+            "type": "VISIT",
+            "place_id": "P005",
+            "is_optional": true
           }
         ]
       },
@@ -72,13 +99,19 @@
         "end_deadline": "18:00",
         "place_sequence": [
           "L001",
-          "P001",
           "R003",
           "H001"
         ],
         "visit_place_ids": [],
         "rest_stops": [
           {
+            "place_id": "R003",
+            "duration_minutes": 60
+          }
+        ],
+        "stops": [
+          {
+            "type": "REST",
             "place_id": "R003",
             "duration_minutes": 60
           }
@@ -92,6 +125,12 @@
       "decided_at": "2026-11-17T08:12:19.817068+00:00",
       "basis": "Bảo 04 chấp thuận áp dụng toàn bộ cấu hình ngày 17/11/2026. Đây là lựa chọn lập lịch, không phải xác minh venue.",
       "record": "docs/testing/source-route-proposal.json"
+    },
+    "configuration_update": {
+      "updated_at": "2026-11-17T08:51:30.611433+00:00",
+      "task": "TASK17/11 — Bảo04",
+      "reason": "F02 chỉ nhận REST/VISIT: dùng chặng trực tiếp giữa các stop thực, bỏ P001 trung chuyển ngày đi/về và các vòng qua ga không có hoạt động. Giữ nơi ngủ, VISIT Still/An60 phút, deadlines, REST và buffer đã chốt.",
+      "review_scope": "Data handoff only; source remains UNVERIFIED. Engine/router/SQLite unchanged."
     }
   },
   {
@@ -103,8 +142,8 @@
     "deadline_basis": "Bảo 04 chốt 17/11: ngày đi/về18:00, ngày nội vùng17:00; dự phòng30 phút ngoài REST60 phút/ngày. Đây là cấu hình lập lịch, không bảo đảm giờ đến thực tế.",
     "limitations": [
       "L001 là nơi ngủ mẫu đã chọn, chưa đặt phòng/xác nhận còn phòng, pin cổng, đỗ xe hoặc quyền ra/vào khách lưu trú lúc06:00; giờ VISIT P009 không áp dụng cho L001.",
-      "Tọa độ R003 còn thiếu xác nhận đúng số nhà294A; bốn chặng liên quan và hai chặng tham chiếu L001 chưa được dùng tự động.",
-      "Chưa xác nhận giờ tuần, phạm vi có mái và quyền tiếp cận các điểm/mốc cần dùng, kể cả H001/P001; cận dưới có buffer không chứng minh lịch khả thi."
+      "R003 chưa khớp cổng/số nhà294A; L001 dùng tọa độ khu P009 tham chiếu. Mọi chặng chạm R003/L001 giữ UNVERIFIED, cần rà lại theo pin đúng.",
+      "Chưa xác nhận lịch tuần/phạm vi tiếp cận của venue và H001/L001; cấu hình có đủ chặng và buffer không chứng minh lịch khả thi."
     ],
     "days": [
       {
@@ -118,12 +157,18 @@
         "place_sequence": [
           "H001",
           "R003",
-          "P001",
           "L001"
         ],
         "visit_place_ids": [],
         "rest_stops": [
           {
+            "place_id": "R003",
+            "duration_minutes": 60
+          }
+        ],
+        "stops": [
+          {
+            "type": "REST",
             "place_id": "R003",
             "duration_minutes": 60
           }
@@ -142,7 +187,6 @@
           "P001",
           "P010",
           "P005",
-          "P001",
           "L001"
         ],
         "visit_place_ids": [
@@ -154,6 +198,28 @@
           {
             "place_id": "P010",
             "duration_minutes": 60
+          }
+        ],
+        "stops": [
+          {
+            "type": "VISIT",
+            "place_id": "P001",
+            "is_optional": true
+          },
+          {
+            "type": "VISIT",
+            "place_id": "P010",
+            "is_optional": true
+          },
+          {
+            "type": "REST",
+            "place_id": "P010",
+            "duration_minutes": 60
+          },
+          {
+            "type": "VISIT",
+            "place_id": "P005",
+            "is_optional": true
           }
         ]
       },
@@ -167,12 +233,10 @@
         "end_deadline": "17:00",
         "place_sequence": [
           "L001",
-          "P001",
           "P005",
           "P008",
           "P009",
           "P011",
-          "P001",
           "L001"
         ],
         "visit_place_ids": [
@@ -189,6 +253,33 @@
             "place_id": "P011",
             "duration_minutes": 30
           }
+        ],
+        "stops": [
+          {
+            "type": "REST",
+            "place_id": "P005",
+            "duration_minutes": 30
+          },
+          {
+            "type": "VISIT",
+            "place_id": "P008",
+            "is_optional": true
+          },
+          {
+            "type": "VISIT",
+            "place_id": "P009",
+            "is_optional": true
+          },
+          {
+            "type": "VISIT",
+            "place_id": "P011",
+            "is_optional": true
+          },
+          {
+            "type": "REST",
+            "place_id": "P011",
+            "duration_minutes": 30
+          }
         ]
       },
       {
@@ -201,13 +292,19 @@
         "end_deadline": "18:00",
         "place_sequence": [
           "L001",
-          "P001",
           "R003",
           "H001"
         ],
         "visit_place_ids": [],
         "rest_stops": [
           {
+            "place_id": "R003",
+            "duration_minutes": 60
+          }
+        ],
+        "stops": [
+          {
+            "type": "REST",
             "place_id": "R003",
             "duration_minutes": 60
           }
@@ -221,6 +318,12 @@
       "decided_at": "2026-11-17T08:12:19.817068+00:00",
       "basis": "Bảo 04 chấp thuận áp dụng toàn bộ cấu hình ngày 17/11/2026. Đây là lựa chọn lập lịch, không phải xác minh venue.",
       "record": "docs/testing/source-route-proposal.json"
+    },
+    "configuration_update": {
+      "updated_at": "2026-11-17T08:51:30.611433+00:00",
+      "task": "TASK17/11 — Bảo04",
+      "reason": "F02 chỉ nhận REST/VISIT: dùng chặng trực tiếp giữa các stop thực, bỏ P001 trung chuyển ngày đi/về và các vòng qua ga không có hoạt động. Giữ nơi ngủ, VISIT Still/An60 phút, deadlines, REST và buffer đã chốt.",
+      "review_scope": "Data handoff only; source remains UNVERIFIED. Engine/router/SQLite unchanged."
     }
   }
 ]
