@@ -1,0 +1,1378 @@
+{
+  "started_at": "2026-11-18T04:43:53.186645+00:00",
+  "scope": "API/TestClient + SQLite + live Gemini F02; device UI pending",
+  "entry_point": "create_app(plan_provider=PlanProvider(...)); isolated test wiring",
+  "plan_dataset": "MOCK",
+  "f01_dataset": "backend/data catalog; original record labels retained",
+  "dataset_version": "bao04-mvp-2026-11-16-v1",
+  "model": "gemini-3.5-flash-lite",
+  "python": "3.14.3 (tags/v3.14.3:323c59a, Feb  3 2026, 16:04:56) [MSC v.1944 64 bit (AMD64)]",
+  "cases": [
+    {
+      "id": "T01",
+      "status": "PASS",
+      "evidence": {
+        "register": 201,
+        "duplicate": 409,
+        "wrong_password": 401,
+        "login": 200
+      }
+    },
+    {
+      "id": "T02",
+      "status": "PASS",
+      "evidence": {
+        "coffee": [
+          "P006",
+          "P010",
+          "P011"
+        ],
+        "nature": [
+          "P002",
+          "P003",
+          "P004"
+        ]
+      }
+    },
+    {
+      "id": "T03",
+      "status": "PASS",
+      "evidence": [
+        {
+          "trip_days": 3,
+          "itinerary": {
+            "itinerary_id": "c5478140-cd59-4bd7-b803-88bc21b075ce",
+            "user_id": "c3f4ae83-6a3f-4fea-977b-0df406920c21",
+            "departure_date": "2026-11-12",
+            "return_date": "2026-11-14",
+            "departure_time": "06:00",
+            "interests": [
+              "nature",
+              "coffee"
+            ],
+            "min_rest_minutes": 60,
+            "status": "DRAFT",
+            "version": 1,
+            "created_at": "2026-11-18T04:43:55.831269+00:00",
+            "confirmed_at": null,
+            "days": [
+              {
+                "day_id": "69212c13-e121-447b-921e-8c551239545e",
+                "itinerary_id": "c5478140-cd59-4bd7-b803-88bc21b075ce",
+                "day_number": 1,
+                "date": "2026-11-12",
+                "end_deadline": "17:00",
+                "activities": [
+                  {
+                    "activity_id": "381a8ba5-299b-4ccc-b086-29ee02040192",
+                    "day_id": "69212c13-e121-447b-921e-8c551239545e",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-HCM → MOCK-ROAD-REST",
+                    "place_id": null,
+                    "start_time": "06:00",
+                    "end_time": "08:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "d63059dd-e4d7-42f2-aa35-646e577edbcc",
+                    "day_id": "69212c13-e121-447b-921e-8c551239545e",
+                    "type": "REST",
+                    "name": "MOCK — Điểm nghỉ dọc tuyến",
+                    "place_id": "MOCK-ROAD-REST",
+                    "start_time": "08:00",
+                    "end_time": "09:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "482adfc3-65b8-459e-b85d-10456170c681",
+                    "day_id": "69212c13-e121-447b-921e-8c551239545e",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-ROAD-REST → MOCK-END",
+                    "place_id": null,
+                    "start_time": "09:00",
+                    "end_time": "11:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              },
+              {
+                "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                "itinerary_id": "c5478140-cd59-4bd7-b803-88bc21b075ce",
+                "day_number": 2,
+                "date": "2026-11-13",
+                "end_deadline": "16:30",
+                "activities": [
+                  {
+                    "activity_id": "ddf6c9c1-5d76-4661-8444-2a6c771e29b7",
+                    "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-END → MOCK-GA",
+                    "place_id": null,
+                    "start_time": "07:45",
+                    "end_time": "08:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "24727145-4978-478e-9d5d-ea70667fa5bd",
+                    "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                    "type": "VISIT",
+                    "name": "MOCK — Ga minh họa",
+                    "place_id": "MOCK-GA",
+                    "start_time": "08:00",
+                    "end_time": "09:30",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "8a0e4534-274c-48c6-9708-5b74779dce22",
+                    "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-GA → MOCK-TEMPLE",
+                    "place_id": null,
+                    "start_time": "09:30",
+                    "end_time": "09:45",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "e7834ab9-2fd9-444c-b8a0-f3872fc14076",
+                    "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                    "type": "VISIT",
+                    "name": "MOCK — Thiền viện minh họa",
+                    "place_id": "MOCK-TEMPLE",
+                    "start_time": "09:45",
+                    "end_time": "12:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "429ce274-8d5f-4c65-90da-ad1551e9ea59",
+                    "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-TEMPLE → MOCK-REST",
+                    "place_id": null,
+                    "start_time": "12:00",
+                    "end_time": "12:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "ff18212a-d765-48e8-97da-0fd12539d8d5",
+                    "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                    "type": "REST",
+                    "name": "MOCK — Điểm nghỉ minh họa",
+                    "place_id": "MOCK-REST",
+                    "start_time": "12:15",
+                    "end_time": "13:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "31c7975a-5899-4b0c-8817-d5f926ef2512",
+                    "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-REST → MOCK-A03",
+                    "place_id": null,
+                    "start_time": "13:15",
+                    "end_time": "13:30",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "32aed934-de9d-4845-b540-a3ab0de689d4",
+                    "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                    "type": "VISIT",
+                    "name": "MOCK — Hồ minh họa",
+                    "place_id": "MOCK-A03",
+                    "start_time": "13:30",
+                    "end_time": "14:15",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "61314da1-acec-497d-97d6-b6065b4849a6",
+                    "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-A03 → MOCK-A04",
+                    "place_id": null,
+                    "start_time": "14:15",
+                    "end_time": "14:30",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "18677aa5-89d9-4bf9-8a83-2aae30c7bdd8",
+                    "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                    "type": "VISIT",
+                    "name": "MOCK — Vườn hoa minh họa",
+                    "place_id": "MOCK-A04",
+                    "start_time": "14:30",
+                    "end_time": "15:15",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "9affd8c0-8642-47b6-8fa4-a6327835e9be",
+                    "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-A04 → MOCK-END",
+                    "place_id": null,
+                    "start_time": "15:15",
+                    "end_time": "15:30",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              },
+              {
+                "day_id": "b5c327f6-e98e-44ac-a18a-8ca007a2b4c5",
+                "itinerary_id": "c5478140-cd59-4bd7-b803-88bc21b075ce",
+                "day_number": 3,
+                "date": "2026-11-14",
+                "end_deadline": "18:00",
+                "activities": [
+                  {
+                    "activity_id": "5ae0a99a-9479-4a44-aeaf-31272c4aeb51",
+                    "day_id": "b5c327f6-e98e-44ac-a18a-8ca007a2b4c5",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-END → MOCK-ROAD-REST",
+                    "place_id": null,
+                    "start_time": "06:00",
+                    "end_time": "08:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "af169c28-2a69-41da-9f3a-d18f6a9164a1",
+                    "day_id": "b5c327f6-e98e-44ac-a18a-8ca007a2b4c5",
+                    "type": "REST",
+                    "name": "MOCK — Điểm nghỉ dọc tuyến",
+                    "place_id": "MOCK-ROAD-REST",
+                    "start_time": "08:00",
+                    "end_time": "09:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "f58a6ad4-b198-4215-96df-4b32eb7bb337",
+                    "day_id": "b5c327f6-e98e-44ac-a18a-8ca007a2b4c5",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-ROAD-REST → MOCK-HCM",
+                    "place_id": null,
+                    "start_time": "09:00",
+                    "end_time": "11:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "trip_days": 4,
+          "itinerary": {
+            "itinerary_id": "5b984d2f-5e1d-4390-9994-2a2fc9785ff2",
+            "user_id": "c3f4ae83-6a3f-4fea-977b-0df406920c21",
+            "departure_date": "2026-11-12",
+            "return_date": "2026-11-15",
+            "departure_time": "06:00",
+            "interests": [
+              "nature",
+              "coffee"
+            ],
+            "min_rest_minutes": 60,
+            "status": "DRAFT",
+            "version": 1,
+            "created_at": "2026-11-18T04:43:57.638365+00:00",
+            "confirmed_at": null,
+            "days": [
+              {
+                "day_id": "0c3b90fe-91cf-424f-a577-19863e054816",
+                "itinerary_id": "5b984d2f-5e1d-4390-9994-2a2fc9785ff2",
+                "day_number": 1,
+                "date": "2026-11-12",
+                "end_deadline": "17:00",
+                "activities": [
+                  {
+                    "activity_id": "eefd85c2-b9c6-49f2-bbbe-82f5e42b62b0",
+                    "day_id": "0c3b90fe-91cf-424f-a577-19863e054816",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-HCM → MOCK-ROAD-REST",
+                    "place_id": null,
+                    "start_time": "06:00",
+                    "end_time": "08:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "db659f90-4171-456e-b36b-16dfc2b1ce5f",
+                    "day_id": "0c3b90fe-91cf-424f-a577-19863e054816",
+                    "type": "REST",
+                    "name": "MOCK — Điểm nghỉ dọc tuyến",
+                    "place_id": "MOCK-ROAD-REST",
+                    "start_time": "08:00",
+                    "end_time": "09:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "ab1cf28d-3771-425a-8a47-bb4a30768ce0",
+                    "day_id": "0c3b90fe-91cf-424f-a577-19863e054816",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-ROAD-REST → MOCK-END",
+                    "place_id": null,
+                    "start_time": "09:00",
+                    "end_time": "11:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              },
+              {
+                "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                "itinerary_id": "5b984d2f-5e1d-4390-9994-2a2fc9785ff2",
+                "day_number": 2,
+                "date": "2026-11-13",
+                "end_deadline": "16:30",
+                "activities": [
+                  {
+                    "activity_id": "ccbb6440-7dc9-4388-be46-27ca744cde9e",
+                    "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-END → MOCK-GA",
+                    "place_id": null,
+                    "start_time": "07:45",
+                    "end_time": "08:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "4526bcf0-0653-4ef7-8ddc-813890795f0b",
+                    "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                    "type": "VISIT",
+                    "name": "MOCK — Ga minh họa",
+                    "place_id": "MOCK-GA",
+                    "start_time": "08:00",
+                    "end_time": "09:30",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "b91af62b-1e81-48e3-b023-4919c836c2ed",
+                    "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-GA → MOCK-TEMPLE",
+                    "place_id": null,
+                    "start_time": "09:30",
+                    "end_time": "09:45",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "f18c8c77-228c-4c9b-8e29-1b24c4b7f7fe",
+                    "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                    "type": "VISIT",
+                    "name": "MOCK — Thiền viện minh họa",
+                    "place_id": "MOCK-TEMPLE",
+                    "start_time": "09:45",
+                    "end_time": "12:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "f323a82a-845c-4109-b7c9-b0be6c7e82c7",
+                    "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-TEMPLE → MOCK-REST",
+                    "place_id": null,
+                    "start_time": "12:00",
+                    "end_time": "12:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "e114ef86-8f3f-4d3f-a5bc-6520827a2e33",
+                    "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                    "type": "REST",
+                    "name": "MOCK — Điểm nghỉ minh họa",
+                    "place_id": "MOCK-REST",
+                    "start_time": "12:15",
+                    "end_time": "13:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "18298ce1-0def-4eeb-accc-4977c847beea",
+                    "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-REST → MOCK-A03",
+                    "place_id": null,
+                    "start_time": "13:15",
+                    "end_time": "13:30",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "6d25023c-cc35-4d3f-b8b8-bd9ec2b65855",
+                    "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                    "type": "VISIT",
+                    "name": "MOCK — Hồ minh họa",
+                    "place_id": "MOCK-A03",
+                    "start_time": "13:30",
+                    "end_time": "14:15",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "c287af66-40af-41ff-ad7c-f0bf812aaec5",
+                    "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-A03 → MOCK-A04",
+                    "place_id": null,
+                    "start_time": "14:15",
+                    "end_time": "14:30",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "e52759c6-8ccc-460b-9ebc-9e4317773578",
+                    "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                    "type": "VISIT",
+                    "name": "MOCK — Vườn hoa minh họa",
+                    "place_id": "MOCK-A04",
+                    "start_time": "14:30",
+                    "end_time": "15:15",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "9eae5a27-f270-4ffa-b71b-355eff28920a",
+                    "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-A04 → MOCK-END",
+                    "place_id": null,
+                    "start_time": "15:15",
+                    "end_time": "15:30",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              },
+              {
+                "day_id": "d301e13d-9169-42e2-82a9-e5881169955e",
+                "itinerary_id": "5b984d2f-5e1d-4390-9994-2a2fc9785ff2",
+                "day_number": 3,
+                "date": "2026-11-14",
+                "end_deadline": "17:00",
+                "activities": [
+                  {
+                    "activity_id": "8772a4e5-1679-456e-9c10-8e1c86a1794b",
+                    "day_id": "d301e13d-9169-42e2-82a9-e5881169955e",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-END → MOCK-CULTURE",
+                    "place_id": null,
+                    "start_time": "08:00",
+                    "end_time": "08:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "085a22e7-e8de-4950-86ea-b88bf9a75ef4",
+                    "day_id": "d301e13d-9169-42e2-82a9-e5881169955e",
+                    "type": "VISIT",
+                    "name": "MOCK — Điểm văn hóa ngày 3",
+                    "place_id": "MOCK-CULTURE",
+                    "start_time": "08:15",
+                    "end_time": "09:00",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "8eef1215-f617-4572-82ac-89e881936171",
+                    "day_id": "d301e13d-9169-42e2-82a9-e5881169955e",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-CULTURE → MOCK-REST",
+                    "place_id": null,
+                    "start_time": "09:00",
+                    "end_time": "09:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "e22b39a5-1a4f-4a38-810b-9c4aa849ba88",
+                    "day_id": "d301e13d-9169-42e2-82a9-e5881169955e",
+                    "type": "REST",
+                    "name": "MOCK — Điểm nghỉ minh họa",
+                    "place_id": "MOCK-REST",
+                    "start_time": "09:15",
+                    "end_time": "10:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "d18b108c-f5dc-4378-a1a3-ecc0f0ae53ff",
+                    "day_id": "d301e13d-9169-42e2-82a9-e5881169955e",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-REST → MOCK-INDOOR",
+                    "place_id": null,
+                    "start_time": "10:15",
+                    "end_time": "10:30",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "8233000f-680b-4096-afc9-859ed07fab9c",
+                    "day_id": "d301e13d-9169-42e2-82a9-e5881169955e",
+                    "type": "VISIT",
+                    "name": "MOCK — Quán cà phê trong nhà minh họa",
+                    "place_id": "MOCK-INDOOR",
+                    "start_time": "10:30",
+                    "end_time": "11:15",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "f8179ec5-7224-4c9d-aa27-810f4bd15c7c",
+                    "day_id": "d301e13d-9169-42e2-82a9-e5881169955e",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-INDOOR → MOCK-END",
+                    "place_id": null,
+                    "start_time": "11:15",
+                    "end_time": "11:30",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              },
+              {
+                "day_id": "630b4525-6a70-4755-8b27-007081010d55",
+                "itinerary_id": "5b984d2f-5e1d-4390-9994-2a2fc9785ff2",
+                "day_number": 4,
+                "date": "2026-11-15",
+                "end_deadline": "18:00",
+                "activities": [
+                  {
+                    "activity_id": "d350727f-0f31-409f-8a1e-88af65cb233f",
+                    "day_id": "630b4525-6a70-4755-8b27-007081010d55",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-END → MOCK-ROAD-REST",
+                    "place_id": null,
+                    "start_time": "06:00",
+                    "end_time": "08:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "0aa87bd5-b99e-42ea-9768-cdcd41e7d1ed",
+                    "day_id": "630b4525-6a70-4755-8b27-007081010d55",
+                    "type": "REST",
+                    "name": "MOCK — Điểm nghỉ dọc tuyến",
+                    "place_id": "MOCK-ROAD-REST",
+                    "start_time": "08:00",
+                    "end_time": "09:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "cee96d73-649d-425a-b8a2-d04610442a2e",
+                    "day_id": "630b4525-6a70-4755-8b27-007081010d55",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển MOCK-ROAD-REST → MOCK-HCM",
+                    "place_id": null,
+                    "start_time": "09:00",
+                    "end_time": "11:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "T04",
+      "status": "PASS",
+      "evidence": {
+        "missing_return_date": 422,
+        "return_before_departure": 422,
+        "gemini_calls": 0
+      }
+    },
+    {
+      "id": "T05",
+      "status": "PASS",
+      "evidence": {
+        "reopen": "new app instance and same SQLite/session",
+        "saved": [
+          {
+            "trip_days": 3,
+            "itinerary": {
+              "itinerary_id": "c5478140-cd59-4bd7-b803-88bc21b075ce",
+              "user_id": "c3f4ae83-6a3f-4fea-977b-0df406920c21",
+              "departure_date": "2026-11-12",
+              "return_date": "2026-11-14",
+              "departure_time": "06:00",
+              "interests": [
+                "nature",
+                "coffee"
+              ],
+              "min_rest_minutes": 60,
+              "status": "CURRENT",
+              "version": 2,
+              "created_at": "2026-11-18T04:43:55.831269+00:00",
+              "confirmed_at": "2026-11-18T04:43:57.730502+00:00",
+              "days": [
+                {
+                  "day_id": "69212c13-e121-447b-921e-8c551239545e",
+                  "itinerary_id": "c5478140-cd59-4bd7-b803-88bc21b075ce",
+                  "day_number": 1,
+                  "date": "2026-11-12",
+                  "end_deadline": "17:00",
+                  "activities": [
+                    {
+                      "activity_id": "381a8ba5-299b-4ccc-b086-29ee02040192",
+                      "day_id": "69212c13-e121-447b-921e-8c551239545e",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-HCM → MOCK-ROAD-REST",
+                      "place_id": null,
+                      "start_time": "06:00",
+                      "end_time": "08:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-18T04:43:57.744168+00:00"
+                    },
+                    {
+                      "activity_id": "d63059dd-e4d7-42f2-aa35-646e577edbcc",
+                      "day_id": "69212c13-e121-447b-921e-8c551239545e",
+                      "type": "REST",
+                      "name": "MOCK — Điểm nghỉ dọc tuyến",
+                      "place_id": "MOCK-ROAD-REST",
+                      "start_time": "08:00",
+                      "end_time": "09:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "482adfc3-65b8-459e-b85d-10456170c681",
+                      "day_id": "69212c13-e121-447b-921e-8c551239545e",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-ROAD-REST → MOCK-END",
+                      "place_id": null,
+                      "start_time": "09:00",
+                      "end_time": "11:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    }
+                  ]
+                },
+                {
+                  "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                  "itinerary_id": "c5478140-cd59-4bd7-b803-88bc21b075ce",
+                  "day_number": 2,
+                  "date": "2026-11-13",
+                  "end_deadline": "16:30",
+                  "activities": [
+                    {
+                      "activity_id": "ddf6c9c1-5d76-4661-8444-2a6c771e29b7",
+                      "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-END → MOCK-GA",
+                      "place_id": null,
+                      "start_time": "07:45",
+                      "end_time": "08:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "24727145-4978-478e-9d5d-ea70667fa5bd",
+                      "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                      "type": "VISIT",
+                      "name": "MOCK — Ga minh họa",
+                      "place_id": "MOCK-GA",
+                      "start_time": "08:00",
+                      "end_time": "09:30",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "8a0e4534-274c-48c6-9708-5b74779dce22",
+                      "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-GA → MOCK-TEMPLE",
+                      "place_id": null,
+                      "start_time": "09:30",
+                      "end_time": "09:45",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "e7834ab9-2fd9-444c-b8a0-f3872fc14076",
+                      "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                      "type": "VISIT",
+                      "name": "MOCK — Thiền viện minh họa",
+                      "place_id": "MOCK-TEMPLE",
+                      "start_time": "09:45",
+                      "end_time": "12:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "429ce274-8d5f-4c65-90da-ad1551e9ea59",
+                      "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-TEMPLE → MOCK-REST",
+                      "place_id": null,
+                      "start_time": "12:00",
+                      "end_time": "12:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "ff18212a-d765-48e8-97da-0fd12539d8d5",
+                      "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                      "type": "REST",
+                      "name": "MOCK — Điểm nghỉ minh họa",
+                      "place_id": "MOCK-REST",
+                      "start_time": "12:15",
+                      "end_time": "13:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "31c7975a-5899-4b0c-8817-d5f926ef2512",
+                      "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-REST → MOCK-A03",
+                      "place_id": null,
+                      "start_time": "13:15",
+                      "end_time": "13:30",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "32aed934-de9d-4845-b540-a3ab0de689d4",
+                      "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                      "type": "VISIT",
+                      "name": "MOCK — Hồ minh họa",
+                      "place_id": "MOCK-A03",
+                      "start_time": "13:30",
+                      "end_time": "14:15",
+                      "status": "PENDING",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "61314da1-acec-497d-97d6-b6065b4849a6",
+                      "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-A03 → MOCK-A04",
+                      "place_id": null,
+                      "start_time": "14:15",
+                      "end_time": "14:30",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "18677aa5-89d9-4bf9-8a83-2aae30c7bdd8",
+                      "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                      "type": "VISIT",
+                      "name": "MOCK — Vườn hoa minh họa",
+                      "place_id": "MOCK-A04",
+                      "start_time": "14:30",
+                      "end_time": "15:15",
+                      "status": "PENDING",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "9affd8c0-8642-47b6-8fa4-a6327835e9be",
+                      "day_id": "036fb367-b940-49f8-acef-e090091278c1",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-A04 → MOCK-END",
+                      "place_id": null,
+                      "start_time": "15:15",
+                      "end_time": "15:30",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    }
+                  ]
+                },
+                {
+                  "day_id": "b5c327f6-e98e-44ac-a18a-8ca007a2b4c5",
+                  "itinerary_id": "c5478140-cd59-4bd7-b803-88bc21b075ce",
+                  "day_number": 3,
+                  "date": "2026-11-14",
+                  "end_deadline": "18:00",
+                  "activities": [
+                    {
+                      "activity_id": "5ae0a99a-9479-4a44-aeaf-31272c4aeb51",
+                      "day_id": "b5c327f6-e98e-44ac-a18a-8ca007a2b4c5",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-END → MOCK-ROAD-REST",
+                      "place_id": null,
+                      "start_time": "06:00",
+                      "end_time": "08:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "af169c28-2a69-41da-9f3a-d18f6a9164a1",
+                      "day_id": "b5c327f6-e98e-44ac-a18a-8ca007a2b4c5",
+                      "type": "REST",
+                      "name": "MOCK — Điểm nghỉ dọc tuyến",
+                      "place_id": "MOCK-ROAD-REST",
+                      "start_time": "08:00",
+                      "end_time": "09:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "f58a6ad4-b198-4215-96df-4b32eb7bb337",
+                      "day_id": "b5c327f6-e98e-44ac-a18a-8ca007a2b4c5",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-ROAD-REST → MOCK-HCM",
+                      "place_id": null,
+                      "start_time": "09:00",
+                      "end_time": "11:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "trip_days": 4,
+            "itinerary": {
+              "itinerary_id": "5b984d2f-5e1d-4390-9994-2a2fc9785ff2",
+              "user_id": "c3f4ae83-6a3f-4fea-977b-0df406920c21",
+              "departure_date": "2026-11-12",
+              "return_date": "2026-11-15",
+              "departure_time": "06:00",
+              "interests": [
+                "nature",
+                "coffee"
+              ],
+              "min_rest_minutes": 60,
+              "status": "CURRENT",
+              "version": 2,
+              "created_at": "2026-11-18T04:43:57.638365+00:00",
+              "confirmed_at": "2026-11-18T04:43:57.785282+00:00",
+              "days": [
+                {
+                  "day_id": "0c3b90fe-91cf-424f-a577-19863e054816",
+                  "itinerary_id": "5b984d2f-5e1d-4390-9994-2a2fc9785ff2",
+                  "day_number": 1,
+                  "date": "2026-11-12",
+                  "end_deadline": "17:00",
+                  "activities": [
+                    {
+                      "activity_id": "eefd85c2-b9c6-49f2-bbbe-82f5e42b62b0",
+                      "day_id": "0c3b90fe-91cf-424f-a577-19863e054816",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-HCM → MOCK-ROAD-REST",
+                      "place_id": null,
+                      "start_time": "06:00",
+                      "end_time": "08:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-18T04:43:57.853213+00:00"
+                    },
+                    {
+                      "activity_id": "db659f90-4171-456e-b36b-16dfc2b1ce5f",
+                      "day_id": "0c3b90fe-91cf-424f-a577-19863e054816",
+                      "type": "REST",
+                      "name": "MOCK — Điểm nghỉ dọc tuyến",
+                      "place_id": "MOCK-ROAD-REST",
+                      "start_time": "08:00",
+                      "end_time": "09:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "ab1cf28d-3771-425a-8a47-bb4a30768ce0",
+                      "day_id": "0c3b90fe-91cf-424f-a577-19863e054816",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-ROAD-REST → MOCK-END",
+                      "place_id": null,
+                      "start_time": "09:00",
+                      "end_time": "11:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    }
+                  ]
+                },
+                {
+                  "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                  "itinerary_id": "5b984d2f-5e1d-4390-9994-2a2fc9785ff2",
+                  "day_number": 2,
+                  "date": "2026-11-13",
+                  "end_deadline": "16:30",
+                  "activities": [
+                    {
+                      "activity_id": "ccbb6440-7dc9-4388-be46-27ca744cde9e",
+                      "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-END → MOCK-GA",
+                      "place_id": null,
+                      "start_time": "07:45",
+                      "end_time": "08:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "4526bcf0-0653-4ef7-8ddc-813890795f0b",
+                      "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                      "type": "VISIT",
+                      "name": "MOCK — Ga minh họa",
+                      "place_id": "MOCK-GA",
+                      "start_time": "08:00",
+                      "end_time": "09:30",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "b91af62b-1e81-48e3-b023-4919c836c2ed",
+                      "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-GA → MOCK-TEMPLE",
+                      "place_id": null,
+                      "start_time": "09:30",
+                      "end_time": "09:45",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "f18c8c77-228c-4c9b-8e29-1b24c4b7f7fe",
+                      "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                      "type": "VISIT",
+                      "name": "MOCK — Thiền viện minh họa",
+                      "place_id": "MOCK-TEMPLE",
+                      "start_time": "09:45",
+                      "end_time": "12:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "f323a82a-845c-4109-b7c9-b0be6c7e82c7",
+                      "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-TEMPLE → MOCK-REST",
+                      "place_id": null,
+                      "start_time": "12:00",
+                      "end_time": "12:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "e114ef86-8f3f-4d3f-a5bc-6520827a2e33",
+                      "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                      "type": "REST",
+                      "name": "MOCK — Điểm nghỉ minh họa",
+                      "place_id": "MOCK-REST",
+                      "start_time": "12:15",
+                      "end_time": "13:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "18298ce1-0def-4eeb-accc-4977c847beea",
+                      "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-REST → MOCK-A03",
+                      "place_id": null,
+                      "start_time": "13:15",
+                      "end_time": "13:30",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "6d25023c-cc35-4d3f-b8b8-bd9ec2b65855",
+                      "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                      "type": "VISIT",
+                      "name": "MOCK — Hồ minh họa",
+                      "place_id": "MOCK-A03",
+                      "start_time": "13:30",
+                      "end_time": "14:15",
+                      "status": "PENDING",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "c287af66-40af-41ff-ad7c-f0bf812aaec5",
+                      "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-A03 → MOCK-A04",
+                      "place_id": null,
+                      "start_time": "14:15",
+                      "end_time": "14:30",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "e52759c6-8ccc-460b-9ebc-9e4317773578",
+                      "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                      "type": "VISIT",
+                      "name": "MOCK — Vườn hoa minh họa",
+                      "place_id": "MOCK-A04",
+                      "start_time": "14:30",
+                      "end_time": "15:15",
+                      "status": "PENDING",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "9eae5a27-f270-4ffa-b71b-355eff28920a",
+                      "day_id": "c9a6ef77-e364-4704-814d-56ae1a69698b",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-A04 → MOCK-END",
+                      "place_id": null,
+                      "start_time": "15:15",
+                      "end_time": "15:30",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    }
+                  ]
+                },
+                {
+                  "day_id": "d301e13d-9169-42e2-82a9-e5881169955e",
+                  "itinerary_id": "5b984d2f-5e1d-4390-9994-2a2fc9785ff2",
+                  "day_number": 3,
+                  "date": "2026-11-14",
+                  "end_deadline": "17:00",
+                  "activities": [
+                    {
+                      "activity_id": "8772a4e5-1679-456e-9c10-8e1c86a1794b",
+                      "day_id": "d301e13d-9169-42e2-82a9-e5881169955e",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-END → MOCK-CULTURE",
+                      "place_id": null,
+                      "start_time": "08:00",
+                      "end_time": "08:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "085a22e7-e8de-4950-86ea-b88bf9a75ef4",
+                      "day_id": "d301e13d-9169-42e2-82a9-e5881169955e",
+                      "type": "VISIT",
+                      "name": "MOCK — Điểm văn hóa ngày 3",
+                      "place_id": "MOCK-CULTURE",
+                      "start_time": "08:15",
+                      "end_time": "09:00",
+                      "status": "PENDING",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "8eef1215-f617-4572-82ac-89e881936171",
+                      "day_id": "d301e13d-9169-42e2-82a9-e5881169955e",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-CULTURE → MOCK-REST",
+                      "place_id": null,
+                      "start_time": "09:00",
+                      "end_time": "09:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "e22b39a5-1a4f-4a38-810b-9c4aa849ba88",
+                      "day_id": "d301e13d-9169-42e2-82a9-e5881169955e",
+                      "type": "REST",
+                      "name": "MOCK — Điểm nghỉ minh họa",
+                      "place_id": "MOCK-REST",
+                      "start_time": "09:15",
+                      "end_time": "10:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "d18b108c-f5dc-4378-a1a3-ecc0f0ae53ff",
+                      "day_id": "d301e13d-9169-42e2-82a9-e5881169955e",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-REST → MOCK-INDOOR",
+                      "place_id": null,
+                      "start_time": "10:15",
+                      "end_time": "10:30",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "8233000f-680b-4096-afc9-859ed07fab9c",
+                      "day_id": "d301e13d-9169-42e2-82a9-e5881169955e",
+                      "type": "VISIT",
+                      "name": "MOCK — Quán cà phê trong nhà minh họa",
+                      "place_id": "MOCK-INDOOR",
+                      "start_time": "10:30",
+                      "end_time": "11:15",
+                      "status": "PENDING",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "f8179ec5-7224-4c9d-aa27-810f4bd15c7c",
+                      "day_id": "d301e13d-9169-42e2-82a9-e5881169955e",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-INDOOR → MOCK-END",
+                      "place_id": null,
+                      "start_time": "11:15",
+                      "end_time": "11:30",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    }
+                  ]
+                },
+                {
+                  "day_id": "630b4525-6a70-4755-8b27-007081010d55",
+                  "itinerary_id": "5b984d2f-5e1d-4390-9994-2a2fc9785ff2",
+                  "day_number": 4,
+                  "date": "2026-11-15",
+                  "end_deadline": "18:00",
+                  "activities": [
+                    {
+                      "activity_id": "d350727f-0f31-409f-8a1e-88af65cb233f",
+                      "day_id": "630b4525-6a70-4755-8b27-007081010d55",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-END → MOCK-ROAD-REST",
+                      "place_id": null,
+                      "start_time": "06:00",
+                      "end_time": "08:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "0aa87bd5-b99e-42ea-9768-cdcd41e7d1ed",
+                      "day_id": "630b4525-6a70-4755-8b27-007081010d55",
+                      "type": "REST",
+                      "name": "MOCK — Điểm nghỉ dọc tuyến",
+                      "place_id": "MOCK-ROAD-REST",
+                      "start_time": "08:00",
+                      "end_time": "09:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "cee96d73-649d-425a-b8a2-d04610442a2e",
+                      "day_id": "630b4525-6a70-4755-8b27-007081010d55",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển MOCK-ROAD-REST → MOCK-HCM",
+                      "place_id": null,
+                      "start_time": "09:00",
+                      "end_time": "11:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "gemini_calls": [
+    {
+      "trip_days": 3,
+      "status": "PASS",
+      "model": "gemini-3.5-flash-lite",
+      "prompt_version": "adapt-rank-v1",
+      "latency_ms": 2159,
+      "usage": {
+        "promptTokenCount": 198,
+        "candidatesTokenCount": 33,
+        "totalTokenCount": 231
+      }
+    },
+    {
+      "trip_days": 4,
+      "status": "PASS",
+      "model": "gemini-3.5-flash-lite",
+      "prompt_version": "adapt-rank-v1",
+      "latency_ms": 1735,
+      "usage": {
+        "promptTokenCount": 221,
+        "candidatesTokenCount": 59,
+        "totalTokenCount": 280
+      }
+    }
+  ],
+  "file_sha256": {
+    "backend\\main.py": "19f55adfe0b80334d783a44b0d35408bc8736241219e323e8ebec439710308f6",
+    "backend\\plan_f02.py": "f758a9ac1e9639c84a4e43287a26aebd99396edcd60d54adc5ad58d7e9bf85e9",
+    "backend\\adapt_f05\\ranking.py": "01edb2c55b57f551a490ebe6599580d5e0d4772714476577b7812b909a459746",
+    "backend\\data\\handoff\\routes_mock.json": "4df97321bdc82aa9a1aa7d7b2b5d105ae2ce4edcd21b6613137f6f9d889ba065",
+    "backend\\data\\fixtures\\mock\\places.json": "3e4d98a69a649ea6230ce39a3e2940dc2474877d65f10eaa7f8576e535892082",
+    "backend\\data\\fixtures\\mock\\travel_times.json": "5ab892fc844adfbdd9114c3eee0d9958aa330996ca975c828c9fbb3db7da9f09",
+    "backend\\data\\places.json": "d16a416668945d8c87f6244b52f297fe5c74c3f81b34046340adf3a505e7df3c",
+    "backend\\data\\travel_times.json": "9562586c03f857d77a7d59916a8da08a475ea402a2992611f36c59384ae5976e",
+    "backend\\data\\fixtures\\current_v1_3day.json": "a79a4aca5517ed3b2acf4d94830ff3909a6f37923289eb01f082bb0a9e23d377",
+    "backend\\data\\fixtures\\current_v1_4day.json": "dca43314b87767480a34c4155bd3bae533b5b98679d99046695a0a976dc43003"
+  },
+  "finished_at": "2026-11-18T04:43:57.878665+00:00",
+  "passed": true
+}

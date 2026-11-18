@@ -1,0 +1,4660 @@
+{
+  "scope": "T06-T15 API/TestClient; live Gemini ranking; MOCK 4D fixtures",
+  "wiring": "Test-only injection of GeminiRanker into adapt_api.AdaptEngine",
+  "cases": [
+    {
+      "id": "T06",
+      "evidence": {
+        "proposal_id": "845cb7e2-0b76-4a29-8ee5-56de6d4be23f",
+        "itinerary_id": "MOCK4D-CURRENT",
+        "type": "EXTEND_REST",
+        "base_version": 1,
+        "options": [
+          {
+            "option_id": "fcf8325e-3a0e-42f3-aa33-2aa192ee5aa9",
+            "changes": [
+              {
+                "activity_id": "MOCK4D-A03",
+                "change_type": "DROP",
+                "before": {
+                  "activity_id": "MOCK4D-A03",
+                  "day_id": "MOCK4D-DAY-2",
+                  "type": "VISIT",
+                  "name": "MOCK — Hồ",
+                  "place_id": "MOCK-A03",
+                  "start_time": "14:15",
+                  "end_time": "15:00",
+                  "status": "PENDING",
+                  "is_optional": true,
+                  "replaces_activity_id": null,
+                  "completed_at": null
+                },
+                "after": null
+              },
+              {
+                "activity_id": "MOCK4D-REST",
+                "change_type": "EXTEND_REST",
+                "before": {
+                  "activity_id": "MOCK4D-REST",
+                  "day_id": "MOCK4D-DAY-2",
+                  "type": "REST",
+                  "name": "MOCK — Nghỉ trưa",
+                  "place_id": "MOCK-REST",
+                  "start_time": "13:00",
+                  "end_time": "14:00",
+                  "status": "PENDING",
+                  "is_optional": false,
+                  "replaces_activity_id": null,
+                  "completed_at": null
+                },
+                "after": {
+                  "activity_id": "MOCK4D-REST",
+                  "day_id": "MOCK4D-DAY-2",
+                  "type": "REST",
+                  "name": "MOCK — Nghỉ trưa",
+                  "place_id": "MOCK-REST",
+                  "start_time": "13:00",
+                  "end_time": "15:00",
+                  "status": "PENDING",
+                  "is_optional": false,
+                  "replaces_activity_id": null,
+                  "completed_at": null
+                }
+              }
+            ],
+            "travel_changes": [
+              {
+                "activity_id": "6abbd931-cc53-5cab-84e0-4d6c4446cde2",
+                "operation": "ADD",
+                "before": null,
+                "after": {
+                  "activity_id": "6abbd931-cc53-5cab-84e0-4d6c4446cde2",
+                  "day_id": "MOCK4D-DAY-2",
+                  "type": "TRAVEL",
+                  "name": "Di chuyển theo chặng đã kiểm tra",
+                  "place_id": null,
+                  "status": "PENDING",
+                  "is_optional": false,
+                  "replaces_activity_id": null,
+                  "completed_at": null,
+                  "start_time": "15:00",
+                  "end_time": "15:15"
+                },
+                "before_edge": null,
+                "after_edge": [
+                  "MOCK-REST",
+                  "MOCK-A04"
+                ]
+              },
+              {
+                "activity_id": "MOCK4D-TRAVEL-1",
+                "operation": "REPLACE",
+                "before": {
+                  "activity_id": "MOCK4D-TRAVEL-1",
+                  "day_id": "MOCK4D-DAY-2",
+                  "type": "TRAVEL",
+                  "name": "MOCK — Đi A03",
+                  "place_id": null,
+                  "start_time": "14:00",
+                  "end_time": "14:15",
+                  "status": "PENDING",
+                  "is_optional": false,
+                  "replaces_activity_id": null,
+                  "completed_at": null
+                },
+                "after": {
+                  "activity_id": "MOCK4D-TRAVEL-1",
+                  "day_id": "MOCK4D-DAY-2",
+                  "type": "TRAVEL",
+                  "name": "MOCK — Đi A03",
+                  "place_id": null,
+                  "start_time": "14:00",
+                  "end_time": "14:15",
+                  "status": "REPLACED",
+                  "is_optional": false,
+                  "replaces_activity_id": null,
+                  "completed_at": null
+                },
+                "before_edge": [
+                  "MOCK-REST",
+                  "MOCK-A03"
+                ],
+                "after_edge": null
+              },
+              {
+                "activity_id": "MOCK4D-TRAVEL-2",
+                "operation": "REPLACE",
+                "before": {
+                  "activity_id": "MOCK4D-TRAVEL-2",
+                  "day_id": "MOCK4D-DAY-2",
+                  "type": "TRAVEL",
+                  "name": "MOCK — Đi A04",
+                  "place_id": null,
+                  "start_time": "15:00",
+                  "end_time": "15:15",
+                  "status": "PENDING",
+                  "is_optional": false,
+                  "replaces_activity_id": null,
+                  "completed_at": null
+                },
+                "after": {
+                  "activity_id": "MOCK4D-TRAVEL-2",
+                  "day_id": "MOCK4D-DAY-2",
+                  "type": "TRAVEL",
+                  "name": "MOCK — Đi A04",
+                  "place_id": null,
+                  "start_time": "15:00",
+                  "end_time": "15:15",
+                  "status": "REPLACED",
+                  "is_optional": false,
+                  "replaces_activity_id": null,
+                  "completed_at": null
+                },
+                "before_edge": [
+                  "MOCK-A03",
+                  "MOCK-A04"
+                ],
+                "after_edge": null
+              }
+            ],
+            "proposed_days": [
+              {
+                "day_id": "MOCK4D-DAY-1",
+                "itinerary_id": "MOCK4D-CURRENT",
+                "day_number": 1,
+                "date": "2026-11-12",
+                "end_deadline": "17:00",
+                "activities": [
+                  {
+                    "activity_id": "MOCK4D-D1-TRAVEL1",
+                    "day_id": "MOCK4D-DAY-1",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D1-TRAVEL1",
+                    "place_id": null,
+                    "start_time": "06:00",
+                    "end_time": "08:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-12T01:00:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-D1-REST",
+                    "day_id": "MOCK4D-DAY-1",
+                    "type": "REST",
+                    "name": "MOCK — D1-REST",
+                    "place_id": "MOCK-ROAD-REST",
+                    "start_time": "08:00",
+                    "end_time": "09:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-12T02:00:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-D1-TRAVEL2",
+                    "day_id": "MOCK4D-DAY-1",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D1-TRAVEL2",
+                    "place_id": null,
+                    "start_time": "09:00",
+                    "end_time": "11:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-12T04:00:00Z"
+                  }
+                ]
+              },
+              {
+                "day_id": "MOCK4D-DAY-2",
+                "itinerary_id": "MOCK4D-CURRENT",
+                "day_number": 2,
+                "date": "2026-11-13",
+                "end_deadline": "16:30",
+                "activities": [
+                  {
+                    "activity_id": "MOCK4D-MORNING-TRAVEL0",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — MORNING-TRAVEL0",
+                    "place_id": null,
+                    "start_time": "07:45",
+                    "end_time": "08:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T01:00:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-A01",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Ga",
+                    "place_id": "MOCK-GA",
+                    "start_time": "08:00",
+                    "end_time": "09:30",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T02:30:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-MORNING-TRAVEL1",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — MORNING-TRAVEL1",
+                    "place_id": null,
+                    "start_time": "09:30",
+                    "end_time": "09:45",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T02:45:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-A02",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Thiền viện",
+                    "place_id": "MOCK-TEMPLE",
+                    "start_time": "09:45",
+                    "end_time": "12:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T05:00:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-MORNING-TRAVEL2",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — MORNING-TRAVEL2",
+                    "place_id": null,
+                    "start_time": "12:00",
+                    "end_time": "12:15",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T05:15:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-REST",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "REST",
+                    "name": "MOCK — Nghỉ trưa",
+                    "place_id": "MOCK-REST",
+                    "start_time": "13:00",
+                    "end_time": "15:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-TRAVEL-1",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A03",
+                    "place_id": null,
+                    "start_time": "14:00",
+                    "end_time": "14:15",
+                    "status": "REPLACED",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-A03",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Hồ",
+                    "place_id": "MOCK-A03",
+                    "start_time": "14:15",
+                    "end_time": "15:00",
+                    "status": "DROPPED",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "6abbd931-cc53-5cab-84e0-4d6c4446cde2",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển theo chặng đã kiểm tra",
+                    "place_id": null,
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null,
+                    "start_time": "15:00",
+                    "end_time": "15:15"
+                  },
+                  {
+                    "activity_id": "MOCK4D-TRAVEL-2",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A04",
+                    "place_id": null,
+                    "start_time": "15:00",
+                    "end_time": "15:15",
+                    "status": "REPLACED",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-A04",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Vườn hoa",
+                    "place_id": "MOCK-A04",
+                    "start_time": "15:15",
+                    "end_time": "16:00",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-TRAVEL-3",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Về điểm kết thúc",
+                    "place_id": null,
+                    "start_time": "16:00",
+                    "end_time": "16:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              },
+              {
+                "day_id": "MOCK4D-DAY-3",
+                "itinerary_id": "MOCK4D-CURRENT",
+                "day_number": 3,
+                "date": "2026-11-14",
+                "end_deadline": "17:00",
+                "activities": [
+                  {
+                    "activity_id": "MOCK4D-D3-TRAVEL1",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D3-TRAVEL1",
+                    "place_id": null,
+                    "start_time": "08:00",
+                    "end_time": "08:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-CULTURE",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "VISIT",
+                    "name": "MOCK — D3-CULTURE",
+                    "place_id": "MOCK-CULTURE",
+                    "start_time": "08:15",
+                    "end_time": "09:00",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-TRAVEL2",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D3-TRAVEL2",
+                    "place_id": null,
+                    "start_time": "09:00",
+                    "end_time": "09:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-REST",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "REST",
+                    "name": "MOCK — D3-REST",
+                    "place_id": "MOCK-REST",
+                    "start_time": "09:15",
+                    "end_time": "10:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-TRAVEL3",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D3-TRAVEL3",
+                    "place_id": null,
+                    "start_time": "10:15",
+                    "end_time": "10:30",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-COFFEE",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "VISIT",
+                    "name": "MOCK — D3-COFFEE",
+                    "place_id": "MOCK-INDOOR",
+                    "start_time": "10:30",
+                    "end_time": "11:15",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-TRAVEL4",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D3-TRAVEL4",
+                    "place_id": null,
+                    "start_time": "11:15",
+                    "end_time": "11:30",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              },
+              {
+                "day_id": "MOCK4D-DAY-4",
+                "itinerary_id": "MOCK4D-CURRENT",
+                "day_number": 4,
+                "date": "2026-11-15",
+                "end_deadline": "18:00",
+                "activities": [
+                  {
+                    "activity_id": "MOCK4D-D4-TRAVEL1",
+                    "day_id": "MOCK4D-DAY-4",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D4-TRAVEL1",
+                    "place_id": null,
+                    "start_time": "06:00",
+                    "end_time": "08:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D4-REST",
+                    "day_id": "MOCK4D-DAY-4",
+                    "type": "REST",
+                    "name": "MOCK — D4-REST",
+                    "place_id": "MOCK-ROAD-REST",
+                    "start_time": "08:00",
+                    "end_time": "09:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D4-TRAVEL2",
+                    "day_id": "MOCK4D-DAY-4",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D4-TRAVEL2",
+                    "place_id": null,
+                    "start_time": "09:00",
+                    "end_time": "11:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              }
+            ],
+            "reason": "Đã kiểm tra giờ mở cửa, chặng đi, tổng nghỉ và hạn kết thúc. Đến điểm kết thúc dự kiến lúc 16:15, hạn 16:30. Kéo dài đúng khoảng nghỉ đã chọn đến 15:00.",
+            "tradeoff": "Bỏ: MOCK — Hồ.",
+            "estimated_end_time": "16:15"
+          },
+          {
+            "option_id": "a17b62a2-568a-4d7f-8ad5-366120175971",
+            "changes": [
+              {
+                "activity_id": "MOCK4D-A03",
+                "change_type": "RESCHEDULE",
+                "before": {
+                  "activity_id": "MOCK4D-A03",
+                  "day_id": "MOCK4D-DAY-2",
+                  "type": "VISIT",
+                  "name": "MOCK — Hồ",
+                  "place_id": "MOCK-A03",
+                  "start_time": "14:15",
+                  "end_time": "15:00",
+                  "status": "PENDING",
+                  "is_optional": true,
+                  "replaces_activity_id": null,
+                  "completed_at": null
+                },
+                "after": {
+                  "activity_id": "MOCK4D-A03",
+                  "day_id": "MOCK4D-DAY-2",
+                  "type": "VISIT",
+                  "name": "MOCK — Hồ",
+                  "place_id": "MOCK-A03",
+                  "start_time": "15:15",
+                  "end_time": "16:00",
+                  "status": "PENDING",
+                  "is_optional": true,
+                  "replaces_activity_id": null,
+                  "completed_at": null
+                }
+              },
+              {
+                "activity_id": "MOCK4D-A04",
+                "change_type": "DROP",
+                "before": {
+                  "activity_id": "MOCK4D-A04",
+                  "day_id": "MOCK4D-DAY-2",
+                  "type": "VISIT",
+                  "name": "MOCK — Vườn hoa",
+                  "place_id": "MOCK-A04",
+                  "start_time": "15:15",
+                  "end_time": "16:00",
+                  "status": "PENDING",
+                  "is_optional": true,
+                  "replaces_activity_id": null,
+                  "completed_at": null
+                },
+                "after": null
+              },
+              {
+                "activity_id": "MOCK4D-REST",
+                "change_type": "EXTEND_REST",
+                "before": {
+                  "activity_id": "MOCK4D-REST",
+                  "day_id": "MOCK4D-DAY-2",
+                  "type": "REST",
+                  "name": "MOCK — Nghỉ trưa",
+                  "place_id": "MOCK-REST",
+                  "start_time": "13:00",
+                  "end_time": "14:00",
+                  "status": "PENDING",
+                  "is_optional": false,
+                  "replaces_activity_id": null,
+                  "completed_at": null
+                },
+                "after": {
+                  "activity_id": "MOCK4D-REST",
+                  "day_id": "MOCK4D-DAY-2",
+                  "type": "REST",
+                  "name": "MOCK — Nghỉ trưa",
+                  "place_id": "MOCK-REST",
+                  "start_time": "13:00",
+                  "end_time": "15:00",
+                  "status": "PENDING",
+                  "is_optional": false,
+                  "replaces_activity_id": null,
+                  "completed_at": null
+                }
+              }
+            ],
+            "travel_changes": [
+              {
+                "activity_id": "311affe8-a326-5e3c-9bee-25594547deae",
+                "operation": "ADD",
+                "before": null,
+                "after": {
+                  "activity_id": "311affe8-a326-5e3c-9bee-25594547deae",
+                  "day_id": "MOCK4D-DAY-2",
+                  "type": "TRAVEL",
+                  "name": "Di chuyển theo chặng đã kiểm tra",
+                  "place_id": null,
+                  "status": "PENDING",
+                  "is_optional": false,
+                  "replaces_activity_id": null,
+                  "completed_at": null,
+                  "start_time": "16:00",
+                  "end_time": "16:15"
+                },
+                "before_edge": null,
+                "after_edge": [
+                  "MOCK-A03",
+                  "MOCK-END"
+                ]
+              },
+              {
+                "activity_id": "MOCK4D-TRAVEL-1",
+                "operation": "RESCHEDULE",
+                "before": {
+                  "activity_id": "MOCK4D-TRAVEL-1",
+                  "day_id": "MOCK4D-DAY-2",
+                  "type": "TRAVEL",
+                  "name": "MOCK — Đi A03",
+                  "place_id": null,
+                  "start_time": "14:00",
+                  "end_time": "14:15",
+                  "status": "PENDING",
+                  "is_optional": false,
+                  "replaces_activity_id": null,
+                  "completed_at": null
+                },
+                "after": {
+                  "activity_id": "MOCK4D-TRAVEL-1",
+                  "day_id": "MOCK4D-DAY-2",
+                  "type": "TRAVEL",
+                  "name": "MOCK — Đi A03",
+                  "place_id": null,
+                  "start_time": "15:00",
+                  "end_time": "15:15",
+                  "status": "PENDING",
+                  "is_optional": false,
+                  "replaces_activity_id": null,
+                  "completed_at": null
+                },
+                "before_edge": [
+                  "MOCK-REST",
+                  "MOCK-A03"
+                ],
+                "after_edge": [
+                  "MOCK-REST",
+                  "MOCK-A03"
+                ]
+              },
+              {
+                "activity_id": "MOCK4D-TRAVEL-2",
+                "operation": "REPLACE",
+                "before": {
+                  "activity_id": "MOCK4D-TRAVEL-2",
+                  "day_id": "MOCK4D-DAY-2",
+                  "type": "TRAVEL",
+                  "name": "MOCK — Đi A04",
+                  "place_id": null,
+                  "start_time": "15:00",
+                  "end_time": "15:15",
+                  "status": "PENDING",
+                  "is_optional": false,
+                  "replaces_activity_id": null,
+                  "completed_at": null
+                },
+                "after": {
+                  "activity_id": "MOCK4D-TRAVEL-2",
+                  "day_id": "MOCK4D-DAY-2",
+                  "type": "TRAVEL",
+                  "name": "MOCK — Đi A04",
+                  "place_id": null,
+                  "start_time": "15:00",
+                  "end_time": "15:15",
+                  "status": "REPLACED",
+                  "is_optional": false,
+                  "replaces_activity_id": null,
+                  "completed_at": null
+                },
+                "before_edge": [
+                  "MOCK-A03",
+                  "MOCK-A04"
+                ],
+                "after_edge": null
+              },
+              {
+                "activity_id": "MOCK4D-TRAVEL-3",
+                "operation": "REPLACE",
+                "before": {
+                  "activity_id": "MOCK4D-TRAVEL-3",
+                  "day_id": "MOCK4D-DAY-2",
+                  "type": "TRAVEL",
+                  "name": "MOCK — Về điểm kết thúc",
+                  "place_id": null,
+                  "start_time": "16:00",
+                  "end_time": "16:15",
+                  "status": "PENDING",
+                  "is_optional": false,
+                  "replaces_activity_id": null,
+                  "completed_at": null
+                },
+                "after": {
+                  "activity_id": "MOCK4D-TRAVEL-3",
+                  "day_id": "MOCK4D-DAY-2",
+                  "type": "TRAVEL",
+                  "name": "MOCK — Về điểm kết thúc",
+                  "place_id": null,
+                  "start_time": "16:00",
+                  "end_time": "16:15",
+                  "status": "REPLACED",
+                  "is_optional": false,
+                  "replaces_activity_id": null,
+                  "completed_at": null
+                },
+                "before_edge": [
+                  "MOCK-A04",
+                  "MOCK-END"
+                ],
+                "after_edge": null
+              }
+            ],
+            "proposed_days": [
+              {
+                "day_id": "MOCK4D-DAY-1",
+                "itinerary_id": "MOCK4D-CURRENT",
+                "day_number": 1,
+                "date": "2026-11-12",
+                "end_deadline": "17:00",
+                "activities": [
+                  {
+                    "activity_id": "MOCK4D-D1-TRAVEL1",
+                    "day_id": "MOCK4D-DAY-1",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D1-TRAVEL1",
+                    "place_id": null,
+                    "start_time": "06:00",
+                    "end_time": "08:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-12T01:00:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-D1-REST",
+                    "day_id": "MOCK4D-DAY-1",
+                    "type": "REST",
+                    "name": "MOCK — D1-REST",
+                    "place_id": "MOCK-ROAD-REST",
+                    "start_time": "08:00",
+                    "end_time": "09:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-12T02:00:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-D1-TRAVEL2",
+                    "day_id": "MOCK4D-DAY-1",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D1-TRAVEL2",
+                    "place_id": null,
+                    "start_time": "09:00",
+                    "end_time": "11:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-12T04:00:00Z"
+                  }
+                ]
+              },
+              {
+                "day_id": "MOCK4D-DAY-2",
+                "itinerary_id": "MOCK4D-CURRENT",
+                "day_number": 2,
+                "date": "2026-11-13",
+                "end_deadline": "16:30",
+                "activities": [
+                  {
+                    "activity_id": "MOCK4D-MORNING-TRAVEL0",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — MORNING-TRAVEL0",
+                    "place_id": null,
+                    "start_time": "07:45",
+                    "end_time": "08:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T01:00:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-A01",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Ga",
+                    "place_id": "MOCK-GA",
+                    "start_time": "08:00",
+                    "end_time": "09:30",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T02:30:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-MORNING-TRAVEL1",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — MORNING-TRAVEL1",
+                    "place_id": null,
+                    "start_time": "09:30",
+                    "end_time": "09:45",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T02:45:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-A02",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Thiền viện",
+                    "place_id": "MOCK-TEMPLE",
+                    "start_time": "09:45",
+                    "end_time": "12:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T05:00:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-MORNING-TRAVEL2",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — MORNING-TRAVEL2",
+                    "place_id": null,
+                    "start_time": "12:00",
+                    "end_time": "12:15",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T05:15:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-REST",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "REST",
+                    "name": "MOCK — Nghỉ trưa",
+                    "place_id": "MOCK-REST",
+                    "start_time": "13:00",
+                    "end_time": "15:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-TRAVEL-1",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A03",
+                    "place_id": null,
+                    "start_time": "15:00",
+                    "end_time": "15:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-TRAVEL-2",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A04",
+                    "place_id": null,
+                    "start_time": "15:00",
+                    "end_time": "15:15",
+                    "status": "REPLACED",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-A03",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Hồ",
+                    "place_id": "MOCK-A03",
+                    "start_time": "15:15",
+                    "end_time": "16:00",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-A04",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Vườn hoa",
+                    "place_id": "MOCK-A04",
+                    "start_time": "15:15",
+                    "end_time": "16:00",
+                    "status": "DROPPED",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "311affe8-a326-5e3c-9bee-25594547deae",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển theo chặng đã kiểm tra",
+                    "place_id": null,
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null,
+                    "start_time": "16:00",
+                    "end_time": "16:15"
+                  },
+                  {
+                    "activity_id": "MOCK4D-TRAVEL-3",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Về điểm kết thúc",
+                    "place_id": null,
+                    "start_time": "16:00",
+                    "end_time": "16:15",
+                    "status": "REPLACED",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              },
+              {
+                "day_id": "MOCK4D-DAY-3",
+                "itinerary_id": "MOCK4D-CURRENT",
+                "day_number": 3,
+                "date": "2026-11-14",
+                "end_deadline": "17:00",
+                "activities": [
+                  {
+                    "activity_id": "MOCK4D-D3-TRAVEL1",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D3-TRAVEL1",
+                    "place_id": null,
+                    "start_time": "08:00",
+                    "end_time": "08:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-CULTURE",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "VISIT",
+                    "name": "MOCK — D3-CULTURE",
+                    "place_id": "MOCK-CULTURE",
+                    "start_time": "08:15",
+                    "end_time": "09:00",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-TRAVEL2",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D3-TRAVEL2",
+                    "place_id": null,
+                    "start_time": "09:00",
+                    "end_time": "09:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-REST",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "REST",
+                    "name": "MOCK — D3-REST",
+                    "place_id": "MOCK-REST",
+                    "start_time": "09:15",
+                    "end_time": "10:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-TRAVEL3",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D3-TRAVEL3",
+                    "place_id": null,
+                    "start_time": "10:15",
+                    "end_time": "10:30",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-COFFEE",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "VISIT",
+                    "name": "MOCK — D3-COFFEE",
+                    "place_id": "MOCK-INDOOR",
+                    "start_time": "10:30",
+                    "end_time": "11:15",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-TRAVEL4",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D3-TRAVEL4",
+                    "place_id": null,
+                    "start_time": "11:15",
+                    "end_time": "11:30",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              },
+              {
+                "day_id": "MOCK4D-DAY-4",
+                "itinerary_id": "MOCK4D-CURRENT",
+                "day_number": 4,
+                "date": "2026-11-15",
+                "end_deadline": "18:00",
+                "activities": [
+                  {
+                    "activity_id": "MOCK4D-D4-TRAVEL1",
+                    "day_id": "MOCK4D-DAY-4",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D4-TRAVEL1",
+                    "place_id": null,
+                    "start_time": "06:00",
+                    "end_time": "08:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D4-REST",
+                    "day_id": "MOCK4D-DAY-4",
+                    "type": "REST",
+                    "name": "MOCK — D4-REST",
+                    "place_id": "MOCK-ROAD-REST",
+                    "start_time": "08:00",
+                    "end_time": "09:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D4-TRAVEL2",
+                    "day_id": "MOCK4D-DAY-4",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D4-TRAVEL2",
+                    "place_id": null,
+                    "start_time": "09:00",
+                    "end_time": "11:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              }
+            ],
+            "reason": "Đã kiểm tra giờ mở cửa, chặng đi, tổng nghỉ và hạn kết thúc. Đến điểm kết thúc dự kiến lúc 16:15, hạn 16:30. Kéo dài đúng khoảng nghỉ đã chọn đến 15:00.",
+            "tradeoff": "Bỏ: MOCK — Vườn hoa.",
+            "estimated_end_time": "16:15"
+          }
+        ],
+        "no_option_reason": null
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "T07",
+      "status": "FAIL",
+      "reason": "POST /api/v1/itineraries/MOCK4D-CURRENT/adapt-proposals: HTTP 502, code=AI_INVALID_OUTPUT, expected 201"
+    },
+    {
+      "id": "T08",
+      "evidence": {
+        "proposal_id": "ed2a0a9c-651f-4123-a52b-593c13cd7fe0",
+        "itinerary_id": "MOCK4D-CURRENT",
+        "type": "EXTEND_REST",
+        "base_version": 1,
+        "options": [],
+        "no_option_reason": "Không tìm được phương án trong phạm vi tìm kiếm đã giới hạn. MOCK-A04 đóng cửa hoặc không đủ 45 phút tham quan. Đến điểm kết thúc lúc 17:45, vượt hạn 16:30. Đến điểm kết thúc lúc 16:45, vượt hạn 16:30."
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "T09",
+      "status": "FAIL",
+      "reason": "POST /api/v1/itineraries/MOCK4D-CURRENT/adapt-proposals: HTTP 503, code=AI_UNAVAILABLE, expected 201"
+    },
+    {
+      "id": "T10",
+      "evidence": {
+        "proposal": {
+          "proposal_id": "6bb8e7f2-a39e-43a8-9781-2e7627ad9217",
+          "itinerary_id": "MOCK4D-CURRENT",
+          "type": "EXTEND_REST",
+          "base_version": 1,
+          "options": [
+            {
+              "option_id": "4c461fbd-f4f6-4f0f-a772-b28292fae1c2",
+              "changes": [
+                {
+                  "activity_id": "MOCK4D-A03",
+                  "change_type": "DROP",
+                  "before": {
+                    "activity_id": "MOCK4D-A03",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Hồ",
+                    "place_id": "MOCK-A03",
+                    "start_time": "14:15",
+                    "end_time": "15:00",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "after": null
+                },
+                {
+                  "activity_id": "MOCK4D-REST",
+                  "change_type": "EXTEND_REST",
+                  "before": {
+                    "activity_id": "MOCK4D-REST",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "REST",
+                    "name": "MOCK — Nghỉ trưa",
+                    "place_id": "MOCK-REST",
+                    "start_time": "13:00",
+                    "end_time": "14:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "after": {
+                    "activity_id": "MOCK4D-REST",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "REST",
+                    "name": "MOCK — Nghỉ trưa",
+                    "place_id": "MOCK-REST",
+                    "start_time": "13:00",
+                    "end_time": "15:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                }
+              ],
+              "travel_changes": [
+                {
+                  "activity_id": "MOCK4D-TRAVEL-1",
+                  "operation": "REPLACE",
+                  "before": {
+                    "activity_id": "MOCK4D-TRAVEL-1",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A03",
+                    "place_id": null,
+                    "start_time": "14:00",
+                    "end_time": "14:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "after": {
+                    "activity_id": "MOCK4D-TRAVEL-1",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A03",
+                    "place_id": null,
+                    "start_time": "14:00",
+                    "end_time": "14:15",
+                    "status": "REPLACED",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "before_edge": [
+                    "MOCK-REST",
+                    "MOCK-A03"
+                  ],
+                  "after_edge": null
+                },
+                {
+                  "activity_id": "MOCK4D-TRAVEL-2",
+                  "operation": "REPLACE",
+                  "before": {
+                    "activity_id": "MOCK4D-TRAVEL-2",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A04",
+                    "place_id": null,
+                    "start_time": "15:00",
+                    "end_time": "15:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "after": {
+                    "activity_id": "MOCK4D-TRAVEL-2",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A04",
+                    "place_id": null,
+                    "start_time": "15:00",
+                    "end_time": "15:15",
+                    "status": "REPLACED",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "before_edge": [
+                    "MOCK-A03",
+                    "MOCK-A04"
+                  ],
+                  "after_edge": null
+                },
+                {
+                  "activity_id": "bb691483-3b4d-5ec8-ba2f-54af0df28671",
+                  "operation": "ADD",
+                  "before": null,
+                  "after": {
+                    "activity_id": "bb691483-3b4d-5ec8-ba2f-54af0df28671",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển theo chặng đã kiểm tra",
+                    "place_id": null,
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null,
+                    "start_time": "15:00",
+                    "end_time": "15:15"
+                  },
+                  "before_edge": null,
+                  "after_edge": [
+                    "MOCK-REST",
+                    "MOCK-A04"
+                  ]
+                }
+              ],
+              "proposed_days": [
+                {
+                  "day_id": "MOCK4D-DAY-1",
+                  "itinerary_id": "MOCK4D-CURRENT",
+                  "day_number": 1,
+                  "date": "2026-11-12",
+                  "end_deadline": "17:00",
+                  "activities": [
+                    {
+                      "activity_id": "MOCK4D-D1-TRAVEL1",
+                      "day_id": "MOCK4D-DAY-1",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D1-TRAVEL1",
+                      "place_id": null,
+                      "start_time": "06:00",
+                      "end_time": "08:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-12T01:00:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-D1-REST",
+                      "day_id": "MOCK4D-DAY-1",
+                      "type": "REST",
+                      "name": "MOCK — D1-REST",
+                      "place_id": "MOCK-ROAD-REST",
+                      "start_time": "08:00",
+                      "end_time": "09:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-12T02:00:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-D1-TRAVEL2",
+                      "day_id": "MOCK4D-DAY-1",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D1-TRAVEL2",
+                      "place_id": null,
+                      "start_time": "09:00",
+                      "end_time": "11:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-12T04:00:00Z"
+                    }
+                  ]
+                },
+                {
+                  "day_id": "MOCK4D-DAY-2",
+                  "itinerary_id": "MOCK4D-CURRENT",
+                  "day_number": 2,
+                  "date": "2026-11-13",
+                  "end_deadline": "16:30",
+                  "activities": [
+                    {
+                      "activity_id": "MOCK4D-MORNING-TRAVEL0",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — MORNING-TRAVEL0",
+                      "place_id": null,
+                      "start_time": "07:45",
+                      "end_time": "08:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-13T01:00:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-A01",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "VISIT",
+                      "name": "MOCK — Ga",
+                      "place_id": "MOCK-GA",
+                      "start_time": "08:00",
+                      "end_time": "09:30",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-13T02:30:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-MORNING-TRAVEL1",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — MORNING-TRAVEL1",
+                      "place_id": null,
+                      "start_time": "09:30",
+                      "end_time": "09:45",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-13T02:45:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-A02",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "VISIT",
+                      "name": "MOCK — Thiền viện",
+                      "place_id": "MOCK-TEMPLE",
+                      "start_time": "09:45",
+                      "end_time": "12:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-13T05:00:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-MORNING-TRAVEL2",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — MORNING-TRAVEL2",
+                      "place_id": null,
+                      "start_time": "12:00",
+                      "end_time": "12:15",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-13T05:15:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-REST",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "REST",
+                      "name": "MOCK — Nghỉ trưa",
+                      "place_id": "MOCK-REST",
+                      "start_time": "13:00",
+                      "end_time": "15:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-TRAVEL-1",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — Đi A03",
+                      "place_id": null,
+                      "start_time": "14:00",
+                      "end_time": "14:15",
+                      "status": "REPLACED",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-A03",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "VISIT",
+                      "name": "MOCK — Hồ",
+                      "place_id": "MOCK-A03",
+                      "start_time": "14:15",
+                      "end_time": "15:00",
+                      "status": "DROPPED",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-TRAVEL-2",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — Đi A04",
+                      "place_id": null,
+                      "start_time": "15:00",
+                      "end_time": "15:15",
+                      "status": "REPLACED",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "bb691483-3b4d-5ec8-ba2f-54af0df28671",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển theo chặng đã kiểm tra",
+                      "place_id": null,
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null,
+                      "start_time": "15:00",
+                      "end_time": "15:15"
+                    },
+                    {
+                      "activity_id": "MOCK4D-A04",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "VISIT",
+                      "name": "MOCK — Vườn hoa",
+                      "place_id": "MOCK-A04",
+                      "start_time": "15:15",
+                      "end_time": "16:00",
+                      "status": "PENDING",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-TRAVEL-3",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — Về điểm kết thúc",
+                      "place_id": null,
+                      "start_time": "16:00",
+                      "end_time": "16:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    }
+                  ]
+                },
+                {
+                  "day_id": "MOCK4D-DAY-3",
+                  "itinerary_id": "MOCK4D-CURRENT",
+                  "day_number": 3,
+                  "date": "2026-11-14",
+                  "end_deadline": "17:00",
+                  "activities": [
+                    {
+                      "activity_id": "MOCK4D-D3-TRAVEL1",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D3-TRAVEL1",
+                      "place_id": null,
+                      "start_time": "08:00",
+                      "end_time": "08:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-CULTURE",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "VISIT",
+                      "name": "MOCK — D3-CULTURE",
+                      "place_id": "MOCK-CULTURE",
+                      "start_time": "08:15",
+                      "end_time": "09:00",
+                      "status": "PENDING",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-TRAVEL2",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D3-TRAVEL2",
+                      "place_id": null,
+                      "start_time": "09:00",
+                      "end_time": "09:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-REST",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "REST",
+                      "name": "MOCK — D3-REST",
+                      "place_id": "MOCK-REST",
+                      "start_time": "09:15",
+                      "end_time": "10:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-TRAVEL3",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D3-TRAVEL3",
+                      "place_id": null,
+                      "start_time": "10:15",
+                      "end_time": "10:30",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-COFFEE",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "VISIT",
+                      "name": "MOCK — D3-COFFEE",
+                      "place_id": "MOCK-INDOOR",
+                      "start_time": "10:30",
+                      "end_time": "11:15",
+                      "status": "PENDING",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-TRAVEL4",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D3-TRAVEL4",
+                      "place_id": null,
+                      "start_time": "11:15",
+                      "end_time": "11:30",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    }
+                  ]
+                },
+                {
+                  "day_id": "MOCK4D-DAY-4",
+                  "itinerary_id": "MOCK4D-CURRENT",
+                  "day_number": 4,
+                  "date": "2026-11-15",
+                  "end_deadline": "18:00",
+                  "activities": [
+                    {
+                      "activity_id": "MOCK4D-D4-TRAVEL1",
+                      "day_id": "MOCK4D-DAY-4",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D4-TRAVEL1",
+                      "place_id": null,
+                      "start_time": "06:00",
+                      "end_time": "08:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D4-REST",
+                      "day_id": "MOCK4D-DAY-4",
+                      "type": "REST",
+                      "name": "MOCK — D4-REST",
+                      "place_id": "MOCK-ROAD-REST",
+                      "start_time": "08:00",
+                      "end_time": "09:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D4-TRAVEL2",
+                      "day_id": "MOCK4D-DAY-4",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D4-TRAVEL2",
+                      "place_id": null,
+                      "start_time": "09:00",
+                      "end_time": "11:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    }
+                  ]
+                }
+              ],
+              "reason": "Đã kiểm tra giờ mở cửa, chặng đi, tổng nghỉ và hạn kết thúc. Đến điểm kết thúc dự kiến lúc 16:15, hạn 16:30. Kéo dài đúng khoảng nghỉ đã chọn đến 15:00.",
+              "tradeoff": "Bỏ: MOCK — Hồ.",
+              "estimated_end_time": "16:15"
+            },
+            {
+              "option_id": "c78d321f-6ddc-4c04-bc7b-f8ed87d51124",
+              "changes": [
+                {
+                  "activity_id": "MOCK4D-A03",
+                  "change_type": "RESCHEDULE",
+                  "before": {
+                    "activity_id": "MOCK4D-A03",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Hồ",
+                    "place_id": "MOCK-A03",
+                    "start_time": "14:15",
+                    "end_time": "15:00",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "after": {
+                    "activity_id": "MOCK4D-A03",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Hồ",
+                    "place_id": "MOCK-A03",
+                    "start_time": "15:15",
+                    "end_time": "16:00",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                },
+                {
+                  "activity_id": "MOCK4D-A04",
+                  "change_type": "DROP",
+                  "before": {
+                    "activity_id": "MOCK4D-A04",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Vườn hoa",
+                    "place_id": "MOCK-A04",
+                    "start_time": "15:15",
+                    "end_time": "16:00",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "after": null
+                },
+                {
+                  "activity_id": "MOCK4D-REST",
+                  "change_type": "EXTEND_REST",
+                  "before": {
+                    "activity_id": "MOCK4D-REST",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "REST",
+                    "name": "MOCK — Nghỉ trưa",
+                    "place_id": "MOCK-REST",
+                    "start_time": "13:00",
+                    "end_time": "14:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "after": {
+                    "activity_id": "MOCK4D-REST",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "REST",
+                    "name": "MOCK — Nghỉ trưa",
+                    "place_id": "MOCK-REST",
+                    "start_time": "13:00",
+                    "end_time": "15:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                }
+              ],
+              "travel_changes": [
+                {
+                  "activity_id": "0219e490-a4b8-579d-80ce-a8c6cdd2d3af",
+                  "operation": "ADD",
+                  "before": null,
+                  "after": {
+                    "activity_id": "0219e490-a4b8-579d-80ce-a8c6cdd2d3af",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển theo chặng đã kiểm tra",
+                    "place_id": null,
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null,
+                    "start_time": "16:00",
+                    "end_time": "16:15"
+                  },
+                  "before_edge": null,
+                  "after_edge": [
+                    "MOCK-A03",
+                    "MOCK-END"
+                  ]
+                },
+                {
+                  "activity_id": "MOCK4D-TRAVEL-1",
+                  "operation": "RESCHEDULE",
+                  "before": {
+                    "activity_id": "MOCK4D-TRAVEL-1",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A03",
+                    "place_id": null,
+                    "start_time": "14:00",
+                    "end_time": "14:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "after": {
+                    "activity_id": "MOCK4D-TRAVEL-1",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A03",
+                    "place_id": null,
+                    "start_time": "15:00",
+                    "end_time": "15:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "before_edge": [
+                    "MOCK-REST",
+                    "MOCK-A03"
+                  ],
+                  "after_edge": [
+                    "MOCK-REST",
+                    "MOCK-A03"
+                  ]
+                },
+                {
+                  "activity_id": "MOCK4D-TRAVEL-2",
+                  "operation": "REPLACE",
+                  "before": {
+                    "activity_id": "MOCK4D-TRAVEL-2",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A04",
+                    "place_id": null,
+                    "start_time": "15:00",
+                    "end_time": "15:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "after": {
+                    "activity_id": "MOCK4D-TRAVEL-2",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A04",
+                    "place_id": null,
+                    "start_time": "15:00",
+                    "end_time": "15:15",
+                    "status": "REPLACED",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "before_edge": [
+                    "MOCK-A03",
+                    "MOCK-A04"
+                  ],
+                  "after_edge": null
+                },
+                {
+                  "activity_id": "MOCK4D-TRAVEL-3",
+                  "operation": "REPLACE",
+                  "before": {
+                    "activity_id": "MOCK4D-TRAVEL-3",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Về điểm kết thúc",
+                    "place_id": null,
+                    "start_time": "16:00",
+                    "end_time": "16:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "after": {
+                    "activity_id": "MOCK4D-TRAVEL-3",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Về điểm kết thúc",
+                    "place_id": null,
+                    "start_time": "16:00",
+                    "end_time": "16:15",
+                    "status": "REPLACED",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "before_edge": [
+                    "MOCK-A04",
+                    "MOCK-END"
+                  ],
+                  "after_edge": null
+                }
+              ],
+              "proposed_days": [
+                {
+                  "day_id": "MOCK4D-DAY-1",
+                  "itinerary_id": "MOCK4D-CURRENT",
+                  "day_number": 1,
+                  "date": "2026-11-12",
+                  "end_deadline": "17:00",
+                  "activities": [
+                    {
+                      "activity_id": "MOCK4D-D1-TRAVEL1",
+                      "day_id": "MOCK4D-DAY-1",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D1-TRAVEL1",
+                      "place_id": null,
+                      "start_time": "06:00",
+                      "end_time": "08:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-12T01:00:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-D1-REST",
+                      "day_id": "MOCK4D-DAY-1",
+                      "type": "REST",
+                      "name": "MOCK — D1-REST",
+                      "place_id": "MOCK-ROAD-REST",
+                      "start_time": "08:00",
+                      "end_time": "09:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-12T02:00:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-D1-TRAVEL2",
+                      "day_id": "MOCK4D-DAY-1",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D1-TRAVEL2",
+                      "place_id": null,
+                      "start_time": "09:00",
+                      "end_time": "11:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-12T04:00:00Z"
+                    }
+                  ]
+                },
+                {
+                  "day_id": "MOCK4D-DAY-2",
+                  "itinerary_id": "MOCK4D-CURRENT",
+                  "day_number": 2,
+                  "date": "2026-11-13",
+                  "end_deadline": "16:30",
+                  "activities": [
+                    {
+                      "activity_id": "MOCK4D-MORNING-TRAVEL0",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — MORNING-TRAVEL0",
+                      "place_id": null,
+                      "start_time": "07:45",
+                      "end_time": "08:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-13T01:00:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-A01",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "VISIT",
+                      "name": "MOCK — Ga",
+                      "place_id": "MOCK-GA",
+                      "start_time": "08:00",
+                      "end_time": "09:30",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-13T02:30:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-MORNING-TRAVEL1",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — MORNING-TRAVEL1",
+                      "place_id": null,
+                      "start_time": "09:30",
+                      "end_time": "09:45",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-13T02:45:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-A02",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "VISIT",
+                      "name": "MOCK — Thiền viện",
+                      "place_id": "MOCK-TEMPLE",
+                      "start_time": "09:45",
+                      "end_time": "12:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-13T05:00:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-MORNING-TRAVEL2",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — MORNING-TRAVEL2",
+                      "place_id": null,
+                      "start_time": "12:00",
+                      "end_time": "12:15",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-13T05:15:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-REST",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "REST",
+                      "name": "MOCK — Nghỉ trưa",
+                      "place_id": "MOCK-REST",
+                      "start_time": "13:00",
+                      "end_time": "15:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-TRAVEL-1",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — Đi A03",
+                      "place_id": null,
+                      "start_time": "15:00",
+                      "end_time": "15:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-TRAVEL-2",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — Đi A04",
+                      "place_id": null,
+                      "start_time": "15:00",
+                      "end_time": "15:15",
+                      "status": "REPLACED",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-A03",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "VISIT",
+                      "name": "MOCK — Hồ",
+                      "place_id": "MOCK-A03",
+                      "start_time": "15:15",
+                      "end_time": "16:00",
+                      "status": "PENDING",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-A04",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "VISIT",
+                      "name": "MOCK — Vườn hoa",
+                      "place_id": "MOCK-A04",
+                      "start_time": "15:15",
+                      "end_time": "16:00",
+                      "status": "DROPPED",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "0219e490-a4b8-579d-80ce-a8c6cdd2d3af",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển theo chặng đã kiểm tra",
+                      "place_id": null,
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null,
+                      "start_time": "16:00",
+                      "end_time": "16:15"
+                    },
+                    {
+                      "activity_id": "MOCK4D-TRAVEL-3",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — Về điểm kết thúc",
+                      "place_id": null,
+                      "start_time": "16:00",
+                      "end_time": "16:15",
+                      "status": "REPLACED",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    }
+                  ]
+                },
+                {
+                  "day_id": "MOCK4D-DAY-3",
+                  "itinerary_id": "MOCK4D-CURRENT",
+                  "day_number": 3,
+                  "date": "2026-11-14",
+                  "end_deadline": "17:00",
+                  "activities": [
+                    {
+                      "activity_id": "MOCK4D-D3-TRAVEL1",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D3-TRAVEL1",
+                      "place_id": null,
+                      "start_time": "08:00",
+                      "end_time": "08:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-CULTURE",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "VISIT",
+                      "name": "MOCK — D3-CULTURE",
+                      "place_id": "MOCK-CULTURE",
+                      "start_time": "08:15",
+                      "end_time": "09:00",
+                      "status": "PENDING",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-TRAVEL2",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D3-TRAVEL2",
+                      "place_id": null,
+                      "start_time": "09:00",
+                      "end_time": "09:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-REST",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "REST",
+                      "name": "MOCK — D3-REST",
+                      "place_id": "MOCK-REST",
+                      "start_time": "09:15",
+                      "end_time": "10:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-TRAVEL3",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D3-TRAVEL3",
+                      "place_id": null,
+                      "start_time": "10:15",
+                      "end_time": "10:30",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-COFFEE",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "VISIT",
+                      "name": "MOCK — D3-COFFEE",
+                      "place_id": "MOCK-INDOOR",
+                      "start_time": "10:30",
+                      "end_time": "11:15",
+                      "status": "PENDING",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-TRAVEL4",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D3-TRAVEL4",
+                      "place_id": null,
+                      "start_time": "11:15",
+                      "end_time": "11:30",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    }
+                  ]
+                },
+                {
+                  "day_id": "MOCK4D-DAY-4",
+                  "itinerary_id": "MOCK4D-CURRENT",
+                  "day_number": 4,
+                  "date": "2026-11-15",
+                  "end_deadline": "18:00",
+                  "activities": [
+                    {
+                      "activity_id": "MOCK4D-D4-TRAVEL1",
+                      "day_id": "MOCK4D-DAY-4",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D4-TRAVEL1",
+                      "place_id": null,
+                      "start_time": "06:00",
+                      "end_time": "08:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D4-REST",
+                      "day_id": "MOCK4D-DAY-4",
+                      "type": "REST",
+                      "name": "MOCK — D4-REST",
+                      "place_id": "MOCK-ROAD-REST",
+                      "start_time": "08:00",
+                      "end_time": "09:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D4-TRAVEL2",
+                      "day_id": "MOCK4D-DAY-4",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D4-TRAVEL2",
+                      "place_id": null,
+                      "start_time": "09:00",
+                      "end_time": "11:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    }
+                  ]
+                }
+              ],
+              "reason": "Đã kiểm tra giờ mở cửa, chặng đi, tổng nghỉ và hạn kết thúc. Đến điểm kết thúc dự kiến lúc 16:15, hạn 16:30. Kéo dài đúng khoảng nghỉ đã chọn đến 15:00.",
+              "tradeoff": "Bỏ: MOCK — Vườn hoa.",
+              "estimated_end_time": "16:15"
+            }
+          ],
+          "no_option_reason": null
+        },
+        "decision": {
+          "proposal_id": "6bb8e7f2-a39e-43a8-9781-2e7627ad9217",
+          "decision": "ACCEPT",
+          "option_id": "4c461fbd-f4f6-4f0f-a772-b28292fae1c2",
+          "itinerary": {
+            "itinerary_id": "MOCK4D-CURRENT",
+            "user_id": "MOCK-TAN-USER",
+            "departure_date": "2026-11-12",
+            "return_date": "2026-11-15",
+            "departure_time": "06:00",
+            "interests": [
+              "nature",
+              "coffee"
+            ],
+            "min_rest_minutes": 60,
+            "status": "CURRENT",
+            "version": 2,
+            "created_at": "2026-11-01T00:00:00Z",
+            "confirmed_at": "2026-11-01T00:01:00Z",
+            "days": [
+              {
+                "day_id": "MOCK4D-DAY-1",
+                "itinerary_id": "MOCK4D-CURRENT",
+                "day_number": 1,
+                "date": "2026-11-12",
+                "end_deadline": "17:00",
+                "activities": [
+                  {
+                    "activity_id": "MOCK4D-D1-TRAVEL1",
+                    "day_id": "MOCK4D-DAY-1",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D1-TRAVEL1",
+                    "place_id": null,
+                    "start_time": "06:00",
+                    "end_time": "08:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-12T01:00:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-D1-REST",
+                    "day_id": "MOCK4D-DAY-1",
+                    "type": "REST",
+                    "name": "MOCK — D1-REST",
+                    "place_id": "MOCK-ROAD-REST",
+                    "start_time": "08:00",
+                    "end_time": "09:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-12T02:00:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-D1-TRAVEL2",
+                    "day_id": "MOCK4D-DAY-1",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D1-TRAVEL2",
+                    "place_id": null,
+                    "start_time": "09:00",
+                    "end_time": "11:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-12T04:00:00Z"
+                  }
+                ]
+              },
+              {
+                "day_id": "MOCK4D-DAY-2",
+                "itinerary_id": "MOCK4D-CURRENT",
+                "day_number": 2,
+                "date": "2026-11-13",
+                "end_deadline": "16:30",
+                "activities": [
+                  {
+                    "activity_id": "MOCK4D-MORNING-TRAVEL0",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — MORNING-TRAVEL0",
+                    "place_id": null,
+                    "start_time": "07:45",
+                    "end_time": "08:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T01:00:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-A01",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Ga",
+                    "place_id": "MOCK-GA",
+                    "start_time": "08:00",
+                    "end_time": "09:30",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T02:30:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-MORNING-TRAVEL1",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — MORNING-TRAVEL1",
+                    "place_id": null,
+                    "start_time": "09:30",
+                    "end_time": "09:45",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T02:45:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-A02",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Thiền viện",
+                    "place_id": "MOCK-TEMPLE",
+                    "start_time": "09:45",
+                    "end_time": "12:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T05:00:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-MORNING-TRAVEL2",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — MORNING-TRAVEL2",
+                    "place_id": null,
+                    "start_time": "12:00",
+                    "end_time": "12:15",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T05:15:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-REST",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "REST",
+                    "name": "MOCK — Nghỉ trưa",
+                    "place_id": "MOCK-REST",
+                    "start_time": "13:00",
+                    "end_time": "15:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-TRAVEL-1",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A03",
+                    "place_id": null,
+                    "start_time": "14:00",
+                    "end_time": "14:15",
+                    "status": "REPLACED",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-A03",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Hồ",
+                    "place_id": "MOCK-A03",
+                    "start_time": "14:15",
+                    "end_time": "15:00",
+                    "status": "DROPPED",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-TRAVEL-2",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A04",
+                    "place_id": null,
+                    "start_time": "15:00",
+                    "end_time": "15:15",
+                    "status": "REPLACED",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "bb691483-3b4d-5ec8-ba2f-54af0df28671",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển theo chặng đã kiểm tra",
+                    "place_id": null,
+                    "start_time": "15:00",
+                    "end_time": "15:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-A04",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Vườn hoa",
+                    "place_id": "MOCK-A04",
+                    "start_time": "15:15",
+                    "end_time": "16:00",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-TRAVEL-3",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Về điểm kết thúc",
+                    "place_id": null,
+                    "start_time": "16:00",
+                    "end_time": "16:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              },
+              {
+                "day_id": "MOCK4D-DAY-3",
+                "itinerary_id": "MOCK4D-CURRENT",
+                "day_number": 3,
+                "date": "2026-11-14",
+                "end_deadline": "17:00",
+                "activities": [
+                  {
+                    "activity_id": "MOCK4D-D3-TRAVEL1",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D3-TRAVEL1",
+                    "place_id": null,
+                    "start_time": "08:00",
+                    "end_time": "08:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-CULTURE",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "VISIT",
+                    "name": "MOCK — D3-CULTURE",
+                    "place_id": "MOCK-CULTURE",
+                    "start_time": "08:15",
+                    "end_time": "09:00",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-TRAVEL2",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D3-TRAVEL2",
+                    "place_id": null,
+                    "start_time": "09:00",
+                    "end_time": "09:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-REST",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "REST",
+                    "name": "MOCK — D3-REST",
+                    "place_id": "MOCK-REST",
+                    "start_time": "09:15",
+                    "end_time": "10:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-TRAVEL3",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D3-TRAVEL3",
+                    "place_id": null,
+                    "start_time": "10:15",
+                    "end_time": "10:30",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-COFFEE",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "VISIT",
+                    "name": "MOCK — D3-COFFEE",
+                    "place_id": "MOCK-INDOOR",
+                    "start_time": "10:30",
+                    "end_time": "11:15",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-TRAVEL4",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D3-TRAVEL4",
+                    "place_id": null,
+                    "start_time": "11:15",
+                    "end_time": "11:30",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              },
+              {
+                "day_id": "MOCK4D-DAY-4",
+                "itinerary_id": "MOCK4D-CURRENT",
+                "day_number": 4,
+                "date": "2026-11-15",
+                "end_deadline": "18:00",
+                "activities": [
+                  {
+                    "activity_id": "MOCK4D-D4-TRAVEL1",
+                    "day_id": "MOCK4D-DAY-4",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D4-TRAVEL1",
+                    "place_id": null,
+                    "start_time": "06:00",
+                    "end_time": "08:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D4-REST",
+                    "day_id": "MOCK4D-DAY-4",
+                    "type": "REST",
+                    "name": "MOCK — D4-REST",
+                    "place_id": "MOCK-ROAD-REST",
+                    "start_time": "08:00",
+                    "end_time": "09:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D4-TRAVEL2",
+                    "day_id": "MOCK4D-DAY-4",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D4-TRAVEL2",
+                    "place_id": null,
+                    "start_time": "09:00",
+                    "end_time": "11:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "reopen": "PASS"
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "T11",
+      "evidence": {
+        "error": {
+          "code": "STALE_PROPOSAL",
+          "message": "Lịch đã thay đổi. Hãy tạo lại đề xuất."
+        },
+        "version": 2
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "T12",
+      "evidence": {
+        "fault_injection": true,
+        "ai_timeout": {
+          "code": "AI_TIMEOUT",
+          "message": "Injected timeout"
+        },
+        "storage_error": {
+          "code": "SERVER_ERROR",
+          "message": "Không thể lưu hoặc đọc dữ liệu."
+        },
+        "rollback": "PASS",
+        "retry_version": 2
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "T13",
+      "evidence": {
+        "proposal": {
+          "proposal_id": "ae147dcc-3c92-422e-a7b9-03108a45077d",
+          "itinerary_id": "MOCK4D-CURRENT",
+          "type": "REPLACE_LOCATION",
+          "base_version": 1,
+          "options": [
+            {
+              "option_id": "c5ef16be-9852-4c6e-884d-73bd056f3dbd",
+              "changes": [
+                {
+                  "activity_id": "MOCK4D-A03",
+                  "change_type": "REPLACE_LOCATION",
+                  "before": {
+                    "activity_id": "MOCK4D-A03",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Hồ",
+                    "place_id": "MOCK-A03",
+                    "start_time": "14:15",
+                    "end_time": "15:00",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "after": {
+                    "activity_id": "dc33398c-53f9-5631-a5ac-86f7f864cf03",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Quán cà phê trong nhà minh họa",
+                    "place_id": "MOCK-INDOOR",
+                    "start_time": "14:15",
+                    "end_time": "15:00",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": "MOCK4D-A03",
+                    "completed_at": null
+                  }
+                }
+              ],
+              "travel_changes": [
+                {
+                  "activity_id": "MOCK4D-TRAVEL-1",
+                  "operation": "REPLACE",
+                  "before": {
+                    "activity_id": "MOCK4D-TRAVEL-1",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A03",
+                    "place_id": null,
+                    "start_time": "14:00",
+                    "end_time": "14:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "after": {
+                    "activity_id": "MOCK4D-TRAVEL-1",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A03",
+                    "place_id": null,
+                    "start_time": "14:00",
+                    "end_time": "14:15",
+                    "status": "REPLACED",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "before_edge": [
+                    "MOCK-REST",
+                    "MOCK-A03"
+                  ],
+                  "after_edge": null
+                },
+                {
+                  "activity_id": "MOCK4D-TRAVEL-2",
+                  "operation": "REPLACE",
+                  "before": {
+                    "activity_id": "MOCK4D-TRAVEL-2",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A04",
+                    "place_id": null,
+                    "start_time": "15:00",
+                    "end_time": "15:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "after": {
+                    "activity_id": "MOCK4D-TRAVEL-2",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A04",
+                    "place_id": null,
+                    "start_time": "15:00",
+                    "end_time": "15:15",
+                    "status": "REPLACED",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "before_edge": [
+                    "MOCK-A03",
+                    "MOCK-A04"
+                  ],
+                  "after_edge": null
+                },
+                {
+                  "activity_id": "a75c1a7c-7252-567b-95f5-14835b0cfa2a",
+                  "operation": "ADD",
+                  "before": null,
+                  "after": {
+                    "activity_id": "a75c1a7c-7252-567b-95f5-14835b0cfa2a",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển theo chặng đã kiểm tra",
+                    "place_id": null,
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null,
+                    "start_time": "14:00",
+                    "end_time": "14:15"
+                  },
+                  "before_edge": null,
+                  "after_edge": [
+                    "MOCK-REST",
+                    "MOCK-INDOOR"
+                  ]
+                },
+                {
+                  "activity_id": "b7174cdb-d170-5e63-a162-75010c432b68",
+                  "operation": "ADD",
+                  "before": null,
+                  "after": {
+                    "activity_id": "b7174cdb-d170-5e63-a162-75010c432b68",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển theo chặng đã kiểm tra",
+                    "place_id": null,
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null,
+                    "start_time": "15:00",
+                    "end_time": "15:15"
+                  },
+                  "before_edge": null,
+                  "after_edge": [
+                    "MOCK-INDOOR",
+                    "MOCK-A04"
+                  ]
+                }
+              ],
+              "proposed_days": [
+                {
+                  "day_id": "MOCK4D-DAY-1",
+                  "itinerary_id": "MOCK4D-CURRENT",
+                  "day_number": 1,
+                  "date": "2026-11-12",
+                  "end_deadline": "17:00",
+                  "activities": [
+                    {
+                      "activity_id": "MOCK4D-D1-TRAVEL1",
+                      "day_id": "MOCK4D-DAY-1",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D1-TRAVEL1",
+                      "place_id": null,
+                      "start_time": "06:00",
+                      "end_time": "08:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-12T01:00:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-D1-REST",
+                      "day_id": "MOCK4D-DAY-1",
+                      "type": "REST",
+                      "name": "MOCK — D1-REST",
+                      "place_id": "MOCK-ROAD-REST",
+                      "start_time": "08:00",
+                      "end_time": "09:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-12T02:00:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-D1-TRAVEL2",
+                      "day_id": "MOCK4D-DAY-1",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D1-TRAVEL2",
+                      "place_id": null,
+                      "start_time": "09:00",
+                      "end_time": "11:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-12T04:00:00Z"
+                    }
+                  ]
+                },
+                {
+                  "day_id": "MOCK4D-DAY-2",
+                  "itinerary_id": "MOCK4D-CURRENT",
+                  "day_number": 2,
+                  "date": "2026-11-13",
+                  "end_deadline": "16:30",
+                  "activities": [
+                    {
+                      "activity_id": "MOCK4D-MORNING-TRAVEL0",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — MORNING-TRAVEL0",
+                      "place_id": null,
+                      "start_time": "07:45",
+                      "end_time": "08:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-13T01:00:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-A01",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "VISIT",
+                      "name": "MOCK — Ga",
+                      "place_id": "MOCK-GA",
+                      "start_time": "08:00",
+                      "end_time": "09:30",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-13T02:30:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-MORNING-TRAVEL1",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — MORNING-TRAVEL1",
+                      "place_id": null,
+                      "start_time": "09:30",
+                      "end_time": "09:45",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-13T02:45:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-A02",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "VISIT",
+                      "name": "MOCK — Thiền viện",
+                      "place_id": "MOCK-TEMPLE",
+                      "start_time": "09:45",
+                      "end_time": "12:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-13T05:00:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-MORNING-TRAVEL2",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — MORNING-TRAVEL2",
+                      "place_id": null,
+                      "start_time": "12:00",
+                      "end_time": "12:15",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-13T05:15:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-REST",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "REST",
+                      "name": "MOCK — Nghỉ trưa",
+                      "place_id": "MOCK-REST",
+                      "start_time": "13:00",
+                      "end_time": "14:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-TRAVEL-1",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — Đi A03",
+                      "place_id": null,
+                      "start_time": "14:00",
+                      "end_time": "14:15",
+                      "status": "REPLACED",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "a75c1a7c-7252-567b-95f5-14835b0cfa2a",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển theo chặng đã kiểm tra",
+                      "place_id": null,
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null,
+                      "start_time": "14:00",
+                      "end_time": "14:15"
+                    },
+                    {
+                      "activity_id": "MOCK4D-A03",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "VISIT",
+                      "name": "MOCK — Hồ",
+                      "place_id": "MOCK-A03",
+                      "start_time": "14:15",
+                      "end_time": "15:00",
+                      "status": "REPLACED",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "dc33398c-53f9-5631-a5ac-86f7f864cf03",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "VISIT",
+                      "name": "MOCK — Quán cà phê trong nhà minh họa",
+                      "place_id": "MOCK-INDOOR",
+                      "start_time": "14:15",
+                      "end_time": "15:00",
+                      "status": "PENDING",
+                      "is_optional": true,
+                      "replaces_activity_id": "MOCK4D-A03",
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-TRAVEL-2",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — Đi A04",
+                      "place_id": null,
+                      "start_time": "15:00",
+                      "end_time": "15:15",
+                      "status": "REPLACED",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "b7174cdb-d170-5e63-a162-75010c432b68",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển theo chặng đã kiểm tra",
+                      "place_id": null,
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null,
+                      "start_time": "15:00",
+                      "end_time": "15:15"
+                    },
+                    {
+                      "activity_id": "MOCK4D-A04",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "VISIT",
+                      "name": "MOCK — Vườn hoa",
+                      "place_id": "MOCK-A04",
+                      "start_time": "15:15",
+                      "end_time": "16:00",
+                      "status": "PENDING",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-TRAVEL-3",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — Về điểm kết thúc",
+                      "place_id": null,
+                      "start_time": "16:00",
+                      "end_time": "16:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    }
+                  ]
+                },
+                {
+                  "day_id": "MOCK4D-DAY-3",
+                  "itinerary_id": "MOCK4D-CURRENT",
+                  "day_number": 3,
+                  "date": "2026-11-14",
+                  "end_deadline": "17:00",
+                  "activities": [
+                    {
+                      "activity_id": "MOCK4D-D3-TRAVEL1",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D3-TRAVEL1",
+                      "place_id": null,
+                      "start_time": "08:00",
+                      "end_time": "08:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-CULTURE",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "VISIT",
+                      "name": "MOCK — D3-CULTURE",
+                      "place_id": "MOCK-CULTURE",
+                      "start_time": "08:15",
+                      "end_time": "09:00",
+                      "status": "PENDING",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-TRAVEL2",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D3-TRAVEL2",
+                      "place_id": null,
+                      "start_time": "09:00",
+                      "end_time": "09:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-REST",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "REST",
+                      "name": "MOCK — D3-REST",
+                      "place_id": "MOCK-REST",
+                      "start_time": "09:15",
+                      "end_time": "10:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-TRAVEL3",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D3-TRAVEL3",
+                      "place_id": null,
+                      "start_time": "10:15",
+                      "end_time": "10:30",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-COFFEE",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "VISIT",
+                      "name": "MOCK — D3-COFFEE",
+                      "place_id": "MOCK-INDOOR",
+                      "start_time": "10:30",
+                      "end_time": "11:15",
+                      "status": "PENDING",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-TRAVEL4",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D3-TRAVEL4",
+                      "place_id": null,
+                      "start_time": "11:15",
+                      "end_time": "11:30",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    }
+                  ]
+                },
+                {
+                  "day_id": "MOCK4D-DAY-4",
+                  "itinerary_id": "MOCK4D-CURRENT",
+                  "day_number": 4,
+                  "date": "2026-11-15",
+                  "end_deadline": "18:00",
+                  "activities": [
+                    {
+                      "activity_id": "MOCK4D-D4-TRAVEL1",
+                      "day_id": "MOCK4D-DAY-4",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D4-TRAVEL1",
+                      "place_id": null,
+                      "start_time": "06:00",
+                      "end_time": "08:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D4-REST",
+                      "day_id": "MOCK4D-DAY-4",
+                      "type": "REST",
+                      "name": "MOCK — D4-REST",
+                      "place_id": "MOCK-ROAD-REST",
+                      "start_time": "08:00",
+                      "end_time": "09:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D4-TRAVEL2",
+                      "day_id": "MOCK4D-DAY-4",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D4-TRAVEL2",
+                      "place_id": null,
+                      "start_time": "09:00",
+                      "end_time": "11:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    }
+                  ]
+                }
+              ],
+              "reason": "Đã kiểm tra giờ mở cửa, chặng đi, tổng nghỉ và hạn kết thúc. Đến điểm kết thúc dự kiến lúc 16:15, hạn 16:30. Thay bằng MOCK — Quán cà phê trong nhà minh họa, trải nghiệm chính trong nhà.",
+              "tradeoff": "Thay trải nghiệm ngoài trời bằng địa điểm trong nhà; chặng đường vẫn có thể gặp mưa.",
+              "estimated_end_time": "16:15"
+            }
+          ],
+          "no_option_reason": null
+        },
+        "decision": {
+          "proposal_id": "ae147dcc-3c92-422e-a7b9-03108a45077d",
+          "decision": "ACCEPT",
+          "option_id": "c5ef16be-9852-4c6e-884d-73bd056f3dbd",
+          "itinerary": {
+            "itinerary_id": "MOCK4D-CURRENT",
+            "user_id": "MOCK-TAN-USER",
+            "departure_date": "2026-11-12",
+            "return_date": "2026-11-15",
+            "departure_time": "06:00",
+            "interests": [
+              "nature",
+              "coffee"
+            ],
+            "min_rest_minutes": 60,
+            "status": "CURRENT",
+            "version": 2,
+            "created_at": "2026-11-01T00:00:00Z",
+            "confirmed_at": "2026-11-01T00:01:00Z",
+            "days": [
+              {
+                "day_id": "MOCK4D-DAY-1",
+                "itinerary_id": "MOCK4D-CURRENT",
+                "day_number": 1,
+                "date": "2026-11-12",
+                "end_deadline": "17:00",
+                "activities": [
+                  {
+                    "activity_id": "MOCK4D-D1-TRAVEL1",
+                    "day_id": "MOCK4D-DAY-1",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D1-TRAVEL1",
+                    "place_id": null,
+                    "start_time": "06:00",
+                    "end_time": "08:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-12T01:00:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-D1-REST",
+                    "day_id": "MOCK4D-DAY-1",
+                    "type": "REST",
+                    "name": "MOCK — D1-REST",
+                    "place_id": "MOCK-ROAD-REST",
+                    "start_time": "08:00",
+                    "end_time": "09:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-12T02:00:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-D1-TRAVEL2",
+                    "day_id": "MOCK4D-DAY-1",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D1-TRAVEL2",
+                    "place_id": null,
+                    "start_time": "09:00",
+                    "end_time": "11:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-12T04:00:00Z"
+                  }
+                ]
+              },
+              {
+                "day_id": "MOCK4D-DAY-2",
+                "itinerary_id": "MOCK4D-CURRENT",
+                "day_number": 2,
+                "date": "2026-11-13",
+                "end_deadline": "16:30",
+                "activities": [
+                  {
+                    "activity_id": "MOCK4D-MORNING-TRAVEL0",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — MORNING-TRAVEL0",
+                    "place_id": null,
+                    "start_time": "07:45",
+                    "end_time": "08:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T01:00:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-A01",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Ga",
+                    "place_id": "MOCK-GA",
+                    "start_time": "08:00",
+                    "end_time": "09:30",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T02:30:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-MORNING-TRAVEL1",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — MORNING-TRAVEL1",
+                    "place_id": null,
+                    "start_time": "09:30",
+                    "end_time": "09:45",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T02:45:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-A02",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Thiền viện",
+                    "place_id": "MOCK-TEMPLE",
+                    "start_time": "09:45",
+                    "end_time": "12:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T05:00:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-MORNING-TRAVEL2",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — MORNING-TRAVEL2",
+                    "place_id": null,
+                    "start_time": "12:00",
+                    "end_time": "12:15",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T05:15:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-REST",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "REST",
+                    "name": "MOCK — Nghỉ trưa",
+                    "place_id": "MOCK-REST",
+                    "start_time": "13:00",
+                    "end_time": "14:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-TRAVEL-1",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A03",
+                    "place_id": null,
+                    "start_time": "14:00",
+                    "end_time": "14:15",
+                    "status": "REPLACED",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "a75c1a7c-7252-567b-95f5-14835b0cfa2a",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển theo chặng đã kiểm tra",
+                    "place_id": null,
+                    "start_time": "14:00",
+                    "end_time": "14:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-A03",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Hồ",
+                    "place_id": "MOCK-A03",
+                    "start_time": "14:15",
+                    "end_time": "15:00",
+                    "status": "REPLACED",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "dc33398c-53f9-5631-a5ac-86f7f864cf03",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Quán cà phê trong nhà minh họa",
+                    "place_id": "MOCK-INDOOR",
+                    "start_time": "14:15",
+                    "end_time": "15:00",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": "MOCK4D-A03",
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-TRAVEL-2",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A04",
+                    "place_id": null,
+                    "start_time": "15:00",
+                    "end_time": "15:15",
+                    "status": "REPLACED",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "b7174cdb-d170-5e63-a162-75010c432b68",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển theo chặng đã kiểm tra",
+                    "place_id": null,
+                    "start_time": "15:00",
+                    "end_time": "15:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-A04",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Vườn hoa",
+                    "place_id": "MOCK-A04",
+                    "start_time": "15:15",
+                    "end_time": "16:00",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-TRAVEL-3",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Về điểm kết thúc",
+                    "place_id": null,
+                    "start_time": "16:00",
+                    "end_time": "16:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              },
+              {
+                "day_id": "MOCK4D-DAY-3",
+                "itinerary_id": "MOCK4D-CURRENT",
+                "day_number": 3,
+                "date": "2026-11-14",
+                "end_deadline": "17:00",
+                "activities": [
+                  {
+                    "activity_id": "MOCK4D-D3-TRAVEL1",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D3-TRAVEL1",
+                    "place_id": null,
+                    "start_time": "08:00",
+                    "end_time": "08:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-CULTURE",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "VISIT",
+                    "name": "MOCK — D3-CULTURE",
+                    "place_id": "MOCK-CULTURE",
+                    "start_time": "08:15",
+                    "end_time": "09:00",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-TRAVEL2",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D3-TRAVEL2",
+                    "place_id": null,
+                    "start_time": "09:00",
+                    "end_time": "09:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-REST",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "REST",
+                    "name": "MOCK — D3-REST",
+                    "place_id": "MOCK-REST",
+                    "start_time": "09:15",
+                    "end_time": "10:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-TRAVEL3",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D3-TRAVEL3",
+                    "place_id": null,
+                    "start_time": "10:15",
+                    "end_time": "10:30",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-COFFEE",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "VISIT",
+                    "name": "MOCK — D3-COFFEE",
+                    "place_id": "MOCK-INDOOR",
+                    "start_time": "10:30",
+                    "end_time": "11:15",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-TRAVEL4",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D3-TRAVEL4",
+                    "place_id": null,
+                    "start_time": "11:15",
+                    "end_time": "11:30",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              },
+              {
+                "day_id": "MOCK4D-DAY-4",
+                "itinerary_id": "MOCK4D-CURRENT",
+                "day_number": 4,
+                "date": "2026-11-15",
+                "end_deadline": "18:00",
+                "activities": [
+                  {
+                    "activity_id": "MOCK4D-D4-TRAVEL1",
+                    "day_id": "MOCK4D-DAY-4",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D4-TRAVEL1",
+                    "place_id": null,
+                    "start_time": "06:00",
+                    "end_time": "08:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D4-REST",
+                    "day_id": "MOCK4D-DAY-4",
+                    "type": "REST",
+                    "name": "MOCK — D4-REST",
+                    "place_id": "MOCK-ROAD-REST",
+                    "start_time": "08:00",
+                    "end_time": "09:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D4-TRAVEL2",
+                    "day_id": "MOCK4D-DAY-4",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D4-TRAVEL2",
+                    "place_id": null,
+                    "start_time": "09:00",
+                    "end_time": "11:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "reopen": "PASS"
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "T14",
+      "evidence": {
+        "proposal": {
+          "proposal_id": "ca305928-46a3-412b-abcd-7b6316e6c35a",
+          "itinerary_id": "MOCK4D-CURRENT",
+          "type": "REPLACE_LOCATION",
+          "base_version": 1,
+          "options": [
+            {
+              "option_id": "b2012fc5-0a04-46a5-b073-8c346faf0638",
+              "changes": [
+                {
+                  "activity_id": "MOCK4D-A03",
+                  "change_type": "REPLACE_LOCATION",
+                  "before": {
+                    "activity_id": "MOCK4D-A03",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Hồ",
+                    "place_id": "MOCK-A03",
+                    "start_time": "14:15",
+                    "end_time": "15:00",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "after": {
+                    "activity_id": "d83409d0-ec1f-5361-83ec-0f1b3027f761",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Quán cà phê trong nhà minh họa",
+                    "place_id": "MOCK-INDOOR",
+                    "start_time": "14:15",
+                    "end_time": "15:00",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": "MOCK4D-A03",
+                    "completed_at": null
+                  }
+                }
+              ],
+              "travel_changes": [
+                {
+                  "activity_id": "70a3884a-478d-54f3-95bb-2f688ba02d4b",
+                  "operation": "ADD",
+                  "before": null,
+                  "after": {
+                    "activity_id": "70a3884a-478d-54f3-95bb-2f688ba02d4b",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển theo chặng đã kiểm tra",
+                    "place_id": null,
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null,
+                    "start_time": "14:00",
+                    "end_time": "14:15"
+                  },
+                  "before_edge": null,
+                  "after_edge": [
+                    "MOCK-REST",
+                    "MOCK-INDOOR"
+                  ]
+                },
+                {
+                  "activity_id": "MOCK4D-TRAVEL-1",
+                  "operation": "REPLACE",
+                  "before": {
+                    "activity_id": "MOCK4D-TRAVEL-1",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A03",
+                    "place_id": null,
+                    "start_time": "14:00",
+                    "end_time": "14:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "after": {
+                    "activity_id": "MOCK4D-TRAVEL-1",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A03",
+                    "place_id": null,
+                    "start_time": "14:00",
+                    "end_time": "14:15",
+                    "status": "REPLACED",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "before_edge": [
+                    "MOCK-REST",
+                    "MOCK-A03"
+                  ],
+                  "after_edge": null
+                },
+                {
+                  "activity_id": "MOCK4D-TRAVEL-2",
+                  "operation": "REPLACE",
+                  "before": {
+                    "activity_id": "MOCK4D-TRAVEL-2",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A04",
+                    "place_id": null,
+                    "start_time": "15:00",
+                    "end_time": "15:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "after": {
+                    "activity_id": "MOCK4D-TRAVEL-2",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A04",
+                    "place_id": null,
+                    "start_time": "15:00",
+                    "end_time": "15:15",
+                    "status": "REPLACED",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  "before_edge": [
+                    "MOCK-A03",
+                    "MOCK-A04"
+                  ],
+                  "after_edge": null
+                },
+                {
+                  "activity_id": "beaeb681-324c-5077-9943-7a428a53188e",
+                  "operation": "ADD",
+                  "before": null,
+                  "after": {
+                    "activity_id": "beaeb681-324c-5077-9943-7a428a53188e",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "Di chuyển theo chặng đã kiểm tra",
+                    "place_id": null,
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null,
+                    "start_time": "15:00",
+                    "end_time": "15:15"
+                  },
+                  "before_edge": null,
+                  "after_edge": [
+                    "MOCK-INDOOR",
+                    "MOCK-A04"
+                  ]
+                }
+              ],
+              "proposed_days": [
+                {
+                  "day_id": "MOCK4D-DAY-1",
+                  "itinerary_id": "MOCK4D-CURRENT",
+                  "day_number": 1,
+                  "date": "2026-11-12",
+                  "end_deadline": "17:00",
+                  "activities": [
+                    {
+                      "activity_id": "MOCK4D-D1-TRAVEL1",
+                      "day_id": "MOCK4D-DAY-1",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D1-TRAVEL1",
+                      "place_id": null,
+                      "start_time": "06:00",
+                      "end_time": "08:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-12T01:00:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-D1-REST",
+                      "day_id": "MOCK4D-DAY-1",
+                      "type": "REST",
+                      "name": "MOCK — D1-REST",
+                      "place_id": "MOCK-ROAD-REST",
+                      "start_time": "08:00",
+                      "end_time": "09:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-12T02:00:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-D1-TRAVEL2",
+                      "day_id": "MOCK4D-DAY-1",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D1-TRAVEL2",
+                      "place_id": null,
+                      "start_time": "09:00",
+                      "end_time": "11:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-12T04:00:00Z"
+                    }
+                  ]
+                },
+                {
+                  "day_id": "MOCK4D-DAY-2",
+                  "itinerary_id": "MOCK4D-CURRENT",
+                  "day_number": 2,
+                  "date": "2026-11-13",
+                  "end_deadline": "16:30",
+                  "activities": [
+                    {
+                      "activity_id": "MOCK4D-MORNING-TRAVEL0",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — MORNING-TRAVEL0",
+                      "place_id": null,
+                      "start_time": "07:45",
+                      "end_time": "08:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-13T01:00:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-A01",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "VISIT",
+                      "name": "MOCK — Ga",
+                      "place_id": "MOCK-GA",
+                      "start_time": "08:00",
+                      "end_time": "09:30",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-13T02:30:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-MORNING-TRAVEL1",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — MORNING-TRAVEL1",
+                      "place_id": null,
+                      "start_time": "09:30",
+                      "end_time": "09:45",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-13T02:45:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-A02",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "VISIT",
+                      "name": "MOCK — Thiền viện",
+                      "place_id": "MOCK-TEMPLE",
+                      "start_time": "09:45",
+                      "end_time": "12:00",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-13T05:00:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-MORNING-TRAVEL2",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — MORNING-TRAVEL2",
+                      "place_id": null,
+                      "start_time": "12:00",
+                      "end_time": "12:15",
+                      "status": "DONE",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": "2026-11-13T05:15:00Z"
+                    },
+                    {
+                      "activity_id": "MOCK4D-REST",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "REST",
+                      "name": "MOCK — Nghỉ trưa",
+                      "place_id": "MOCK-REST",
+                      "start_time": "13:00",
+                      "end_time": "14:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "70a3884a-478d-54f3-95bb-2f688ba02d4b",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển theo chặng đã kiểm tra",
+                      "place_id": null,
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null,
+                      "start_time": "14:00",
+                      "end_time": "14:15"
+                    },
+                    {
+                      "activity_id": "MOCK4D-TRAVEL-1",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — Đi A03",
+                      "place_id": null,
+                      "start_time": "14:00",
+                      "end_time": "14:15",
+                      "status": "REPLACED",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-A03",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "VISIT",
+                      "name": "MOCK — Hồ",
+                      "place_id": "MOCK-A03",
+                      "start_time": "14:15",
+                      "end_time": "15:00",
+                      "status": "REPLACED",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "d83409d0-ec1f-5361-83ec-0f1b3027f761",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "VISIT",
+                      "name": "MOCK — Quán cà phê trong nhà minh họa",
+                      "place_id": "MOCK-INDOOR",
+                      "start_time": "14:15",
+                      "end_time": "15:00",
+                      "status": "PENDING",
+                      "is_optional": true,
+                      "replaces_activity_id": "MOCK4D-A03",
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-TRAVEL-2",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — Đi A04",
+                      "place_id": null,
+                      "start_time": "15:00",
+                      "end_time": "15:15",
+                      "status": "REPLACED",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "beaeb681-324c-5077-9943-7a428a53188e",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "Di chuyển theo chặng đã kiểm tra",
+                      "place_id": null,
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null,
+                      "start_time": "15:00",
+                      "end_time": "15:15"
+                    },
+                    {
+                      "activity_id": "MOCK4D-A04",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "VISIT",
+                      "name": "MOCK — Vườn hoa",
+                      "place_id": "MOCK-A04",
+                      "start_time": "15:15",
+                      "end_time": "16:00",
+                      "status": "PENDING",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-TRAVEL-3",
+                      "day_id": "MOCK4D-DAY-2",
+                      "type": "TRAVEL",
+                      "name": "MOCK — Về điểm kết thúc",
+                      "place_id": null,
+                      "start_time": "16:00",
+                      "end_time": "16:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    }
+                  ]
+                },
+                {
+                  "day_id": "MOCK4D-DAY-3",
+                  "itinerary_id": "MOCK4D-CURRENT",
+                  "day_number": 3,
+                  "date": "2026-11-14",
+                  "end_deadline": "17:00",
+                  "activities": [
+                    {
+                      "activity_id": "MOCK4D-D3-TRAVEL1",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D3-TRAVEL1",
+                      "place_id": null,
+                      "start_time": "08:00",
+                      "end_time": "08:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-CULTURE",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "VISIT",
+                      "name": "MOCK — D3-CULTURE",
+                      "place_id": "MOCK-CULTURE",
+                      "start_time": "08:15",
+                      "end_time": "09:00",
+                      "status": "PENDING",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-TRAVEL2",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D3-TRAVEL2",
+                      "place_id": null,
+                      "start_time": "09:00",
+                      "end_time": "09:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-REST",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "REST",
+                      "name": "MOCK — D3-REST",
+                      "place_id": "MOCK-REST",
+                      "start_time": "09:15",
+                      "end_time": "10:15",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-TRAVEL3",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D3-TRAVEL3",
+                      "place_id": null,
+                      "start_time": "10:15",
+                      "end_time": "10:30",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-COFFEE",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "VISIT",
+                      "name": "MOCK — D3-COFFEE",
+                      "place_id": "MOCK-INDOOR",
+                      "start_time": "10:30",
+                      "end_time": "11:15",
+                      "status": "PENDING",
+                      "is_optional": true,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D3-TRAVEL4",
+                      "day_id": "MOCK4D-DAY-3",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D3-TRAVEL4",
+                      "place_id": null,
+                      "start_time": "11:15",
+                      "end_time": "11:30",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    }
+                  ]
+                },
+                {
+                  "day_id": "MOCK4D-DAY-4",
+                  "itinerary_id": "MOCK4D-CURRENT",
+                  "day_number": 4,
+                  "date": "2026-11-15",
+                  "end_deadline": "18:00",
+                  "activities": [
+                    {
+                      "activity_id": "MOCK4D-D4-TRAVEL1",
+                      "day_id": "MOCK4D-DAY-4",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D4-TRAVEL1",
+                      "place_id": null,
+                      "start_time": "06:00",
+                      "end_time": "08:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D4-REST",
+                      "day_id": "MOCK4D-DAY-4",
+                      "type": "REST",
+                      "name": "MOCK — D4-REST",
+                      "place_id": "MOCK-ROAD-REST",
+                      "start_time": "08:00",
+                      "end_time": "09:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    },
+                    {
+                      "activity_id": "MOCK4D-D4-TRAVEL2",
+                      "day_id": "MOCK4D-DAY-4",
+                      "type": "TRAVEL",
+                      "name": "MOCK — D4-TRAVEL2",
+                      "place_id": null,
+                      "start_time": "09:00",
+                      "end_time": "11:00",
+                      "status": "PENDING",
+                      "is_optional": false,
+                      "replaces_activity_id": null,
+                      "completed_at": null
+                    }
+                  ]
+                }
+              ],
+              "reason": "Đã kiểm tra giờ mở cửa, chặng đi, tổng nghỉ và hạn kết thúc. Đến điểm kết thúc dự kiến lúc 16:15, hạn 16:30. Thay bằng MOCK — Quán cà phê trong nhà minh họa, trải nghiệm chính trong nhà.",
+              "tradeoff": "Thay trải nghiệm ngoài trời bằng địa điểm trong nhà; chặng đường vẫn có thể gặp mưa.",
+              "estimated_end_time": "16:15"
+            }
+          ],
+          "no_option_reason": null
+        },
+        "decision": {
+          "proposal_id": "ca305928-46a3-412b-abcd-7b6316e6c35a",
+          "decision": "REJECT",
+          "option_id": null,
+          "itinerary": {
+            "itinerary_id": "MOCK4D-CURRENT",
+            "user_id": "MOCK-TAN-USER",
+            "departure_date": "2026-11-12",
+            "return_date": "2026-11-15",
+            "departure_time": "06:00",
+            "interests": [
+              "nature",
+              "coffee"
+            ],
+            "min_rest_minutes": 60,
+            "status": "CURRENT",
+            "version": 1,
+            "created_at": "2026-11-01T00:00:00Z",
+            "confirmed_at": "2026-11-01T00:01:00Z",
+            "days": [
+              {
+                "day_id": "MOCK4D-DAY-1",
+                "itinerary_id": "MOCK4D-CURRENT",
+                "day_number": 1,
+                "date": "2026-11-12",
+                "end_deadline": "17:00",
+                "activities": [
+                  {
+                    "activity_id": "MOCK4D-D1-TRAVEL1",
+                    "day_id": "MOCK4D-DAY-1",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D1-TRAVEL1",
+                    "place_id": null,
+                    "start_time": "06:00",
+                    "end_time": "08:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-12T01:00:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-D1-REST",
+                    "day_id": "MOCK4D-DAY-1",
+                    "type": "REST",
+                    "name": "MOCK — D1-REST",
+                    "place_id": "MOCK-ROAD-REST",
+                    "start_time": "08:00",
+                    "end_time": "09:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-12T02:00:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-D1-TRAVEL2",
+                    "day_id": "MOCK4D-DAY-1",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D1-TRAVEL2",
+                    "place_id": null,
+                    "start_time": "09:00",
+                    "end_time": "11:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-12T04:00:00Z"
+                  }
+                ]
+              },
+              {
+                "day_id": "MOCK4D-DAY-2",
+                "itinerary_id": "MOCK4D-CURRENT",
+                "day_number": 2,
+                "date": "2026-11-13",
+                "end_deadline": "16:30",
+                "activities": [
+                  {
+                    "activity_id": "MOCK4D-MORNING-TRAVEL0",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — MORNING-TRAVEL0",
+                    "place_id": null,
+                    "start_time": "07:45",
+                    "end_time": "08:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T01:00:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-A01",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Ga",
+                    "place_id": "MOCK-GA",
+                    "start_time": "08:00",
+                    "end_time": "09:30",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T02:30:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-MORNING-TRAVEL1",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — MORNING-TRAVEL1",
+                    "place_id": null,
+                    "start_time": "09:30",
+                    "end_time": "09:45",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T02:45:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-A02",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Thiền viện",
+                    "place_id": "MOCK-TEMPLE",
+                    "start_time": "09:45",
+                    "end_time": "12:00",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T05:00:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-MORNING-TRAVEL2",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — MORNING-TRAVEL2",
+                    "place_id": null,
+                    "start_time": "12:00",
+                    "end_time": "12:15",
+                    "status": "DONE",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": "2026-11-13T05:15:00Z"
+                  },
+                  {
+                    "activity_id": "MOCK4D-REST",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "REST",
+                    "name": "MOCK — Nghỉ trưa",
+                    "place_id": "MOCK-REST",
+                    "start_time": "13:00",
+                    "end_time": "14:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-TRAVEL-1",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A03",
+                    "place_id": null,
+                    "start_time": "14:00",
+                    "end_time": "14:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-A03",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Hồ",
+                    "place_id": "MOCK-A03",
+                    "start_time": "14:15",
+                    "end_time": "15:00",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-TRAVEL-2",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Đi A04",
+                    "place_id": null,
+                    "start_time": "15:00",
+                    "end_time": "15:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-A04",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "VISIT",
+                    "name": "MOCK — Vườn hoa",
+                    "place_id": "MOCK-A04",
+                    "start_time": "15:15",
+                    "end_time": "16:00",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-TRAVEL-3",
+                    "day_id": "MOCK4D-DAY-2",
+                    "type": "TRAVEL",
+                    "name": "MOCK — Về điểm kết thúc",
+                    "place_id": null,
+                    "start_time": "16:00",
+                    "end_time": "16:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              },
+              {
+                "day_id": "MOCK4D-DAY-3",
+                "itinerary_id": "MOCK4D-CURRENT",
+                "day_number": 3,
+                "date": "2026-11-14",
+                "end_deadline": "17:00",
+                "activities": [
+                  {
+                    "activity_id": "MOCK4D-D3-TRAVEL1",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D3-TRAVEL1",
+                    "place_id": null,
+                    "start_time": "08:00",
+                    "end_time": "08:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-CULTURE",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "VISIT",
+                    "name": "MOCK — D3-CULTURE",
+                    "place_id": "MOCK-CULTURE",
+                    "start_time": "08:15",
+                    "end_time": "09:00",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-TRAVEL2",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D3-TRAVEL2",
+                    "place_id": null,
+                    "start_time": "09:00",
+                    "end_time": "09:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-REST",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "REST",
+                    "name": "MOCK — D3-REST",
+                    "place_id": "MOCK-REST",
+                    "start_time": "09:15",
+                    "end_time": "10:15",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-TRAVEL3",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D3-TRAVEL3",
+                    "place_id": null,
+                    "start_time": "10:15",
+                    "end_time": "10:30",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-COFFEE",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "VISIT",
+                    "name": "MOCK — D3-COFFEE",
+                    "place_id": "MOCK-INDOOR",
+                    "start_time": "10:30",
+                    "end_time": "11:15",
+                    "status": "PENDING",
+                    "is_optional": true,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D3-TRAVEL4",
+                    "day_id": "MOCK4D-DAY-3",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D3-TRAVEL4",
+                    "place_id": null,
+                    "start_time": "11:15",
+                    "end_time": "11:30",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              },
+              {
+                "day_id": "MOCK4D-DAY-4",
+                "itinerary_id": "MOCK4D-CURRENT",
+                "day_number": 4,
+                "date": "2026-11-15",
+                "end_deadline": "18:00",
+                "activities": [
+                  {
+                    "activity_id": "MOCK4D-D4-TRAVEL1",
+                    "day_id": "MOCK4D-DAY-4",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D4-TRAVEL1",
+                    "place_id": null,
+                    "start_time": "06:00",
+                    "end_time": "08:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D4-REST",
+                    "day_id": "MOCK4D-DAY-4",
+                    "type": "REST",
+                    "name": "MOCK — D4-REST",
+                    "place_id": "MOCK-ROAD-REST",
+                    "start_time": "08:00",
+                    "end_time": "09:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  },
+                  {
+                    "activity_id": "MOCK4D-D4-TRAVEL2",
+                    "day_id": "MOCK4D-DAY-4",
+                    "type": "TRAVEL",
+                    "name": "MOCK — D4-TRAVEL2",
+                    "place_id": null,
+                    "start_time": "09:00",
+                    "end_time": "11:00",
+                    "status": "PENDING",
+                    "is_optional": false,
+                    "replaces_activity_id": null,
+                    "completed_at": null
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "T15",
+      "evidence": {
+        "proposal_id": "12d4f159-70f4-48d2-b084-a2d4c3aa00a3",
+        "itinerary_id": "MOCK4D-CURRENT",
+        "type": "REPLACE_LOCATION",
+        "base_version": 1,
+        "options": [],
+        "no_option_reason": "Không tìm được phương án trong phạm vi tìm kiếm đã giới hạn. MOCK-CLOSED đóng cửa hoặc không đủ 45 phút tham quan."
+      },
+      "status": "PASS"
+    }
+  ],
+  "gemini_calls": [
+    {
+      "case": "T06",
+      "status": "PASS",
+      "model": "gemini-3.5-flash-lite",
+      "prompt_version": "adapt-rank-v1",
+      "latency_ms": 1602,
+      "usage": {
+        "promptTokenCount": 410,
+        "candidatesTokenCount": 189,
+        "totalTokenCount": 599
+      }
+    },
+    {
+      "case": "T07",
+      "status": "ERROR",
+      "code": "AI_INVALID_OUTPUT"
+    },
+    {
+      "case": "T09",
+      "status": "ERROR",
+      "code": "AI_UNAVAILABLE"
+    },
+    {
+      "case": "T10",
+      "status": "PASS",
+      "model": "gemini-3.5-flash-lite",
+      "prompt_version": "adapt-rank-v1",
+      "latency_ms": 1992,
+      "usage": {
+        "promptTokenCount": 411,
+        "candidatesTokenCount": 190,
+        "totalTokenCount": 601
+      }
+    },
+    {
+      "case": "T11",
+      "status": "PASS",
+      "model": "gemini-3.5-flash-lite",
+      "prompt_version": "adapt-rank-v1",
+      "latency_ms": 2093,
+      "usage": {
+        "promptTokenCount": 411,
+        "candidatesTokenCount": 190,
+        "totalTokenCount": 601
+      }
+    },
+    {
+      "case": "T12",
+      "status": "PASS",
+      "model": "gemini-3.5-flash-lite",
+      "prompt_version": "adapt-rank-v1",
+      "latency_ms": 1543,
+      "usage": {
+        "promptTokenCount": 409,
+        "candidatesTokenCount": 188,
+        "totalTokenCount": 597
+      }
+    },
+    {
+      "case": "T13",
+      "status": "PASS",
+      "model": "gemini-3.5-flash-lite",
+      "prompt_version": "adapt-rank-v1",
+      "latency_ms": 1517,
+      "usage": {
+        "promptTokenCount": 279,
+        "candidatesTokenCount": 72,
+        "totalTokenCount": 351
+      }
+    },
+    {
+      "case": "T14",
+      "status": "PASS",
+      "model": "gemini-3.5-flash-lite",
+      "prompt_version": "adapt-rank-v1",
+      "latency_ms": 1346,
+      "usage": {
+        "promptTokenCount": 280,
+        "candidatesTokenCount": 103,
+        "totalTokenCount": 383
+      }
+    }
+  ],
+  "fixture_days": 4
+}
