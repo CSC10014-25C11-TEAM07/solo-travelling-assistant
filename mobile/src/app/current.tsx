@@ -14,7 +14,8 @@ export default function Current() {
   const [busy, setBusy] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
-const reload = useCallback(async () => {
+
+const reload = useCallback(async (): Promise<boolean> => {
   setBusy('reload');
   setLoading(true);
   setError('');
@@ -22,18 +23,19 @@ const reload = useCallback(async () => {
   try {
     const latest = await latestTrip();
     setTrip(latest);
+    return true;
   } catch (e) {
     setError(
       e instanceof Error
         ? e.message
         : 'Không đọc được lịch đã lưu.'
     );
+    return false;
   } finally {
     setBusy('');
     setLoading(false);
   }
 }, [setTrip]);
-
   useFocusEffect(
     useCallback(() => {
       if (ready) {
@@ -55,11 +57,15 @@ const reload = useCallback(async () => {
         trip.version
       );
       setTrip(updated);
-    } catch (e) {
-      if ((e as { status?: number }).status === 409) {
-  await reload();
-  setError('Lịch đã thay đổi. Vui lòng kiểm tra phiên bản mới.');
-      } else {
+    } catch (e) {if ((e as { status?: number }).status === 409) {
+  const success = await reload();
+
+  if (success) {
+    setError(
+      'Lịch đã thay đổi. Vui lòng kiểm tra phiên bản mới.'
+    );
+  }
+} else {
         setError(
           e instanceof Error
             ? e.message
