@@ -79,17 +79,39 @@ export function AdaptProvider({ children }: { children: React.ReactNode }) {
     try {
       if (option.baseVersion !== trip.version) throw new Error('Lịch đã thay đổi. Hãy tải lại và tạo đề xuất.');
       const choice = response.proposals[0]?.id === option.id ? 'A' : 'B';
+
       let updated: CurrentTrip;
+      let planTripUpdate: Trip | null = null;
+
       if (mockMode) {
         updated = applyMock(trip, option);
       } else {
-        if (!response.proposalId) throw new Error('Phản hồi F05 thiếu proposal_id.');
-        const decision = await decide(response.proposalId, 'ACCEPT', option.id);
+        if (!response.proposalId) {
+          throw new Error('Phản hồi F05 thiếu proposal_id.');
+        }
+
+        const decision = await decide(
+          response.proposalId,
+          'ACCEPT',
+          option.id
+        );
+
         updated = afterDecision(decision, trip.day);
-        setPlanTrip(decision.itinerary);
+        planTripUpdate = decision.itinerary;
       }
-      if (updated.version <= trip.version) throw new Error('API chưa xác nhận phiên bản lịch mới. Tải lại lịch trước khi tiếp tục.');
+
+      if (updated.version <= trip.version) {
+        throw new Error(
+          'API chưa xác nhận phiên bản lịch mới. Tải lại lịch trước khi tiếp tục.'
+        );
+      }
+
+      if (planTripUpdate) {
+        setPlanTrip(planTripUpdate);
+      }
+
       setTrip(updated);
+
       setResult({ applied: true, choice, message: `Đã áp dụng ${option.title}. Lịch đã được lưu.` });
       return true;
     } catch (err) {

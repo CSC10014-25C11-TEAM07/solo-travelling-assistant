@@ -30,8 +30,15 @@ export async function propose(req: AdaptRequest, trip: CurrentTrip): Promise<Pro
     throw new Error('Ngày này chưa có khoảng REST đang chờ thực hiện.');
   }
   try {
-    const data = await sharedRequest(`/api/v1/itineraries/${encodeURIComponent(req.tripId)}/adapt-proposals`,
-      { method: 'POST', body: JSON.stringify(body) });
+    const data = await sharedRequest(
+      `/api/v1/itineraries/${encodeURIComponent(req.tripId)}/adapt-proposals`,
+      {
+        method: 'POST',
+        body: JSON.stringify(body),
+      },
+      true,
+      90000
+    );
     return mapProposalResponse(data);
   } catch (error) {
     const status = (error as Error & { status?: number }).status;
