@@ -1,0 +1,171 @@
+{
+  "commit": "c5d7aca898037b075ee4473fb5e95800a6e137e1",
+  "model": "gemini-3.1-flash-lite",
+  "data_mode": "MOCK",
+  "dataset_version": "bao04-mvp-2026-11-17-v2",
+  "ranker": "GEMINI",
+  "transport": "FastAPI TestClient ASGI, integrated configured_app; no TCP/Expo",
+  "started_utc": "2026-11-18T09:57:02.487378+00:00",
+  "cases": [
+    {
+      "name": "F02_3D",
+      "status": "PASS",
+      "response_ms": 1656,
+      "ai_audit": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "prompt_version": "adapt-rank-v2",
+          "outcome": "SUCCESS",
+          "usage": {
+            "promptTokenCount": 198,
+            "candidatesTokenCount": 59,
+            "totalTokenCount": 257
+          },
+          "latency_ms": 1640
+        }
+      ],
+      "checked": {
+        "independent_schedule": true,
+        "confirm_and_read": true
+      },
+      "day_count": 3
+    },
+    {
+      "name": "F05_REST_3D",
+      "status": "PASS",
+      "response_ms": 2171,
+      "ai_audit": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "prompt_version": "adapt-rank-v2",
+          "outcome": "SUCCESS",
+          "usage": {
+            "promptTokenCount": 310,
+            "candidatesTokenCount": 103,
+            "totalTokenCount": 413
+          },
+          "latency_ms": 2125
+        }
+      ],
+      "option_count": 1,
+      "checked": {
+        "independent_schedule": true,
+        "done_unchanged": true,
+        "preview_keeps_current": true
+      },
+      "done_count": 1
+    },
+    {
+      "name": "F05_RAIN_3D",
+      "status": "PASS",
+      "response_ms": 2281,
+      "ai_audit": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "prompt_version": "adapt-rank-v2",
+          "outcome": "SUCCESS",
+          "usage": {
+            "promptTokenCount": 302,
+            "candidatesTokenCount": 102,
+            "totalTokenCount": 404
+          },
+          "latency_ms": 2234
+        }
+      ],
+      "option_count": 1,
+      "checked": {
+        "independent_schedule": true,
+        "done_unchanged": true,
+        "preview_keeps_current": true
+      },
+      "done_count": 1
+    },
+    {
+      "name": "F02_4D",
+      "status": "PASS",
+      "response_ms": 3094,
+      "ai_audit": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "prompt_version": "adapt-rank-v2",
+          "outcome": "SUCCESS",
+          "usage": {
+            "promptTokenCount": 221,
+            "candidatesTokenCount": 59,
+            "totalTokenCount": 280
+          },
+          "latency_ms": 3062
+        }
+      ],
+      "checked": {
+        "independent_schedule": true,
+        "confirm_and_read": true
+      },
+      "day_count": 4
+    },
+    {
+      "name": "F05_REST_4D",
+      "status": "PASS",
+      "response_ms": 2984,
+      "ai_audit": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "prompt_version": "adapt-rank-v2",
+          "outcome": "SUCCESS",
+          "usage": {
+            "promptTokenCount": 304,
+            "candidatesTokenCount": 99,
+            "totalTokenCount": 403
+          },
+          "latency_ms": 2938
+        }
+      ],
+      "option_count": 1,
+      "checked": {
+        "independent_schedule": true,
+        "done_unchanged": true,
+        "preview_keeps_current": true
+      },
+      "done_count": 1
+    },
+    {
+      "name": "F05_RAIN_4D",
+      "status": "PASS",
+      "response_ms": 1828,
+      "ai_audit": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "prompt_version": "adapt-rank-v2",
+          "outcome": "SUCCESS",
+          "usage": {
+            "promptTokenCount": 305,
+            "candidatesTokenCount": 103,
+            "totalTokenCount": 408
+          },
+          "latency_ms": 1781
+        }
+      ],
+      "option_count": 1,
+      "checked": {
+        "independent_schedule": true,
+        "done_unchanged": true,
+        "preview_keeps_current": true
+      },
+      "done_count": 1
+    }
+  ],
+  "limitations": [
+    "Không kiểm tra Expo, thiết bị, dữ liệu VERIFIED hoặc máy chủ TCP.",
+    "Hai phương án ADAPT chỉ xem; chưa kiểm tra ACCEPT/REJECT."
+  ],
+  "ended_utc": "2026-11-18T09:57:17.237257+00:00",
+  "fixture_sha256": {
+    "handoff/manifest.json": "aa055ddc8b7b26bbe7e53799fdeb2b03ff9062746e1e72c54f29a8efe4e3249e",
+    "handoff/routes_mock.json": "4df97321bdc82aa9a1aa7d7b2b5d105ae2ce4edcd21b6613137f6f9d889ba065",
+    "fixtures/mock/places.json": "3e4d98a69a649ea6230ce39a3e2940dc2474877d65f10eaa7f8576e535892082",
+    "fixtures/mock/travel_times.json": "5ab892fc844adfbdd9114c3eee0d9958aa330996ca975c828c9fbb3db7da9f09",
+    "fixtures/current_v1_3day.json": "a79a4aca5517ed3b2acf4d94830ff3909a6f37923289eb01f082bb0a9e23d377",
+    "fixtures/current_v1_4day.json": "dca43314b87767480a34c4155bd3bae533b5b98679d99046695a0a976dc43003"
+  },
+  "gemini_calls": 6
+}
