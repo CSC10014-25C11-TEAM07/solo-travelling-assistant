@@ -75,7 +75,7 @@ Khi mã QR xuất hiện, thực hiện theo loại điện thoại.
 1. Cài Expo Go từ Google Play.
 2. Kết nối điện thoại và máy tính cùng Wi-Fi.
 3. Mở Expo Go, chọn Scan QR code và quét mã trong Terminal.
-4. Chờ tải app, sau đó bấm Kiểm tra backend.
+4. Chờ tải app rồi mở màn hình đăng nhập.
 
 #### iPhone
 
@@ -91,30 +91,24 @@ npx.cmd expo whoami
 4. Đăng nhập cùng tài khoản đó trong Expo Go trên iPhone.
 5. Kết nối iPhone và máy tính cùng Wi-Fi.
 6. Dùng Camera mặc định quét mã QR, bấm mở trong Expo Go.
-7. Chờ tải app, sau đó bấm Kiểm tra backend.
+7. Chờ tải app rồi mở màn hình đăng nhập.
 
 #### Kết quả mong đợi
 
-App hiển thị:
-“Kết nối backend thành công! Status: ok”.
-
-Nếu chưa kết nối được, mở trình duyệt trên điện thoại và thử:
-`http://IPV4_CUA_MAY_TINH:8000/health`.
-
-Kiểm tra backend đang chạy, hai thiết bị cùng Wi-Fi
-và IPv4 trong `mobile/.env` đúng với máy chạy backend.
-Sau khi sửa `.env`, khởi động lại Expo và mở lại app.
+Mở Safari hoặc Chrome trên điện thoại tại `http://IPV4_CUA_MAY_TINH:8002/health`.
+Khi thấy `{"status":"ok"}`, đăng ký tài khoản thử, đăng nhập và chọn một sở thích để xem gợi ý.
+Nếu dùng cổng khác, thay `8002` bằng cổng Uvicorn in ra ở cả địa chỉ kiểm tra và `mobile/.env`.
+Sau khi đổi cấu hình, tải lại app trong Expo Go.
 
 ### 6. Kiểm tra cấu hình kết nối
 
 - Điện thoại và máy tính kết nối cùng Wi-Fi.
 - Tạo `mobile/.env` từ `mobile/.env.example`.
 - Dùng `ipconfig` để tìm IPv4 Wi-Fi của máy tính.
-- Đặt `EXPO_PUBLIC_API_URL=http://IPV4_CUA_MAY_TINH:8000`.
+- Đặt `EXPO_PUBLIC_API_URL=http://IPV4_CUA_MAY_TINH:8002`.
 - Giữ Terminal FastAPI và Terminal Expo chạy song song.
 
-Mở địa chỉ `/health` trên Safari hoặc Chrome điện thoại trước.
-Khi thấy `{"status":"ok"}`, mở app Expo và bấm Kiểm tra backend.
+Nếu chạy Expo trên trình duyệt, xem [cấu hình cho Expo Web](mobile/README.md#expo-web).
 
 ## Chạy backend trên Windows
 
@@ -124,10 +118,10 @@ Mở Terminal tại thư mục gốc repo:
 cd backend
 py -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m uvicorn main:app --reload --host 0.0.0.0
+.\.venv\Scripts\python.exe -m uvicorn main:app --reload --host 0.0.0.0 --port 8002
 ```
 
-Mở http://127.0.0.1:8000/health trên máy tính.
+Mở http://127.0.0.1:8002/health trên máy tính.
 Kết quả mong đợi là {"status":"ok"}.
 
 ## Chạy mobile
@@ -137,12 +131,12 @@ Mở Terminal khác tại thư mục gốc repo:
 ```powershell
 cd mobile
 npm.cmd ci
-Copy-Item .env.example .env
+if (!(Test-Path .env)) { Copy-Item .env.example .env }
 ```
 
 Dùng `ipconfig` để tìm IPv4 của máy tính.
 Sửa `EXPO_PUBLIC_API_URL` trong `mobile/.env` thành
-`http://IPV4_CUA_MAY_TINH:8000`, rồi chạy:
+`http://IPV4_CUA_MAY_TINH:8002`, rồi chạy:
 
 ```powershell
 npx.cmd expo start
@@ -152,8 +146,7 @@ npx.cmd expo start
 Mở Expo Go để quét mã QR. Với iPhone, dùng Camera quét mã,
 đồng thời đăng nhập cùng tài khoản trên Expo Go và Expo CLI.
 
-Giữ backend chạy và bấm **Kiểm tra backend** trên app.
-Kết quả mong đợi là **Kết nối backend thành công! Status: ok**.
+Giữ backend chạy trong suốt buổi thử.
 
 ## Dữ liệu địa điểm và API gợi ý F01
 
