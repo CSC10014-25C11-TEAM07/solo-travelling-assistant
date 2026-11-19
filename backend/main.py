@@ -60,6 +60,24 @@ def create_app(plan_provider=mock_plan, option_validator=None, *, catalog_provid
 
 
 def configured_app():
+    if os.environ.get("ADAPT_MODE") == "VERIFIED":
+        from adapt_f05.catalog import Catalog
+        from f05_provider import make_catalog_provider, make_option_validator
+        from plan_f02 import PlanProvider
+
+        data = Path(__file__).with_name("data")
+        routes = json.loads((data / "handoff/routes_source.json").read_text(encoding="utf-8-sig"))
+        templates = {len(route["days"]): route for route in routes}
+        if len(routes) != 2 or set(templates) != {3, 4}:
+            raise ValueError("Cần một tuyến nguồn 3 ngày và một tuyến nguồn 4 ngày.")
+        catalog = Catalog.load(data, [], mode="VERIFIED")
+        provider = make_catalog_provider(data, templates, mode="VERIFIED")
+        return create_app(
+            plan_provider=PlanProvider(catalog, templates),
+            catalog_provider=provider,
+            option_validator=make_option_validator(provider),
+            gemini_adapt=True,
+        )
     if os.environ.get("ADAPT_MODE") != "MOCK":
         return create_app()
 

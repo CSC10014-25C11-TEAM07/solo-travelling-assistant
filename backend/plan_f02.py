@@ -118,7 +118,9 @@ class PlanProvider:
             duration = self.catalog.travel(previous, destination)
             if duration:
                 finish = cursor + duration
-                activities.append({"type": "TRAVEL", "name": f"Di chuyển {previous} → {destination}",
+                origin_name = self.catalog.place(previous)["name"]
+                destination_name = self.catalog.place(destination)["name"]
+                activities.append({"type": "TRAVEL", "name": f"Di chuyển {origin_name} → {destination_name}",
                                    "place_id": None, "start_time": clock(cursor), "end_time": clock(finish),
                                    "is_optional": False})
                 cursor = finish

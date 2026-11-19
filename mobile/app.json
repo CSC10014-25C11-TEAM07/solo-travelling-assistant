@@ -17,6 +17,7 @@
       }
     },
     "android": {
+      "package": "vn.team07.solotravellingassistant",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
