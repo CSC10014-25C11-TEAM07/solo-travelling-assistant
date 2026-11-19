@@ -4,6 +4,7 @@ module.exports = ({ config }) => {
     if (!raw || !URL.canParse(raw) || new URL(raw).protocol !== 'https:') {
       throw new Error('Cấu hình EXPO_PUBLIC_API_URL bằng địa chỉ HTTPS của backend trước khi tạo APK.');
     }
+    return { ...config, android: { ...config.android, usesCleartextTraffic: false } };
   }
   return config;
 };

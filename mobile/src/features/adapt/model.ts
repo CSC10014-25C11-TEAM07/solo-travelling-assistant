@@ -68,7 +68,8 @@ export function validateRequest(trip: CurrentTrip, req: AdaptRequest): string | 
     } catch (e) { return (e as Error).message; }
   } else {
     const activity = trip.activities.find(a => a.id === req.activityId);
-    if (!activity || activity.status !== 'TODO' || (!activity.outdoor && !('rawDays' in trip))) return 'Chỉ chọn hoạt động ngoài trời chưa thực hiện.';
+    if (!activity || activity.status !== 'TODO' || activity.outdoor === false ||
+        (!activity.outdoor && !('rawDays' in trip))) return 'Chỉ chọn hoạt động ngoài trời chưa thực hiện.';
   }
   return null;
 }

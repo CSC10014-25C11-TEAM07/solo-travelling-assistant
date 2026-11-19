@@ -1,6 +1,6 @@
 # Bàn giao bản Android
 
-Nhánh `feat/android-sourced-demo` bắt đầu từ main `26adf63`. PR #37 chứa bản sửa kết nối và biểu mẫu tài khoản. Kiểm tra trạng thái ghép của PR này trước khi đóng bản cuối.
+Nhánh `feat/android-sourced-demo` bắt đầu từ main `26adf63` và đã ghép commit `8982a54` của PR #37 trên nhánh Android.
 
 ## Chạy backend của bản Android
 
@@ -20,6 +20,12 @@ Kiểm tra `/health` từ mạng di động. Tạo tài khoản thử và lịch
 
 ## Tiến độ kiểm chứng
 
-- Đã nối chế độ VERIFIED vào F02 và F05, cấu hình vị trí lưu SQLite và profile APK. Hai chức năng dùng Gemini trong chế độ này. Catalog và tuyến thiếu xác minh sẽ trả lỗi dữ liệu.
-- Main tại thời điểm bắt đầu có 16 điểm (1 VERIFIED), 42 chặng có hướng (28 VERIFIED). Hai tuyến nguồn vẫn mang trạng thái UNVERIFIED. Cần kiểm chứng bằng chứng cụ thể trước khi sử dụng trong lịch.
-- Còn mở: hoàn thiện dữ liệu nguồn và thao tác hai ca ADAPT từ cùng lịch mẫu riêng cho người thử; chạy Gemini thật, kiểm tra máy chủ công khai, dựng APK, kiểm thử T01–T15 và điện thoại thật. Bản thử chạy RULES trước đây không dùng làm bằng chứng cho bản phát hành.
+Chế độ VERIFIED dùng bản dữ liệu đóng cùng backend trong `backend/data/android/`. F01, F02 và F05 dùng cùng bản này. Nguồn từng địa điểm, phạm vi giờ dùng để lập lịch, tọa độ và kết quả tra 19 chặng bổ sung có trong `source_review.json`. Các chặng có hướng đã xác minh từ bộ bàn giao trước mang theo URL truy vấn và thời điểm kiểm tra. Mỗi giờ đi xe là ước tính Valhalla/OpenStreetMap. Hai chặng nối TP.HCM và Bảo Lộc có cờ hạn chế theo giờ. Dữ liệu không cung cấp điều hướng trực tiếp.
+
+Tuyến bắt đầu và kết thúc trên Công trường Công xã Paris, dừng nghỉ tại Tâm Châu, 294A Trần Phú ở Bảo Lộc. Mốc qua đêm là đường Huỳnh Thúc Kháng gần Crazy House. Việc đặt phòng, chỗ đậu xe và giờ nhận/trả phòng do người đi xác nhận. Lịch chỉ xếp bảo tàng cho hoạt động tham quan. Hồ Xuân Hương là hoạt động ngoài trời cho ca mưa, khu ngồi trong nhà của Là Việt là một phương án thay thế.
+
+Từ **Xem lịch đã lưu**, chọn **Mở lịch mẫu riêng**. Ngày 2 có các hoạt động buổi sáng đã hoàn thành. Chọn nghỉ đến 15:00 để so sánh việc giữ hồ hoặc An Cafe, hoặc chọn đổi Hồ Xuân Hương vì mưa. Có thể nạp lại từ đầu, đóng mẫu để trở về lịch cá nhân hoặc thử trên hai tài khoản riêng. Mỗi mẫu được cấp bộ ID mới. Thao tác nạp mẫu chọn một lịch cố định từ dữ liệu thật. Nút tạo lịch cá nhân và chức năng tạo đề xuất dùng Gemini.
+
+Chạy `python -m unittest discover -s backend/tests -p test_android_release.py` để thử qua API với SQLite riêng. Bài này thử ngày xuất phát ở cả bảy thứ, lịch 3/4 ngày, đọc lại sau khi tạo lại ứng dụng, hai ca ADAPT, ACCEPT gửi lặp, REJECT, cách ly tài khoản và khôi phục lịch cá nhân. Bộ xếp hạng thay thế trong bài kiểm thử giúp chạy khi chưa có khóa Gemini.
+
+Trước khi bàn giao cần thử Gemini qua backend công khai, cài APK rồi mở lại qua 4G và ghi kết quả nghiệm thu T01–T15. Tân giữ bảng kịch bản giờ cố định riêng trong `docs/testing/Overall_Testing_17_11/`.

@@ -5,7 +5,7 @@ import { Text, View } from 'react-native';
 
 import { Action, Page, styles } from '@/features/plan/ui';
 import { usePlan, tripDays } from '@/features/plan/state';
-import { latestTrip, markDone } from '@/features/plan/api';
+import { latestTrip, markDone, selectDemoTrip, sourcedDemo } from '@/features/plan/api';
 
 export default function Current() {
   const { trip, setTrip, ready } = usePlan();
@@ -78,6 +78,21 @@ const reload = useCallback(async (): Promise<boolean> => {
   }
 
   const days = trip ? tripDays(trip) : [];
+
+  async function switchSample(close: boolean) {
+    if (busy || loading) return;
+    setBusy('sample');
+    setError('');
+    try {
+      const selected = await selectDemoTrip(trip, close);
+      setTrip(selected);
+      setDay(close ? 1 : 2);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Chưa đổi được lịch. Hãy tải lại.');
+    } finally {
+      setBusy('');
+    }
+  }
 
   return (
     <Page>
@@ -199,6 +214,13 @@ const reload = useCallback(async (): Promise<boolean> => {
           </View>
         </>
       )}
+
+      {sourcedDemo && ready && !loading && <View style={styles.card}>
+        <Text style={styles.heading}>Thử điều chỉnh lịch</Text>
+        <Text style={styles.muted}>Mẫu 3 ngày dùng địa điểm thật. Ngày 2 đã đi ga, đang nghỉ ở Still Cafe. Bạn có thể thử nghỉ đến 15:00 hoặc đổi Hồ Xuân Hương khi trời mưa.</Text>
+        <Action title={trip?.is_demo_sample ? 'Nạp lại lịch mẫu từ đầu' : 'Mở lịch mẫu riêng'} secondary disabled={!!busy} onPress={() => switchSample(false)}/>
+        {trip?.is_demo_sample && <Action title="Đóng mẫu, trở về lịch cá nhân" secondary disabled={!!busy} onPress={() => switchSample(true)}/>}
+      </View>}
 
       {!!error && (
         <Text style={styles.error}>

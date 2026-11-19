@@ -1,0 +1,728 @@
+[
+  {
+    "place_id": "P001",
+    "name": "Ga Đà Lạt",
+    "area": "DALAT",
+    "interests": [
+      "culture"
+    ],
+    "environment": "MIXED",
+    "visit_duration_minutes": 90,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "07:30",
+            "end": "17:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "07:30",
+            "end": "17:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "07:30",
+            "end": "17:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "07:30",
+            "end": "17:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "07:30",
+            "end": "17:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "07:30",
+            "end": "17:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "07:30",
+            "end": "17:00"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": "https://visitlamdong.vn/vi/nhagadalat",
+    "checked_at": "2026-11-19T14:41:22+00:00",
+    "data_status": "VERIFIED"
+  },
+  {
+    "place_id": "P003",
+    "name": "Hồ Xuân Hương · dạo bờ hồ phía Quảng trường Lâm Viên",
+    "area": "DALAT",
+    "interests": [
+      "nature"
+    ],
+    "environment": "OUTDOOR",
+    "visit_duration_minutes": 60,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "06:00",
+            "end": "18:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "06:00",
+            "end": "18:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "06:00",
+            "end": "18:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "06:00",
+            "end": "18:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "06:00",
+            "end": "18:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "06:00",
+            "end": "18:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "06:00",
+            "end": "18:00"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": "https://visitlamdong.vn/vi/hoxuanhuong",
+    "checked_at": "2026-11-19T14:41:22+00:00",
+    "data_status": "VERIFIED"
+  },
+  {
+    "place_id": "P005",
+    "name": "Bảo tàng Lâm Đồng",
+    "area": "DALAT",
+    "interests": [
+      "culture"
+    ],
+    "environment": "MIXED",
+    "visit_duration_minutes": 120,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "08:00",
+            "end": "11:30"
+          },
+          {
+            "start": "13:30",
+            "end": "16:30"
+          }
+        ],
+        "tue": [
+          {
+            "start": "08:00",
+            "end": "11:30"
+          },
+          {
+            "start": "13:30",
+            "end": "16:30"
+          }
+        ],
+        "wed": [
+          {
+            "start": "08:00",
+            "end": "11:30"
+          },
+          {
+            "start": "13:30",
+            "end": "16:30"
+          }
+        ],
+        "thu": [
+          {
+            "start": "08:00",
+            "end": "11:30"
+          },
+          {
+            "start": "13:30",
+            "end": "16:30"
+          }
+        ],
+        "fri": [
+          {
+            "start": "08:00",
+            "end": "11:30"
+          },
+          {
+            "start": "13:30",
+            "end": "16:30"
+          }
+        ],
+        "sat": [
+          {
+            "start": "08:00",
+            "end": "11:30"
+          },
+          {
+            "start": "13:30",
+            "end": "16:30"
+          }
+        ],
+        "sun": [
+          {
+            "start": "08:00",
+            "end": "11:30"
+          },
+          {
+            "start": "13:30",
+            "end": "16:30"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": "https://baotanglamdong.com.vn/tickets",
+    "checked_at": "2026-11-19T14:41:22+00:00",
+    "data_status": "VERIFIED"
+  },
+  {
+    "place_id": "P006",
+    "name": "Là Việt Coffee · khu trong nhà",
+    "area": "DALAT",
+    "interests": [
+      "coffee"
+    ],
+    "environment": "INDOOR",
+    "visit_duration_minutes": 60,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": "https://laviet.coffee/tu-chung-toi/",
+    "checked_at": "2026-11-19T14:41:22+00:00",
+    "data_status": "VERIFIED"
+  },
+  {
+    "place_id": "P008",
+    "name": "Dinh III Bảo Đại",
+    "area": "DALAT",
+    "interests": [
+      "culture"
+    ],
+    "environment": "MIXED",
+    "visit_duration_minutes": 60,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "07:00",
+            "end": "11:00"
+          },
+          {
+            "start": "13:00",
+            "end": "17:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "07:00",
+            "end": "11:00"
+          },
+          {
+            "start": "13:00",
+            "end": "17:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "07:00",
+            "end": "11:00"
+          },
+          {
+            "start": "13:00",
+            "end": "17:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "07:00",
+            "end": "11:00"
+          },
+          {
+            "start": "13:00",
+            "end": "17:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "07:00",
+            "end": "11:00"
+          },
+          {
+            "start": "13:00",
+            "end": "17:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "07:00",
+            "end": "11:00"
+          },
+          {
+            "start": "13:00",
+            "end": "17:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "07:00",
+            "end": "11:00"
+          },
+          {
+            "start": "13:00",
+            "end": "17:00"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": "https://visitlamdong.vn/vi/dinhiii",
+    "checked_at": "2026-11-19T14:41:22+00:00",
+    "data_status": "VERIFIED"
+  },
+  {
+    "place_id": "P009",
+    "name": "Biệt thự Hằng Nga — Crazy House",
+    "area": "DALAT",
+    "interests": [
+      "culture"
+    ],
+    "environment": "MIXED",
+    "visit_duration_minutes": 60,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "08:30",
+            "end": "18:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "08:30",
+            "end": "18:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "08:30",
+            "end": "18:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "08:30",
+            "end": "18:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "08:30",
+            "end": "18:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "08:30",
+            "end": "18:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "08:30",
+            "end": "18:00"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": "https://crazyhouse.vn/tham-quan",
+    "checked_at": "2026-11-16T08:15:27.542403+00:00",
+    "data_status": "VERIFIED"
+  },
+  {
+    "place_id": "P010",
+    "name": "Still Cafe",
+    "area": "DALAT",
+    "interests": [
+      "coffee"
+    ],
+    "environment": "MIXED",
+    "visit_duration_minutes": 60,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": "https://visitlamdong.vn/vi/stillcafe",
+    "checked_at": "2026-11-19T14:41:22+00:00",
+    "data_status": "VERIFIED"
+  },
+  {
+    "place_id": "P011",
+    "name": "An Cafe",
+    "area": "DALAT",
+    "interests": [
+      "coffee"
+    ],
+    "environment": "MIXED",
+    "visit_duration_minutes": 60,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "07:00",
+            "end": "21:30"
+          }
+        ],
+        "tue": [
+          {
+            "start": "07:00",
+            "end": "21:30"
+          }
+        ],
+        "wed": [
+          {
+            "start": "07:00",
+            "end": "21:30"
+          }
+        ],
+        "thu": [
+          {
+            "start": "07:00",
+            "end": "21:30"
+          }
+        ],
+        "fri": [
+          {
+            "start": "07:00",
+            "end": "21:30"
+          }
+        ],
+        "sat": [
+          {
+            "start": "07:00",
+            "end": "21:30"
+          }
+        ],
+        "sun": [
+          {
+            "start": "07:00",
+            "end": "21:30"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": "https://www.ancafeglobal.com/",
+    "checked_at": "2026-11-19T14:41:22+00:00",
+    "data_status": "VERIFIED"
+  },
+  {
+    "name": "Công trường Công xã Paris · trước Bưu điện TP.HCM",
+    "area": "HCMC",
+    "use_as": "WAYPOINT",
+    "interests": [],
+    "environment": "OUTDOOR",
+    "visit_duration_minutes": null,
+    "image_url": null,
+    "place_id": "SAIGON-PARIS",
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "05:00",
+            "end": "19:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "05:00",
+            "end": "19:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "05:00",
+            "end": "19:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "05:00",
+            "end": "19:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "05:00",
+            "end": "19:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "05:00",
+            "end": "19:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "05:00",
+            "end": "19:00"
+          }
+        ]
+      }
+    },
+    "source_url": "https://hello.hochiminhcity.gov.vn/vi/discover/buu-dien-thanh-pho",
+    "data_status": "VERIFIED",
+    "checked_at": "2026-11-19T14:41:22+00:00"
+  },
+  {
+    "name": "Đường Huỳnh Thúc Kháng · gần Crazy House",
+    "area": "DALAT",
+    "use_as": "WAYPOINT",
+    "interests": [],
+    "environment": "OUTDOOR",
+    "visit_duration_minutes": null,
+    "image_url": null,
+    "place_id": "DALAT-HTK",
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "05:00",
+            "end": "19:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "05:00",
+            "end": "19:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "05:00",
+            "end": "19:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "05:00",
+            "end": "19:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "05:00",
+            "end": "19:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "05:00",
+            "end": "19:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "05:00",
+            "end": "19:00"
+          }
+        ]
+      }
+    },
+    "source_url": "https://crazyhouse.vn/chinh-sach",
+    "data_status": "VERIFIED",
+    "checked_at": "2026-11-19T14:41:22+00:00"
+  },
+  {
+    "name": "Trạm dừng Tâm Châu · 294A Trần Phú, Bảo Lộc",
+    "area": "EN_ROUTE",
+    "use_as": "REST_ONLY",
+    "interests": [
+      "food"
+    ],
+    "environment": "MIXED",
+    "visit_duration_minutes": null,
+    "image_url": null,
+    "place_id": "BAOLOC-294A",
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ]
+      }
+    },
+    "source_url": "https://www.tamchaucenter.com/lien-he",
+    "data_status": "VERIFIED",
+    "checked_at": "2026-11-19T14:41:22+00:00"
+  }
+]

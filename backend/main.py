@@ -75,19 +75,27 @@ def configured_app():
         from f05_provider import make_catalog_provider, make_option_validator
         from plan_f02 import PlanProvider
 
-        data = Path(__file__).with_name("data")
-        routes = json.loads((data / "handoff/routes_source.json").read_text(encoding="utf-8-sig"))
+        from place_catalog import PlaceCatalog
+        from places_api import get_catalog
+        from android_demo import router as demo_router
+        data = Path(__file__).with_name("data") / "android"
+        routes = json.loads((data / "routes.json").read_text(encoding="utf-8-sig"))
         templates = {len(route["days"]): route for route in routes}
         if len(routes) != 2 or set(templates) != {3, 4}:
             raise ValueError("Cần một tuyến nguồn 3 ngày và một tuyến nguồn 4 ngày.")
         catalog = Catalog.load(data, [], mode="VERIFIED")
         provider = make_catalog_provider(data, templates, mode="VERIFIED")
-        return create_app(
+        app = create_app(
             plan_provider=PlanProvider(catalog, templates),
             catalog_provider=provider,
             option_validator=make_option_validator(provider),
             gemini_adapt=True,
         )
+        recommendations = PlaceCatalog.load(data)
+        app.dependency_overrides[get_catalog] = lambda: recommendations
+        app.state.release_catalog = recommendations
+        app.include_router(demo_router)
+        return app
     if os.environ.get("ADAPT_MODE") != "MOCK":
         return create_app()
 

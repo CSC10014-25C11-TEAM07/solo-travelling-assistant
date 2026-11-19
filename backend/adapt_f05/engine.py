@@ -234,8 +234,11 @@ class AdaptEngine:
                 if matching:
                     row = deepcopy(matching.popleft())
                 else:
+                    origin_name = self.catalog.place(previous_place)["name"]
+                    destination_name = self.catalog.place(destination)["name"]
                     row = {"activity_id": str(uuid5(namespace, f"travel:{len(rebuilt)}:{previous_place}:{destination}")),
-                           "day_id": day["day_id"], "type": "TRAVEL", "name": "Di chuyển theo chặng đã kiểm tra",
+                           "day_id": day["day_id"], "type": "TRAVEL",
+                           "name": f"Di chuyển {origin_name} → {destination_name}",
                            "place_id": None, "status": "PENDING", "is_optional": False,
                            "replaces_activity_id": None, "completed_at": None}
                 row.update(start_time=clock(cursor), end_time=clock(cursor + duration))

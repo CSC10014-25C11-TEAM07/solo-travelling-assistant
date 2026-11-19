@@ -4,6 +4,7 @@ import React, {
   useContext,
   useState,
   useEffect,
+  useCallback,
 } from 'react';
 
 import {
@@ -37,13 +38,19 @@ type Context = {
 
 const C = createContext<Context | null>(null);
 
-const defaultForm: FormData = {
-  departure_date: '2026-12-10',
-  return_date: '2026-12-13',
+function defaultForm(): FormData {
+  const today = new Date();
+  const localDate = (offset: number) => new Date(Date.UTC(
+    today.getFullYear(), today.getMonth(), today.getDate() + offset
+  )).toISOString().slice(0, 10);
+  return {
+  departure_date: localDate(1),
+  return_date: localDate(4),
   departure_time: '06:00',
   min_rest_minutes: '60',
   interests: ['nature'],
-};
+  };
+}
 
 export function PlanProvider({
   children,
@@ -113,7 +120,7 @@ export function PlanProvider({
     };
   }, []);
 
-  const clearSession = async () => {
+  const clearSession = useCallback(async () => {
     await clearSavedTrip();
 
     setAccount(null);
@@ -121,11 +128,8 @@ export function PlanProvider({
     setDraftId(null);
     setSelectedIds([]);
 
-    setForm({
-      ...defaultForm,
-      interests: [...defaultForm.interests],
-    });
-  };
+    setForm(defaultForm());
+  }, []);
 
   return (
     <C.Provider

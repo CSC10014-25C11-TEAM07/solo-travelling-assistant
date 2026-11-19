@@ -24,7 +24,7 @@ type RawProposal = {
   options: RawOption[];
   no_option_reason: string | null;
 };
-export type LiveTrip = CurrentTrip & { rawDays: TripDay[]; restActivityId?: string; placeNames: Record<string, string> };
+export type LiveTrip = CurrentTrip & { rawDays: TripDay[]; restActivityId?: string; placeNames: Record<string, string>; outdoorPlaceIds?: string[] };
 
 export function fromItinerary(itinerary: Trip, selectedDay?: number): LiveTrip {
   const rawDays = itinerary.days ?? itinerary.itinerary_days ?? [];
@@ -36,7 +36,7 @@ export function fromItinerary(itinerary: Trip, selectedDay?: number): LiveTrip {
     ?? day.activities.find(a => a.type === 'REST');
   const placeNames: Record<string, string> = {};
   for (const d of rawDays) for (const a of d.activities) {
-    if (a.type === 'VISIT' && a.place_id) placeNames[a.place_id] = a.name;
+    if (a.place_id && (a.type === 'VISIT' || a.type === 'REST')) placeNames[a.place_id] = a.name;
   }
   return {
     id: itinerary.itinerary_id, version: itinerary.version, day: day.day_number,
@@ -47,10 +47,9 @@ export function fromItinerary(itinerary: Trip, selectedDay?: number): LiveTrip {
     activities: day.activities.filter(a => a.type === 'VISIT').map(a => ({
       id: a.activity_id, title: a.name, time: `${a.start_time}–${a.end_time}`,
       status: a.status === 'PENDING' ? 'TODO' as const : a.status,
-      // The API Activity doesn't include environment. The server verifies RAIN eligibility.
-      outdoor: false,
+      outdoor: itinerary.outdoor_place_ids?.includes(a.place_id ?? ''),
     })),
-    travelLegs: [], rawDays, placeNames,
+    travelLegs: [], rawDays, placeNames, outdoorPlaceIds: itinerary.outdoor_place_ids,
   };
 }
 

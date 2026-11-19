@@ -1,0 +1,211 @@
+[
+  {
+    "route_id": "ANDROID-3D-V1",
+    "data_status": "VERIFIED",
+    "buffer_minutes": 30,
+    "days": [
+      {
+        "start_place_id": "SAIGON-PARIS",
+        "end_place_id": "DALAT-HTK",
+        "start_time": "05:00",
+        "end_deadline": "18:00",
+        "stops": [
+          {
+            "type": "REST",
+            "place_id": "BAOLOC-294A",
+            "duration_minutes": 60,
+            "use_requested_minimum": true
+          }
+        ]
+      },
+      {
+        "start_place_id": "DALAT-HTK",
+        "end_place_id": "DALAT-HTK",
+        "start_time": "08:00",
+        "end_deadline": "17:00",
+        "stops": [
+          {
+            "type": "VISIT",
+            "place_id": "P001",
+            "is_optional": true
+          },
+          {
+            "type": "REST",
+            "place_id": "P010",
+            "duration_minutes": 60,
+            "use_requested_minimum": true,
+            "not_before": "12:00"
+          },
+          {
+            "type": "VISIT",
+            "place_id": "P003",
+            "is_optional": true
+          },
+          {
+            "type": "VISIT",
+            "place_id": "P005",
+            "is_optional": true
+          }
+        ],
+        "sample_variant": 1,
+        "alternative_stops": [
+          [
+            {
+              "type": "VISIT",
+              "place_id": "P001",
+              "is_optional": true
+            },
+            {
+              "type": "REST",
+              "place_id": "P010",
+              "duration_minutes": 60,
+              "use_requested_minimum": true,
+              "not_before": "12:00"
+            },
+            {
+              "type": "VISIT",
+              "place_id": "P003",
+              "is_optional": true
+            },
+            {
+              "type": "VISIT",
+              "place_id": "P011",
+              "is_optional": true
+            }
+          ]
+        ]
+      },
+      {
+        "start_place_id": "DALAT-HTK",
+        "end_place_id": "SAIGON-PARIS",
+        "start_time": "06:00",
+        "end_deadline": "18:00",
+        "stops": [
+          {
+            "type": "REST",
+            "place_id": "BAOLOC-294A",
+            "duration_minutes": 60,
+            "use_requested_minimum": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "route_id": "ANDROID-4D-V1",
+    "data_status": "VERIFIED",
+    "buffer_minutes": 30,
+    "days": [
+      {
+        "start_place_id": "SAIGON-PARIS",
+        "end_place_id": "DALAT-HTK",
+        "start_time": "05:00",
+        "end_deadline": "18:00",
+        "stops": [
+          {
+            "type": "REST",
+            "place_id": "BAOLOC-294A",
+            "duration_minutes": 60,
+            "use_requested_minimum": true
+          }
+        ]
+      },
+      {
+        "start_place_id": "DALAT-HTK",
+        "end_place_id": "DALAT-HTK",
+        "start_time": "08:00",
+        "end_deadline": "17:00",
+        "stops": [
+          {
+            "type": "VISIT",
+            "place_id": "P001",
+            "is_optional": true
+          },
+          {
+            "type": "REST",
+            "place_id": "P010",
+            "duration_minutes": 60,
+            "use_requested_minimum": true,
+            "not_before": "12:00"
+          },
+          {
+            "type": "VISIT",
+            "place_id": "P003",
+            "is_optional": true
+          },
+          {
+            "type": "VISIT",
+            "place_id": "P005",
+            "is_optional": true
+          }
+        ],
+        "sample_variant": 1,
+        "alternative_stops": [
+          [
+            {
+              "type": "VISIT",
+              "place_id": "P001",
+              "is_optional": true
+            },
+            {
+              "type": "REST",
+              "place_id": "P010",
+              "duration_minutes": 60,
+              "use_requested_minimum": true,
+              "not_before": "12:00"
+            },
+            {
+              "type": "VISIT",
+              "place_id": "P003",
+              "is_optional": true
+            },
+            {
+              "type": "VISIT",
+              "place_id": "P011",
+              "is_optional": true
+            }
+          ]
+        ]
+      },
+      {
+        "start_place_id": "DALAT-HTK",
+        "end_place_id": "DALAT-HTK",
+        "start_time": "08:00",
+        "end_deadline": "17:00",
+        "stops": [
+          {
+            "type": "VISIT",
+            "place_id": "P008",
+            "is_optional": true
+          },
+          {
+            "type": "REST",
+            "place_id": "P011",
+            "duration_minutes": 60,
+            "use_requested_minimum": true,
+            "not_before": "12:00"
+          },
+          {
+            "type": "VISIT",
+            "place_id": "P009",
+            "is_optional": true
+          }
+        ]
+      },
+      {
+        "start_place_id": "DALAT-HTK",
+        "end_place_id": "SAIGON-PARIS",
+        "start_time": "06:00",
+        "end_deadline": "18:00",
+        "stops": [
+          {
+            "type": "REST",
+            "place_id": "BAOLOC-294A",
+            "duration_minutes": 60,
+            "use_requested_minimum": true
+          }
+        ]
+      }
+    ]
+  }
+]

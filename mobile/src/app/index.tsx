@@ -62,7 +62,7 @@ export default function Home() {
     return () => {
       active = false;
     };
-  }, []);
+  }, [clearSession, setAccount]);
 
   async function checkBackend() {
     setChecking(true);
