@@ -1,4 +1,5 @@
 ﻿import re
+import os
 import sqlite3
 from contextlib import closing
 from pathlib import Path
@@ -17,7 +18,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel, StrictStr
 
 router = APIRouter(prefix="/api/v1/auth", tags=["Tài khoản"])
-DB_PATH = Path(__file__).with_name("app.sqlite3")
+DB_PATH = Path(os.environ.get("STA_DATABASE_PATH") or Path(__file__).with_name("app.sqlite3"))
 USERNAME_PATTERN = re.compile(r"[a-z0-9_]{3,30}")
 password_hasher = PasswordHasher(
     time_cost=2, memory_cost=19456, parallelism=1, type=Type.ID

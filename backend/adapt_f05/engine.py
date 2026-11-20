@@ -188,10 +188,18 @@ class AdaptEngine:
             ranking = checked_ranking(RuleRanker().rank(context), context)
             audit = {"mode": "RULE_FALLBACK", "failure_code": error.code}
         by_id = {c.candidate_id: c for c in candidates}
+        if isinstance(request, RestRequest) and request.preferred_keep_activity_id:
+            # Preserve the model's order within each group, while honoring the
+            # user's explicit preference when a feasible candidate keeps it.
+            ranking.sort(key=lambda entry: request.preferred_keep_activity_id
+                         in by_id[entry["candidate_id"]].dropped_ids)
         selected = []
         for entry in ranking[:2]:
             c = by_id[entry["candidate_id"]]
-            c.reason = " ".join(c.facts[code] for code in entry["reason_codes"])
+            reasons = list(entry["reason_codes"])
+            if "KEEP" in c.facts and "KEEP" not in reasons:
+                reasons.insert(0, "KEEP")
+            c.reason = " ".join(c.facts[code] for code in reasons)
             c.tradeoff = c.facts[entry["tradeoff_code"]]
             if not validate_candidate(itinerary, c, self.catalog):
                 raise AdaptError("AI_INVALID_OUTPUT", "Phương án thay đổi sau kiểm tra; không trả kết quả.", status=502)
@@ -234,8 +242,11 @@ class AdaptEngine:
                 if matching:
                     row = deepcopy(matching.popleft())
                 else:
+                    origin_name = self.catalog.place(previous_place)["name"]
+                    destination_name = self.catalog.place(destination)["name"]
                     row = {"activity_id": str(uuid5(namespace, f"travel:{len(rebuilt)}:{previous_place}:{destination}")),
-                           "day_id": day["day_id"], "type": "TRAVEL", "name": "Di chuyển theo chặng đã kiểm tra",
+                           "day_id": day["day_id"], "type": "TRAVEL",
+                           "name": f"Di chuyển {origin_name} → {destination_name}",
                            "place_id": None, "status": "PENDING", "is_optional": False,
                            "replaces_activity_id": None, "completed_at": None}
                 row.update(start_time=clock(cursor), end_time=clock(cursor + duration))

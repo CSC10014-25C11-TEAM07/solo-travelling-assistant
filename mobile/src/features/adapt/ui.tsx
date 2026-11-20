@@ -51,9 +51,11 @@ export function PlacePhoto({ place, height = 116 }: { place: string; height?: nu
   return <Image source={lake ? require('../../../assets/images/adapt/ho-xuan-huong.png') : require('../../../assets/images/adapt/vuon-hoa-da-lat.png')} resizeMode="cover" style={{ width: '100%', height, borderRadius: 15, backgroundColor: '#d8e9c8' }} accessibilityLabel={`Ảnh ${place}`}/>;
 }
 export function PlaceChoice({ title, selected, onPress, subtitle }: { title: string; selected: boolean; onPress: () => void; subtitle?: string }) {
+  const name = title.toLowerCase();
+  const hasPhoto = name.includes('xuân hương') || name.includes('hoa') || name.includes('vườn');
   return <Pressable accessibilityRole="radio" accessibilityState={{ selected }} onPress={onPress} style={{ flexDirection: 'row', alignItems: 'center', gap: 11, backgroundColor: selected ? '#e7f4c4' : '#f7f8ee', padding: 10, borderRadius: 17, borderWidth: selected ? 1 : 0, borderColor: '#cfe78d' }}>
     <Text style={{ color: palette.green, fontSize: 23, fontWeight: '700' }}>{selected ? '☑' : '☐'}</Text>
-    <View style={{ width: 106 }}><PlacePhoto place={title} height={78}/></View>
+    {hasPhoto && <View style={{ width: 106 }}><PlacePhoto place={title} height={78}/></View>}
     <View style={{ flex: 1, gap: 3 }}><Text style={{ color: palette.green, fontSize: 15, fontWeight: '800' }}>{title}</Text>{subtitle && <Text style={styles.muted}>{subtitle}</Text>}</View>
   </Pressable>;
 }

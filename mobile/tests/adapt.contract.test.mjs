@@ -41,6 +41,21 @@ test('map real itinerary IDs, version, day and rest', () => {
   assert.equal(trip.activities.find(x => x.id === 'V2').status, 'TODO');
   assert.equal(model.restPlaceName(trip), 'Hồ Tuyền Lâm');
 });
+test('select a pending rest without changing the itinerary or choosing completed activities', () => {
+  const second = {activity_id:'REST2', type:'REST', name:'Trạm nghỉ B', place_id:'P3',
+    start_time:'16:10', end_time:'16:25', status:'PENDING'};
+  const completed = {...second, activity_id:'REST3', status:'DONE'};
+  const source = {...mockTrip, days:[{...mockTrip.days[0], activities:[
+    ...mockTrip.days[0].activities, second, completed,
+  ]}]};
+  const before = adapter.fromItinerary(source);
+  const selected = adapter.selectRestActivity(before, 'REST2');
+  assert.equal(selected.restActivityId, 'REST2');
+  assert.equal(selected.restEnd, '16:25');
+  assert.equal(model.restPlaceName(selected), 'Trạm nghỉ B');
+  assert.equal(before.restActivityId, 'REST1');
+  assert.throws(() => adapter.selectRestActivity(before, 'REST3'));
+});
 test('map 0 options and exact conflict from F05', () => {
   const value = adapter.mapProposalResponse({
     proposal_id: 'PR1', itinerary_id: 'I-TEST', type:'EXTEND_REST',base_version:2,
@@ -67,4 +82,21 @@ test('preserve actual option_id and show before/after', () => {
 test('reject inconsistent F05 payloads', () => {
   assert.throws(()=>adapter.mapProposalResponse({options:[]}));
   assert.throws(()=>adapter.mapProposalResponse({proposal_id:'X',base_version:2,options:[{option_id:'A'}]}));
+});
+
+test('shows replaced and new travel from the actual proposal', () => {
+  const oldLeg = mockTrip.days[0].activities.find(a => a.activity_id === 'T2');
+  const replacement = {...oldLeg, activity_id: 'T3', name: 'Hồ → Quán cà phê',
+    start_time: '15:05', end_time: '15:20', status: 'PENDING'};
+  const day = {...mockTrip.days[0], activities: [
+    {...oldLeg, status: 'REPLACED'}, replacement,
+  ]};
+  const response = adapter.mapProposalResponse({
+    proposal_id: 'PR3', itinerary_id: 'I-TEST', type: 'REPLACE_LOCATION', base_version: 2,
+    no_option_reason: null, options: [{option_id: 'OPT', changes: [], proposed_days: [day]}],
+  }, adapter.fromItinerary(mockTrip));
+  assert.deepEqual(response.proposals[0].apiTravelChanges, [
+    'Trước: Hồ → vườn hoa · 15:00–15:10',
+    'Sau: Hồ → Quán cà phê · 15:05–15:20',
+  ]);
 });

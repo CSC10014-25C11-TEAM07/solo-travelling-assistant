@@ -2,7 +2,7 @@ import React, { createContext, useCallback, useContext, useEffect, useRef, useSt
 import { usePlan } from '@/features/plan/state';
 import type { Trip } from '@/features/plan/api';
 import { afterDecision, decide, fetchCurrent, mockMode, propose } from './api';
-import { fromItinerary } from './adapter';
+import { fromItinerary, selectRestActivity } from './adapter';
 import { AdaptKind, AdaptRequest, CurrentTrip, demoTrip, mockProposals, Proposal, ProposalResponse, applyMock } from './model';
 
 export type AdaptDraft = { restUntil: string; preferredKeep: string; activityId: string };
@@ -14,6 +14,7 @@ type AdaptContextValue = {
   request: AdaptRequest | null; response: ProposalResponse | null; result: Result | null;
   busy: boolean; error: string | null; isMock: boolean;
   load: (day?: number) => Promise<boolean>;
+  selectRest: (activityId: string) => void;
   generate: (req: AdaptRequest) => Promise<boolean>; choose: (proposal: Proposal) => Promise<boolean>;
   reject: () => Promise<boolean>; reset: () => void;
 };
@@ -21,8 +22,6 @@ const AdaptContext = createContext<AdaptContextValue | null>(null);
 
 export function AdaptProvider({ children }: { children: React.ReactNode }) {
   const { setTrip: setPlanTrip } = usePlan();
-  const setPlanTripRef = useRef(setPlanTrip);
-  setPlanTripRef.current = setPlanTrip;
   const [trip, setTrip] = useState<CurrentTrip>(demoTrip);
   const [available, setAvailable] = useState(mockMode);
   const [ready, setReady] = useState(mockMode);
@@ -36,6 +35,17 @@ export function AdaptProvider({ children }: { children: React.ReactNode }) {
   const [error, setError] = useState<string | null>(null);
   const inFlight = useRef(false);
 
+  const applyCurrent = useCallback((current: Trip | null, day?: number) => {
+    setReady(true);
+    setAvailable(current !== null);
+    setPlanTrip(current);
+    if (current) {
+      const mapped = fromItinerary(current, day);
+      setTrip(mapped);
+      updateDraft({ restUntil: mapped.restEnd, preferredKeep: '', activityId: '' });
+    }
+  }, [setPlanTrip]);
+
   const load = useCallback(async (day?: number) => {
     if (mockMode) { setReady(true); setAvailable(true); return true; }
     if (inFlight.current) return false;
@@ -43,23 +53,28 @@ export function AdaptProvider({ children }: { children: React.ReactNode }) {
     setBusy(true); setError(null);
     try {
       const current = await fetchCurrent();
-      setReady(true);
-      setAvailable(current !== null);
-      setPlanTripRef.current(current);
-      if (current) {
-        const mapped = fromItinerary(current, day);
-        setTrip(mapped);
-        updateDraft({ restUntil: mapped.restEnd, preferredKeep: '', activityId: '' });
-      }
+      applyCurrent(current, day);
       return current !== null;
     } catch (err) {
       setReady(true); setAvailable(false);
       setError(err instanceof Error ? err.message : 'Không thể tải lịch hiện hành.');
       return false;
     } finally { inFlight.current = false; setBusy(false); }
-  }, []);
+  }, [applyCurrent]);
 
-  useEffect(() => { if (!mockMode) void load(); }, [load]);
+  useEffect(() => {
+    if (mockMode) return;
+    let active = true;
+    fetchCurrent().then(current => {
+      if (active) applyCurrent(current);
+    }).catch(err => {
+      if (!active) return;
+      setReady(true);
+      setAvailable(false);
+      setError(err instanceof Error ? err.message : 'Không thể tải lịch hiện hành.');
+    });
+    return () => { active = false; };
+  }, [applyCurrent]);
 
   async function generate(next: AdaptRequest) {
     if (inFlight.current || !available) return false;
@@ -71,6 +86,17 @@ export function AdaptProvider({ children }: { children: React.ReactNode }) {
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Không tạo được phương án.'); return false;
     } finally { setBusy(false); inFlight.current = false; }
+  }
+
+  function selectRest(activityId: string) {
+    try {
+      const selected = selectRestActivity(trip, activityId);
+      setTrip(selected);
+      updateDraft({ restUntil: selected.restEnd, preferredKeep: '', activityId: '' });
+      setRequest(null); setResponse(null); setResult(null); setError(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Không thể chọn khoảng nghỉ.');
+    }
   }
 
   async function choose(option: Proposal) {
@@ -96,7 +122,7 @@ export function AdaptProvider({ children }: { children: React.ReactNode }) {
           option.id
         );
 
-        updated = afterDecision(decision, trip.day);
+        updated = afterDecision(decision, trip);
         planTripUpdate = decision.itinerary;
       }
 
@@ -127,7 +153,7 @@ export function AdaptProvider({ children }: { children: React.ReactNode }) {
       if (!mockMode) {
         if (!response.proposalId) throw new Error('Phản hồi F05 thiếu proposal_id.');
         const decision = await decide(response.proposalId, 'REJECT');
-        const updated = afterDecision(decision, trip.day);
+        const updated = afterDecision(decision, trip);
         setTrip(updated);
         setPlanTrip(decision.itinerary);
       }
@@ -147,7 +173,7 @@ export function AdaptProvider({ children }: { children: React.ReactNode }) {
 
   return <AdaptContext.Provider value={{
     trip, ready, available, kind, setKind, draft, setDraft, request, response, result, busy, error,
-    isMock: mockMode, load, generate, choose, reject, reset,
+    isMock: mockMode, load, selectRest, generate, choose, reject, reset,
   }}>{children}</AdaptContext.Provider>;
 }
 export function useAdapt() { const value = useContext(AdaptContext); if (!value) throw Error('AdaptProvider missing'); return value; }

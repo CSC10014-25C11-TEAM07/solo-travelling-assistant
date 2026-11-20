@@ -24,7 +24,7 @@ type RawProposal = {
   options: RawOption[];
   no_option_reason: string | null;
 };
-export type LiveTrip = CurrentTrip & { rawDays: TripDay[]; restActivityId?: string; placeNames: Record<string, string> };
+export type LiveTrip = CurrentTrip & { rawDays: TripDay[]; restActivityId?: string; placeNames: Record<string, string>; outdoorPlaceIds?: string[] };
 
 export function fromItinerary(itinerary: Trip, selectedDay?: number): LiveTrip {
   const rawDays = itinerary.days ?? itinerary.itinerary_days ?? [];
@@ -36,7 +36,7 @@ export function fromItinerary(itinerary: Trip, selectedDay?: number): LiveTrip {
     ?? day.activities.find(a => a.type === 'REST');
   const placeNames: Record<string, string> = {};
   for (const d of rawDays) for (const a of d.activities) {
-    if (a.type === 'VISIT' && a.place_id) placeNames[a.place_id] = a.name;
+    if (a.place_id && (a.type === 'VISIT' || a.type === 'REST')) placeNames[a.place_id] = a.name;
   }
   return {
     id: itinerary.itinerary_id, version: itinerary.version, day: day.day_number,
@@ -47,10 +47,9 @@ export function fromItinerary(itinerary: Trip, selectedDay?: number): LiveTrip {
     activities: day.activities.filter(a => a.type === 'VISIT').map(a => ({
       id: a.activity_id, title: a.name, time: `${a.start_time}–${a.end_time}`,
       status: a.status === 'PENDING' ? 'TODO' as const : a.status,
-      // The API Activity doesn't include environment. The server verifies RAIN eligibility.
-      outdoor: false,
+      outdoor: itinerary.outdoor_place_ids?.includes(a.place_id ?? ''),
     })),
-    travelLegs: [], rawDays, placeNames,
+    travelLegs: [], rawDays, placeNames, outdoorPlaceIds: itinerary.outdoor_place_ids,
   };
 }
 
@@ -64,6 +63,17 @@ export function liveActivities(trip: CurrentTrip): ServerActivity[] {
   if (!isLiveTrip(trip)) return [];
   return trip.rawDays.find(d => d.day_number === trip.day)?.activities ?? [];
 }
+export function selectRestActivity(trip: CurrentTrip, activityId: string): LiveTrip {
+  if (!isLiveTrip(trip)) throw new Error('Không có lịch hiện hành để chọn khoảng nghỉ.');
+  const rest = liveActivities(trip).find(
+    a => a.activity_id === activityId && a.type === 'REST' && a.status === 'PENDING'
+  );
+  if (!rest) throw new Error('Khoảng nghỉ này không còn chờ thực hiện. Hãy tải lại lịch.');
+  return {
+    ...trip, restStart: rest.start_time, restEnd: rest.end_time,
+    restPlaceId: rest.place_id ?? undefined, restActivityId: rest.activity_id,
+  };
+}
 function describe(activity: ServerActivity | null): string {
   return activity ? `${activity.name} · ${activity.start_time}–${activity.end_time}` : 'Không có';
 }
@@ -74,7 +84,7 @@ function describeChange(change: RawChange): string {
   };
   return `${map[change.change_type] ?? change.change_type}: ${describe(change.before)} → ${describe(change.after)}`;
 }
-export function mapProposalResponse(value: unknown): ProposalResponse {
+export function mapProposalResponse(value: unknown, trip?: CurrentTrip): ProposalResponse {
   const raw = value as RawProposal;
   if (!raw || typeof raw.proposal_id !== 'string' || !Array.isArray(raw.options)
     || raw.options.length > 2 || !Number.isInteger(raw.base_version)) {
@@ -88,6 +98,23 @@ export function mapProposalResponse(value: unknown): ProposalResponse {
     const restChange = option.changes.find(c => c.change_type === 'EXTEND_REST');
     const drop = option.changes.find(c => c.change_type === 'DROP');
     const replacement = option.changes.find(c => c.change_type === 'REPLACE_LOCATION');
+    const beforeTravel = trip && isLiveTrip(trip)
+      ? trip.rawDays.flatMap(day => day.activities).filter(a => a.type === 'TRAVEL')
+      : [];
+    const previousById = new Map(beforeTravel.map(a => [a.activity_id, a]));
+    const apiTravelChanges: string[] = [];
+    for (const current of option.proposed_days.flatMap(day => day.activities)) {
+      if (current.type !== 'TRAVEL') continue;
+      const before = previousById.get(current.activity_id);
+      if (before?.status === 'PENDING' && current.status === 'REPLACED') {
+        apiTravelChanges.push(`Trước: ${describe(before)}`);
+      } else if (!before && current.status === 'PENDING') {
+        apiTravelChanges.push(`Sau: ${describe(current)}`);
+      } else if (before?.status === 'PENDING' && current.status === 'PENDING'
+                 && (before.start_time !== current.start_time || before.end_time !== current.end_time)) {
+        apiTravelChanges.push(`Đổi giờ: ${describe(before)} → ${describe(current)}`);
+      }
+    }
     return {
       id: option.option_id, baseVersion: raw.base_version,
       kind: raw.type === 'EXTEND_REST' ? 'rest' : 'rain',
@@ -101,7 +128,7 @@ export function mapProposalResponse(value: unknown): ProposalResponse {
       replacement: replacement?.after?.name,
       restUntil: restChange?.after?.end_time,
       apiChanges: option.changes.map(describeChange),
-      // Real TRAVEL Activity has no from/to pair: avoid inventing mock leg records.
+      apiTravelChanges,
       travelChanges: [],
     };
   });

@@ -183,7 +183,7 @@ export default function CompareScreen() {
                   alignItems: 'flex-start',
                 }}
               >
-                <View
+                {!live && <View
                   style={{
                     width: '41%',
                     gap: 7,
@@ -197,7 +197,7 @@ export default function CompareScreen() {
                     }
                     height={142}
                   />
-                </View>
+                </View>}
 
                 <View
                   style={{
@@ -291,18 +291,6 @@ export default function CompareScreen() {
                 </View>
               </View>
 
-              {/* Các thay đổi do API trả về */}
-              {live &&
-                !!proposal.apiChanges?.length && (
-                  <View style={{ gap: 6 }}>
-                    {proposal.apiChanges.map((change, i) => (
-                      <Text key={i} style={styles.muted}>
-                        {change}
-                      </Text>
-                    ))}
-                  </View>
-                )}
-
               {/* Tuyến di chuyển trước và sau */}
               <View
                 style={{
@@ -321,10 +309,14 @@ export default function CompareScreen() {
                   Tuyến di chuyển trước / sau
                 </Text>
 
-                {travelChanges.length === 0 ? (
+                {live && proposal.apiTravelChanges?.length ? (
+                  proposal.apiTravelChanges.map((change, i) => (
+                    <Text key={i} style={styles.muted}>{change}</Text>
+                  ))
+                ) : travelChanges.length === 0 ? (
                   <Text style={styles.muted}>
                     {live
-                      ? 'Thông tin di chuyển được thể hiện trong danh sách thay đổi và lịch xem trước.'
+                      ? 'Không có thay đổi chặng di chuyển.'
                       : 'Chưa có thông tin thay đổi tuyến di chuyển cho phương án này.'}
                   </Text>
                 ) : (

@@ -156,10 +156,16 @@ def confirm_draft(draft_id: str, user_id=Depends(current_user)):
 
 
 @router.get("/itineraries/current")
-def get_current(user_id=Depends(current_user)):
+def get_current(request: Request, user_id=Depends(current_user)):
     with store.connect() as db, db:
         itinerary_id = store.current_id(db, user_id)
         itinerary = store.load_itinerary(db, itinerary_id, user_id) if itinerary_id else None
+    catalog = getattr(request.app.state, "release_catalog", None)
+    if itinerary and catalog:
+        itinerary["outdoor_place_ids"] = sorted(
+            place.place_id for place in catalog.places.values()
+            if place.use_as == "VENUE" and place.environment == "OUTDOOR"
+        )
     return {"itinerary": itinerary}
 
 

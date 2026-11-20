@@ -302,10 +302,11 @@ class AdaptTests(unittest.TestCase):
             mutation(c)
             self.assertFalse(validate_candidate(self.trip, c, self.catalog))
 
-    def test_mock_ranker_changes_order_only_and_is_labelled(self):
+    def test_preference_takes_priority_even_when_model_reverses_candidates(self):
         result = self.generate(REST | {"preferred_keep_activity_id": "A04"}, ranker=MockRanker())
         self.assertEqual(result.ranking["mode"], "MOCK_AI")
-        self.assertEqual(result.candidates[0].dropped_ids, ["A04"])
+        self.assertEqual(result.candidates[0].dropped_ids, ["A03"])
+        self.assertIn("ưu tiên", result.candidates[0].reason)
         self.assertTrue(all(validate_candidate(self.trip, c, self.catalog) for c in result.candidates))
 
     def test_hallucinated_id_falls_back_once(self):

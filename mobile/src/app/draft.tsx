@@ -1,4 +1,4 @@
-﻿
+
 import { useState } from 'react';
 import { router } from 'expo-router';
 import {
@@ -10,7 +10,7 @@ import {
 
 import { Action, Page, styles } from '@/features/plan/ui';
 import { usePlan, tripDays } from '@/features/plan/state';
-import { configured, confirmDraft } from '@/features/plan/api';
+import { configured, confirmDraft, sourcedDemo } from '@/features/plan/api';
 
 export default function Draft() {
 const { trip, setTrip, draftId, setDraftId } = usePlan();
@@ -121,6 +121,7 @@ const { trip, setTrip, draftId, setDraftId } = usePlan();
         {trip.departure_date} → {trip.return_date}
         {' · '}{days.length} ngày · Lịch nháp
       </Text>
+      {sourcedDemo && <Text style={styles.muted}>Khứ hồi từ Công trường Công xã Paris, nghỉ ở La Ngà, Bảo Lộc và Đức Trọng. Mốc qua đêm ở đường Huỳnh Thúc Kháng gần Crazy House. Thời gian xe máy là ước tính từ OpenStreetMap và Valhalla. Chặng TP.HCM ↔ La Ngà có hạn chế theo giờ trên bản đồ. Kiểm tra tình trạng đường và chỗ nghỉ trước chuyến đi.</Text>}
 
       <View style={styles.row}>
         {days.map(d => (
