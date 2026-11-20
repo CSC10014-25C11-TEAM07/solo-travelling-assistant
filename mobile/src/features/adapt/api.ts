@@ -39,7 +39,7 @@ export async function propose(req: AdaptRequest, trip: CurrentTrip): Promise<Pro
       true,
       90000
     );
-    return mapProposalResponse(data);
+    return mapProposalResponse(data, trip);
   } catch (error) {
     const status = (error as Error & { status?: number }).status;
     if (status === 404) {

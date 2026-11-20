@@ -25,7 +25,8 @@ class ReleaseTests(unittest.TestCase):
         stack.enter_context(patch.object(GeminiRanker, "__init__", return_value=None))
         self.rank = stack.enter_context(patch.object(GeminiRanker, "rank", autospec=True,
                                                      side_effect=RuleRanker.rank))
-        self.client = stack.enter_context(TestClient(configured_app()))
+        self.app = configured_app()
+        self.client = stack.enter_context(TestClient(self.app))
         self.owner = self.headers("android_owner")
         self.other = self.headers("android_other")
 
@@ -134,3 +135,28 @@ class ReleaseTests(unittest.TestCase):
                            if a["activity_id"] == preferred["activity_id"])
             self.assertEqual(updated["status"], "PENDING")
             self.assertIn("ưu tiên", first["reason"])
+
+    def test_rain_without_open_indoor_venue_keeps_current_itinerary(self):
+        sample = self.post("demo-itineraries", {"itinerary_id": None, "version": None}, 201)["itinerary"]
+        lake = next(a for a in sample["days"][1]["activities"] if a["place_id"] == "P003")
+        actual_provider = self.app.state.catalog_provider
+
+        def closed_catalog(itinerary):
+            catalog = actual_provider(itinerary)
+            catalog.places["P006"]["opening_hours"]["weekly"] = {
+                day: [] for day in ("mon", "tue", "wed", "thu", "fri", "sat", "sun")
+            }
+            return catalog
+
+        self.app.state.catalog_provider = closed_catalog
+        calls = self.rank.call_count
+        result = self.post(f"itineraries/{sample['itinerary_id']}/adapt-proposals", {
+            "type": "REPLACE_LOCATION", "base_version": sample["version"],
+            "activity_id": lake["activity_id"], "reason": "RAIN",
+        }, 201)
+        self.assertEqual(result["options"], [])
+        self.assertTrue(result["no_option_reason"])
+        self.assertEqual(self.rank.call_count, calls)
+        saved = self.current()
+        self.assertEqual(saved["version"], sample["version"])
+        self.assertEqual(saved["days"], sample["days"])

@@ -7,7 +7,7 @@ export const isActive = (status: ActivityStatus | TravelLeg['status']) => status
 export type Activity = { id: string; title: string; time: string; status: ActivityStatus; outdoor?: boolean };
 export type CurrentTrip = { id: string; version: number; day: number; restStart: string; restEnd: string; restPlaceId?: string; deadline: string; activities: Activity[]; travelLegs?: TravelLeg[] };
 export type AdaptRequest = { kind: AdaptKind; tripId: string; baseVersion: number; activityId?: string; restUntil?: string; preferredKeep?: string };
-export type Proposal = { apiChanges?: string[]; id: string; baseVersion: number; kind: AdaptKind; title: string; summary: string; explanation: string; tradeoff: string; finish: string; removeId?: string; replaceId?: string; replacement?: string; restUntil?: string; travelChanges?: TravelChange[] };
+export type Proposal = { apiChanges?: string[]; apiTravelChanges?: string[]; id: string; baseVersion: number; kind: AdaptKind; title: string; summary: string; explanation: string; tradeoff: string; finish: string; removeId?: string; replaceId?: string; replacement?: string; restUntil?: string; travelChanges?: TravelChange[] };
 export type ProposalResponse = { proposalId?: string; proposals: Proposal[]; conflict?: string; source: 'MOCK' | 'API' };
 
 export const demoTrip: CurrentTrip = {

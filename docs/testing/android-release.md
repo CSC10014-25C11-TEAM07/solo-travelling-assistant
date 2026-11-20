@@ -32,6 +32,8 @@ Chạy `python -m unittest discover -s backend/tests -p test_android_release.py`
 
 Đã chạy giao diện web trong trình duyệt ở kích thước điện thoại, kết nối backend cục bộ với bộ xếp hạng thay thế. Lượt này đi qua đăng ký, đăng nhập, tạo và xác nhận lịch 4 ngày, áp dụng đổi điểm vì mưa, tải lại phiên bản 2, nạp lại lịch mẫu, từ chối nghỉ thêm và trở về lịch cá nhân. Đã bổ sung kiểm thử cho cả hai lựa chọn giữ hoạt động trong ca nghỉ thêm khi bộ xếp hạng trả thứ tự ngược. Khi có phương án hợp lệ giữ điểm ưu tiên, phương án đó được xếp trước.
 
+Màn hình so sánh đã hiển thị các chặng bị thay và chặng mới từ dữ liệu phương án, đồng thời bỏ phần mô tả thay đổi bị lặp. Bài kiểm thử có ca điểm thay trong nhà đóng cửa, cần trả về không có phương án và giữ nguyên lịch.
+
 Các tuyến hiện tại có chặng TP.HCM ↔ Bảo Lộc khoảng 6 giờ 20 phút theo ước tính bản đồ, chỉ có một điểm nghỉ trên đường dài. Cần thống nhất lại điểm nghỉ và thời hạn đến trước khi xem lịch đường dài là đủ điều kiện sử dụng. Hai điểm nghỉ đang được đối chiếu là Cảnh Thảo Nguyên ở La Ngà và Dốc Thác ở Đức Trọng. Chúng chưa được ghép vào lịch.
 
 - Cảnh Thảo Nguyên, Tổ 3, Ấp 94, La Ngà, Đồng Nai, công bố mở cửa thứ Hai đến Chủ nhật. Trang của địa điểm và liên kết bản đồ được đối chiếu tại https://tramdungchancanhthaonguyen.com/ . Truy vấn Valhalla ngày 20/11/2026 theo pin từ trang cho kết quả 191 phút từ TP.HCM, 208 phút đi tiếp đến Tâm Châu, 208 phút từ Tâm Châu và 194 phút về TP.HCM.

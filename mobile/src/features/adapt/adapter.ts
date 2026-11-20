@@ -73,7 +73,7 @@ function describeChange(change: RawChange): string {
   };
   return `${map[change.change_type] ?? change.change_type}: ${describe(change.before)} → ${describe(change.after)}`;
 }
-export function mapProposalResponse(value: unknown): ProposalResponse {
+export function mapProposalResponse(value: unknown, trip?: CurrentTrip): ProposalResponse {
   const raw = value as RawProposal;
   if (!raw || typeof raw.proposal_id !== 'string' || !Array.isArray(raw.options)
     || raw.options.length > 2 || !Number.isInteger(raw.base_version)) {
@@ -87,6 +87,23 @@ export function mapProposalResponse(value: unknown): ProposalResponse {
     const restChange = option.changes.find(c => c.change_type === 'EXTEND_REST');
     const drop = option.changes.find(c => c.change_type === 'DROP');
     const replacement = option.changes.find(c => c.change_type === 'REPLACE_LOCATION');
+    const beforeTravel = trip && isLiveTrip(trip)
+      ? trip.rawDays.flatMap(day => day.activities).filter(a => a.type === 'TRAVEL')
+      : [];
+    const previousById = new Map(beforeTravel.map(a => [a.activity_id, a]));
+    const apiTravelChanges: string[] = [];
+    for (const current of option.proposed_days.flatMap(day => day.activities)) {
+      if (current.type !== 'TRAVEL') continue;
+      const before = previousById.get(current.activity_id);
+      if (before?.status === 'PENDING' && current.status === 'REPLACED') {
+        apiTravelChanges.push(`Trước: ${describe(before)}`);
+      } else if (!before && current.status === 'PENDING') {
+        apiTravelChanges.push(`Sau: ${describe(current)}`);
+      } else if (before?.status === 'PENDING' && current.status === 'PENDING'
+                 && (before.start_time !== current.start_time || before.end_time !== current.end_time)) {
+        apiTravelChanges.push(`Đổi giờ: ${describe(before)} → ${describe(current)}`);
+      }
+    }
     return {
       id: option.option_id, baseVersion: raw.base_version,
       kind: raw.type === 'EXTEND_REST' ? 'rest' : 'rain',
@@ -100,7 +117,7 @@ export function mapProposalResponse(value: unknown): ProposalResponse {
       replacement: replacement?.after?.name,
       restUntil: restChange?.after?.end_time,
       apiChanges: option.changes.map(describeChange),
-      // Real TRAVEL Activity has no from/to pair: avoid inventing mock leg records.
+      apiTravelChanges,
       travelChanges: [],
     };
   });

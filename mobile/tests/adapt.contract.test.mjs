@@ -68,3 +68,20 @@ test('reject inconsistent F05 payloads', () => {
   assert.throws(()=>adapter.mapProposalResponse({options:[]}));
   assert.throws(()=>adapter.mapProposalResponse({proposal_id:'X',base_version:2,options:[{option_id:'A'}]}));
 });
+
+test('shows replaced and new travel from the actual proposal', () => {
+  const oldLeg = mockTrip.days[0].activities.find(a => a.activity_id === 'T2');
+  const replacement = {...oldLeg, activity_id: 'T3', name: 'Hồ → Quán cà phê',
+    start_time: '15:05', end_time: '15:20', status: 'PENDING'};
+  const day = {...mockTrip.days[0], activities: [
+    {...oldLeg, status: 'REPLACED'}, replacement,
+  ]};
+  const response = adapter.mapProposalResponse({
+    proposal_id: 'PR3', itinerary_id: 'I-TEST', type: 'REPLACE_LOCATION', base_version: 2,
+    no_option_reason: null, options: [{option_id: 'OPT', changes: [], proposed_days: [day]}],
+  }, adapter.fromItinerary(mockTrip));
+  assert.deepEqual(response.proposals[0].apiTravelChanges, [
+    'Trước: Hồ → vườn hoa · 15:00–15:10',
+    'Sau: Hồ → Quán cà phê · 15:05–15:20',
+  ]);
+});
