@@ -20,6 +20,8 @@ Kiểm tra `/health` từ mạng di động. Tạo tài khoản thử và lịch
 
 Dự án EAS đã được liên kết với tài khoản nhóm `@dori3009s-team/solo-travelling-assistant`. Bản build đầu tiên cần cấu hình chứng chỉ ký Android và địa chỉ backend thật.
 
+Đã cập nhật các gói Expo theo đề xuất SDK 58 và chạy Expo Doctor đạt 20/20. Kiểm tra npm ngày 20/11/2026 còn 8 cảnh báo mức vừa trong cây phụ thuộc, liên quan đến `minimatch` và công cụ Expo/ESLint. Chạy thử `npm audit fix --dry-run` không giảm được số cảnh báo. Cần xem lại khi có bản sửa tương thích SDK.
+
 ## Tiến độ kiểm chứng
 
 Chế độ VERIFIED dùng bản dữ liệu đóng cùng backend trong `backend/data/android/`. F01, F02 và F05 dùng cùng bản này. Nguồn từng địa điểm, phạm vi giờ dùng để lập lịch, tọa độ và kết quả tra 19 chặng bổ sung có trong `source_review.json`. Các chặng có hướng đã xác minh từ bộ bàn giao trước mang theo URL truy vấn và thời điểm kiểm tra. Mỗi giờ đi xe là ước tính Valhalla/OpenStreetMap. Hai chặng nối TP.HCM và Bảo Lộc có cờ hạn chế theo giờ. Dữ liệu không cung cấp điều hướng trực tiếp.
