@@ -6,6 +6,7 @@ import {usePlan} from '@/features/plan/state';
 import {sourcedDemo,recommendations,createDraft,logout,Place} from '@/features/plan/api';
 import {LOCAL_PLACES} from '@/features/plan/places';
 const opts=[['nature','🌲 Thiên nhiên','Rừng thông · Hồ · Trekking nhẹ'],['coffee','☕ Cà phê','Quán view đẹp · Săn mây'],['culture','🏛 Văn hóa','Kiến trúc · Lịch sử · Nghệ thuật'],['food','🍜 Ẩm thực','Đặc sản · Chợ đêm · Quán địa phương']];
+const sourcedDetails:Record<string,string>={nature:'Đi dạo ven Hồ Xuân Hương',coffee:'Still Cafe · An Cafe',culture:'Ga Đà Lạt · Bảo tàng · Dinh III',food:'Nhà hàng Tâm Châu · An Cafe'};
 const extras=['🌷 Vườn hoa','📷 Chụp ảnh','🌅 Bình minh','🌇 Ngắm hoàng hôn','🧘 Thư giãn','🍓 Nông trại','🍰 Tiệm bánh','🏞 Thác nước','🛶 Hồ & chèo thuyền','🌿 Vườn thực vật'];
 function dateToDisplay(iso:string){const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);return m?`${m[3]}-${m[2]}-${m[1]}`:iso}
 function dateToISO(value:string){const m=/^(\d{2})-(\d{2})-(\d{4})$/.exec(value);if(!m)return null;const d=Number(m[1]),mo=Number(m[2]),y=Number(m[3]);const date=new Date(Date.UTC(y,mo-1,d));return date.getUTCFullYear()===y&&date.getUTCMonth()===mo-1&&date.getUTCDate()===d?`${m[3]}-${m[2]}-${m[1]}`:null}
@@ -55,7 +56,7 @@ router.push('/draft');
  <Text style={styles.heading}>Giờ xuất phát</Text><View style={styles.row}>{['05:00','06:00','07:00','08:00','09:00','10:00'].map(v=><View key={v} style={{flexGrow:1,minWidth:86}}><Action title={v} secondary={form.departure_time!==v} onPress={()=>change('departure_time',v)}/></View>)}</View><Field label="Hoặc nhập giờ khác" value={form.departure_time} onChangeText={v=>change('departure_time',v)} placeholder="HH:mm"/>
  </View>
  <View style={styles.card}><Text style={styles.heading}>02 · Sở thích của bạn</Text><Text style={styles.muted}>Có thể chọn nhiều sở thích.</Text>
- <View style={styles.row}>{opts.map(([id,label,detail])=><Choice key={id} label={label} detail={detail} active={form.interests.includes(id)} onPress={()=>change('interests',form.interests.includes(id)?form.interests.filter(x=>x!==id):[...form.interests,id])}/>)}</View>
+ <View style={styles.row}>{opts.map(([id,label,detail])=><Choice key={id} label={label} detail={sourcedDemo?sourcedDetails[id]:detail} active={form.interests.includes(id)} onPress={()=>change('interests',form.interests.includes(id)?form.interests.filter(x=>x!==id):[...form.interests,id])}/>)}</View>
  {!sourcedDemo && <><Text style={[styles.heading,{fontSize:17,marginTop:9}]}>Trải nghiệm yêu thích</Text><View style={styles.row}>{extras.map(x=><Choice key={x} label={x} active={extra.includes(x)} onPress={()=>SE(extra.includes(x)?extra.filter(v=>v!==x):[...extra,x])}/>)}</View>
  <Text style={{fontSize:14,fontWeight:'900',color:'#174b34'}}>✓ {form.interests.length} sở thích · {extra.length} trải nghiệm</Text></>}
  </View>
