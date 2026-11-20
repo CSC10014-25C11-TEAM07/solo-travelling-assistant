@@ -4,6 +4,18 @@ Nhánh `feat/android-sourced-demo` bắt đầu từ main `26adf63`. PR #37 đã
 
 ## Chạy backend của bản Android
 
+### PythonAnywhere Free — thử nghiệm ngày 20/11/2026
+
+Máy chủ kiểm thử dùng địa chỉ `https://dangdao2007.pythonanywhere.com`, nhánh `feat/android-sourced-demo` tại `55582f3` và SQLite lưu riêng tại `/home/dangdao2007/solo-app.sqlite3`. Thiết lập ASGI của PythonAnywhere vẫn đang thử nghiệm; tài khoản miễn phí có giới hạn tài nguyên và thời hạn web app, cần kiểm tra trước buổi demo.
+
+Gói `backend/` và `requirements.txt` được triển khai trong `/home/dangdao2007/solo-backend`. Môi trường Python 3.12 dùng `/home/dangdao2007/solo-venv`; site chạy qua `pa website create` và script `/home/dangdao2007/solo-start.sh`. Script cấu hình `ADAPT_MODE=VERIFIED`, `GEMINI_MODEL=gemini-3.5-flash-lite` và proxy của PythonAnywhere Free (`http://proxy.server:3128`). Khóa Gemini nằm trong file riêng chỉ chủ tài khoản đọc; không ghi khóa, token PythonAnywhere hoặc mật khẩu vào repo, log hay APK.
+
+Đã kiểm tra HTTPS `/health`, tạo tài khoản riêng, đăng nhập, tạo lịch ba và bốn ngày với Gemini thực, xác nhận và đọc lại lịch. Với lịch mẫu từ dữ liệu tuyến có nguồn, hai ca nghỉ thêm và đổi địa điểm vì mưa đều trả phương án; đã thử REJECT, ACCEPT, gửi lặp ACCEPT, đọc lại phiên bản và khôi phục lịch cá nhân. Đây là kiểm tra API, chưa thay thế kiểm thử APK trên điện thoại hoặc toàn bộ T01–T15. Các tài khoản QA được tạo riêng trên máy chủ.
+
+Gói Gemini miễn phí có hạn mức và khả năng truy cập phụ thuộc tài khoản; cần xác nhận vẫn còn hạn mức và mô hình khả dụng khi demo. Gói dữ liệu dùng điểm thật nhưng thời gian di chuyển là ước tính, không phải dữ liệu giao thông thời gian thực.
+
+### Lựa chọn alwaysdata
+
 Chọn Python 3.12 trở lên và cài thư viện từ `requirements.txt` ở gốc repo. Trên alwaysdata chọn loại site **User program**, đặt thư mục làm việc ở gốc repo. Đặt `STA_DATABASE_PATH` thành đường dẫn tuyệt đối tới file SQLite trong thư mục dữ liệu riêng của tài khoản hosting, bên ngoài thư mục triển khai. Tạo thư mục cha trước khi chạy và chỉ cấp quyền ghi cho tài khoản chạy backend.
 
 Đặt `ADAPT_MODE=VERIFIED`, `GEMINI_MODEL` và `GEMINI_API_KEY` trong cấu hình riêng của backend. Khởi động bằng Python của môi trường đã cài thư viện.
