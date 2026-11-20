@@ -65,7 +65,7 @@ router.push('/draft');
  
  </View>
  <View style={styles.card}><Text style={styles.heading}>04 · Điểm xuất phát</Text>
- <View style={{backgroundColor:'#edf5e6',padding:14,borderRadius:12}}><Text style={{color:'#163c30',fontWeight:'800'}}>{sourcedDemo ? 'Công trường Công xã Paris, trước Bưu điện TP.HCM' : 'TP. Hồ Chí Minh'}</Text><Text style={{color:'#476251',fontSize:12}}>Một mình · Xe máy · Khứ hồi</Text>{sourcedDemo && <Text style={styles.muted}>Qua Tâm Châu Bảo Lộc (294A Trần Phú). Tại Đà Lạt, mỗi ngày bắt đầu và kết thúc trên đường Huỳnh Thúc Kháng gần Crazy House. Bạn tự đặt chỗ nghỉ. Thời gian xe máy là ước tính từ bản đồ.</Text>}</View>
+ <View style={{backgroundColor:'#edf5e6',padding:14,borderRadius:12}}><Text style={{color:'#163c30',fontWeight:'800'}}>{sourcedDemo ? 'Công trường Công xã Paris, trước Bưu điện TP.HCM' : 'TP. Hồ Chí Minh'}</Text><Text style={{color:'#476251',fontSize:12}}>Một mình · Xe máy · Khứ hồi</Text>{sourcedDemo && <Text style={styles.muted}>Mỗi chiều có điểm nghỉ tại La Ngà, Bảo Lộc và Đức Trọng. Tại Đà Lạt, mỗi ngày bắt đầu và kết thúc trên đường Huỳnh Thúc Kháng gần Crazy House. Bạn tự đặt chỗ nghỉ. Thời gian xe máy là ước tính từ bản đồ.</Text>}</View>
  </View>
  {!sourcedDemo && <View style={styles.card}><Text style={styles.heading}>05 · Khám phá Đà Lạt</Text>
  <Text style={styles.muted}>Khám phá các địa điểm tham quan, cà phê và ăn uống.</Text>

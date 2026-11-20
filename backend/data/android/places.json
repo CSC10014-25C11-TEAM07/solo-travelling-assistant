@@ -559,43 +559,43 @@
         "mon": [
           {
             "start": "05:00",
-            "end": "19:00"
+            "end": "20:00"
           }
         ],
         "tue": [
           {
             "start": "05:00",
-            "end": "19:00"
+            "end": "20:00"
           }
         ],
         "wed": [
           {
             "start": "05:00",
-            "end": "19:00"
+            "end": "20:00"
           }
         ],
         "thu": [
           {
             "start": "05:00",
-            "end": "19:00"
+            "end": "20:00"
           }
         ],
         "fri": [
           {
             "start": "05:00",
-            "end": "19:00"
+            "end": "20:00"
           }
         ],
         "sat": [
           {
             "start": "05:00",
-            "end": "19:00"
+            "end": "20:00"
           }
         ],
         "sun": [
           {
             "start": "05:00",
-            "end": "19:00"
+            "end": "20:00"
           }
         ]
       }
@@ -619,43 +619,43 @@
         "mon": [
           {
             "start": "05:00",
-            "end": "19:00"
+            "end": "20:00"
           }
         ],
         "tue": [
           {
             "start": "05:00",
-            "end": "19:00"
+            "end": "20:00"
           }
         ],
         "wed": [
           {
             "start": "05:00",
-            "end": "19:00"
+            "end": "20:00"
           }
         ],
         "thu": [
           {
             "start": "05:00",
-            "end": "19:00"
+            "end": "20:00"
           }
         ],
         "fri": [
           {
             "start": "05:00",
-            "end": "19:00"
+            "end": "20:00"
           }
         ],
         "sat": [
           {
             "start": "05:00",
-            "end": "19:00"
+            "end": "20:00"
           }
         ],
         "sun": [
           {
             "start": "05:00",
-            "end": "19:00"
+            "end": "20:00"
           }
         ]
       }
@@ -725,5 +725,125 @@
     "source_url": "https://www.tamchaucenter.com/lien-he",
     "data_status": "VERIFIED",
     "checked_at": "2026-11-19T14:41:22+00:00"
+  },
+  {
+    "place_id": "CTHAO-LANGA",
+    "use_as": "REST_ONLY",
+    "name": "Trạm dừng Cảnh Thảo Nguyên · La Ngà, Đồng Nai",
+    "area": "EN_ROUTE",
+    "interests": [],
+    "environment": "MIXED",
+    "visit_duration_minutes": null,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "05:00",
+            "end": "22:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "05:00",
+            "end": "22:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "05:00",
+            "end": "22:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "05:00",
+            "end": "22:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "05:00",
+            "end": "22:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "05:00",
+            "end": "22:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "05:00",
+            "end": "22:00"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": "https://tramdungchancanhthaonguyen.com/",
+    "checked_at": "2026-11-20T04:25:58+00:00",
+    "data_status": "VERIFIED"
+  },
+  {
+    "place_id": "CALI-417",
+    "use_as": "REST_ONLY",
+    "name": "Cali Center · 417 Quốc lộ 20, Đức Trọng",
+    "area": "EN_ROUTE",
+    "interests": [],
+    "environment": "MIXED",
+    "visit_duration_minutes": null,
+    "opening_hours": {
+      "timezone": "Asia/Ho_Chi_Minh",
+      "weekly": {
+        "mon": [
+          {
+            "start": "06:30",
+            "end": "22:00"
+          }
+        ],
+        "tue": [
+          {
+            "start": "06:30",
+            "end": "22:00"
+          }
+        ],
+        "wed": [
+          {
+            "start": "06:30",
+            "end": "22:00"
+          }
+        ],
+        "thu": [
+          {
+            "start": "06:30",
+            "end": "22:00"
+          }
+        ],
+        "fri": [
+          {
+            "start": "06:30",
+            "end": "22:00"
+          }
+        ],
+        "sat": [
+          {
+            "start": "06:30",
+            "end": "22:00"
+          }
+        ],
+        "sun": [
+          {
+            "start": "06:30",
+            "end": "22:00"
+          }
+        ]
+      }
+    },
+    "image_url": null,
+    "source_url": "https://wanderlog.com/place/details/3410879/cali-center",
+    "checked_at": "2026-11-20T04:25:58+00:00",
+    "data_status": "VERIFIED"
   }
 ]

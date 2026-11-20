@@ -63,6 +63,17 @@ export function liveActivities(trip: CurrentTrip): ServerActivity[] {
   if (!isLiveTrip(trip)) return [];
   return trip.rawDays.find(d => d.day_number === trip.day)?.activities ?? [];
 }
+export function selectRestActivity(trip: CurrentTrip, activityId: string): LiveTrip {
+  if (!isLiveTrip(trip)) throw new Error('Không có lịch hiện hành để chọn khoảng nghỉ.');
+  const rest = liveActivities(trip).find(
+    a => a.activity_id === activityId && a.type === 'REST' && a.status === 'PENDING'
+  );
+  if (!rest) throw new Error('Khoảng nghỉ này không còn chờ thực hiện. Hãy tải lại lịch.');
+  return {
+    ...trip, restStart: rest.start_time, restEnd: rest.end_time,
+    restPlaceId: rest.place_id ?? undefined, restActivityId: rest.activity_id,
+  };
+}
 function describe(activity: ServerActivity | null): string {
   return activity ? `${activity.name} · ${activity.start_time}–${activity.end_time}` : 'Không có';
 }

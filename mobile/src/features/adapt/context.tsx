@@ -2,7 +2,7 @@ import React, { createContext, useCallback, useContext, useEffect, useRef, useSt
 import { usePlan } from '@/features/plan/state';
 import type { Trip } from '@/features/plan/api';
 import { afterDecision, decide, fetchCurrent, mockMode, propose } from './api';
-import { fromItinerary } from './adapter';
+import { fromItinerary, selectRestActivity } from './adapter';
 import { AdaptKind, AdaptRequest, CurrentTrip, demoTrip, mockProposals, Proposal, ProposalResponse, applyMock } from './model';
 
 export type AdaptDraft = { restUntil: string; preferredKeep: string; activityId: string };
@@ -14,6 +14,7 @@ type AdaptContextValue = {
   request: AdaptRequest | null; response: ProposalResponse | null; result: Result | null;
   busy: boolean; error: string | null; isMock: boolean;
   load: (day?: number) => Promise<boolean>;
+  selectRest: (activityId: string) => void;
   generate: (req: AdaptRequest) => Promise<boolean>; choose: (proposal: Proposal) => Promise<boolean>;
   reject: () => Promise<boolean>; reset: () => void;
 };
@@ -85,6 +86,17 @@ export function AdaptProvider({ children }: { children: React.ReactNode }) {
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Không tạo được phương án.'); return false;
     } finally { setBusy(false); inFlight.current = false; }
+  }
+
+  function selectRest(activityId: string) {
+    try {
+      const selected = selectRestActivity(trip, activityId);
+      setTrip(selected);
+      updateDraft({ restUntil: selected.restEnd, preferredKeep: '', activityId: '' });
+      setRequest(null); setResponse(null); setResult(null); setError(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Không thể chọn khoảng nghỉ.');
+    }
   }
 
   async function choose(option: Proposal) {
@@ -161,7 +173,7 @@ export function AdaptProvider({ children }: { children: React.ReactNode }) {
 
   return <AdaptContext.Provider value={{
     trip, ready, available, kind, setKind, draft, setDraft, request, response, result, busy, error,
-    isMock: mockMode, load, generate, choose, reject, reset,
+    isMock: mockMode, load, selectRest, generate, choose, reject, reset,
   }}>{children}</AdaptContext.Provider>;
 }
 export function useAdapt() { const value = useContext(AdaptContext); if (!value) throw Error('AdaptProvider missing'); return value; }

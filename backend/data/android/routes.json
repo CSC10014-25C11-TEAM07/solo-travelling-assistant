@@ -8,14 +8,27 @@
         "start_place_id": "SAIGON-PARIS",
         "end_place_id": "DALAT-HTK",
         "start_time": "05:00",
-        "end_deadline": "18:00",
+        "end_deadline": "20:00",
         "stops": [
+          {
+            "type": "REST",
+            "place_id": "CTHAO-LANGA",
+            "duration_minutes": 15
+          },
           {
             "type": "REST",
             "place_id": "BAOLOC-294A",
             "duration_minutes": 60,
-            "use_requested_minimum": true
+            "use_requested_daily_remainder": true
+          },
+          {
+            "type": "REST",
+            "place_id": "CALI-417",
+            "duration_minutes": 15
           }
+        ],
+        "compatible_end_deadlines": [
+          "18:00"
         ]
       },
       {
@@ -79,14 +92,27 @@
         "start_place_id": "DALAT-HTK",
         "end_place_id": "SAIGON-PARIS",
         "start_time": "06:00",
-        "end_deadline": "18:00",
+        "end_deadline": "20:00",
         "stops": [
+          {
+            "type": "REST",
+            "place_id": "CALI-417",
+            "duration_minutes": 15
+          },
           {
             "type": "REST",
             "place_id": "BAOLOC-294A",
             "duration_minutes": 60,
-            "use_requested_minimum": true
+            "use_requested_daily_remainder": true
+          },
+          {
+            "type": "REST",
+            "place_id": "CTHAO-LANGA",
+            "duration_minutes": 15
           }
+        ],
+        "compatible_end_deadlines": [
+          "18:00"
         ]
       }
     ]
@@ -100,14 +126,27 @@
         "start_place_id": "SAIGON-PARIS",
         "end_place_id": "DALAT-HTK",
         "start_time": "05:00",
-        "end_deadline": "18:00",
+        "end_deadline": "20:00",
         "stops": [
+          {
+            "type": "REST",
+            "place_id": "CTHAO-LANGA",
+            "duration_minutes": 15
+          },
           {
             "type": "REST",
             "place_id": "BAOLOC-294A",
             "duration_minutes": 60,
-            "use_requested_minimum": true
+            "use_requested_daily_remainder": true
+          },
+          {
+            "type": "REST",
+            "place_id": "CALI-417",
+            "duration_minutes": 15
           }
+        ],
+        "compatible_end_deadlines": [
+          "18:00"
         ]
       },
       {
@@ -196,14 +235,27 @@
         "start_place_id": "DALAT-HTK",
         "end_place_id": "SAIGON-PARIS",
         "start_time": "06:00",
-        "end_deadline": "18:00",
+        "end_deadline": "20:00",
         "stops": [
+          {
+            "type": "REST",
+            "place_id": "CALI-417",
+            "duration_minutes": 15
+          },
           {
             "type": "REST",
             "place_id": "BAOLOC-294A",
             "duration_minutes": 60,
-            "use_requested_minimum": true
+            "use_requested_daily_remainder": true
+          },
+          {
+            "type": "REST",
+            "place_id": "CTHAO-LANGA",
+            "duration_minutes": 15
           }
+        ],
+        "compatible_end_deadlines": [
+          "18:00"
         ]
       }
     ]

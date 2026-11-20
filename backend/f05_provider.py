@@ -21,11 +21,12 @@ def make_catalog_provider(data_directory, routes_by_days, *, mode):
         mappings = []
         buffer = checked_buffer(route.get("buffer_minutes", 0))
         for number, (day, configured) in enumerate(zip(days, route["days"], strict=True), 1):
-            if day["day_number"] != number or day["end_deadline"] != configured["end_deadline"]:
+            valid_deadlines = [configured["end_deadline"], *configured.get("compatible_end_deadlines", [])]
+            if day["day_number"] != number or day["end_deadline"] not in valid_deadlines:
                 raise AdaptError("DATA_INCOMPLETE", f"Hạn hoặc số thứ tự ngày {number} không khớp tuyến.")
             mappings.append(RouteDay(day_id=day["day_id"], start_place_id=configured["start_place_id"],
                                      end_place_id=configured["end_place_id"], start_time=configured["start_time"],
-                                     end_deadline=configured["end_deadline"]))
+                                     end_deadline=day["end_deadline"]))
         try:
             return Catalog.load(data_directory, mappings, mode=mode,
                                 buffer_minutes_by_day={day.day_id: buffer for day in mappings})

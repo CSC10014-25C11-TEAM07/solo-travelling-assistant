@@ -421,5 +421,77 @@
     "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A11.9443315%2C%22lon%22%3A108.454585%7D%2C%7B%22lat%22%3A11.9418201%2C%22lon%22%3A108.4338744%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
     "checked_at": "2026-11-19T14:29:40.920503+00:00",
     "data_status": "VERIFIED"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "SAIGON-PARIS",
+    "to_place_id": "CTHAO-LANGA",
+    "duration_minutes": 191,
+    "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A10.779575%2C%22lon%22%3A106.699632%7D%2C%7B%22lat%22%3A11.1079747%2C%22lon%22%3A107.2287916%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
+    "checked_at": "2026-11-20T03:23:01.982104+00:00",
+    "data_status": "VERIFIED"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "CTHAO-LANGA",
+    "to_place_id": "BAOLOC-294A",
+    "duration_minutes": 208,
+    "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A11.1079747%2C%22lon%22%3A107.2287916%7D%2C%7B%22lat%22%3A11.540398%2C%22lon%22%3A107.81215%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
+    "checked_at": "2026-11-20T03:23:03.649994+00:00",
+    "data_status": "VERIFIED"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "BAOLOC-294A",
+    "to_place_id": "CTHAO-LANGA",
+    "duration_minutes": 208,
+    "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A11.540398%2C%22lon%22%3A107.81215%7D%2C%7B%22lat%22%3A11.1079747%2C%22lon%22%3A107.2287916%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
+    "checked_at": "2026-11-20T03:23:05.390412+00:00",
+    "data_status": "VERIFIED"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "CTHAO-LANGA",
+    "to_place_id": "SAIGON-PARIS",
+    "duration_minutes": 194,
+    "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A11.1079747%2C%22lon%22%3A107.2287916%7D%2C%7B%22lat%22%3A10.779575%2C%22lon%22%3A106.699632%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
+    "checked_at": "2026-11-20T03:23:07.125140+00:00",
+    "data_status": "VERIFIED"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "BAOLOC-294A",
+    "to_place_id": "CALI-417",
+    "duration_minutes": 186,
+    "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A11.540398%2C%22lon%22%3A107.81215%7D%2C%7B%22lat%22%3A11.744463%2C%22lon%22%3A108.37583%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
+    "checked_at": "2026-11-20T04:24:55.998711+00:00",
+    "data_status": "VERIFIED"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "CALI-417",
+    "to_place_id": "DALAT-HTK",
+    "duration_minutes": 83,
+    "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A11.744463%2C%22lon%22%3A108.37583%7D%2C%7B%22lat%22%3A11.934874%2C%22lon%22%3A108.430831%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
+    "checked_at": "2026-11-20T04:24:57.578139+00:00",
+    "data_status": "VERIFIED"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "DALAT-HTK",
+    "to_place_id": "CALI-417",
+    "duration_minutes": 83,
+    "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A11.934874%2C%22lon%22%3A108.430831%7D%2C%7B%22lat%22%3A11.744463%2C%22lon%22%3A108.37583%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
+    "checked_at": "2026-11-20T04:24:59.146529+00:00",
+    "data_status": "VERIFIED"
+  },
+  {
+    "travel_time_id": null,
+    "from_place_id": "CALI-417",
+    "to_place_id": "BAOLOC-294A",
+    "duration_minutes": 187,
+    "source_url": "https://valhalla1.openstreetmap.de/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A11.744463%2C%22lon%22%3A108.37583%7D%2C%7B%22lat%22%3A11.540398%2C%22lon%22%3A107.81215%7D%5D%2C%22costing%22%3A%22motorcycle%22%2C%22costing_options%22%3A%7B%22motorcycle%22%3A%7B%22use_highways%22%3A0%2C%22use_tolls%22%3A0%7D%7D%2C%22units%22%3A%22kilometers%22%7D",
+    "checked_at": "2026-11-20T04:25:00.783768+00:00",
+    "data_status": "VERIFIED"
   }
 ]

@@ -142,6 +142,12 @@ class PlanProvider:
                     raise AdaptError("DATA_INCOMPLETE", f"Thiếu thời lượng nghỉ tại {stop['place_id']}.")
                 if stop.get("use_requested_minimum"):
                     duration = max(duration, request.min_rest_minutes)
+                if stop.get("use_requested_daily_remainder"):
+                    other_rest = sum(
+                        item.get("duration_minutes", 0) for item in stops
+                        if item is not stop and item["type"] == "REST"
+                    )
+                    duration = max(duration, request.min_rest_minutes - other_rest)
                 earliest = max(cursor, minutes(stop.get("not_before", "00:00")))
                 begin, end = self.catalog.activity_slot(stop["place_id"], date, earliest, duration)
                 optional = False
