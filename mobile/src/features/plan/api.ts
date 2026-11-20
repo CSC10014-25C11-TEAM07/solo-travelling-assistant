@@ -87,7 +87,7 @@ export async function request(
         e.message === 'Network request failed')
     ) {
       throw new Error(
-        'Không thể kết nối máy chủ. Vui lòng kiểm tra mạng và thử lại.'
+        `Không thể kết nối máy chủ. Mở ${BASE}/health trên thiết bị này để kiểm tra địa chỉ và cổng backend.`
       );
     }
     throw e;

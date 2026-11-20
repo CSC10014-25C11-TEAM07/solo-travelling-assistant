@@ -6,6 +6,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 import auth
@@ -27,6 +28,15 @@ async def lifespan(app):
 
 def create_app(plan_provider=mock_plan, option_validator=None, *, catalog_provider=None, gemini_adapt=False):
     app = FastAPI(title="Solo Travelling Assistant", lifespan=lifespan)
+    web_origins = os.environ.get(
+        "EXPO_WEB_ORIGINS", "http://localhost:8081,http://127.0.0.1:8081"
+    )
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[origin.strip() for origin in web_origins.split(",") if origin.strip()],
+        allow_methods=["GET", "POST", "PATCH"],
+        allow_headers=["Content-Type", "Authorization"],
+    )
     app.state.plan_provider = plan_provider
     app.state.option_validator = option_validator
     app.state.catalog_provider = catalog_provider
