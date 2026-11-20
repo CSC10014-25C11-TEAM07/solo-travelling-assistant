@@ -28,4 +28,8 @@ Từ **Xem lịch đã lưu**, chọn **Mở lịch mẫu riêng**. Ngày 2 có 
 
 Chạy `python -m unittest discover -s backend/tests -p test_android_release.py` để thử qua API với SQLite riêng. Bài này thử ngày xuất phát ở cả bảy thứ, lịch 3/4 ngày, đọc lại sau khi tạo lại ứng dụng, hai ca ADAPT, ACCEPT gửi lặp, REJECT, cách ly tài khoản và khôi phục lịch cá nhân. Bộ xếp hạng thay thế trong bài kiểm thử giúp chạy khi chưa có khóa Gemini.
 
+Đã chạy giao diện web trong trình duyệt ở kích thước điện thoại, kết nối backend cục bộ với bộ xếp hạng thay thế. Lượt này đi qua đăng ký, đăng nhập, tạo và xác nhận lịch 4 ngày, áp dụng đổi điểm vì mưa, tải lại phiên bản 2, nạp lại lịch mẫu, từ chối nghỉ thêm và trở về lịch cá nhân. Đã bổ sung kiểm thử cho cả hai lựa chọn giữ hoạt động trong ca nghỉ thêm khi bộ xếp hạng trả thứ tự ngược. Khi có phương án hợp lệ giữ điểm ưu tiên, phương án đó được xếp trước.
+
+Các tuyến hiện tại có chặng TP.HCM ↔ Bảo Lộc khoảng 6 giờ 20 phút theo ước tính bản đồ, chỉ có một điểm nghỉ trên đường dài. Cần thống nhất lại điểm nghỉ và thời hạn đến trước khi xem lịch đường dài là đủ điều kiện sử dụng. Hai điểm nghỉ đang được đối chiếu là Cảnh Thảo Nguyên ở La Ngà và Dốc Thác ở Đức Trọng. Chúng chưa được ghép vào lịch.
+
 Trước khi bàn giao cần thử Gemini qua backend công khai, cài APK rồi mở lại qua 4G và ghi kết quả nghiệm thu T01–T15. Tân giữ bảng kịch bản giờ cố định riêng trong `docs/testing/Overall_Testing_17_11/`.

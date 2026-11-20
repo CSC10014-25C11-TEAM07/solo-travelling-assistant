@@ -12,7 +12,7 @@ from fastapi.testclient import TestClient
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import auth
-from adapt_f05.ranking import GeminiRanker, RuleRanker
+from adapt_f05.ranking import GeminiRanker, MockRanker, RuleRanker
 from main import configured_app
 
 
@@ -115,3 +115,22 @@ class ReleaseTests(unittest.TestCase):
             self.post("demo-itineraries/close", dict(itinerary_id=saved["itinerary_id"], version=2))
             self.assertEqual(self.current()["itinerary_id"], personal["itinerary_id"])
             self.assertEqual(self.current()["days"], personal["days"])
+
+    def test_requested_activity_stays_first_when_model_reverses_options(self):
+        self.rank.side_effect = lambda _ranker, context: MockRanker().rank(context)
+        sample = self.post("demo-itineraries", {"itinerary_id": None, "version": None}, 201)["itinerary"]
+        day = sample["days"][1]
+        lunch = next(a for a in day["activities"] if a["type"] == "REST")
+        visits = [a for a in day["activities"] if a["type"] == "VISIT" and a["status"] == "PENDING"]
+        self.assertEqual(len(visits), 2)
+        for preferred in visits:
+            proposal = self.post(f"itineraries/{sample['itinerary_id']}/adapt-proposals", {
+                "type": "EXTEND_REST", "base_version": sample["version"],
+                "rest_activity_id": lunch["activity_id"], "rest_until": "15:00",
+                "preferred_keep_activity_id": preferred["activity_id"],
+            }, 201)
+            first = proposal["options"][0]
+            updated = next(a for d in first["proposed_days"] for a in d["activities"]
+                           if a["activity_id"] == preferred["activity_id"])
+            self.assertEqual(updated["status"], "PENDING")
+            self.assertIn("ưu tiên", first["reason"])
