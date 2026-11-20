@@ -1,6 +1,6 @@
 # Bàn giao bản Android
 
-Nhánh `feat/android-sourced-demo` bắt đầu từ main `26adf63` và đã ghép commit `8982a54` của PR #37 trên nhánh Android.
+Nhánh `feat/android-sourced-demo` bắt đầu từ main `26adf63`. PR #37 đã được merge vào main tại `37061b4` và nhánh Android đã cập nhật main đó.
 
 ## Chạy backend của bản Android
 
@@ -19,6 +19,8 @@ Kiểm tra `/health` từ mạng di động. Tạo tài khoản thử và lịch
 Đặt `EXPO_PUBLIC_API_URL` trong môi trường EAS **preview** thành URL HTTPS của backend. Biến này chỉ chứa địa chỉ công khai. Từ `mobile/`, chạy `npx eas-cli build --platform android --profile demo`. Cài APK từ kết quả build rồi thử trên Android qua 4G.
 
 Dự án EAS đã được liên kết với tài khoản nhóm `@dori3009s-team/solo-travelling-assistant`. Bản build đầu tiên cần cấu hình chứng chỉ ký Android và địa chỉ backend thật.
+
+Ngày 20/11/2026, EAS đã tạo chứng chỉ ký và hoàn tất build kiểm tra Android `39394ae5-c968-41b8-8657-01a4ab6f27b4`. File trả HTTP 200, dung lượng khoảng 105 MB và có định dạng ZIP của APK. Lượt này nhúng địa chỉ thử `https://android-build-check.invalid`, nên chỉ xác minh việc biên dịch, đóng gói và ký. Để dùng app cần build lại với URL backend thật, sau đó thử trên thiết bị. Tài khoản EAS Free ghi nhận 1/15 lượt Android trong kỳ và chi phí ước tính 0.
 
 Đã cập nhật các gói Expo theo đề xuất SDK 58 và chạy Expo Doctor đạt 20/20. Kiểm tra npm ngày 20/11/2026 còn 8 cảnh báo mức vừa trong cây phụ thuộc, liên quan đến `minimatch` và công cụ Expo/ESLint. Chạy thử `npm audit fix --dry-run` không giảm được số cảnh báo. Cần xem lại khi có bản sửa tương thích SDK.
 
