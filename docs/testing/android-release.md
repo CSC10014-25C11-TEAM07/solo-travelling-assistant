@@ -32,7 +32,9 @@ Kiểm tra `/health` từ mạng di động. Tạo tài khoản thử và lịch
 
 Dự án EAS đã được liên kết với tài khoản nhóm `@dori3009s-team/solo-travelling-assistant`. Bản build đầu tiên cần cấu hình chứng chỉ ký Android và địa chỉ backend thật.
 
-Ngày 20/11/2026, EAS đã tạo chứng chỉ ký và hoàn tất build kiểm tra Android `39394ae5-c968-41b8-8657-01a4ab6f27b4`. File trả HTTP 200, dung lượng khoảng 105 MB và có định dạng ZIP của APK. Lượt này nhúng địa chỉ thử `https://android-build-check.invalid`, nên chỉ xác minh việc biên dịch, đóng gói và ký. Để dùng app cần build lại với URL backend thật, sau đó thử trên thiết bị. Tài khoản EAS Free ghi nhận 1/15 lượt Android trong kỳ và chi phí ước tính 0.
+Ngày 20/11/2026, EAS đã tạo chứng chỉ ký và hoàn tất build kiểm tra Android `39394ae5-c968-41b8-8657-01a4ab6f27b4`. File trả HTTP 200, dung lượng khoảng 105 MB và có định dạng ZIP của APK. Lượt này nhúng địa chỉ thử `https://android-build-check.invalid`, nên chỉ xác minh việc biên dịch, đóng gói và ký. Tại thời điểm đó tài khoản EAS Free ghi nhận 1/15 lượt Android trong kỳ và chi phí ước tính 0.
+
+Build demo kết nối máy chủ thật `dde2a412-1f1a-41f2-b386-610ed349ffdb` đã hoàn tất ngày 20/11/2026: https://expo.dev/accounts/dori3009s-team/projects/solo-travelling-assistant/builds/dde2a412-1f1a-41f2-b386-610ed349ffdb. File APK tải về có 104.860.119 byte, có AndroidManifest và bundle chứa đúng `https://dangdao2007.pythonanywhere.com`, không chứa địa chỉ giả của build kiểm tra. Đây mới là kiểm tra file, cần cài và chạy trên Android, thử lại bằng 4G, sau đó đối chiếu kịch bản nghiệm thu. Build sử dụng mã tại `55582f3`; commit sau đó chỉ cập nhật tài liệu.
 
 Đã cập nhật các gói Expo theo đề xuất SDK 58 và chạy Expo Doctor đạt 20/20. Kiểm tra npm ngày 20/11/2026 còn 8 cảnh báo mức vừa trong cây phụ thuộc, liên quan đến `minimatch` và công cụ Expo/ESLint. Chạy thử `npm audit fix --dry-run` không giảm được số cảnh báo. Cần xem lại khi có bản sửa tương thích SDK.
 
