@@ -34,4 +34,8 @@ Chạy `python -m unittest discover -s backend/tests -p test_android_release.py`
 
 Các tuyến hiện tại có chặng TP.HCM ↔ Bảo Lộc khoảng 6 giờ 20 phút theo ước tính bản đồ, chỉ có một điểm nghỉ trên đường dài. Cần thống nhất lại điểm nghỉ và thời hạn đến trước khi xem lịch đường dài là đủ điều kiện sử dụng. Hai điểm nghỉ đang được đối chiếu là Cảnh Thảo Nguyên ở La Ngà và Dốc Thác ở Đức Trọng. Chúng chưa được ghép vào lịch.
 
+- Cảnh Thảo Nguyên, Tổ 3, Ấp 94, La Ngà, Đồng Nai, công bố mở cửa thứ Hai đến Chủ nhật. Trang của địa điểm và liên kết bản đồ được đối chiếu tại https://tramdungchancanhthaonguyen.com/ . Truy vấn Valhalla ngày 20/11/2026 theo pin từ trang cho kết quả 191 phút từ TP.HCM, 208 phút đi tiếp đến Tâm Châu, 208 phút từ Tâm Châu và 194 phút về TP.HCM.
+- Dốc Thác, 305a QL20, Đức Trọng, được nêu tại https://ivexe.vn/cac-diem-dung-chan-da-lat-uy-tin-nhat-tren-moi-cung-duong/ và https://amthucbinhxuyen.com/post/tong-hop-18-quan-cafe-yen-tinh-tai-duc-trong-lam-dong.p2354 . Truy vấn Valhalla theo pin từ liên kết bản đồ trong bài thứ hai cho kết quả Tâm Châu → Dốc Thác 190 phút, tiếp đến mốc Đà Lạt 87 phút, chiều về lần lượt 86 và 191 phút. Cần xác nhận thêm lịch theo từng thứ và khả năng tiếp cận thực tế.
+- Nếu xếp nghỉ lần lượt 15, 60 và 15 phút, tổng thời gian ước tính là khoảng 12 giờ 46 phút chiều đi và 12 giờ 49 phút chiều về. Xuất phát 06:00 sẽ tới khoảng 18:46–18:49 trước thời gian dự phòng. Lãnh đạo đang chọn giữa việc điều chỉnh thời hạn hoặc giữ mốc 18:00 và chỉ trả lịch khi đủ thời gian.
+
 Trước khi bàn giao cần thử Gemini qua backend công khai, cài APK rồi mở lại qua 4G và ghi kết quả nghiệm thu T01–T15. Tân giữ bảng kịch bản giờ cố định riêng trong `docs/testing/Overall_Testing_17_11/`.
