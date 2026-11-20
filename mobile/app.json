@@ -48,6 +48,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "eb08b2d1-8966-498d-9ac4-06a186816978"
+      }
+    },
+    "owner": "dori3009s-team"
   }
 }
