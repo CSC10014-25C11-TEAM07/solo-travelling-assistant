@@ -20,7 +20,7 @@ type AdaptContextValue = {
 };
 const AdaptContext = createContext<AdaptContextValue | null>(null);
 
-export function AdaptProvider({ children }: { children: React.ReactNode }) {
+export function AdaptProvider({ children, initialDay }: { children: React.ReactNode; initialDay?: number }) {
   const { setTrip: setPlanTrip } = usePlan();
   const [trip, setTrip] = useState<CurrentTrip>(demoTrip);
   const [available, setAvailable] = useState(mockMode);
@@ -66,7 +66,7 @@ export function AdaptProvider({ children }: { children: React.ReactNode }) {
     if (mockMode) return;
     let active = true;
     fetchCurrent().then(current => {
-      if (active) applyCurrent(current);
+      if (active) applyCurrent(current, initialDay);
     }).catch(err => {
       if (!active) return;
       setReady(true);
@@ -74,7 +74,7 @@ export function AdaptProvider({ children }: { children: React.ReactNode }) {
       setError(err instanceof Error ? err.message : 'Không thể tải lịch hiện hành.');
     });
     return () => { active = false; };
-  }, [applyCurrent]);
+  }, [applyCurrent, initialDay]);
 
   async function generate(next: AdaptRequest) {
     if (inFlight.current || !available) return false;

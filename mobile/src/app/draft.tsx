@@ -1,314 +1,133 @@
-
 import { useState } from 'react';
 import { router } from 'expo-router';
-import {
-  Text,
-  View,
-  TextInput,
-  Pressable,
-} from 'react-native';
+import { Text, TextInput, View } from 'react-native';
 
-import { Action, Page, styles } from '@/features/plan/ui';
+import {
+  DayPicker, ScheduleActivity, ScheduleButton, ScheduleCover, ScheduleHeader, SchedulePage,
+  Timeline, displayDate, scheduleStyles as s,
+} from '@/features/plan/itinerary-ui';
+import { styles } from '@/features/plan/ui';
 import { usePlan, tripDays } from '@/features/plan/state';
-import { configured, confirmDraft, sourcedDemo } from '@/features/plan/api';
+import { configured, confirmDraft, sourcedDemo, type Activity } from '@/features/plan/api';
+
+type TimeField = 'start_time' | 'end_time';
 
 export default function Draft() {
-const { trip, setTrip, draftId, setDraftId } = usePlan();
-  const [day, D] = useState(1);
-  const [busy, B] = useState(false);
-  const [err, E] = useState('');
+  const { trip, setTrip, draftId, setDraftId } = usePlan();
+  const [day, setDay] = useState(1);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  const [showRoute, setShowRoute] = useState(false);
 
   if (!trip) {
     return (
-      <Page>
-        <Text style={styles.title}>Chưa có lịch nháp</Text>
-        <Action
-          title="Nhập nhu cầu"
-          onPress={() => router.replace('/plan')}
-        />
-      </Page>
+      <SchedulePage>
+        <ScheduleHeader/>
+        <ScheduleCover title="Chưa có lịch nháp"/>
+        <ScheduleButton title="Nhập nhu cầu" variant="primary" onPress={() => router.replace('/plan')}/>
+      </SchedulePage>
     );
   }
 
   const days = tripDays(trip);
+  const selected = days.find(d => d.day_number === day) ?? days[0];
+  const activities = [...(selected?.activities ?? [])].sort((a, b) => a.start_time.localeCompare(b.start_time));
 
-  function changeTime(
-    activityId: string,
-    field: 'start_time' | 'end_time',
-    value: string
-  ) {
+  function changeTime(activityId: string, field: TimeField, value: string) {
     if (configured || !trip) return;
-
     setTrip({
       ...trip,
       itinerary_days: days.map(d => ({
         ...d,
-        activities: d.activities.map(a =>
-          a.activity_id === activityId
-            ? { ...a, [field]: value }
-            : a
-        ),
+        activities: d.activities.map(a => a.activity_id === activityId ? { ...a, [field]: value } : a),
       })),
     });
   }
 
-  function adjustTime(
-    activityId: string,
-    field: 'start_time' | 'end_time',
-    delta: number
-  ) {
-    if (configured) return;
-
-    const a = days
-      .flatMap(d => d.activities)
-      .find(x => x.activity_id === activityId);
-
-    if (!a) return;
-
-    const value = a[field];
-
-    if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(value)) {
-      return;
-    }
-
-    const [h, m] = value.split(':').map(Number);
-
-    const total = Math.max(
-      0,
-      Math.min(1439, h * 60 + m + delta)
-    );
-
-    const newTime =
-      String(Math.floor(total / 60)).padStart(2, '0') +
-      ':' +
-      String(total % 60).padStart(2, '0');
-
-    changeTime(activityId, field, newTime);
+  function adjustTime(activity: Activity, field: TimeField, delta: number) {
+    const value = activity[field];
+    if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(value)) return;
+    const [hour, minute] = value.split(':').map(Number);
+    const total = Math.max(0, Math.min(1439, hour * 60 + minute + delta));
+    const newTime = [Math.floor(total / 60), total % 60].map(part => String(part).padStart(2, '0')).join(':');
+    changeTime(activity.activity_id, field, newTime);
   }
 
   async function confirm() {
     if (!trip || busy) return;
     if (!draftId) {
-    E('Không tìm thấy mã lịch nháp. Vui lòng tạo lại lịch.');
-    return;
+      setError('Không tìm thấy mã lịch nháp. Vui lòng tạo lại lịch.');
+      return;
+    }
+    setBusy(true);
+    setError('');
+    try {
+      setTrip(await confirmDraft(draftId));
+      setDraftId(null);
+      router.replace('/current');
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Không xác nhận được lịch.');
+    } finally {
+      setBusy(false);
+    }
   }
-    B(true);
-    E('');
 
-     try {
-    const next = await confirmDraft(draftId);
-    setTrip(next);
-    setDraftId(null);
-    router.replace('/current');
-  } catch (e) {
-    E(
-      e instanceof Error
-        ? e.message
-        : 'Không xác nhận được lịch.'
-    );
-  } finally {
-    B(false);
-  }
+  function editRequest() {
+    if (router.canGoBack()) router.back();
+    else router.replace('/plan');
   }
 
   return (
-    <Page>
-      <Text style={styles.title}>
-        Hành trình mới đang chờ đợi
-      </Text>
-
-      <Text style={styles.muted}>
-        {trip.departure_date} → {trip.return_date}
-        {' · '}{days.length} ngày · Lịch nháp
-      </Text>
-      {sourcedDemo && <Text style={styles.muted}>Khứ hồi từ Công trường Công xã Paris, nghỉ ở La Ngà, Bảo Lộc và Đức Trọng. Mốc qua đêm ở đường Huỳnh Thúc Kháng gần Crazy House. Thời gian xe máy là ước tính từ OpenStreetMap và Valhalla. Chặng TP.HCM ↔ La Ngà có hạn chế theo giờ trên bản đồ. Kiểm tra tình trạng đường và chỗ nghỉ trước chuyến đi.</Text>}
-
-      <View style={styles.row}>
-        {days.map(d => (
-          <View key={d.day_id} style={{ flex: 1 }}>
-            <Action
-              title={'Ngày ' + d.day_number}
-              secondary={day !== d.day_number}
-              onPress={() => D(d.day_number)}
-            />
-          </View>
-        ))}
-      </View>
-
-      <View style={styles.card}>
-        <Text style={styles.muted}>
-          Lịch trình được sắp xếp theo thời gian.
-        </Text>
-
-        {[
-          ...(days.find(d => d.day_number === day)
-            ?.activities || []),
-        ]
-          .sort((a, b) =>
-            a.start_time.localeCompare(b.start_time)
-          )
-          .map(a => (
-            <View
-              key={a.activity_id}
-              style={{
-                paddingVertical: 9,
-                borderBottomWidth: 1,
-                borderColor: '#dce8d6',
-              }}
-            >
-              <Text style={styles.heading}>
-                {a.name}
-              </Text>
-
-              <View
-                style={{
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                  gap: 8,
-                }}
-              >
-                {(
-                  ['start_time', 'end_time'] as const
-                ).map(field => (
-                  <View
-                    key={field}
-                    style={{
-                      flex: 1,
-                      minWidth: 130,
-                      gap: 5,
-                    }}
-                  >
-                    <Text
-                      style={{
-                        color: '#294b3c',
-                        fontWeight: '800',
-                      }}
-                    >
-                      {field === 'start_time'
-                        ? 'Bắt đầu'
-                        : 'Kết thúc'}
-                    </Text>
-
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        gap: 5,
-                      }}
-                    >
-                      <Pressable
-                        disabled={configured}
-                        onPress={() =>
-                          adjustTime(
-                            a.activity_id,
-                            field,
-                            -15
-                          )
-                        }
-                        style={{
-                          padding: 9,
-                          backgroundColor: '#e0efc8',
-                          borderRadius: 9,
-                        }}
-                      >
-                        <Text
-                          style={{
-                            fontWeight: '900',
-                            color: '#174735',
-                          }}
-                        >
-                          −
-                        </Text>
-                      </Pressable>
-
-                      <TextInput
-                        editable={!configured}
-                        value={a[field]}
-                        onChangeText={v =>
-                          changeTime(
-                            a.activity_id,
-                            field,
-                            v
-                          )
-                        }
-                        style={{
-                          flex: 1,
-                          minWidth: 60,
-                          textAlign: 'center',
-                          fontWeight: '900',
-                          fontSize: 15,
-                          color: '#163e2f',
-                          backgroundColor: '#fff',
-                          borderWidth: 1,
-                          borderColor: '#abc1a8',
-                          borderRadius: 10,
-                          padding: 7,
-                        }}
-                      />
-
-                      <Pressable
-                        disabled={configured}
-                        onPress={() =>
-                          adjustTime(
-                            a.activity_id,
-                            field,
-                            15
-                          )
-                        }
-                        style={{
-                          padding: 9,
-                          backgroundColor: '#e0efc8',
-                          borderRadius: 9,
-                        }}
-                      >
-                        <Text
-                          style={{
-                            fontWeight: '900',
-                            color: '#174735',
-                          }}
-                        >
-                          +
-                        </Text>
-                      </Pressable>
-                    </View>
-                  </View>
-                ))}
-              </View>
-
-              <Text style={styles.muted}>
-                {a.type === 'REST'
-                  ? 'Nghỉ ngơi'
-                  : a.type === 'TRAVEL'
-                  ? 'Di chuyển bằng xe máy'
-                  : 'Tham quan'}
-                {' · '}
-                {a.status}
-              </Text>
-            </View>
-          ))}
-      </View>
-
-      {!!err && (
-        <Text style={styles.error}>
-          {err}
-        </Text>
+    <SchedulePage footer={
+      <>
+        {!!error && <Text accessibilityRole="alert" style={s.error}>{error}</Text>}
+        <ScheduleButton title={busy ? 'Đang lưu…' : 'Xác nhận và lưu lịch'} variant="primary" disabled={busy} onPress={confirm}/>
+        <ScheduleButton title="Sửa yêu cầu" variant="text" onPress={editRequest} disabled={busy}/>
+      </>
+    }>
+      <ScheduleHeader/>
+      <ScheduleCover title="Lịch nháp" subtitle={[displayDate(trip.departure_date) + ' – ' + displayDate(trip.return_date), days.length + ' ngày'].join(' · ')}/>
+      {sourcedDemo && (
+        <View style={s.panel}>
+          <Text style={s.note}>Thời gian đi xe là ước tính. Chặng TP.HCM ⇄ La Ngà có hạn chế theo giờ trên bản đồ.</Text>
+          <ScheduleButton title={showRoute ? 'Ẩn thông tin tuyến' : 'Xem điểm đi và điểm nghỉ'} variant="text"
+            selected={showRoute} onPress={() => setShowRoute(!showRoute)}/>
+          {showRoute && <Text style={s.note}>Khứ hồi từ Công trường Công xã Paris, nghỉ ở La Ngà, Bảo Lộc và Đức Trọng. Mốc qua đêm ở đường Huỳnh Thúc Kháng gần Crazy House. Kiểm tra tình trạng đường và chỗ nghỉ trước chuyến đi.</Text>}
+        </View>
       )}
-
-      <Action
-        title={
-          busy
-            ? 'Đang lưu…'
-            : 'Xác nhận và lưu lịch'
-        }
-        disabled={busy}
-        onPress={confirm}
-      />
-
-      <Action
-        title="Sửa yêu cầu"
-        secondary
-        onPress={() => router.back()}
-      />
-    </Page>
+      {selected && (
+        <>
+          <DayPicker days={days} selected={selected.day_number} onSelect={setDay}/>
+          <View style={s.section}>
+            <Text accessibilityRole="header" style={s.panelTitle}>Ngày {selected.day_number} · {displayDate(selected.date)}</Text>
+            {activities.length ? (
+              <Timeline>
+                {activities.map(a => (
+                  <ScheduleActivity key={a.activity_id} activity={{
+                    name: a.name, start_time: a.start_time, end_time: a.end_time, type: a.type,
+                  }}>
+                    {!configured && (['start_time', 'end_time'] as const).map(field => {
+                      const label = field === 'start_time' ? 'Giờ bắt đầu' : 'Giờ kết thúc';
+                      return (
+                        <View key={field} style={s.section}>
+                          <Text style={s.note}>{label}</Text>
+                          <View style={styles.row}>
+                            <ScheduleButton title="−" label={label + ': giảm 15 phút'} onPress={() => adjustTime(a, field, -15)}/>
+                            <TextInput accessibilityLabel={label} value={a[field]}
+                              onChangeText={value => changeTime(a.activity_id, field, value)}
+                              style={[styles.input, { flex: 1, minWidth: 64, textAlign: 'center' }]}/>
+                            <ScheduleButton title="+" label={label + ': tăng 15 phút'} onPress={() => adjustTime(a, field, 15)}/>
+                          </View>
+                        </View>
+                      );
+                    })}
+                  </ScheduleActivity>
+                ))}
+              </Timeline>
+            ) : <Text style={s.note}>Ngày này chưa có hoạt động.</Text>}
+          </View>
+        </>
+      )}
+    </SchedulePage>
   );
 }
