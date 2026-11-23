@@ -118,8 +118,10 @@ export default function Current() {
       ) : <Text style={s.note}>Lịch chưa có ngày nào.</Text>}
       {sourcedDemo && ready && !loading && (
         <View style={s.panel}>
-          <ScheduleButton title={showSample ? 'Ẩn mục lịch mẫu' : 'Lịch mẫu để thử điều chỉnh'} variant="text"
-            selected={showSample} onPress={() => setShowSample(!showSample)}/>
+          {!trip?.is_demo_sample && (
+            <ScheduleButton title={showSample ? 'Ẩn mục lịch mẫu' : 'Lịch mẫu để thử điều chỉnh'} variant="text"
+              selected={showSample} onPress={() => setShowSample(open => !open)}/>
+          )}
           {(showSample || trip?.is_demo_sample) && (
             <>
               <Text style={s.note}>Ở ngày 2, bạn có thể thử nghỉ đến 15:00 hoặc đổi Hồ Xuân Hương khi trời mưa.</Text>
