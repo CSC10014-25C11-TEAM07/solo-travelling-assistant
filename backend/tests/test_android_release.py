@@ -92,6 +92,33 @@ class ReleaseTests(unittest.TestCase):
         })
         self.assertEqual(late.json()["code"], "NO_FEASIBLE_ITINERARY")
 
+    def test_late_departure_reports_arrival_buffer_and_deadline(self):
+        for days in (3, 4):
+            with self.subTest(days=days):
+                result = self.post("itinerary-drafts", {
+                    "departure_date": "2026-12-14", "return_date": f"2026-12-{13 + days}",
+                    "departure_time": "07:00", "min_rest_minutes": 90, "interests": ["nature"],
+                }, 422)
+                self.assertEqual(result["code"], "NO_FEASIBLE_ITINERARY")
+                for fact in ("Ngày 1", "19:38", "30 phút", "20:00"):
+                    self.assertIn(fact, result["message"])
+
+    def test_departure_cutoff_preserves_the_full_buffer(self):
+        for days in (3, 4):
+            for departure, arrival, status in (("06:52", "19:30", 201), ("06:53", "19:31", 422)):
+                with self.subTest(days=days, departure=departure):
+                    result = self.post("itinerary-drafts", {
+                        "departure_date": "2026-12-14", "return_date": f"2026-12-{13 + days}",
+                        "departure_time": departure, "min_rest_minutes": 90, "interests": ["nature"],
+                    }, status)
+                    if status == 201:
+                        first_day = result["itinerary"]["days"][0]
+                        self.assertEqual(first_day["activities"][-1]["end_time"], arrival)
+                        self.assertEqual(first_day["end_deadline"], "20:00")
+                    else:
+                        self.assertEqual(result["code"], "NO_FEASIBLE_ITINERARY")
+                        self.assertIn(arrival, result["message"])
+
     def test_old_saved_route_can_still_be_adjusted(self):
         current = self.app.state.plan_provider
         routes = deepcopy(current.templates)

@@ -55,6 +55,8 @@ class PlanProvider:
                 error = next((e for e in diagnostics if e.code == "DATA_INCOMPLETE"), None)
                 if error:
                     raise error
+                if diagnostics:
+                    raise diagnostics[0]
                 raise AdaptError("NO_FEASIBLE_ITINERARY", f"Ngày {number + 1} không có lịch hợp lệ trong phạm vi tìm kiếm.")
             alternatives.append(variants)
 
