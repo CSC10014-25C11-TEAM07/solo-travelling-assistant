@@ -19,9 +19,14 @@ def make_catalog_provider(data_directory, routes_by_days, *, mode):
         if not route or route.get("data_status") != mode or len(route.get("days", [])) != len(days):
             raise AdaptError("DATA_INCOMPLETE", f"Thiếu tuyến {len(days)} ngày được cấu hình {mode}.")
         mappings = []
+        deadline_policies = {}
         buffer = checked_buffer(route.get("buffer_minutes", 0))
         for number, (day, configured) in enumerate(zip(days, route["days"], strict=True), 1):
             valid_deadlines = [configured["end_deadline"], *configured.get("compatible_end_deadlines", [])]
+            enforced = day.get("enforce_end_deadline", True)
+            if type(enforced) is not bool or (not enforced and configured.get("enforce_end_deadline", True)):
+                raise AdaptError("DATA_INCOMPLETE", f"Cấu hình hạn kết thúc ngày {number} không khớp tuyến.")
+            deadline_policies[day["day_id"]] = enforced
             if day["day_number"] != number or day["end_deadline"] not in valid_deadlines:
                 raise AdaptError("DATA_INCOMPLETE", f"Hạn hoặc số thứ tự ngày {number} không khớp tuyến.")
             mappings.append(RouteDay(day_id=day["day_id"], start_place_id=configured["start_place_id"],
@@ -29,7 +34,8 @@ def make_catalog_provider(data_directory, routes_by_days, *, mode):
                                      end_deadline=day["end_deadline"]))
         try:
             return Catalog.load(data_directory, mappings, mode=mode,
-                                buffer_minutes_by_day={day.day_id: buffer for day in mappings})
+                                buffer_minutes_by_day={day.day_id: buffer for day in mappings},
+                                enforce_end_deadline_by_day=deadline_policies)
         except AdaptError:
             raise
         except (OSError, ValueError, KeyError, TypeError) as error:

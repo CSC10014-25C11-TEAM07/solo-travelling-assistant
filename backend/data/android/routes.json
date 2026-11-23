@@ -29,7 +29,8 @@
         ],
         "compatible_end_deadlines": [
           "18:00"
-        ]
+        ],
+        "enforce_end_deadline": false
       },
       {
         "start_place_id": "DALAT-HTK",
@@ -113,7 +114,8 @@
         ],
         "compatible_end_deadlines": [
           "18:00"
-        ]
+        ],
+        "enforce_end_deadline": false
       }
     ]
   },
@@ -147,7 +149,8 @@
         ],
         "compatible_end_deadlines": [
           "18:00"
-        ]
+        ],
+        "enforce_end_deadline": false
       },
       {
         "start_place_id": "DALAT-HTK",
@@ -256,7 +259,8 @@
         ],
         "compatible_end_deadlines": [
           "18:00"
-        ]
+        ],
+        "enforce_end_deadline": false
       }
     ]
   }

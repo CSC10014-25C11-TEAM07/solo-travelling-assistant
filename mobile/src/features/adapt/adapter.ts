@@ -44,6 +44,9 @@ export function fromItinerary(itinerary: Trip, selectedDay?: number): LiveTrip {
     restPlaceId: rest?.place_id ?? undefined,
     restActivityId: rest?.status === 'PENDING' ? rest.activity_id : undefined,
     deadline: day.end_deadline ?? '—',
+    deadlineEnforced: day.enforce_end_deadline !== false,
+    estimatedEndTime: day.activities.reduce((latest, a) =>
+      (a.status === 'PENDING' || a.status === 'DONE') && a.end_time > latest ? a.end_time : latest, '') || '—',
     activities: day.activities.filter(a => a.type === 'VISIT').map(a => ({
       id: a.activity_id, title: a.name, time: `${a.start_time}–${a.end_time}`,
       status: a.status === 'PENDING' ? 'TODO' as const : a.status,

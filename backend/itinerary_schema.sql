@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS itinerary_days (
     day_number INTEGER NOT NULL CHECK (day_number >= 1),
     date TEXT NOT NULL,
     end_deadline TEXT NOT NULL,
+    enforce_end_deadline INTEGER NOT NULL DEFAULT 1 CHECK (enforce_end_deadline IN (0, 1)),
     UNIQUE (itinerary_id, day_number),
     UNIQUE (itinerary_id, date)
 );

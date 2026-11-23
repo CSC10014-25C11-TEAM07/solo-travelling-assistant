@@ -43,7 +43,7 @@ class RouteDay:
 
 class Catalog:
     def __init__(self, places: list[dict], travel_times: list[dict], routes: list[RouteDay],
-                 *, mode: str = "VERIFIED", buffer_minutes_by_day=None):
+                 *, mode: str = "VERIFIED", buffer_minutes_by_day=None, enforce_end_deadline_by_day=None):
         if mode not in ("VERIFIED", "MOCK"):
             raise ValueError("mode must explicitly be VERIFIED or MOCK")
         self.mode = mode
@@ -56,6 +56,10 @@ class Catalog:
             raise AdaptError("DATA_INCOMPLETE", "Buffer tham chiếu ngày không có trong cấu hình tuyến.")
         self.buffer_minutes_by_day = {
             key: checked_buffer(supplied_buffers.get(key, 0)) for key in self.routes}
+        policies = dict(enforce_end_deadline_by_day or {})
+        if policies.keys() - self.routes.keys() or any(type(value) is not bool for value in policies.values()):
+            raise AdaptError("DATA_INCOMPLETE", "Cấu hình áp dụng hạn kết thúc không hợp lệ.")
+        self.enforce_end_deadline_by_day = {key: policies.get(key, True) for key in self.routes}
         for r in self.routes.values():
             if minutes(r.start_time) >= minutes(r.end_deadline):
                 raise AdaptError("DATA_INCOMPLETE", f"Cấu hình giờ tuyến sai: {r.day_id}.")
@@ -65,7 +69,8 @@ class Catalog:
         return fingerprint({"places": sorted(self.places.values(), key=lambda p: p["place_id"]),
                             "travel_times": sorted(self.travel_times.values(), key=lambda t: (t["from_place_id"], t["to_place_id"])),
                             "routes": [asdict(self.routes[k]) for k in sorted(self.routes)],
-                            "buffer_minutes_by_day": self.buffer_minutes_by_day, "mode": self.mode})
+                            "buffer_minutes_by_day": self.buffer_minutes_by_day,
+                            "enforce_end_deadline_by_day": self.enforce_end_deadline_by_day, "mode": self.mode})
 
     @staticmethod
     def _unique(items, key, label):
@@ -78,10 +83,12 @@ class Catalog:
         return result
 
     @classmethod
-    def load(cls, directory: Path, routes: list[RouteDay], *, mode="VERIFIED", buffer_minutes_by_day=None):
+    def load(cls, directory: Path, routes: list[RouteDay], *, mode="VERIFIED", buffer_minutes_by_day=None,
+             enforce_end_deadline_by_day=None):
         return cls(json.loads((directory / "places.json").read_text(encoding="utf-8-sig")),
                    json.loads((directory / "travel_times.json").read_text(encoding="utf-8-sig")),
-                   routes, mode=mode, buffer_minutes_by_day=buffer_minutes_by_day)
+                   routes, mode=mode, buffer_minutes_by_day=buffer_minutes_by_day,
+                   enforce_end_deadline_by_day=enforce_end_deadline_by_day)
 
     def _usable(self, record, label):
         if record.get("data_status") != self.mode:

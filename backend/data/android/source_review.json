@@ -65,14 +65,14 @@
       ]
     },
     "SAIGON-PARIS": {
-      "scope": "Mốc tính giờ trên đường công cộng. 05:00–19:00 là khung xuất phát/về của sản phẩm, không phải giờ đỗ xe hoặc giờ vào bưu điện. Khung thời gian lập lịch mở rộng đến 20:00.",
+      "scope": "Mốc tính giờ trên đường công cộng. 05:00–23:59 là phạm vi lập lịch trong cùng ngày cho mốc ngoài đường, không phải giờ đỗ xe hoặc giờ vào bưu điện. Giới hạn kế hoạch 20:00 được bỏ theo yêu cầu sản phẩm ngày 23/11/2026; người dùng xem giờ đến và xác nhận trước khi lưu.",
       "sources": [
         "https://hello.hochiminhcity.gov.vn/vi/discover/buu-dien-thanh-pho",
         "https://www.openstreetmap.org/way/465309061"
       ]
     },
     "DALAT-HTK": {
-      "scope": "Mốc tính giờ trên đường Huỳnh Thúc Kháng gần số 03. Giờ kế hoạch chỉ áp dụng cho mốc ngoài đường. Crazy House là chỗ nghỉ gợi ý, người dùng tự xác nhận phòng và giờ nhận/trả. Khung thời gian lập lịch mở rộng đến 20:00.",
+      "scope": "Mốc tính giờ trên đường Huỳnh Thúc Kháng gần số 03. 05:00–23:59 chỉ là phạm vi lập lịch trong cùng ngày cho mốc ngoài đường. Giới hạn kế hoạch 20:00 được bỏ theo yêu cầu sản phẩm ngày 23/11/2026. Crazy House là chỗ nghỉ gợi ý; người dùng tự xác nhận phòng và giờ nhận/trả. Đây không phải giờ hoạt động của cơ sở lưu trú.",
       "sources": [
         "https://crazyhouse.vn/chinh-sach",
         "https://www.openstreetmap.org/way/99661201"
@@ -763,5 +763,9 @@
     }
   ],
   "existing_legs_evidence": "../travel_time_evidence.json",
-  "routing_scope": "Ước tính xe máy Valhalla/OpenStreetMap (ODbL), theo từng chiều. Hai chiều TP.HCM – Bảo Lộc có cờ hạn chế theo giờ. Không phải chỉ đường, không tính giao thông trực tiếp. Lịch vận hành theo tuần thông thường; ngày lễ, bảo trì và thời tiết có thể thay đổi. Trạm La Ngà và Đức Trọng được thêm sau quyết định ngày 20/11/2026; hai chặng TP.HCM–La Ngà có cờ hạn chế theo giờ."
+  "routing_scope": "Ước tính xe máy Valhalla/OpenStreetMap (ODbL), theo từng chiều. Hai chiều TP.HCM – Bảo Lộc có cờ hạn chế theo giờ. Không phải chỉ đường, không tính giao thông trực tiếp. Lịch vận hành theo tuần thông thường; ngày lễ, bảo trì và thời tiết có thể thay đổi. Trạm La Ngà và Đức Trọng được thêm sau quyết định ngày 20/11/2026; hai chặng TP.HCM–La Ngà có cờ hạn chế theo giờ.",
+  "arrival_review_policy": {
+    "updated_at": "2026-11-23",
+    "scope": "Bỏ giới hạn 20:00 ở hai ngày đường dài; hiển thị giờ đến và yêu cầu đồng ý trước khi lưu. Cửa sổ của hai WAYPOINT ngoài đường là phạm vi của sản phẩm, không phải xác minh giờ kinh doanh. Giờ mở cửa các VENUE và các ước tính chặng không thay đổi."
+  }
 }

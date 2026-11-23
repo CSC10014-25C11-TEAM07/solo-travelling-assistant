@@ -6,7 +6,7 @@ export const configured = !!BASE;
 export const sourcedDemo = process.env.EXPO_PUBLIC_SOURCED_DEMO === 'true';
 export type Place = {place_id:string;name:string;image_url:string|null;reason:string};
 export type Activity = {activity_id:string;type:'TRAVEL'|'REST'|'VISIT';name:string;start_time:string;end_time:string;status:'PENDING'|'DONE'|'DROPPED'|'REPLACED';place_id?:string|null};
-export type TripDay = {day_id:string;day_number:number;date:string;end_deadline?:string;activities:Activity[]};
+export type TripDay = {day_id:string;day_number:number;date:string;end_deadline?:string;enforce_end_deadline?:boolean;activities:Activity[]};
 export type Trip = {itinerary_id:string;status:'DRAFT'|'CURRENT';version:number;departure_date:string;return_date:string;itinerary_days?:TripDay[];days?:TripDay[];is_demo_sample?:boolean;outdoor_place_ids?:string[]};
 export type FormData = {departure_date:string;return_date:string;departure_time:string;min_rest_minutes:string;interests:string[]};
 export async function clearSavedTrip(){await store.deleteItemAsync('han_demo_trip')}
@@ -142,11 +142,12 @@ export async function createDraft(
 }
 
 export async function confirmDraft(
-  draftId: string
+  draftId: string,
+  acceptArrivalTimes = false
 ): Promise<Trip> {
   const data = await request(
     `/api/v1/itinerary-drafts/${encodeURIComponent(draftId)}/confirm`,
-    { method: 'POST' }
+    { method: 'POST', body: JSON.stringify({accept_arrival_times: acceptArrivalTimes}) }
   );
 
  if (!data?.itinerary) {

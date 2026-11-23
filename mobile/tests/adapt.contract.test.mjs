@@ -41,6 +41,20 @@ test('map real itinerary IDs, version, day and rest', () => {
   assert.equal(trip.activities.find(x => x.id === 'V2').status, 'TODO');
   assert.equal(model.restPlaceName(trip), 'Hồ Tuyền Lâm');
 });
+test('shows the calculated arrival instead of a disabled cutoff in ADAPT', () => {
+  const source = structuredClone(mockTrip);
+  source.days[0].end_deadline = '20:00';
+  source.days[0].enforce_end_deadline = false;
+  source.days[0].activities.push(
+    {activity_id:'LATE', type:'TRAVEL', name:'Về điểm cuối', place_id:null,
+      start_time:'19:15', end_time:'20:38', status:'PENDING'},
+    {activity_id:'OLD', type:'TRAVEL', name:'Chặng đã thay', place_id:null,
+      start_time:'21:00', end_time:'23:00', status:'REPLACED'},
+  );
+  const trip = adapter.fromItinerary(source);
+  assert.equal(model.arrivalTimingLabel(trip), 'Dự kiến đến nơi lúc 20:38');
+  assert.equal(model.arrivalTimingLabel(adapter.fromItinerary(mockTrip)), 'Mốc kết thúc ngày: 17:00');
+});
 test('select a pending rest without changing the itinerary or choosing completed activities', () => {
   const second = {activity_id:'REST2', type:'REST', name:'Trạm nghỉ B', place_id:'P3',
     start_time:'16:10', end_time:'16:25', status:'PENDING'};
