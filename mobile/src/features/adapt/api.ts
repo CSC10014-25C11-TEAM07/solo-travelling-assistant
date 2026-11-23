@@ -1,6 +1,6 @@
 import { configured, request as sharedRequest, type Trip } from '@/features/plan/api';
 import type { AdaptRequest, CurrentTrip, ProposalResponse } from './model';
-import { mapProposalResponse, fromItinerary } from './adapter';
+import { mapProposalResponse, fromItinerary, isLiveTrip } from './adapter';
 
 /** Explicit opt-in for isolated demo. Never silently replace an API error with MOCK. */
 export const mockMode = process.env.EXPO_PUBLIC_ADAPT_MOCK_ENABLED === 'true';
@@ -39,7 +39,7 @@ export async function propose(req: AdaptRequest, trip: CurrentTrip): Promise<Pro
       true,
       90000
     );
-    return mapProposalResponse(data);
+    return mapProposalResponse(data, trip);
   } catch (error) {
     const status = (error as Error & { status?: number }).status;
     if (status === 404) {
@@ -56,9 +56,12 @@ export async function decide(proposalId: string, decision: 'ACCEPT' | 'REJECT', 
       decision, ...(decision === 'ACCEPT' ? { option_id: optionId } : {}),
     }) }) as Promise<DecisionResponse>;
 }
-export function afterDecision(data: DecisionResponse, selectedDay: number) {
+export function afterDecision(data: DecisionResponse, previous: CurrentTrip) {
   if (!data.itinerary?.itinerary_id || !Number.isInteger(data.itinerary.version)) {
     throw new Error('API F06 không trả về itinerary hợp lệ.');
   }
-  return fromItinerary(data.itinerary, selectedDay);
+  return fromItinerary({
+    ...data.itinerary,
+    outdoor_place_ids: data.itinerary.outdoor_place_ids ?? (isLiveTrip(previous) ? previous.outdoorPlaceIds : undefined),
+  }, previous.day);
 }

@@ -41,6 +41,8 @@ def load_itinerary(db, itinerary_id, user_id):
     if row is None:
         return None
     itinerary = dict(row)
+    if db.execute("SELECT 1 FROM demo_samples WHERE itinerary_id = ?", (itinerary_id,)).fetchone():
+        itinerary["is_demo_sample"] = True
     itinerary["interests"] = json.loads(itinerary["interests"])
     days = db.execute(
         "SELECT * FROM itinerary_days WHERE itinerary_id = ? ORDER BY day_number",
@@ -64,9 +66,10 @@ def load_itinerary(db, itinerary_id, user_id):
 
 def current_id(db, user_id):
     row = db.execute("""
-        SELECT itinerary_id FROM itineraries
-        WHERE user_id = ? AND status = 'CURRENT'
-        ORDER BY confirmed_at DESC LIMIT 1
+        SELECT i.itinerary_id FROM itineraries i
+        LEFT JOIN demo_samples s ON s.itinerary_id = i.itinerary_id
+        WHERE i.user_id = ? AND i.status = 'CURRENT' AND (s.active IS NULL OR s.active = 1)
+        ORDER BY COALESCE(s.active, 0) DESC, i.confirmed_at DESC LIMIT 1
     """, (user_id,)).fetchone()
     return row["itinerary_id"] if row else None
 
@@ -106,6 +109,8 @@ def save_draft(db, user_id, request, days):
 
 def confirm(db, itinerary):
     # Caller holds BEGIN IMMEDIATE, so confirmations serialize across connections.
+    db.execute("UPDATE demo_samples SET active = 0 WHERE user_id = ? AND active = 1",
+               (itinerary["user_id"],))
     latest = db.execute(
         "SELECT MAX(confirmed_at) FROM itineraries WHERE user_id = ?",
         (itinerary["user_id"],),

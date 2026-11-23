@@ -18,6 +18,14 @@ CREATE TABLE IF NOT EXISTS itineraries (
 CREATE INDEX IF NOT EXISTS itineraries_owner_status_confirmed
     ON itineraries (user_id, status, confirmed_at DESC);
 
+CREATE TABLE IF NOT EXISTS demo_samples (
+    itinerary_id TEXT PRIMARY KEY REFERENCES itineraries(itinerary_id) ON DELETE CASCADE,
+    user_id TEXT NOT NULL REFERENCES users(user_id),
+    active INTEGER NOT NULL CHECK (active IN (0, 1))
+);
+CREATE UNIQUE INDEX IF NOT EXISTS one_active_sample_per_user
+    ON demo_samples(user_id) WHERE active = 1;
+
 CREATE TABLE IF NOT EXISTS itinerary_days (
     day_id TEXT PRIMARY KEY NOT NULL,
     itinerary_id TEXT NOT NULL REFERENCES itineraries(itinerary_id),

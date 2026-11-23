@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { router } from 'expo-router';
-import { Pressable, Text, TextInput, View } from 'react-native';
+import { Text, TextInput, View } from 'react-native';
 import { useAdapt } from '@/features/adapt/context';
 import { AdaptRequest, toMinutes, validateRequest, restPlaceName } from '@/features/adapt/model';
-import { Action, Header, MockLabel, Page, TimeTile, SectionTitle, PlaceChoice, styles, palette } from '@/features/adapt/ui';
+import { isLiveTrip, liveActivities } from '@/features/adapt/adapter';
+import { Action, Header, Page, TimeTile, SectionTitle, PlaceChoice, styles, palette } from '@/features/adapt/ui';
 export default function RequestScreen() {
-  const { trip, ready, available, kind, setKind, generate, busy, error, isMock, draft, setDraft } = useAdapt();
+  const { trip, ready, available, kind, setKind, generate, busy, error, isMock, draft, setDraft, selectRest } = useAdapt();
   const { restUntil, preferredKeep, activityId } = draft;
   const [localError, setLocalError] = useState<string | null>(null);
   async function submit() {
@@ -35,6 +36,7 @@ export default function RequestScreen() {
     if (await generate(req)) router.push('/adapt/compare');
   }
   let extra = '—';
+  const rests = isMock ? [] : liveActivities(trip).filter(a => a.type === 'REST' && a.status === 'PENDING');
   try { const m = toMinutes(restUntil) - toMinutes(trip.restEnd); if (m >= 0) extra = m % 60 === 0 ? `+${m / 60} giờ` : `+${m} phút`; } catch { /* validation on submit */ }
   if (!ready || !available) return <Page><Header/><Text style={styles.title}>Cần tải lịch hiện hành</Text><Action title="Quay về lịch" onPress={() => router.replace('/adapt')}/></Page>;
   return <Page>
@@ -48,17 +50,24 @@ export default function RequestScreen() {
       <Text style={styles.heading}>{kind === 'rest' ? '▣  Nghỉ thêm' : '☂  Đổi địa điểm vì mưa'}</Text>
       <Text style={styles.text}>{kind === 'rest' ? 'Bạn muốn kéo dài thời gian nghỉ để thư giãn hơn?' : 'Tìm một địa điểm trong nhà thay cho hoạt động ngoài trời chưa diễn ra.'}</Text>
       {kind === 'rest' ? <>
+        {rests.length > 1 && <>
+          <Text style={styles.heading}>Chọn khoảng nghỉ muốn kéo dài</Text>
+          {rests.map(rest => <PlaceChoice key={rest.activity_id} title={rest.name}
+            subtitle={`${rest.start_time}–${rest.end_time}`}
+            selected={isLiveTrip(trip) && trip.restActivityId === rest.activity_id}
+            onPress={() => { selectRest(rest.activity_id); setLocalError(null); }}/>)}
+        </>}
         <View style={{ flexDirection: 'row', gap: 8 }}>
           <TimeTile label="Nghỉ hiện tại" value={`${trip.restStart}–${trip.restEnd}`} icon="◷"/>
           <TimeTile label="Nghỉ đến" value={restUntil} icon="▣"><TextInput accessibilityLabel="Nghỉ đến (HH:mm)" style={[styles.input, { width: '100%', textAlign: 'center', fontSize: 16, paddingHorizontal: 2, paddingVertical: 6 }]} value={restUntil} onChangeText={restUntil => setDraft({ restUntil })} placeholder="15:00" keyboardType="numbers-and-punctuation" maxLength={5}/></TimeTile>
           <TimeTile label="Thêm" value={extra} icon="⊕"/>
         </View>
         <Text style={[styles.heading, { fontSize: 16, marginTop: 8 }]}>Hoạt động muốn giữ nếu có thể  ⓘ</Text>
-        {trip.activities.filter(a => a.status === 'TODO').map(a => <PlaceChoice key={a.id} title={a.title} selected={preferredKeep === a.id} onPress={() => setDraft({ preferredKeep: a.id })}/>)}
+        {trip.activities.filter(a => a.status === 'TODO' && a.time.slice(0, 5) >= trip.restEnd).map(a => <PlaceChoice key={a.id} title={a.title} selected={preferredKeep === a.id} onPress={() => setDraft({ preferredKeep: preferredKeep === a.id ? '' : a.id })}/>)}
       </> : <>
         <View style={{ backgroundColor: '#e7f5c5', borderRadius: 15, padding: 13 }}><Text style={styles.text}>☂  Lý do: Trời mưa</Text><Text style={styles.muted}>Yêu cầu: thay bằng địa điểm trong nhà, trong cùng ngày.</Text></View>
         <Text style={[styles.heading, { fontSize: 16 }]}>Hoạt động ngoài trời cần thay thế</Text>{!isMock && <Text style={styles.muted}>Chọn hoạt động chưa thực hiện mà bạn biết là ngoài trời. Backend kiểm tra điều kiện mưa theo bộ dữ liệu.</Text>}
-        {trip.activities.filter(a => a.status === 'TODO' && (isMock ? a.outdoor : true)).map(a => <PlaceChoice key={a.id} title={a.title} subtitle={`${a.time} · Chưa thực hiện`} selected={activityId === a.id} onPress={() => setDraft({ activityId: a.id })}/>)}
+        {trip.activities.filter(a => a.status === 'TODO' && (isMock ? a.outdoor : a.outdoor !== false)).map(a => <PlaceChoice key={a.id} title={a.title} subtitle={`${a.time} · Chưa thực hiện`} selected={activityId === a.id} onPress={() => setDraft({ activityId: a.id })}/>)}
       </>}
       <Text style={styles.muted}>Tính phương án từ: {restPlaceName(trip)}</Text><View style={{ backgroundColor: '#f0f0e7', borderRadius: 17, padding: 14, flexDirection: 'row', gap: 10 }}><Text style={{ color: palette.green, fontSize: 23 }}>ⓘ</Text><View style={{ flex: 1 }}><Text style={[styles.heading, { fontSize: 16 }]}>Lịch chưa thay đổi</Text><Text style={styles.muted}>Các hoạt động đã hoàn thành và những ngày khác được giữ nguyên.</Text></View></View>
     </View>

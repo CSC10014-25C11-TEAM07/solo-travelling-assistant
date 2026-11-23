@@ -42,14 +42,15 @@ class PlanProvider:
         checked_buffer(route.get("buffer_minutes", 0))
 
         alternatives = []
-        diagnostics = []
         for number, config in enumerate(route["days"]):
+            diagnostics = []
             variants = []
-            for stops in self._variants(config["stops"]):
-                try:
-                    variants.append(self._schedule(request, config, stops, number))
-                except AdaptError as error:
-                    diagnostics.append(error)
+            for sequence in [config["stops"], *config.get("alternative_stops", [])]:
+                for stops in self._variants(sequence):
+                    try:
+                        variants.append(self._schedule(request, config, stops, number))
+                    except AdaptError as error:
+                        diagnostics.append(error)
             if not variants:
                 error = next((e for e in diagnostics if e.code == "DATA_INCOMPLETE"), None)
                 if error:
@@ -65,7 +66,10 @@ class PlanProvider:
             "candidates": [],
         }
         for index, plan in enumerate(plans):
-            visits = [a["name"] for day in plan for a in day["activities"] if a["type"] == "VISIT"]
+            visits = [
+                f"{a['name']} ({', '.join(self.catalog.place(a['place_id']).get('interests', []))})"
+                for day in plan for a in day["activities"] if a["type"] == "VISIT"
+            ]
             context["candidates"].append({
                 "candidate_id": str(index),
                 "facts": {"VALID": "Địa điểm theo thứ tự: " + ", ".join(visits),
@@ -118,7 +122,9 @@ class PlanProvider:
             duration = self.catalog.travel(previous, destination)
             if duration:
                 finish = cursor + duration
-                activities.append({"type": "TRAVEL", "name": f"Di chuyển {previous} → {destination}",
+                origin_name = self.catalog.place(previous)["name"]
+                destination_name = self.catalog.place(destination)["name"]
+                activities.append({"type": "TRAVEL", "name": f"Di chuyển {origin_name} → {destination_name}",
                                    "place_id": None, "start_time": clock(cursor), "end_time": clock(finish),
                                    "is_optional": False})
                 cursor = finish
@@ -134,7 +140,16 @@ class PlanProvider:
                 duration = stop.get("duration_minutes")
                 if type(duration) is not int or duration <= 0:
                     raise AdaptError("DATA_INCOMPLETE", f"Thiếu thời lượng nghỉ tại {stop['place_id']}.")
-                begin, end = self.catalog.activity_slot(stop["place_id"], date, cursor, duration)
+                if stop.get("use_requested_minimum"):
+                    duration = max(duration, request.min_rest_minutes)
+                if stop.get("use_requested_daily_remainder"):
+                    other_rest = sum(
+                        item.get("duration_minutes", 0) for item in stops
+                        if item is not stop and item["type"] == "REST"
+                    )
+                    duration = max(duration, request.min_rest_minutes - other_rest)
+                earliest = max(cursor, minutes(stop.get("not_before", "00:00")))
+                begin, end = self.catalog.activity_slot(stop["place_id"], date, earliest, duration)
                 optional = False
                 rest += duration
             activities.append({"type": stop["type"], "name": place["name"], "place_id": stop["place_id"],

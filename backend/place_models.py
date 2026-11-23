@@ -77,6 +77,7 @@ def source_url(value):
 
 class Place(DatasetModel):
     place_id: str = Field(min_length=1)
+    use_as: Literal["VENUE", "WAYPOINT", "REST_ONLY"] = "VENUE"
     name: str = Field(min_length=1)
     area: Area
     interests: list[Interest]
@@ -101,7 +102,7 @@ class Place(DatasetModel):
         if self.data_status == "VERIFIED":
             if not self.source_url or not self.checked_at:
                 raise ValueError("VERIFIED records need a source and checked_at")
-            if self.environment is None or self.visit_duration_minutes is None:
+            if self.environment is None or (self.use_as == "VENUE" and self.visit_duration_minutes is None):
                 raise ValueError("Incomplete places must remain UNVERIFIED")
             if any(value is None for value in self.opening_hours.weekly.values()):
                 raise ValueError("Unknown weekly hours require UNVERIFIED status")

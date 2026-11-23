@@ -3,10 +3,11 @@ import {Platform} from 'react-native';
 const store={getItemAsync:async(k:string)=>Platform.OS==='web'?(typeof localStorage==='undefined'?null:localStorage.getItem(k)):SecureStore.getItemAsync(k),setItemAsync:async(k:string,v:string)=>{if(Platform.OS==='web'){if(typeof localStorage!=='undefined')localStorage.setItem(k,v)}else await SecureStore.setItemAsync(k,v)},deleteItemAsync:async(k:string)=>{if(Platform.OS==='web'){if(typeof localStorage!=='undefined')localStorage.removeItem(k)}else await SecureStore.deleteItemAsync(k)}};
 const BASE = (process.env.EXPO_PUBLIC_API_URL || '').trim().replace(/\/$/, '');
 export const configured = !!BASE;
+export const sourcedDemo = process.env.EXPO_PUBLIC_SOURCED_DEMO === 'true';
 export type Place = {place_id:string;name:string;image_url:string|null;reason:string};
 export type Activity = {activity_id:string;type:'TRAVEL'|'REST'|'VISIT';name:string;start_time:string;end_time:string;status:'PENDING'|'DONE'|'DROPPED'|'REPLACED';place_id?:string|null};
 export type TripDay = {day_id:string;day_number:number;date:string;end_deadline?:string;activities:Activity[]};
-export type Trip = {itinerary_id:string;status:'DRAFT'|'CURRENT';version:number;departure_date:string;return_date:string;itinerary_days?:TripDay[];days?:TripDay[]};
+export type Trip = {itinerary_id:string;status:'DRAFT'|'CURRENT';version:number;departure_date:string;return_date:string;itinerary_days?:TripDay[];days?:TripDay[];is_demo_sample?:boolean;outdoor_place_ids?:string[]};
 export type FormData = {departure_date:string;return_date:string;departure_time:string;min_rest_minutes:string;interests:string[]};
 export async function clearSavedTrip(){await store.deleteItemAsync('han_demo_trip')}
 export async function clearToken(){await store.deleteItemAsync('access_token')}
@@ -161,6 +162,14 @@ export async function latestTrip(): Promise<Trip | null> {
   );
 
   return data.itinerary ?? null;
+}
+
+export async function selectDemoTrip(current: Trip | null, close: boolean): Promise<Trip | null> {
+  const path = close ? '/api/v1/demo-itineraries/close' : '/api/v1/demo-itineraries';
+  const data = await request(path, { method: 'POST', body: JSON.stringify({
+    itinerary_id: current?.itinerary_id ?? null, version: current?.version ?? null,
+  }) });
+  return data.itinerary;
 }
 
 export async function markDone(
