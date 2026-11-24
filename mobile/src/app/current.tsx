@@ -78,6 +78,7 @@ const reload = useCallback(async (): Promise<boolean> => {
   }
 
   const days = trip ? tripDays(trip) : [];
+  const selectedDay = days.find(d => d.day_number === day) ?? days[0];
 
   async function switchSample(close: boolean) {
     if (busy || loading) return;
@@ -145,7 +146,10 @@ const reload = useCallback(async (): Promise<boolean> => {
 </Text>
 <Action
   title="Điều chỉnh lịch trình"
-  onPress={() => router.push('/adapt')}
+  onPress={() => router.push({
+    pathname: '/adapt',
+    params: selectedDay ? { day: String(selectedDay.day_number) } : {},
+  })}
   />
 </View>
           <View style={styles.row}>
@@ -156,7 +160,7 @@ const reload = useCallback(async (): Promise<boolean> => {
               >
                 <Action
                   title={'Ngày ' + d.day_number}
-                  secondary={day !== d.day_number}
+                  secondary={selectedDay?.day_number !== d.day_number}
                   onPress={() => setDay(d.day_number)}
                 />
               </View>
@@ -164,8 +168,7 @@ const reload = useCallback(async (): Promise<boolean> => {
           </View>
 
           <View style={styles.card}>{[...(
-  days.find(d => d.day_number === day)
-    ?.activities || []
+  selectedDay?.activities || []
 )]
   .filter(
     a => a.status === 'PENDING' || a.status === 'DONE'
