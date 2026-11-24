@@ -1,0 +1,134 @@
+name: Android main release
+
+on:
+  push:
+    branches: [main]
+    paths: ['mobile/**', 'backend/**', 'requirements.txt', '.github/workflows/android-main-release.yml']
+  workflow_dispatch:
+
+concurrency:
+  group: android-main-release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    env:
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python -m unittest discover -s backend/tests
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: mobile/package-lock.json
+      - working-directory: mobile
+        run: |
+          npm ci
+          npm run lint
+          npx tsc --noEmit
+          node --experimental-strip-types --test tests/*.test.mjs
+
+  release:
+    needs: test
+    if: github.ref == 'refs/heads/main' && vars.ANDROID_MAIN_RELEASE_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment: android-main
+    permissions:
+      contents: write
+    env:
+      CI: '1'
+      EXPO_NO_TELEMETRY: '1'
+      EXPO_PUBLIC_SOURCED_DEMO: 'true'
+      EXPO_PUBLIC_ADAPT_MOCK_ENABLED: 'false'
+      EXPO_PUBLIC_API_URL: https://dangdao2007.pythonanywhere.com
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Verify release credentials are configured
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          PYTHONANYWHERE_API_TOKEN: ${{ secrets.PYTHONANYWHERE_API_TOKEN }}
+        run: |
+          : "${EXPO_TOKEN:?Configure Expo access in android-main first}"
+          : "${PYTHONANYWHERE_API_TOKEN:?Configure PythonAnywhere access in android-main first}"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: mobile/package-lock.json
+      - run: npm ci
+        working-directory: mobile
+      - uses: expo/expo-github-action@v8
+        with:
+          eas-version: 27.11.0
+          token: ${{ secrets.EXPO_TOKEN }}
+          packager: npm
+      - name: Resolve a compatible APK
+        id: apk
+        working-directory: mobile
+        run: |
+          set -euo pipefail
+          hash="$(eas fingerprint:generate --platform android --build-profile main --json | jq -er '.hash // .android.hash')"
+          build="$(eas build:list --platform android --build-profile main --channel main --fingerprint-hash "$hash" --status finished --limit 1 --json | jq -r '.[0].artifacts.buildUrl // empty')"
+          if [[ -z "$build" ]]; then
+            build="$(eas build --platform android --profile main --non-interactive --wait --json | jq -er '.[0].artifacts.buildUrl')"
+          fi
+          printf 'runtime=%s\nurl=%s\n' "$hash" "$build" >> "$GITHUB_OUTPUT"
+      - name: Deploy backend and bundled data
+        env:
+          PYTHONANYWHERE_USER: dangdao2007
+          PYTHONANYWHERE_API_TOKEN: ${{ secrets.PYTHONANYWHERE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          revision="$(git log -1 --format=%H "$GITHUB_SHA" -- backend requirements.txt)"
+          python backend/scripts/deploy_pythonanywhere.py "$revision"
+      - name: Publish the application update
+        working-directory: mobile
+        run: eas update --channel main --platform android --environment production --message "main ${GITHUB_SHA}" --non-interactive
+      - name: Publish the APK at the permanent link
+        env:
+          GH_TOKEN: ${{ github.token }}
+          APK_URL: ${{ steps.apk.outputs.url }}
+          APK_RUNTIME: ${{ steps.apk.outputs.runtime }}
+        run: |
+          set -euo pipefail
+          directory="$(mktemp -d)"
+          cd "$directory"
+          tag=android-main
+          apk=solo-travelling-assistant.apk
+          runtime=android-main-runtime.txt
+          if gh release view "$tag" --repo "$GITHUB_REPOSITORY" --json assets --jq '.assets[].name' > assets; then
+            if grep -Fxq "$apk" assets && gh release download "$tag" --repo "$GITHUB_REPOSITORY" --pattern "$runtime" && [[ "$(cat "$runtime")" == "$APK_RUNTIME" ]]; then
+              exit 0
+            fi
+            curl --fail --show-error --silent --location --max-time 120 --output "$apk" "$APK_URL"
+            unzip -tq "$apk"
+            printf '%s\n' "$APK_RUNTIME" > "$runtime"
+            gh release upload "$tag" "$apk" "$runtime" --repo "$GITHUB_REPOSITORY" --clobber
+          else
+            curl --fail --show-error --silent --location --max-time 120 --output "$apk" "$APK_URL"
+            unzip -tq "$apk"
+            printf '%s\n' "$APK_RUNTIME" > "$runtime"
+            gh release create "$tag" "$apk" "$runtime" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title 'Solo Travelling Assistant · Android' --notes 'Bản cài chính thức của ứng dụng Android.'
+          fi
