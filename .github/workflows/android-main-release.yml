@@ -89,10 +89,10 @@ jobs:
         working-directory: mobile
         run: |
           set -euo pipefail
-          hash="$(eas fingerprint:generate --platform android --build-profile main --json | jq -er '.hash // .android.hash')"
+          hash="$(eas fingerprint:generate --platform android --build-profile main --json | sed -n '/^{/,$p' | jq -er '.hash')"
           build="$(eas build:list --platform android --build-profile main --channel main --fingerprint-hash "$hash" --status finished --limit 1 --json | jq -r '.[0].artifacts.buildUrl // empty')"
           if [[ -z "$build" ]]; then
-            build="$(eas build --platform android --profile main --non-interactive --wait --json | jq -er '.[0].artifacts.buildUrl')"
+            build="$(eas build --platform android --profile main --non-interactive --wait --json | sed -n '/^\[$/,$p' | jq -er '.[0].artifacts.buildUrl')"
           fi
           printf 'runtime=%s\nurl=%s\n' "$hash" "$build" >> "$GITHUB_OUTPUT"
       - name: Deploy backend and bundled data
