@@ -80,10 +80,10 @@ jobs:
         run: |
           set -euo pipefail
           : "${EXPO_TOKEN:?Configure EXPO_TOKEN in the android-preview environment}"
-          fingerprint="$(eas fingerprint:generate --platform android --build-profile pr-device --json | jq -er '.hash // .android.hash')"
+          fingerprint="$(eas fingerprint:generate --platform android --build-profile pr-device --json | sed -n '/^{/,$p' | jq -er '.hash')"
           apk="$(eas build:list --platform android --build-profile pr-device --fingerprint-hash "$fingerprint" --status finished --limit 1 --json | jq -r '.[0].artifacts.buildUrl // empty')"
           if [[ -z "$apk" ]]; then
-            build="$(eas build --platform android --profile pr-device --non-interactive --no-wait --json | jq -er '.[0].id')"
+            build="$(eas build --platform android --profile pr-device --non-interactive --no-wait --json | sed -n '/^\[$/,$p' | jq -er '.[0].id')"
             apk="https://expo.dev/accounts/dori3009s-team/projects/solo-travelling-assistant/builds/$build"
           fi
           printf 'apk=%s\n' "$apk" >> "$GITHUB_OUTPUT"
