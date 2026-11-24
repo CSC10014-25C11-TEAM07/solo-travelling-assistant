@@ -26,3 +26,21 @@ Mỗi PR trong repo có thay đổi ứng dụng hoặc backend sẽ nhận hai 
 2. Thiết lập chứng chỉ ký cho package `vn.team07.solotravellingassistant.preview` trong EAS trước khi chạy build không tương tác lần đầu.
 3. Với PR sửa backend hoặc dữ liệu, đặt biến `ANDROID_QA_API_URL` trong environment thành URL HTTPS của máy chủ thử. Triển khai commit cần test vào máy chủ đó và trả SHA đầy đủ trong header `X-STA-Release` tại `/health`. Mỗi lần dùng một backend QA chung, kiểm tra lại SHA trước khi thử một PR khác.
 4. Với PR chỉ sửa ứng dụng, dùng tài khoản QA riêng khi thử trên backend hiện tại.
+
+## Phát hành từ main
+
+Workflow **Android main release** chạy test trước. Nếu phần Android còn tương thích, EAS gửi cập nhật qua kênh `main`. Khi phần Android đổi, workflow tạo APK và cập nhật file tại link cố định. Người dùng Android cần xác nhận cài APK mới khi cập nhật phần Android. Lịch do backend lưu trong SQLite ngoài thư mục chứa mã.
+
+### Thiết lập một lần
+
+1. Trong GitHub, tạo environment `android-main` chỉ cho nhánh `main` triển khai. Thêm secret `EXPO_TOKEN` của Expo và `PYTHONANYWHERE_API_TOKEN` của tài khoản lưu backend. Giữ URL API công khai trong EAS production và cấu hình workflow giống nhau.
+2. Trên PythonAnywhere, sao lưu file SQLite hiện hành bằng SQLite backup và giữ bản sao của `~/solo-start.sh`. Đặt `backend/scripts/pythonanywhere_start.py` của PR ở `~/solo-pythonanywhere-start.py`. Trong `~/solo-start.sh`, giữ các dòng cấu hình hiện hành và thay lệnh cuối gọi Uvicorn bằng:
+
+   ```sh
+   exec "$HOME/solo-venv/bin/python" "$HOME/solo-pythonanywhere-start.py" "$HOME/solo-backend"
+   ```
+
+3. Reload bằng PythonAnywhere và kiểm tra trang `/health`. Startup trên tiếp tục dùng backend cũ cho tới khi có bản được gửi lên. Xác nhận `STA_DATABASE_PATH` đang trỏ vào chính file SQLite hiện hành và môi trường đã cài thư viện của `requirements.txt`.
+4. Sau khi nghiệm thu các bản Android và cho phép tự phát hành, đặt biến cấp repository `ANDROID_MAIN_RELEASE_ENABLED=true` rồi chạy workflow thủ công từ `main` lần đầu. Nếu repo đã bật GitHub Immutable Releases, ghi nhận cấu hình này trước khi phát hành và chọn cơ chế cho phép cập nhật asset tại cùng URL.
+
+Mỗi lượt triển khai gói đúng thư mục backend và dữ liệu theo commit, thử startup trên SQLite tạm, rồi xác nhận SHA trên `/health` sau khi reload. Nếu bước xác nhận thất bại, workflow đặt lại bản trước và reload để kiểm tra phục hồi. Trước khi cập nhật thư viện Python hoặc đổi schema theo cách làm bản cũ không còn đọc được SQLite, chuẩn bị môi trường và kế hoạch chuyển dữ liệu riêng. Có thể lưu bản phát hành trước để khôi phục. Giữ đủ dung lượng của tài khoản PythonAnywhere khi lưu các bản cũ.

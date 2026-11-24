@@ -4,7 +4,7 @@ import sqlite3
 from pathlib import Path
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Response
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -63,7 +63,11 @@ def create_app(plan_provider=mock_plan, option_validator=None, *, catalog_provid
         )
 
     @app.get("/health")
-    def health():
+    def health(response: Response):
+        release = os.environ.get("STA_RELEASE_SHA")
+        if release:
+            response.headers["X-STA-Release"] = release
+            response.headers["Cache-Control"] = "no-store"
         return {"status": "ok"}
 
     return app
