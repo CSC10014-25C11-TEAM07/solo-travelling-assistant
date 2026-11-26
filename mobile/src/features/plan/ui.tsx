@@ -1,6 +1,16 @@
-import React from 'react';
-import {Text,TextInput,View} from 'react-native';
-import {Action,Page,Header,styles,palette} from '@/features/plan/shared-ui';
-export {Action,Page,Header,styles,palette};
-export function Field({label,value,onChangeText,secure=false,placeholder}: {label:string;value:string;onChangeText:(v:string)=>void;secure?:boolean;placeholder?:string}){return <View style={{gap:5}}><Text style={styles.heading}>{label}</Text><TextInput autoCapitalize={secure?'none':'none'} secureTextEntry={secure} placeholder={placeholder||label} value={value} onChangeText={onChangeText} style={styles.input}/></View>}
-export function Note({children}:{children:React.ReactNode}){return <Text style={styles.muted}>{children}</Text>}
+import { useState, type ReactNode } from 'react';
+import { Text, TextInput, View } from 'react-native';
+import { GlassPanel } from '@/components/glass/panel';
+import { palette, styles } from '@/components/glass/travel-ui';
+export { Action, Header, Page, palette, styles } from '@/components/glass/travel-ui';
+
+export function Field({ label, value, onChangeText, secure = false, placeholder }: { label: string; value: string; onChangeText: (value: string) => void; secure?: boolean; placeholder?: string }) {
+  const [focused, setFocused] = useState(false);
+  return <View style={{ gap: 6 }}>
+    <Text style={{ color: palette.ink, fontWeight: '600', fontSize: 15 }}>{label}</Text>
+    <GlassPanel kind="field" style={focused ? { boxShadow: '0px 0px 0px 2px #08443F' } : undefined}>
+      <TextInput accessibilityLabel={label} autoCapitalize="none" secureTextEntry={secure} placeholder={placeholder ?? label} placeholderTextColor={palette.slate} value={value} onChangeText={onChangeText} onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} selectionColor={palette.pine} underlineColorAndroid="transparent" style={[styles.input, { backgroundColor: 'transparent', borderWidth: 0 }]} />
+    </GlassPanel>
+  </View>;
+}
+export function Note({ children }: { children: ReactNode }) { return <Text style={styles.muted}>{children}</Text>; }
