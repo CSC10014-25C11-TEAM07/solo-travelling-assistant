@@ -87,16 +87,26 @@ jobs:
             apk="https://expo.dev/accounts/dori3009s-team/projects/solo-travelling-assistant/builds/$build"
           fi
           printf 'apk=%s\n' "$apk" >> "$GITHUB_OUTPUT"
-      - uses: expo/expo-github-action/preview@v8
+      - name: Publish the Android preview update
         id: update
-        with:
-          working-directory: mobile
-          comment-id: android-pr-preview
-          command: eas update --branch pr-${{ github.event.pull_request.number }} --platform android --environment development --message "PR #${{ github.event.pull_request.number }} ${{ github.event.pull_request.head.sha }}" --non-interactive
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          # EAS can print an environment notice to stdout before the JSON array.
+          result="$(eas update --branch "pr-$PR_NUMBER" --platform android --environment development --message "PR #$PR_NUMBER $HEAD_SHA" --non-interactive --json)"
+          group="$(printf '%s\n' "$result" | sed -n '/^\[/,$p' | jq -er '.[] | select(.platform == "android") | .group')"
+          [[ "$group" =~ ^[0-9a-f-]{36}$ ]]
+          project="$(jq -er '.expo.extra.eas.projectId' app.json)"
+          slug="$(jq -er '.expo.slug' app.json)"
+          printf 'link=https://expo.dev/projects/%s/updates/%s\n' "$project" "$group" >> "$GITHUB_OUTPUT"
+          printf 'qr=https://qr.expo.dev/eas-update?appScheme=%s&projectId=%s&groupId=%s\n' "$slug" "$project" "$group" >> "$GITHUB_OUTPUT"
       - name: Installation link
         env:
           APK_URL: ${{ steps.device.outputs.apk }}
           UPDATE_URL: ${{ steps.update.outputs.link }}
+          QR_URL: ${{ steps.update.outputs.qr }}
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
@@ -104,7 +114,8 @@ jobs:
           {
             echo '<!-- solo-android-preview-install -->'
             printf '[Cài app thử Android hoặc xem tiến độ build](%s)\n\n' "$APK_URL"
-            printf '[Mở bản thử của PR trong Expo](%s) sau khi đã cài app thử. Có thể dùng mã QR ở nhận xét của Expo.\n' "$UPDATE_URL"
+            printf '[Mở bản thử của PR trong Expo](%s) sau khi đã cài app thử, hoặc quét mã bên dưới.\n\n' "$UPDATE_URL"
+            printf '<img alt="Mã QR mở bản thử Android" src="%s" width="220" />\n' "$QR_URL"
           } > /tmp/solo-preview-comment
           comment="$(gh api --paginate "repos/$GITHUB_REPOSITORY/issues/$PR_NUMBER/comments" --jq '.[] | select(.user.login == "github-actions[bot]" and (.body | startswith("<!-- solo-android-preview-install -->"))) | .id' | tail -1)"
           if [[ -n "$comment" ]]; then
