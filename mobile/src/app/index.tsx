@@ -1,7 +1,8 @@
+import { GlassPanel } from '@/components/glass/panel';
 
 import { useEffect, useState } from "react";
 import { router } from "expo-router";
-import { Text, View } from "react-native";
+import { Text } from "react-native";
 
 import { Action, Page, styles } from "@/features/plan/ui";
 import {
@@ -123,7 +124,7 @@ export default function Home() {
 
   return (
     <Page>
-      <View style={styles.card}>
+      <GlassPanel>
         <Text style={styles.title}>
           Solo Travelling Assistant
         </Text>
@@ -171,7 +172,7 @@ export default function Home() {
             onPress={() => router.push("/login")}
           />
         )}
-      </View>
+      </GlassPanel>
     </Page>
   );
 }
