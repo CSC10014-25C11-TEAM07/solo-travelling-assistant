@@ -91,7 +91,6 @@ jobs:
         id: update
         with:
           working-directory: mobile
-          qr-target: dev-build
           comment-id: android-pr-preview
           command: eas update --branch pr-${{ github.event.pull_request.number }} --platform android --environment development --message "PR #${{ github.event.pull_request.number }} ${{ github.event.pull_request.head.sha }}" --non-interactive
       - name: Installation link
