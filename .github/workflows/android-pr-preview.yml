@@ -1,0 +1,129 @@
+name: Android PR preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths: ['mobile/**', 'backend/**', 'requirements.txt']
+
+concurrency:
+  group: android-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  preview:
+    # Forks never execute this job with access to the Expo credential.
+    if: github.event.pull_request.head.repo.full_name == github.repository && !github.event.pull_request.draft
+    runs-on: ubuntu-latest
+    environment: android-preview
+    defaults:
+      run:
+        working-directory: mobile
+    env:
+      APP_VARIANT: pr-preview
+      EXPO_PUBLIC_SOURCED_DEMO: 'true'
+      EXPO_PUBLIC_ADAPT_MOCK_ENABLED: 'false'
+      CI: '1'
+      EXPO_NO_TELEMETRY: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: mobile/package-lock.json
+      - run: npm ci
+      - run: npm run lint && npx tsc --noEmit && node --test tests/*.test.mjs
+        env:
+          NODE_OPTIONS: --experimental-strip-types
+      - name: Select a test backend
+        env:
+          QA_API_URL: ${{ vars.ANDROID_QA_API_URL }}
+          MAIN_API_URL: https://dangdao2007.pythonanywhere.com
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          changed="$(git diff --name-only "$BASE_SHA...$HEAD_SHA" -- ../backend ../requirements.txt)"
+          if [[ -n "$changed" ]]; then
+            node -e '
+              const qa = new URL(process.env.QA_API_URL);
+              const main = new URL(process.env.MAIN_API_URL);
+              if (qa.protocol !== "https:" || qa.hostname === main.hostname || qa.username || qa.password || qa.pathname !== "/" || qa.search || qa.hash) {
+                throw new Error("A separate HTTPS QA backend is required");
+              }
+            '
+            curl -fsS --max-time 20 -D /tmp/solo-qa-health -o /dev/null "${QA_API_URL%/}/health"
+            deployed="$(awk 'tolower($1)=="x-sta-release:" {gsub(/\r/,"",$2); print $2}' /tmp/solo-qa-health)"
+            [[ "$deployed" == "$HEAD_SHA" ]] || { echo "Deploy this PR revision to QA before creating the Android preview"; exit 1; }
+            api="${QA_API_URL%/}"
+          else
+            api="$MAIN_API_URL"
+          fi
+          printf 'EXPO_PUBLIC_API_URL=%s\n' "$api" >> "$GITHUB_ENV"
+      - uses: expo/expo-github-action@v8
+        with:
+          eas-version: 27.11.0
+          token: ${{ secrets.EXPO_TOKEN }}
+          packager: npm
+      - name: Find or start a compatible Android test build
+        id: device
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: |
+          set -euo pipefail
+          : "${EXPO_TOKEN:?Configure EXPO_TOKEN in the android-preview environment}"
+          fingerprint="$(eas fingerprint:generate --platform android --build-profile pr-device --json | sed -n '/^{/,$p' | jq -er '.hash')"
+          builds="$(eas build:list --platform android --build-profile pr-device --fingerprint-hash "$fingerprint" --limit 10 --json)"
+          apk="$(jq -r '[.[] | select(.status == "FINISHED") | .artifacts.buildUrl // empty] | first // empty' <<< "$builds")"
+          if [[ -z "$apk" ]]; then
+            build="$(jq -r '[.[] | select(.status | IN("NEW", "IN_QUEUE", "IN_PROGRESS")) | .id] | last // empty' <<< "$builds")"
+            if [[ -z "$build" ]]; then
+              build="$(eas build --platform android --profile pr-device --non-interactive --no-wait --json | sed -n '/^\[$/,$p' | jq -er '.[0].id')"
+            fi
+            apk="https://expo.dev/accounts/dori3009s-team/projects/solo-travelling-assistant/builds/$build"
+          fi
+          printf 'apk=%s\n' "$apk" >> "$GITHUB_OUTPUT"
+      - name: Publish the Android preview update
+        id: update
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          # EAS can print an environment notice to stdout before the JSON array.
+          result="$(eas update --branch "pr-$PR_NUMBER" --platform android --environment development --message "PR #$PR_NUMBER $HEAD_SHA" --non-interactive --json)"
+          group="$(printf '%s\n' "$result" | sed -n '/^\[/,$p' | jq -er '.[] | select(.platform == "android") | .group')"
+          [[ "$group" =~ ^[0-9a-f-]{36}$ ]]
+          project="$(jq -er '.expo.extra.eas.projectId' app.json)"
+          slug="$(jq -er '.expo.slug' app.json)"
+          printf 'link=https://expo.dev/projects/%s/updates/%s\n' "$project" "$group" >> "$GITHUB_OUTPUT"
+          printf 'qr=https://qr.expo.dev/eas-update?appScheme=%s&projectId=%s&groupId=%s\n' "$slug" "$project" "$group" >> "$GITHUB_OUTPUT"
+      - name: Installation link
+        env:
+          APK_URL: ${{ steps.device.outputs.apk }}
+          UPDATE_URL: ${{ steps.update.outputs.link }}
+          QR_URL: ${{ steps.update.outputs.qr }}
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          {
+            echo '<!-- solo-android-preview-install -->'
+            printf '[Cài app thử Android hoặc xem tiến độ build](%s)\n\n' "$APK_URL"
+            printf '[Mở bản thử của PR trong Expo](%s) sau khi đã cài app thử, hoặc quét mã bên dưới.\n\n' "$UPDATE_URL"
+            printf '<img alt="Mã QR mở bản thử Android" src="%s" width="220" />\n' "$QR_URL"
+          } > /tmp/solo-preview-comment
+          comment="$(gh api --paginate "repos/$GITHUB_REPOSITORY/issues/$PR_NUMBER/comments" --jq '.[] | select(.user.login == "github-actions[bot]" and (.body | startswith("<!-- solo-android-preview-install -->"))) | .id' | tail -1)"
+          if [[ -n "$comment" ]]; then
+            gh api "repos/$GITHUB_REPOSITORY/issues/comments/$comment" -X PATCH -F body=@/tmp/solo-preview-comment >/dev/null
+          else
+            gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body-file /tmp/solo-preview-comment
+          fi

@@ -1,6 +1,14 @@
 const { withAndroidManifest } = require('expo/config-plugins');
 
 module.exports = ({ config }) => {
+  if (process.env.APP_VARIANT === 'pr-preview') {
+    return {
+      ...config,
+      name: 'Solo Travelling · Bản thử',
+      scheme: 'solotravel-preview',
+      android: { ...config.android, package: 'vn.team07.solotravellingassistant.preview' },
+    };
+  }
   if (process.env.EAS_BUILD_PROFILE === 'demo') {
     const raw = process.env.EXPO_PUBLIC_API_URL;
     if (!raw || !URL.canParse(raw) || new URL(raw).protocol !== 'https:') {
