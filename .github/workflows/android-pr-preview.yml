@@ -81,9 +81,13 @@ jobs:
           set -euo pipefail
           : "${EXPO_TOKEN:?Configure EXPO_TOKEN in the android-preview environment}"
           fingerprint="$(eas fingerprint:generate --platform android --build-profile pr-device --json | sed -n '/^{/,$p' | jq -er '.hash')"
-          apk="$(eas build:list --platform android --build-profile pr-device --fingerprint-hash "$fingerprint" --status finished --limit 1 --json | jq -r '.[0].artifacts.buildUrl // empty')"
+          builds="$(eas build:list --platform android --build-profile pr-device --fingerprint-hash "$fingerprint" --limit 10 --json)"
+          apk="$(jq -r '[.[] | select(.status == "FINISHED") | .artifacts.buildUrl // empty] | first // empty' <<< "$builds")"
           if [[ -z "$apk" ]]; then
-            build="$(eas build --platform android --profile pr-device --non-interactive --no-wait --json | sed -n '/^\[$/,$p' | jq -er '.[0].id')"
+            build="$(jq -r '[.[] | select(.status | IN("NEW", "IN_QUEUE", "IN_PROGRESS")) | .id] | last // empty' <<< "$builds")"
+            if [[ -z "$build" ]]; then
+              build="$(eas build --platform android --profile pr-device --non-interactive --no-wait --json | sed -n '/^\[$/,$p' | jq -er '.[0].id')"
+            fi
             apk="https://expo.dev/accounts/dori3009s-team/projects/solo-travelling-assistant/builds/$build"
           fi
           printf 'apk=%s\n' "$apk" >> "$GITHUB_OUTPUT"
