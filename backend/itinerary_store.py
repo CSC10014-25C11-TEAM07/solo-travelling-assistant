@@ -21,8 +21,13 @@ def connect():
 
 
 def initialize():
-    with connect() as db:
+    with connect() as db, db:
         db.executescript((ROOT / "itinerary_schema.sql").read_text(encoding="utf-8-sig"))
+        db.execute("BEGIN IMMEDIATE")
+        columns = {row["name"] for row in db.execute("PRAGMA table_info(itinerary_days)")}
+        if "enforce_end_deadline" not in columns:
+            db.execute("ALTER TABLE itinerary_days ADD COLUMN enforce_end_deadline "
+                       "INTEGER NOT NULL DEFAULT 1 CHECK (enforce_end_deadline IN (0, 1))")
 
 
 def utc_now():
@@ -51,6 +56,8 @@ def load_itinerary(db, itinerary_id, user_id):
     itinerary["days"] = []
     for row in days:
         day = dict(row)
+        if day.pop("enforce_end_deadline") == 0:
+            day["enforce_end_deadline"] = False
         activities = db.execute(
             "SELECT * FROM activities WHERE day_id = ? ORDER BY start_time, activity_id",
             (day["day_id"],),
@@ -90,9 +97,10 @@ def save_draft(db, user_id, request, days):
         day_id = new_id()
         db.execute("""
             INSERT INTO itinerary_days
-                (day_id, itinerary_id, day_number, date, end_deadline)
-            VALUES (?, ?, ?, ?, ?)
-        """, (day_id, itinerary_id, number, planned_day["date"], planned_day["end_deadline"]))
+                (day_id, itinerary_id, day_number, date, end_deadline, enforce_end_deadline)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (day_id, itinerary_id, number, planned_day["date"], planned_day["end_deadline"],
+              planned_day.get("enforce_end_deadline", True)))
         for activity in planned_day["activities"]:
             db.execute("""
                 INSERT INTO activities (

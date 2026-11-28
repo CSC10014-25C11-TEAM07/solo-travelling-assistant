@@ -107,6 +107,18 @@ class PlanAdaptTests(unittest.TestCase):
         self.client.post("/api/v1/auth/logout", headers=self.headers)
         self.assertEqual(self.client.get("/api/v1/itineraries/current", headers=self.headers).json()["code"], "INVALID_SESSION")
 
+    def test_legacy_database_upgrade_preserves_existing_drafts(self):
+        draft = self.draft()
+        with store.connect() as db, db:
+            db.execute("ALTER TABLE itinerary_days DROP COLUMN enforce_end_deadline")
+        store.initialize()
+        store.initialize()
+        with store.connect() as db:
+            columns = {row["name"] for row in db.execute("PRAGMA table_info(itinerary_days)")}
+            self.assertIn("enforce_end_deadline", columns)
+            restored = store.load_itinerary(db, draft["itinerary_id"], draft["user_id"])
+        self.assertEqual(restored, draft)
+
     def test_confirm_current_persistence_and_ownership(self):
         draft = self.draft()
         response = self.client.post(f"/api/v1/itinerary-drafts/{draft['itinerary_id']}/confirm", headers=self.other)

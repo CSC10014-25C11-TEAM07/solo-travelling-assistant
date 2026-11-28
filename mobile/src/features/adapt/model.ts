@@ -5,7 +5,7 @@ export type TravelLeg = { activity_id: string; from_place_id: string; to_place_i
 export type TravelChange = { action: 'RESCHEDULE' | 'REPLACE' | 'CREATE'; before?: TravelLeg; after?: TravelLeg };
 export const isActive = (status: ActivityStatus | TravelLeg['status']) => status === 'PENDING' || status === 'TODO' || status === 'DONE';
 export type Activity = { id: string; title: string; time: string; status: ActivityStatus; outdoor?: boolean };
-export type CurrentTrip = { id: string; version: number; day: number; restStart: string; restEnd: string; restPlaceId?: string; deadline: string; activities: Activity[]; travelLegs?: TravelLeg[] };
+export type CurrentTrip = { id: string; version: number; day: number; restStart: string; restEnd: string; restPlaceId?: string; deadline: string; deadlineEnforced?: boolean; estimatedEndTime?: string; activities: Activity[]; travelLegs?: TravelLeg[] };
 export type AdaptRequest = { kind: AdaptKind; tripId: string; baseVersion: number; activityId?: string; restUntil?: string; preferredKeep?: string };
 export type Proposal = { apiChanges?: string[]; apiTravelChanges?: string[]; id: string; baseVersion: number; kind: AdaptKind; title: string; summary: string; explanation: string; tradeoff: string; finish: string; removeId?: string; replaceId?: string; replacement?: string; restUntil?: string; travelChanges?: TravelChange[] };
 export type ProposalResponse = { proposalId?: string; proposals: Proposal[]; conflict?: string; source: 'MOCK' | 'API' };
@@ -25,6 +25,12 @@ export const demoTrip: CurrentTrip = {
     { activity_id: 'T03', from_place_id: 'A04', to_place_id: 'END-DAY', start_time: '16:00', end_time: '16:15', status: 'PENDING', type: 'TRAVEL', data_status: 'MOCK' },
   ],
 };
+
+export function arrivalTimingLabel(trip: CurrentTrip): string {
+  return trip.deadlineEnforced === false
+    ? `Dự kiến đến nơi lúc ${trip.estimatedEndTime ?? '—'}`
+    : `Mốc kết thúc ngày: ${trip.deadline}`;
+}
 
 /** UI labels only. Stable IDs remain unchanged for F05/F06 and persisted history. */
 export function placeName(trip: CurrentTrip, placeId: string): string {

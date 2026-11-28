@@ -55,6 +55,8 @@ class PlanProvider:
                 error = next((e for e in diagnostics if e.code == "DATA_INCOMPLETE"), None)
                 if error:
                     raise error
+                if diagnostics:
+                    raise diagnostics[0]
                 raise AdaptError("NO_FEASIBLE_ITINERARY", f"Ngày {number + 1} không có lịch hợp lệ trong phạm vi tìm kiếm.")
             alternatives.append(variants)
 
@@ -110,6 +112,9 @@ class PlanProvider:
         start = minutes(config["start_time"])
         cursor = max(start, minutes(request.departure_time)) if number == 0 else start
         deadline = minutes(config["end_deadline"])
+        enforce_deadline = config.get("enforce_end_deadline", True)
+        if type(enforce_deadline) is not bool:
+            raise AdaptError("DATA_INCOMPLETE", "Cấu hình hạn kết thúc phải là boolean.")
         date = (request.departure_date + timedelta(days=number)).isoformat()
         previous = config["start_place_id"]
         cursor = self.catalog.access_time(previous, date, cursor, allow_wait=True)
@@ -161,9 +166,10 @@ class PlanProvider:
             self.catalog.access_time(config["end_place_id"], date, cursor)
         if rest < request.min_rest_minutes:
             raise AdaptError("NO_FEASIBLE_ITINERARY", f"Ngày {number + 1} chỉ có {rest} phút nghỉ.")
-        if cursor + buffer > deadline:
+        if enforce_deadline and cursor + buffer > deadline:
             raise AdaptError("NO_FEASIBLE_ITINERARY", f"Ngày {number + 1} về {clock(cursor)}, không còn {buffer} phút dự phòng trước {config['end_deadline']}.")
-        return {"date": date, "end_deadline": config["end_deadline"], "activities": activities}
+        return {"date": date, "end_deadline": config["end_deadline"],
+                "enforce_end_deadline": enforce_deadline, "activities": activities}
 
 
 def mock_templates(routes, snapshots):

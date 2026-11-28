@@ -46,6 +46,9 @@ def validate_snapshot(itinerary):
                 raise ValueError("day metadata")
             day_ids.add(day["day_id"])
             deadline = minutes(day["end_deadline"])
+            enforce_deadline = day.get("enforce_end_deadline", True)
+            if type(enforce_deadline) is not bool:
+                raise ValueError("Invalid deadline policy")
             for a in day["activities"]:
                 if (set(a) != ACTIVITY_FIELDS or not isinstance(a["activity_id"], str)
                         or not a["activity_id"] or a["activity_id"] in ids or a["day_id"] != day["day_id"]
@@ -62,7 +65,7 @@ def validate_snapshot(itinerary):
             end, rest = -1, 0
             for a in active(day):
                 start, finish = minutes(a["start_time"]), minutes(a["end_time"])
-                if start < end or finish > deadline:
+                if start < end or (enforce_deadline and finish > deadline):
                     raise ValueError(f"Chồng giờ/vượt hạn ngày {day['day_id']}")
                 end = finish
                 if a["type"] == "REST":
@@ -285,7 +288,8 @@ class AdaptEngine:
         if arrives_at_end:
             self.catalog.access_time(route.end_place_id, day["date"], cursor)
         buffer = checked_buffer(self.catalog.buffer_minutes_by_day[route.day_id])
-        if cursor + buffer > minutes(route.end_deadline):
+        enforce_deadline = self.catalog.enforce_end_deadline_by_day[route.day_id]
+        if enforce_deadline and cursor + buffer > minutes(route.end_deadline):
             raise AdaptError("NO_FEASIBLE_ITINERARY", f"Đến điểm kết thúc lúc {clock(cursor)}, không còn {buffer} phút dự phòng trước {route.end_deadline}.")
         # Recheck every future row, including the unchanged prefix and extended
         # REST. DONE rows describe the past and must remain byte-for-byte intact.
@@ -317,8 +321,9 @@ class AdaptEngine:
         tradeoff = ("Bỏ: " + ", ".join(dropped_names) + ".") if drops else "Không bỏ hoạt động tham quan nào."
         if replacement:
             tradeoff = "Thay trải nghiệm ngoài trời bằng địa điểm trong nhà; chặng đường vẫn có thể gặp mưa."
-        facts = {"VALID": "Đã kiểm tra giờ mở cửa, chặng đi, tổng nghỉ và hạn kết thúc.",
-                 "END": f"Đến điểm kết thúc dự kiến lúc {clock(cursor)}, hạn {route.end_deadline}.",
+        facts = {"VALID": "Đã kiểm tra giờ mở cửa, chặng đi và tổng nghỉ.",
+                 "END": (f"Đến điểm kết thúc dự kiến lúc {clock(cursor)}, hạn {route.end_deadline}."
+                         if enforce_deadline else f"Đến điểm kết thúc dự kiến lúc {clock(cursor)}."),
                  "TRADEOFF": tradeoff}
         if isinstance(request, RestRequest):
             facts["REST"] = f"Kéo dài đúng khoảng nghỉ đã chọn đến {request.rest_until}."

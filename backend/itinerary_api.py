@@ -4,7 +4,7 @@ from typing import Annotated, Literal
 
 from fastapi import APIRouter, Depends, Request
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, field_validator, model_validator
 
 import itinerary_store as store
 
@@ -65,6 +65,11 @@ class ActivityUpdate(BaseModel):
     base_version: StrictInt = Field(ge=1)
 
 
+class ArrivalConfirmation(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    accept_arrival_times: StrictBool = False
+
+
 def mock_plan(request):
     if os.environ.get("MOCK_PLAN") != "1":
         raise APIError(503, "AI_UNAVAILABLE", "Logic F02 đang chờ tích hợp.")
@@ -99,6 +104,9 @@ def validate_plan(payload, days):
             raise ValueError("Missing or incorrect dates")
         for day in days:
             deadline = datetime.strptime(day["end_deadline"], "%H:%M")
+            enforce_deadline = day.get("enforce_end_deadline", True)
+            if type(enforce_deadline) is not bool:
+                raise ValueError("Invalid deadline policy")
             first_start = payload.departure_time if day["date"] == expected_dates[0] else "00:00"
             previous_end = datetime.strptime(first_start, "%H:%M")
             rest_minutes = 0
@@ -107,7 +115,7 @@ def validate_plan(payload, days):
             for activity in day["activities"]:
                 start = datetime.strptime(activity["start_time"], "%H:%M")
                 end = datetime.strptime(activity["end_time"], "%H:%M")
-                if start < previous_end or end <= start or end > deadline:
+                if start < previous_end or end <= start or (enforce_deadline and end > deadline):
                     raise ValueError("Invalid activity times")
                 if activity["type"] not in ("REST", "TRAVEL", "VISIT"):
                     raise ValueError("Unknown activity type")
@@ -143,11 +151,15 @@ def create_draft(payload: DraftInput, request: Request, user_id=Depends(current_
 
 
 @router.post("/itinerary-drafts/{draft_id}/confirm")
-def confirm_draft(draft_id: str, user_id=Depends(current_user)):
+def confirm_draft(draft_id: str, confirmation: ArrivalConfirmation | None = None, user_id=Depends(current_user)):
     with store.connect() as db, db:
         db.execute("BEGIN IMMEDIATE")
         itinerary = owned(db, draft_id, user_id)
         if itinerary["status"] == "DRAFT":
+            needs_review = any(not day.get("enforce_end_deadline", True) for day in itinerary["days"])
+            if needs_review and not (confirmation and confirmation.accept_arrival_times):
+                raise APIError(409, "ARRIVAL_CONFIRMATION_REQUIRED",
+                               "Vui lòng xem giờ đến dự kiến và chọn Đồng ý và lưu lịch.")
             payload = DraftInput(**{key: itinerary[key] for key in DraftInput.model_fields})
             validate_plan(payload, itinerary["days"])
             store.confirm(db, itinerary)

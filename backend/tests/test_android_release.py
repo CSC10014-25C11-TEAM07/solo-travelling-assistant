@@ -51,7 +51,7 @@ class ReleaseTests(unittest.TestCase):
         data = dict(departure_date=start.isoformat(), return_date=(start+timedelta(days=days-1)).isoformat(),
                     departure_time="06:00", min_rest_minutes=60, interests=["nature", "coffee"])
         draft = self.post("itinerary-drafts", data, 201)
-        return self.post(f"itinerary-drafts/{draft['draft_id']}/confirm", {})["itinerary"]
+        return self.post(f"itinerary-drafts/{draft['draft_id']}/confirm", {"accept_arrival_times": True})["itinerary"]
 
     def test_both_lengths_weekdays_preferences_and_persistence(self):
         for start in range(7):
@@ -86,11 +86,112 @@ class ReleaseTests(unittest.TestCase):
                              - int(a["start_time"][:2]) * 60 - int(a["start_time"][3:]) for a in rests]
                 self.assertEqual(sum(durations), max(90, minimum))
                 self.assertEqual(day["end_deadline"], "20:00")
-        late = self.client.post("/api/v1/itinerary-drafts", headers=self.owner, json={
+
+    def test_late_departure_reports_arrival_buffer_and_deadline(self):
+        for route in self.app.state.plan_provider.templates.values():
+            route["days"][0]["enforce_end_deadline"] = True
+        for days in (3, 4):
+            with self.subTest(days=days):
+                result = self.post("itinerary-drafts", {
+                    "departure_date": "2026-12-14", "return_date": f"2026-12-{13 + days}",
+                    "departure_time": "07:00", "min_rest_minutes": 90, "interests": ["nature"],
+                }, 422)
+                self.assertEqual(result["code"], "NO_FEASIBLE_ITINERARY")
+                for fact in ("Ngày 1", "19:38", "30 phút", "20:00"):
+                    self.assertIn(fact, result["message"])
+
+    def test_departure_cutoff_preserves_the_full_buffer(self):
+        for route in self.app.state.plan_provider.templates.values():
+            route["days"][0]["enforce_end_deadline"] = True
+        for days in (3, 4):
+            for departure, arrival, status in (("06:52", "19:30", 201), ("06:53", "19:31", 422)):
+                with self.subTest(days=days, departure=departure):
+                    result = self.post("itinerary-drafts", {
+                        "departure_date": "2026-12-14", "return_date": f"2026-12-{13 + days}",
+                        "departure_time": departure, "min_rest_minutes": 90, "interests": ["nature"],
+                    }, status)
+                    if status == 201:
+                        first_day = result["itinerary"]["days"][0]
+                        self.assertEqual(first_day["activities"][-1]["end_time"], arrival)
+                        self.assertEqual(first_day["end_deadline"], "20:00")
+                    else:
+                        self.assertEqual(result["code"], "NO_FEASIBLE_ITINERARY")
+                        self.assertIn(arrival, result["message"])
+
+    def test_long_distance_arrivals_are_reviewed_instead_of_cut_off_at_2000(self):
+        for days in (3, 4):
+            for departure, arrival in (("07:00", "19:38"), ("08:00", "20:38"), ("09:00", "21:38")):
+                with self.subTest(days=days, departure=departure):
+                    draft = self.post("itinerary-drafts", {
+                        "departure_date": "2026-12-14", "return_date": f"2026-12-{13 + days}",
+                        "departure_time": departure, "min_rest_minutes": 90, "interests": ["nature"],
+                    }, 201)["itinerary"]
+                    first = draft["days"][0]
+                    self.assertEqual(first["activities"][-1]["end_time"], arrival)
+                    self.assertIs(first["enforce_end_deadline"], False)
+                    self.assertIs(draft["days"][-1]["enforce_end_deadline"], False)
+                    self.assertIsNone(self.current())
+
+    def test_arrival_times_need_explicit_acceptance_before_saving(self):
+        draft = self.post("itinerary-drafts", {
             "departure_date": "2026-12-14", "return_date": "2026-12-16",
-            "departure_time": "09:00", "min_rest_minutes": 60, "interests": ["nature"],
-        })
-        self.assertEqual(late.json()["code"], "NO_FEASIBLE_ITINERARY")
+            "departure_time": "06:00", "min_rest_minutes": 90, "interests": ["nature"],
+        }, 201)
+        path = f"itinerary-drafts/{draft['draft_id']}/confirm"
+        for body in ({}, {"accept_arrival_times": False}):
+            result = self.post(path, body, 409)
+            self.assertEqual(result["code"], "ARRIVAL_CONFIRMATION_REQUIRED")
+            self.assertIsNone(self.current())
+        for value in ("true", 1):
+            self.post(path, {"accept_arrival_times": value}, 422)
+            self.assertIsNone(self.current())
+        saved = self.post(path, {"accept_arrival_times": True})["itinerary"]
+        self.assertEqual(saved["status"], "CURRENT")
+        self.assertEqual(self.post(path, {})["itinerary"], saved)
+        with TestClient(configured_app()) as restarted:
+            restored = restarted.get("/api/v1/itineraries/current", headers=self.owner).json()["itinerary"]
+            self.assertIs(restored["days"][0]["enforce_end_deadline"], False)
+
+    def test_real_rest_venue_closure_still_prevents_a_plan(self):
+        result = self.post("itinerary-drafts", {
+            "departure_date": "2026-12-14", "return_date": "2026-12-16",
+            "departure_time": "11:00", "min_rest_minutes": 90, "interests": ["nature"],
+        }, 422)
+        self.assertEqual(result["code"], "NO_FEASIBLE_ITINERARY")
+        self.assertIn("CALI-417", result["message"])
+
+    def test_adaptation_can_arrive_after_the_old_cutoff(self):
+        draft = self.post("itinerary-drafts", {
+            "departure_date": "2026-12-14", "return_date": "2026-12-16",
+            "departure_time": "07:00", "min_rest_minutes": 90, "interests": ["nature"],
+        }, 201)
+        trip = self.post(f"itinerary-drafts/{draft['draft_id']}/confirm",
+                         {"accept_arrival_times": True})["itinerary"]
+        rest = next(a for a in trip["days"][0]["activities"] if a["type"] == "REST" and a["place_id"] == "CALI-417")
+        proposal = self.post(f"itineraries/{trip['itinerary_id']}/adapt-proposals", {
+            "type": "EXTEND_REST", "base_version": trip["version"],
+            "rest_activity_id": rest["activity_id"], "rest_until": "19:15",
+        }, 201)
+        self.assertTrue(proposal["options"], proposal)
+        self.assertEqual(proposal["options"][0]["estimated_end_time"], "20:38")
+        saved = self.post(f"adapt-proposals/{proposal['proposal_id']}/decision", {
+            "decision": "ACCEPT", "option_id": proposal["options"][0]["option_id"],
+        })["itinerary"]
+        self.assertIs(saved["days"][0]["enforce_end_deadline"], False)
+        self.assertEqual(saved["days"][0]["activities"][-1]["end_time"], "20:38")
+        rest = next(a for a in saved["days"][-1]["activities"]
+                    if a["type"] == "REST" and a["place_id"] == "CTHAO-LANGA")
+        proposal = self.post(f"itineraries/{saved['itinerary_id']}/adapt-proposals", {
+            "type": "EXTEND_REST", "base_version": saved["version"],
+            "rest_activity_id": rest["activity_id"], "rest_until": "17:01",
+        }, 201)
+        self.assertTrue(proposal["options"], proposal)
+        self.assertEqual(proposal["options"][0]["estimated_end_time"], "20:15")
+        returned = self.post(f"adapt-proposals/{proposal['proposal_id']}/decision", {
+            "decision": "ACCEPT", "option_id": proposal["options"][0]["option_id"],
+        })["itinerary"]
+        self.assertEqual(returned["days"][-1]["activities"][-1]["end_time"], "20:15")
+        self.assertIs(returned["days"][-1]["enforce_end_deadline"], False)
 
     def test_old_saved_route_can_still_be_adjusted(self):
         current = self.app.state.plan_provider
@@ -98,6 +199,7 @@ class ReleaseTests(unittest.TestCase):
         for route in routes.values():
             for day in (route["days"][0], route["days"][-1]):
                 day["end_deadline"] = "18:00"
+                day["enforce_end_deadline"] = True
                 day["stops"] = [{"type": "REST", "place_id": "BAOLOC-294A",
                                  "duration_minutes": 60, "use_requested_minimum": True}]
         self.app.state.plan_provider = PlanProvider(current.catalog, routes, RuleRanker())

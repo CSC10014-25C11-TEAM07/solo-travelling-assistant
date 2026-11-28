@@ -11,6 +11,7 @@ import {
 import { Action, Page, styles } from '@/features/plan/ui';
 import { usePlan, tripDays } from '@/features/plan/state';
 import { configured, confirmDraft, sourcedDemo } from '@/features/plan/api';
+import { arrivalEstimates } from '@/features/plan/arrival-review';
 
 export default function Draft() {
 const { trip, setTrip, draftId, setDraftId } = usePlan();
@@ -31,6 +32,7 @@ const { trip, setTrip, draftId, setDraftId } = usePlan();
   }
 
   const days = tripDays(trip);
+  const arrivals = arrivalEstimates(days);
 
   function changeTime(
     activityId: string,
@@ -87,7 +89,7 @@ const { trip, setTrip, draftId, setDraftId } = usePlan();
   }
 
   async function confirm() {
-    if (!trip || busy) return;
+    if (!trip || busy || !arrivals) return;
     if (!draftId) {
     E('Không tìm thấy mã lịch nháp. Vui lòng tạo lại lịch.');
     return;
@@ -96,7 +98,7 @@ const { trip, setTrip, draftId, setDraftId } = usePlan();
     E('');
 
      try {
-    const next = await confirmDraft(draftId);
+    const next = await confirmDraft(draftId, true);
     setTrip(next);
     setDraftId(null);
     router.replace('/current');
@@ -122,6 +124,20 @@ const { trip, setTrip, draftId, setDraftId } = usePlan();
         {' · '}{days.length} ngày · Lịch nháp
       </Text>
       {sourcedDemo && <Text style={styles.muted}>Khứ hồi từ Công trường Công xã Paris, nghỉ ở La Ngà, Bảo Lộc và Đức Trọng. Mốc qua đêm ở đường Huỳnh Thúc Kháng gần Crazy House. Thời gian xe máy là ước tính từ OpenStreetMap và Valhalla. Chặng TP.HCM ↔ La Ngà có hạn chế theo giờ trên bản đồ. Kiểm tra tình trạng đường và chỗ nghỉ trước chuyến đi.</Text>}
+
+      <View style={styles.card}>
+        <Text style={styles.heading}>Giờ đến dự kiến</Text>
+        <Text style={styles.text}>Xem giờ đến từng ngày trước khi lưu lịch.</Text>
+        {arrivals ? arrivals.map(arrival => (
+          <View key={arrival.dayNumber} style={{gap: 4}}>
+            <Text style={styles.text}>
+              Ngày {arrival.dayNumber} · {arrival.date.split('-').reverse().join('-')}
+            </Text>
+            <Text style={styles.heading}>Dự kiến đến nơi lúc {arrival.time}</Text>
+          </View>
+        )) : <Text style={styles.error}>Không đọc được giờ đến. Vui lòng tạo lại lịch.</Text>}
+        <Text style={styles.muted}>Giờ đến được tính theo thời gian di chuyển và nghỉ trong lịch; thực tế có thể thay đổi.</Text>
+      </View>
 
       <View style={styles.row}>
         {days.map(d => (
@@ -294,19 +310,21 @@ const { trip, setTrip, draftId, setDraftId } = usePlan();
         </Text>
       )}
 
+      <Text style={styles.text}>Bạn có đồng ý với các mốc giờ đến dự kiến này không?</Text>
       <Action
         title={
           busy
             ? 'Đang lưu…'
-            : 'Xác nhận và lưu lịch'
+            : 'Đồng ý và lưu lịch'
         }
-        disabled={busy}
+        disabled={busy || !arrivals}
         onPress={confirm}
       />
 
       <Action
         title="Sửa yêu cầu"
         secondary
+        disabled={busy}
         onPress={() => router.back()}
       />
     </Page>
